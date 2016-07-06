@@ -1,0 +1,70 @@
+<div class="container" ng-controller="contactController">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+            <h4>Get In Touch</h4>
+            <p>We’d love to hear from you! Drop us a line with any questions or comments by filling out the form below, or email us directly at <a href="mailto:info@letters4change.com">info AT letters4change.com!</a></p>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+
+    <form name="contactForm">
+        <div class="row contact_errors">
+            <div class="col-md-3 col-md-offset-2">
+                <div ng-messages="contactForm.name.$error" ng-if="contactForm.name.$dirty" style="color:maroon" role="alert">
+                    <div ng-message="required">Name is required</div>
+                </div>
+                <div ng-messages="contactForm.email.$error" ng-if="contactForm.email.$dirty" style="color:maroon" role="alert">
+                    <div ng-message="required">Email is required</div>
+                </div>
+                <div ng-messages="contactForm.message.$error" ng-if="contactForm.message.$dirty" style="color:maroon" role="alert">
+                    <div ng-message="required">Message is required</div>
+                </div>
+                <div ng-messages="contactForm.captcha.$error" ng-if="contactForm.captcha.$dirty" style="color:maroon" role="alert">
+                    <div ng-message="required">Captcha is required</div>
+                </div>
+                <div ng-if="">
+
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-md-offset-2">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" name="name" ng-model="contact.name" required placeholder="Name">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" name="email" ng-model="contact.email" required placeholder="Email Address">
+                </div>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
+                <textarea type="text" class="form-control" rows="3" id="message" name="message" ng-model="contact.message" required  placeholder="Message"></textarea>
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2 ">
+                <div class="form-inline">
+                    <div class="form-group captcha_section">
+                        <label for="captcha">{{first_number}} + {{second_number}} = </label>
+                        <input type="text" class="form-control" id="captcha" name="captcha" ng-model="contact.captcha" required>
+                        <button type="submit" class="btn btn-default contact_button" ng-click="submitContact()">Submit</button>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
