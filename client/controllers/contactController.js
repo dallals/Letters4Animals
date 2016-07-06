@@ -1,6 +1,16 @@
 letters4animalsApp.controller('contactController', function ($scope, $routeParams) {
-    $scope.first_number = 12; //randomize
-    $scope.second_number = 14; //randomize
-    $scope.captcha_answer = 16; //get from randomized numbers
+    // Set captcha numbers to two random numbers between 1 and 50, inclusively as well as the captcha answer
+    $scope.getCaptcha = function(){
+        $scope.first_number =  Math.floor(Math.random() * (50 - 1 + 1)) + 1;
+        $scope.second_number =  Math.floor(Math.random() * (50 - 1 + 1)) + 1;
+        $scope.captcha_answer = $scope.first_number + $scope.second_number;
+    }
+
+    // call function to actually set the captcha numbers
+    $scope.getCaptcha();
+
+    $scope.submitContact = function(){
+        
+    }
 
 });
