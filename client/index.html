@@ -27,16 +27,33 @@
             </div>
         </div>
 
-        <form>
+        <form name="contactForm">
+            <div class="row contact_errors">
+                <div class="col-md-3 col-md-offset-2">
+                    Please, fill in the following fields:
+                    <div ng-messages="contactForm.name.$error" style="color:maroon" role="alert">
+                        <div ng-message="required">Name</div>
+                    </div>
+                    <div ng-messages="contactForm.email.$error" style="color:maroon" role="alert">
+                        <div ng-message="required">Email</div>
+                    </div>
+                    <div ng-messages="contactForm.messsage.$error" style="color:maroon" role="alert">
+                        <div ng-message="required">Message</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3 col-md-offset-2">
+
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name" placeholder="Name">
+                        <input type="text" class="form-control" id="name" name="name" ng-model="name" required placeholder="Name">
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <input type="email" class="form-control" id="email" placeholder="Email Address">
+                        <input type="email" class="form-control" id="email" name="email" ng-model="email" required placeholder="Email Address">
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -44,7 +61,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-md-offset-2">
-                    <textarea class="form-control" rows="3" placeholder="Message"></textarea>
+                    <textarea class="form-control" rows="3" placeholder="Message" name="message" ng-model="message" required></textarea>
                 </div>
                 <div class="col-md-4">
                 </div>
