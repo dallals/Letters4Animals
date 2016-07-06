@@ -1,0 +1,21 @@
+
+/*********************navbar**************************/
+nav{
+  background-color: white !important;
+  min-height: 118px !important;
+  padding-left: 106px;
+  padding-right: 176px;
+}
+
+.navbar-nav {
+    margin-top: 2.8% !important;
+}
+
+.navbar-nav>li>a{
+font-size: 1.2em !important;
+}
+
+.active {
+     background-color: none !important;
+      color: rgb(35,161,245) !important;
+}
