@@ -1,0 +1,14 @@
+.contact_button{
+    background-color: RGBA(0,0,0,0.6);
+    color: #ffffff;
+    /*float: right;*/
+    /*margin-top: 4em;*/
+}
+.captcha_section{
+    margin-top: 4em;
+    float: right;
+
+}
+#captcha{
+    width: 4em;
+}
