@@ -1,6 +1,6 @@
-
-// var users = require('../controllers/INSERT_NAME_HERE.js');
-
+//
+var users = require('../controllers/users.js');
+//
 module.exports = function(app){
 
   //user queries
