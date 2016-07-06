@@ -10,10 +10,12 @@ AnimalApp.controller('contactController', function ($scope, $routeParams) {
     $scope.getCaptcha();
 
     $scope.submitContact = function(){
-        if($scope.contact.captch != $scope.captcha_answer){
+        // Check if captcha errors
+        if($scope.contact.captcha != $scope.captcha_answer){
             $scope.captcha_error = "You entered the wrong number in captcha";
         }else{
             $scope.captcha_error = "";
+            
         }
     }
 

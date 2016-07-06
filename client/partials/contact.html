@@ -8,23 +8,23 @@
         </div>
     </div>
 
-    <form name="contactForm">
+    <form name="contactForm" ng-submit="submitContact()">
         <div class="row contact_errors">
             <div class="col-md-3 col-md-offset-2">
-                <div ng-messages="contactForm.name.$error" ng-if="contactForm.name.$dirty" style="color:maroon" role="alert">
+                <div ng-messages="contactForm.name.$error" ng-if="contactForm.name.$dirty" style="color:red" role="alert">
                     <div ng-message="required">Name is required</div>
                 </div>
-                <div ng-messages="contactForm.email.$error" ng-if="contactForm.email.$dirty" style="color:maroon" role="alert">
+                <div ng-messages="contactForm.email.$error" ng-if="contactForm.email.$dirty" style="color:red" role="alert">
                     <div ng-message="required">Email is required</div>
                 </div>
-                <div ng-messages="contactForm.message.$error" ng-if="contactForm.message.$dirty" style="color:maroon" role="alert">
+                <div ng-messages="contactForm.message.$error" ng-if="contactForm.message.$dirty" style="color:red" role="alert">
                     <div ng-message="required">Message is required</div>
                 </div>
-                <div ng-messages="contactForm.captcha.$error" ng-if="contactForm.captcha.$dirty" style="color:maroon" role="alert">
+                <div ng-messages="contactForm.captcha.$error" ng-if="contactForm.captcha.$dirty" style="color:red" role="alert">
                     <div ng-message="required">Captcha is required</div>
                 </div>
-                <div ng-if="">
-
+                <div ng-if="captcha_error" style="color:red" role="alert">
+                    {{captcha_error}}
                 </div>
             </div>
             <div class="col-md-4">
@@ -58,7 +58,7 @@
                     <div class="form-group captcha_section">
                         <label for="captcha">{{first_number}} + {{second_number}} = </label>
                         <input type="text" class="form-control" id="captcha" name="captcha" ng-model="contact.captcha" required>
-                        <button type="submit" class="btn btn-default contact_button" ng-click="submitContact()">Submit</button>
+                        <button type="submit" class="btn btn-default contact_button">Submit</button>
                     </div>
                 </div>
                 <div class="col-md-4">
