@@ -18,6 +18,8 @@ AnimalApp.directive("scroll", function ($window) {
                      height:'100px'},
                      {duration: 400, queue: false
                  });
+                 $("#page > div.ng-scope > div").css("padding-top",
+             "8%");
              } else {
                  scope.boolChangeClass = false;
                  $("#container").removeClass('border');

@@ -101,7 +101,7 @@ body{
   padding-bottom:1% !important;
 }
 
-button{
+#buttonnav{
   margin-top: 20px;
   height:30px;
   border:none;
@@ -301,6 +301,27 @@ button{
   }
 
 }
+
+@media (max-width: 600px){
+  #top-footer p{
+    font-size:.50em;
+    line-height: 10px;
+  }
+
+  #logo{
+    padding-top:5px;
+  }
+
+  #column-footer{
+    padding-left:3%;
+  }
+
+  #top-footer h2{
+    font-size:.80em !important;
+  }
+
+}
+
 
 /*FOOTER BASIC CSS*/
 
