@@ -1,0 +1,19 @@
+.banner img{
+    width: 100%;
+}
+
+.aboutus img{
+    width: 100%;
+}
+
+.aboutus{
+    margin-top: 8%;
+}
+
+.aboutus p {
+    text-align: justify;
+}
+
+.links{
+    margin-top: 2%;
+}
