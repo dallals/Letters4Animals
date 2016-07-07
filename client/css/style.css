@@ -7,12 +7,6 @@ span,
 applet,
 object,
 iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 p,
 blockquote,
 pre,
@@ -68,7 +62,6 @@ body {
 }
 
 body {
-	color: #666;
 	background-color: #fff;
 	font-family: "Open Sans", Arial, sans-serif;
 	font-size: 14px;
@@ -78,6 +71,7 @@ body {
 	line-height: 1.7em;
     padding-top: 11%;
 }
+
 
 /*********************navbar**************************/
 nav{
@@ -200,4 +194,20 @@ nav{
 
 .add-space{
     padding: 27px !important;
+}
+
+/*******************MODAL********************/
+.modal-content .btn{
+    background-color: transparent !important;
+    border: 2px solid black;
+    color: black;
+}
+
+.modal-title{
+    color: black !important;
+    font-size: 20px !important;
+}
+
+.modal-dialog {
+    margin: 12% auto !important;
 }
