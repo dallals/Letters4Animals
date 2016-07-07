@@ -9,6 +9,7 @@
     <link rel="stylesheet" id="divi-fonts-css" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;subset=latin,latin-ext" type="text/css" media="all">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
     <link rel="stylesheet" href="/css/sweetalert.css" >
+    <link rel="stylesheet" href="/css/headandfooter.css" >
     <!-- <link rel="stylesheet" href="/css/materialize.min.css" > -->
     <link rel="stylesheet" href="/css/contact.css">  <!-- for the contact page -->
     <link rel="stylesheet" href="/css/style.css">
@@ -24,11 +25,93 @@
     <script src="/js/sweetalert.min.js"></script>
     <script src="/js/ng-sweet-alert.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-</head>
-<body>
-    <div ng-view="">
 
+
+</head>
+
+<body>
+  <!-- Site Header -->
+  <div ng-app="AnimalApp" scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
+    <div id="main-header">
+      <div id="container">
+        <div class="left-header">
+          <a href="https:/www.letters4animals.org/"><img id="logo" src="/assets/L4A-logo-cattle2-7-2016.png" width=240px  alt="logo.png"></a>
+        </div>
+
+        <div id="menu">
+          <div class="right-header">
+              <ul id="navbar">
+                <li><a ng-class="{active: isActive('/')}" href="/">Home</a></li>
+                <li><a ng-class="{active: isActive('/aboutus')}" href="#/aboutus">About Us</a></li>
+                <li><a ng-class="{active: isActive('/writealetter')}" href="#/writealetter">Write Your Letter</a></li>
+                <li><a ng-class="{active: isActive('/issues')}" href="#/issues">Issues</a></li>
+                <li><a ng-class="{active: isActive('/links')}" href="#/links">Links</a></li>
+                <li><a ng-class="{active: isActive('/contact')}" href="#/contact">Contact</a></li>
+              </ul>
+          </div>
+        </div>
+
+          <div id="mobile-nav">
+           <button ng-click="toggle()" height="100px"><div class="menu-btn" id="menu-btn">
+             <div></div>
+             <span></span>
+             <span></span>
+             <span></span>
+           </div>
+          </button>
+
+
+           <div class="responsive-menu" ng-show="mobile_drop">
+              <ul>
+                <li><a href="/">Home</a></li><br>
+                <li><a href="#">About Us</a></li><br>
+                <li><a href="#">Write Your Letter</a></li><br>
+                <li><a href="#">Issues</a></li><br>
+                <li><a href="#">Links</a></li><br>
+                <li><a href="#">Contact</a></li><br>
+              </ul>
+           </div>
+          </div>
+
+        </div>
+      </div>
+    <!-- Site Header Ends & Partials Begin-->
+
+
+    <div ng-view="">
     </div>
+
+      <div id="top-footer">
+            <div class="column-footer">
+              <h2>About Us</h2><br>
+              <p> Letters4Change is nascetur suscipit aliquam aliquam,
+                venenatis neque felis id lacus. Massa quam mauris luctus felis,
+                ante vestibulum, nec lobortis erat in donec, aliquet suspendisse.<br><br>
+                Massa quam mauris luctus felis, ante vestibulum.</p>
+            </div>
+
+            <div class="column-footer">
+              <h2>Photography</h2><br>
+              <p>All of the animal images you see on this site were provided by
+              <a href="http://www.mercyforanimals.org/">Mercy For Animals</a>,
+              a non-profit organization focused on preventing cruelty to farmed animals
+              and promoting compassionate food choices and policies.<br><br>
+              Visit <a href="http://www.mercyforanimals.org/">Mercy For Animals</a> now!</p>
+            </div>
+
+            <div class="column-footer">
+              <h2>Contact</h2><br>
+              <p>You can reach us for further information by dropping us a line at
+                <a href="mailto:info@letters4change.com">info AT letters4change.com</a>
+              </p>
+            </div>
+
+      </div>
+
+      <div id="bottom-footer">
+      </div>
+      <!-- end of footer -->
+
     <script src="/js/animalApp.js"></script>
     <script src="/js/routers.js"></script>
     <script src="/js/jquery-2.2.4.min.js"></script>
@@ -39,6 +122,7 @@
 
     <!-- Controllers -->
     <script src="/controllers/contactController.js"></script>
+    <script src="/controllers/headerController.js"></script>
 
 </body>
 </html>
