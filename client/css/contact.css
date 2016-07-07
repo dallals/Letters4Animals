@@ -16,7 +16,7 @@
     /*margin-left: -1em;
     opacity: 0;
     font-size: 32px;
-    //line-height: 1em; 
+    //line-height: 1em;
     content: "\35";
     -webkit-transition: all 0.2s;
     -moz-transition: all 0.2s;
@@ -47,6 +47,8 @@
 
 .contact_page {
     font-family: "Open Sans", Arial, sans-serif;
+    margin-top: 10em;
+    color: #333 !important;
 }
 .contact_page h4{
     font-family: Oswald;
