@@ -76,7 +76,9 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	line-height: 1.7em;
+    padding-top: 11%;
 }
+
 /*********************navbar**************************/
 nav{
   background-color: white !important;
@@ -95,4 +97,100 @@ nav{
 .active {
      background-color: none !important;
       color: rgb(35,161,245) !important;
+}
+
+
+/*********************coursel**********************/
+.carousel-caption {
+    bottom: 81px !important;
+}
+
+.slide-title {
+     font-family: 'Oswald', Helvetica, Arial, Lucida, sans-serif; font-weight: bold;
+     font-size: 2em;
+     margin-bottom: 10px;
+ }
+
+ .slide_content{
+     font-size: 18px;
+     margin-bottom: 10px;
+ }
+
+ .btn-default{
+     background: rgba(0,0,0,0.6) !important;
+     color: white !important;
+     font-size: 18px;
+     width: 46%;
+     padding: 9px;
+ }
+
+ .btn-default:hover{
+     background: rgba(255,255,255,0.3) !important;
+     width: 50%;
+     border: none;
+ }
+
+.slider{
+    height: 361px !important;
+}
+
+ .slider img{
+     height: 361px !important;
+     width: 100%;
+ }
+
+/*********************coursel-right**********************/
+.right-side{
+    background-color: #ccc;
+    padding:25px;
+    color:black;
+    border-radius: 15px;
+}
+
+.mainHead {
+    font-family: Oswald;
+    font-size: 1.7em;
+    line-height: 1.4em;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.matters {
+    color: red;
+}
+
+.right-side p{
+    font-size: 17px;
+    line-height: 1.6em;
+}
+
+
+/************************************Second row*************************************/
+.blurbHead {
+    color: black;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.descText {
+    font-family: Georgia;
+}
+
+.note{
+    margin-top: 5%;
+    background-color: rgb(222,157,156);
+    border: 1px solid red;
+    padding: 10px;
+    text-align: center;
+    color: black;
+}
+
+.second{
+    margin-top: 5%;
+    color: black;
+}
+
+.add-space{
+    padding: 27px !important;
 }
