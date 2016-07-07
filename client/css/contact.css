@@ -3,6 +3,24 @@
     color: #ffffff;
     /*float: right;*/
     /*margin-top: 4em;*/
+    display: inline-block;
+    margin: 0 0 0 15px;
+    font-family: inherit;
+    cursor: pointer;
+    line-height: 2.7em !important;
+    padding: 0.3em 2em;
+    /*font: 11px BlinkMacSystemFont;*/
+}
+
+.contact_button:after{
+    /*margin-left: -1em;
+    opacity: 0;
+    font-size: 32px;
+    //line-height: 1em;
+    content: "\35";
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s; */
 }
 .captcha_section{
     margin-top: 4em;
@@ -10,8 +28,30 @@
 
 }
 #captcha{
-    width: 4em;
+    width: 4.6em;
 }
 .contact_errors{
     margin: 3em 0em;
+}
+
+.contact_input{
+    padding: 1.7em;
+    border: none;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color: #999;
+    background-color: #eee;
+    font-size: 14px;
+}
+
+.contact_page {
+    font-family: "Open Sans", Arial, sans-serif;
+    margin-top: 10em;
+    color: #333 !important;
+}
+.contact_page h4{
+    font-family: Oswald;
+    font-size: 1.7em;
+    line-height: 1.4em;
 }
