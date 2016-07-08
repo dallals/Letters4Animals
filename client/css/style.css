@@ -73,7 +73,8 @@ body {
 }
 
 .container{
-    width: 1028px !important;
+	/* This messes with the responsiveness for contact page, perh */
+    /*width: 1028px !important; */
 }
 
 

@@ -20,7 +20,7 @@ AnimalApp.controller('contactController', function ($scope, $routeParams, $http)
 
             $http.post('/contact', $scope.contact).success(function(result){
 
-                swal("Email Sent!", "Your email has been sent to 'info@letters4change.com' and you will be hearing from us shortly!", "success");
+                swal("Email Sent!", "Your email has been sent to 'info@letters4animals.com' and you will be hearing from us shortly!", "success");
 
                 // reset form after email is sent
                 $scope.contact = {};
