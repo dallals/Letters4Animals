@@ -49,36 +49,6 @@ AnimalApp.controller('TestController', function($scope, $http) {
 
     }
 
-    $scope.registerAddress = function() {
-        $scope.Uaddr
-        $scope.Ustate
-        $scope.Uzip
-        if ($scope.Uaddr && $scope.Ustate && $scope.Uzip) {
-            var address = {
-                address: $scope.Uaddr,
-                state  : $scope.Ustate,
-                zip    : $scope.Uzip };
-
-                $http.post('/addressConfirmation', address).success(function(data) {
-                    // console.log(data);
-                    // $scope.confirmedAddr = data;
-                    if(data == 'Not Found'){
-                        // alert(address.address + ' ' + address.state + ' ' + address.zip + ' not found. Please make sure you entered your address correctly.');
-                    }
-                    else{
-                        if(typeof(data) == 'object'){
-                            // Present all the choices and wait for them to pick
-                            $scope.choices = data;
-                        }
-                        else{
-                            // Present a confirmation
-                            $scope.confirmedAddr = data;
-                        }
-                    }
-                })
-        }
-    }
-
     $scope.showReps = function() {
         var position = $scope.position;
         var confAddr = $scope.confirmedAddr;

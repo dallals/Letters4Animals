@@ -21,7 +21,6 @@ module.exports = function(app){
     })
 
     app.post('/addressConfirmation', function(req, res) {
-        console.log('Route: /addressConfirmation')
         addrConf.confirmAddr(req, res);
     })
 

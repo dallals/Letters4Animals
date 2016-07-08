@@ -6,33 +6,33 @@ var
 
 module.exports = (function(){
     return {
-        // Contact Emailer uses nodemailer
         confirmAddr: function(req, response) {
-            console.log('Confirming Address');
-            console.log(req.body);
             var addy;
-            if (req.body.address && req.body.state && req.body.zip) {
-                addy = req.body.address+' '+req.body.state+' '+req.body.zip;
+            if (req.body.address && req.body.city && req.body.state && req.body.zip) {
+                addy = req.body.address+' '+req.body.city+' '+req.body.state+' '+req.body.zip;
             }
-            console.log(addy);
             if (addy) {
                 //Variables
                 var
                     data    = [],
                     format  = '';
-                    console.log(addy);
                 //API call for geocode to get formatted_address
                 https.get('https://maps.googleapis.com/maps/api/geocode/json?address='+addy+'&key=AIzaSyBHSukFM4B6MafgSHWm83ZHvvLOXPTs8PI', function(res){
-                    console.log(res.statusMessage);
+                    //On each data chunk, we push the decoded version into an array
                     res.on('data', function(d) {
                         data.push(decoder.write(d));
                     })
+                    //At the end, after all of the chunks are received, we append it to a string => to json
                     res.on('end',function() {
+                        //To String
                         for (x of data) {
                             format+=x;
                         }
+                        //To JSON
                         dataJson = JSON.parse(format);
-                        console.log(dataJson);
+                        ////////////////////////////////////////////////////////////
+                        //                        Results                         //
+                        ////////////////////////////////////////////////////////////
                         //If no result
                         if(dataJson.status == 'ZERO_RESULTS'){
                             //Nothing found
@@ -40,25 +40,19 @@ module.exports = (function(){
                         }
                         //If result
                         else{
-                            //If there's more than one result
-                            if(dataJson.results.length > 1){
+                            //If there's more than one result, we filter it and send it back for them to choose
+                            if(dataJson.results.length >= 1){
                                 var choices = [];
-                                //For each Result
+                                //For each Result we want to keep only USA
                                 for(choice of dataJson.results){
-                                    //Filter results to only show USA
                                     choiceArr = choice.formatted_address.split(',');
                                     if (choiceArr[choiceArr.length-1].includes('USA')) {
-                                        //Push to the choices
                                         choices.push(choice.formatted_address);
                                     }
                                 }
-                                //Send it back to client
+                                //Send the choices back to client
                                 response.send(choices);
                             }
-                            //If only one result
-                            else{
-                                //Send the first thing.
-                                response.send(dataJson.results[0].formatted_address); }
                         }
                     })
                 })
