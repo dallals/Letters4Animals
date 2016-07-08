@@ -3,6 +3,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/',{
         templateUrl: 'partials/home.html',
     })
+    .when('/home',{
+        templateUrl: 'partials/home.html',
+    })
     .when('/aboutus',{
         templateUrl: 'partials/aboutus.html',
     })
