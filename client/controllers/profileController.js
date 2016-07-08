@@ -21,12 +21,13 @@ AnimalApp.controller('profileController', function ($scope, $routeParams, $http)
     // The following is if the user wants to update their password, they can show/hide their password
     $scope.showpass = 'show';
     $scope.showPassword = function(){
+
         if($scope.showpass == 'hide'){
             $scope.showpass = 'show';
-            $('#password').attr('type', 'password');
+            $('#user_password').attr('type', 'password');
         }else{
             $scope.showpass = 'hide';
-            $('#password').attr('type', 'text');
+            $('#user_password').attr('type', 'text');
         }
     }
 
@@ -37,7 +38,7 @@ AnimalApp.controller('profileController', function ($scope, $routeParams, $http)
         /*
 
         */
-        
+
         // after success show alert
         swal("Profile Updated!", "Your profile has been successfully updated!", "success");
     }
