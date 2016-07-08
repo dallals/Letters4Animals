@@ -1,75 +1,77 @@
-<div class="container">
+<div class="container" ng-controller="profileController">
+    <h2>User Profile</h2>
+
     <form class="form-horizontal">
         <div class="form-group">
             <label for="first_name" class="col-sm-2 control-label">First Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="first_name">
+                <input type="text" class="form-control" id="first_name" ng-model="user.first_name">
             </div>
         </div>
         <div class="form-group">
             <label for="last_name" class="col-sm-2 control-label">Last Name</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="last_name">
+                <input type="text" class="form-control" id="last_name" ng-model="user.last_name">
             </div>
         </div>
         <div class="form-group">
-            <label for="st_address" class="col-sm-2 control-label">Street Address</label>
+            <label for="street_address" class="col-sm-2 control-label">Street Address</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="st_address">
+                <input type="text" class="form-control" id="street_address" ng-model="user.street_address">
             </div>
         </div>
         <div class="form-group">
             <label for="city" class="col-sm-2 control-label">City</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="city">
+                <input type="text" class="form-control" id="city" ng-model="user.city">
             </div>
         </div>
         <div class="form-group">
             <label for="state" class="col-sm-2 control-label">State</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="state">
+                <input type="text" class="form-control" id="state" ng-model="user.state">
             </div>
         </div>
         <div class="form-group">
             <label for="zipcode" class="col-sm-2 control-label">Zip Code</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="zipcode">
+                <input type="text" class="form-control" id="zipcode" ng-model="user.zipcode">
             </div>
         </div>
         <div class="form-group">
             <label for="phone_number" class="col-sm-2 control-label">Phone Number</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="phone_number">
+                <input type="text" class="form-control" id="phone_number" ng-model="user.phone_number">
             </div>
         </div>
         <div class="form-group">
             <label for="email" class="col-sm-2 control-label">Email Address</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" id="email">
+                <input type="email" class="form-control" id="email"  ng-model="user.email">
             </div>
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" id="password">
+                <input type="password" class="form-control" id="password"  ng-model="user.password">
             </div>
         </div>
         <div class="form-group">
             <label for="phone_notification" class="col-sm-2 control-label">Phone Notification</label>
             <div class="col-sm-10">
-                <input type="checkbox" class="form-control" id="phone_notification">
+                <input type="checkbox" class="form-control" id="phone_notification"  ng-model="user.phone_notification">
             </div>
         </div>
         <div class="form-group">
             <label for="email_notification" class="col-sm-2 control-label">Email Notification</label>
             <div class="col-sm-10">
-                <input type="checkbox" class="form-control" id="email_notification">
+                <input type="checkbox" class="form-control" id="email_notification" ng-model="user.email_notification">
             </div>
         </div>
         <div class="form-group">
             <label for="volunteer" class="col-sm-2 control-label">Volunteer</label>
             <div class="col-sm-10">
-                <input type="checkbox" class="form-control" id="volunteer">
+                <input type="checkbox" class="form-control" id="volunteer" ng-model="user.volunteer">
             </div>
         </div>
 
