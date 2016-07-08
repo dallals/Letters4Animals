@@ -1,4 +1,4 @@
-var AnimalApp = angular.module('AnimalApp', ['ngRoute', 'ngMessages', 'ng-sweet-alert']);
+var AnimalApp = angular.module('AnimalApp', ['ngRoute', 'ngMessages', 'ng-sweet-alert', 'ui.bootstrap']);
 
 // Scrolling animation for header
 AnimalApp.directive("scroll", function ($window) {
@@ -18,6 +18,8 @@ AnimalApp.directive("scroll", function ($window) {
                      height:'100px'},
                      {duration: 400, queue: false
                  });
+                 $("#page > div.ng-scope > div").css("padding-top",
+             "8%");
              } else {
                  scope.boolChangeClass = false;
                  $("#container").removeClass('border');
@@ -38,3 +40,15 @@ AnimalApp.directive("scroll", function ($window) {
         });
     };
 });
+
+AnimalApp.directive('showtab',
+function () {
+        return {
+            link: function (scope, element, attrs) {
+                $('.nav li a').click(function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+            }
+        };
+    });
