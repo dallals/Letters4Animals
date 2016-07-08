@@ -1,5 +1,9 @@
 AnimalApp.controller('profileController', function ($scope, $routeParams, $http) {
     // Get current user from db
+    /*
+
+    */
+
     // using dummy static data for now
     $scope.user = {
         first_name : 'John',
@@ -24,5 +28,17 @@ AnimalApp.controller('profileController', function ($scope, $routeParams, $http)
             $scope.showpass = 'hide';
             $('#password').attr('type', 'text');
         }
+    }
+
+    // Update user profile info
+    $scope.updateProfile = function(){
+        // console.log('user info is: ', $scope.user);
+        // SEND UPDATED INFO TO THE DB AND UPDATE IT THERE!
+        /*
+
+        */
+        
+        // after success show alert
+        swal("Profile Updated!", "Your profile has been successfully updated!", "success");
     }
 });

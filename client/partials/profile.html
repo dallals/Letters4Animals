@@ -75,12 +75,15 @@
             <label for="volunteer" class="col-sm-2 control-label">Volunteer</label>
             <div class="col-sm-10">
                 <input type="checkbox" class="form-control" id="volunteer" ng-model="user.volunteer">
+                <p ng-if="user.volunteer">
+                    <a href="#template_addition">LINK TO TEMPLATE PAGE</a>
+                </p>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-sm-offset-8 col-sm-4 text-right">
-                <button type="submit" id="update_button">Update</button>
+                <button type="submit" id="update_button" ng-click="updateProfile()">Update</button>
             </div>
         </div>
     </form>
