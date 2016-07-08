@@ -1,8 +1,13 @@
 {
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cookie-parser": "~1.4.3",
     "express": "^4.14.0",
-    "mysql": "^2.11.1",
+    "debug": "~2.2.0",
+    "pg": "^6.0.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.23.4",
+    "sequelize-cli": "^2.4.0",
     "nodemailer": "^2.4.2",
     "path": "^0.12.7",
     "string_decoder": "^0.10.31"

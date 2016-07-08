@@ -43,15 +43,15 @@ body{
 
 #menu{
   display:inline-block;
-  width:60%;
-  padding:3%;
+  width:63%;
+  padding:2%;
   vertical-align: top;
   float:right;
 }
 
 .right-header > ul >li{
   display:inline-block;
-  padding-right:4%;
+  padding-right:2%;
   font-size: 1.1em;
 }
 
