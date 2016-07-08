@@ -1,22 +1,22 @@
 AnimalApp.config(function ($routeProvider) {
   $routeProvider
     .when('/',{
-        templateUrl: 'partials/home.html'
+        templateUrl: 'partials/home.html',
     })
     .when('/aboutus',{
-        templateUrl: 'partials/aboutus.html'
+        templateUrl: 'partials/aboutus.html',
     })
     .when('/writealetter',{
-        templateUrl: 'partials/writealetter.html'
+        templateUrl: 'partials/writealetter.html',
     })
     .when('/links',{
-        templateUrl: 'partials/links.html'
+        templateUrl: 'partials/links.html',
     })
     .when('/issues',{
-        templateUrl: 'partials/issues.html'
+        templateUrl: 'partials/issues.html',
     })
     .when('/contact',{
-        templateUrl: 'partials/contact.html'
+        templateUrl: 'partials/contact.html',
     })
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'

@@ -96,9 +96,16 @@ nav{
 
 .active {
      background-color: none !important;
-      color: rgb(35,161,245) !important;
+     color: rgb(35,161,245) !important;
 }
 
+#navbar > li > a:active{
+	color: rgb(35,161,245);
+}
+
+#page > div.ng-scope > div{
+	padding-top:15%;
+}
 
 /*********************coursel**********************/
 .carousel-caption {
