@@ -1,4 +1,4 @@
-var AnimalApp = angular.module('AnimalApp', ['ngRoute', 'ngMessages', 'ng-sweet-alert']);
+var AnimalApp = angular.module('AnimalApp', ['ngRoute', 'ngMessages', 'ng-sweet-alert', 'ui.bootstrap']);
 
 // Scrolling animation for header
 AnimalApp.directive("scroll", function ($window) {
@@ -40,3 +40,15 @@ AnimalApp.directive("scroll", function ($window) {
         });
     };
 });
+
+AnimalApp.directive('showtab',
+function () {
+        return {
+            link: function (scope, element, attrs) {
+                $('.nav li a').click(function(e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
+            }
+        };
+    });
