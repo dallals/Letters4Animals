@@ -8,8 +8,8 @@ module.exports = (function(){
         contactMail: function(req, res){
             transporter.sendMail({
                 from: req.body.email,
-                to: 'info@letters4change.com', // replace with info@letters4animals.com
-                subject: 'Contact Us - letters4animals', //Subject to change to??
+                to: 'info@letters4animals.com',
+                subject: 'Contact Us - letters4animals',
                 html: '<b>Message from</b> '+req.body.name+'<br><b>Message: </b>'+req.body.message+'<br>',
                 text: req.body.message
             });

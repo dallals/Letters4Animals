@@ -1,0 +1,35 @@
+<div ng-controller="TestController" class="container">
+    <h2 style="font-size: 20px; font-weight: bolder; margin-bottom: 1em; color: blue">{{ confirmedAddr }}</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <form action="">
+                <h1>GUEST</h1>
+                <input ng-model="Gaddr" type="text" placeholder="ADDRESS" required>
+                <input ng-model="Gstate" type="text" placeholder="State" maxlength="2" style="text-transform:uppercase">
+                <input ng-model="Gzip" type="text" placeholder="ZIP">
+                <input type="text" placeholder="position" ng-model="position">
+                <input type="submit" ng-click="subinfo()">
+            </form>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div id="choices">
+                <label style='display: block;' ng-repeat='choice in choices track by $index'>
+                    <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="finalAddr()">{{ choice }}
+                </label>
+                <!-- <button ng-show='choices.length > 1' ng-click='finalAddr()'>Confirm Location</button> -->
+            </div>
+        </div>
+    </div>
+    <button ng-click="showReps()" style="width: 100%; margin-top: 1em;"> Show Reps </button>
+
+    <div id="finaldata" ng-show=repData>
+        <ul ng-repeat='official in repData.officials track by $index'>
+            <li>{{ official }}</li>
+        </ul>
+    </div>
+</div>
