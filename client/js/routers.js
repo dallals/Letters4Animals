@@ -18,6 +18,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/contact',{
         templateUrl: 'partials/contact.html',
     })
+    .when('/profile',{
+        templateUrl: 'partials/profile.html',
+    })
     .otherwise({
       redirectTo: '/'
     });
