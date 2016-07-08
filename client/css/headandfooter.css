@@ -20,7 +20,9 @@ body{
   font-weight: 600;
 }
 
-
+.right-header #navbar li a{
+    cursor: pointer;
+}
 #container{
   width:90%;
   margin: 0px auto;
