@@ -13,10 +13,13 @@ module.exports = function(app){
     app.get('/confirmEmail/:link', function(req, res) {
         users.confirmEmail(req, res);
     })
+    app.get('/generate', function(req, res) {
+        users.generate(req, res);
+    })
 
     //Register New User
     app.post('/users', function(req,res){
-        // users.create(req, res);
+        users.create(req, res);
     })
 
     // contact us

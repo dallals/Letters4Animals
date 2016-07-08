@@ -21,7 +21,7 @@ var includesS = function(haystack, needle) {
 
 module.exports = (function(){
   return {
-        create: function(req, res) {
+        generate: function(req, res) {
             var gen = emailConfGen();
             console.log(gen);
             res.send(gen)
@@ -29,21 +29,16 @@ module.exports = (function(){
         confirmEmail: function(req, res) {
             var contains = false;
             for (var hay of emailConfLinks) {
-                console.log('Hay  :',hay);
-                console.log('Link :',req.params.link);
                 if (hay == req.params.link) {
-                    contains = true;
-                }
+                    contains = true; }
             }
-            console.log(contains);
             if (contains) {
-                console.log(emailConfLinks);
-                console.log('Reached:',emailConfLinks.indexOf(req.params.link));
-                console.log('trying to delet: ', emailConfLinks[emailConfLinks.indexOf(req.params.link)]);
-                emailConfLinks.splice(emailConfLinks.indexOf(req.params.link),1);
-                console.log(emailConfLinks);
-            }
+                emailConfLinks.splice(emailConfLinks.indexOf(req.params.link),1); }
             res.send(emailConfLinks);
+        },
+        create: function(req, res) {
+            console.log(req.body);
+            res.json(req.body);
         }
     // create: function(req, res){
     //   console.log("Posted", req.body);
