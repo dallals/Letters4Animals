@@ -72,6 +72,11 @@ body {
     padding-top: 11%;
 }
 
+.container{
+    width: 1028px !important;
+}
+
+
 
 /*********************navbar**************************/
 nav{
@@ -202,6 +207,8 @@ nav{
     border: 2px solid black;
     color: black;
 }
+
+
 
 .modal-title{
     color: black !important;
