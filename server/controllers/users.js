@@ -5,11 +5,46 @@ var con = mysql.createConnection({
       password: "root",
       database: "rendezvous"
 })
+var emailConfLinks = [],
+    genLength      = 50;
 
+
+var emailConfGen = function(i, gen) {
+    var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    if (i===undefined)   {i = 0;}   else {i++;}
+    if (gen===undefined) {gen = ''} else {gen += valid[Math.floor(Math.random()*valid.length)]}
+    if (i<genLength)     {return emailConfGen(i, gen)} else {emailConfLinks.push(gen); return gen;}
+}
+var includesS = function(haystack, needle) {
+}
 // var Employee = mysql.model('Employee');
 
 module.exports = (function(){
   return {
+        create: function(req, res) {
+            var gen = emailConfGen();
+            console.log(gen);
+            res.send(gen)
+        },
+        confirmEmail: function(req, res) {
+            var contains = false;
+            for (var hay of emailConfLinks) {
+                console.log('Hay  :',hay);
+                console.log('Link :',req.params.link);
+                if (hay == req.params.link) {
+                    contains = true;
+                }
+            }
+            console.log(contains);
+            if (contains) {
+                console.log(emailConfLinks);
+                console.log('Reached:',emailConfLinks.indexOf(req.params.link));
+                console.log('trying to delet: ', emailConfLinks[emailConfLinks.indexOf(req.params.link)]);
+                emailConfLinks.splice(emailConfLinks.indexOf(req.params.link),1);
+                console.log(emailConfLinks);
+            }
+            res.send(emailConfLinks);
+        }
     // create: function(req, res){
     //   console.log("Posted", req.body);
     //   var newuser = {
