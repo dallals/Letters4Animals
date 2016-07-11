@@ -1,12 +1,10 @@
 var express = require('express');
 var app = express();
-// var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var path = require('path');
-// var mysql = require("mysql");
 var debug = require('debug')('Letters4Animals-master:server');
 var http = require('http');
-var models = require('./models');
+var models = require('./server/models');
 
 
 
@@ -15,7 +13,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static(path.join(__dirname, './client')));
-// require('./server/config/mysql.js');
 require('./server/config/routes.js')(app);
 
 /**
