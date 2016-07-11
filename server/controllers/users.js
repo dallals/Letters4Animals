@@ -11,6 +11,8 @@ var emailConfGen = function(i, gen) {
 var includesS = function(haystack, needle) {
 }
 
+var models = require('../models');
+
 module.exports = (function(){
   return {
         generate: function(req, res) {
@@ -31,6 +33,24 @@ module.exports = (function(){
         create: function(req, res) {
             console.log(req.body);
             res.json(req.body);
+        },
+
+        //Grabbing a single user's info by ID
+        getUserInfo: function(req, res) {
+            models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
+                if(data){
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
+
+        //Update user info
+        updateUser: function(req, res) {
+            // Pass req.body object to the update function to update appropriate fields
+            models.User.update(req.body, { where: { id: req.body.userid } })
         }
 
   }//closes return
