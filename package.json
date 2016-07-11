@@ -10,6 +10,7 @@
     "sequelize-cli": "^2.4.0",
     "nodemailer": "^2.4.2",
     "path": "^0.12.7",
-    "string_decoder": "^0.10.31"
+    "string_decoder": "^0.10.31",
+    "mysql": "^2.11.1"
   }
 }

@@ -72,7 +72,7 @@
 }
 
 /* Small devices (tablets, 768px and up) */
-@media (max-width: 600px) {
+@media (min-width:400px and max-width: 600px) {
     .contact_page {
         /*margin-top: 5em !important;*/
         /*background-color: yellow;*/
