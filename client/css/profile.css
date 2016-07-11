@@ -1,0 +1,58 @@
+#update_button, #password_button{
+    background-color: RGBA(0,0,0,0.6);
+    color: #ffffff;
+    display: inline-block;
+    margin: 0 0 0 15px;
+    font-family: inherit;
+    cursor: pointer;
+    line-height: 2.7em !important;
+    padding: 0.3em 2em;
+    border: 2px solid;
+    border-radius: 3px;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+#update_button:hover{
+    margin-left: 1em;
+    font-size: 1em;
+    line-height: 3em !important;
+    color: #444;
+    background: white;
+    border: white;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+#password_button:hover{
+    /*margin-left: 1em;*/
+    /*font-size: 1em;*/
+    /*line-height: 3em !important;*/
+    color: #444;
+    background: white;
+    border: white;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+#update_button:hover:after{
+    content: "\00a0\00a0\232A";
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    color: #333;
+}
+
+#password_button:hover:after{
+    /*content: "\00a0\00a0\232A";*/
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    transition: all 0.2s;
+    color: #333;
+}
+#volunteer{
+    
+}

@@ -1,5 +1,6 @@
 .coursel{
     margin-top: 5%;
+    margin-bottom: 6%;
 }
 
 .slider{
@@ -10,6 +11,7 @@
 
 .gray{
     background-color: rgb(172,186,193) !important;
+    padding-bottom: 50px;
 }
 
 .pink{
@@ -51,4 +53,22 @@
 
 .active{
     color:black !important;
+}
+
+.green{
+    background-color:rgb(138,169,140);
+    padding-bottom: 50px;
+}
+
+.light-green{
+    background-color: rgb(120,170,0);
+    padding-bottom: 50px;
+}
+
+.tab-content>.tab-pane{
+    border: 1px solid #ccc;
+}
+
+.white{
+    padding-bottom: 50px;
 }
