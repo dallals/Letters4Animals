@@ -18,6 +18,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/issues',{
         templateUrl: 'partials/issues.html',
     })
+    .when('/issuessec',{
+        templateUrl: 'partials/issues.html',
+    })
     .when('/contact',{
         templateUrl: 'partials/contact.html',
     })
