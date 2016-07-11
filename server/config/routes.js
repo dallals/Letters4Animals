@@ -35,4 +35,8 @@ module.exports = function(app){
     app.post('/representatives/:user', function(req, res) {
         reps.findReps(req, res);
     })
+
+    app.get('/readUsers', function(req, res) {
+        users.read(req, res);
+    })
 }
