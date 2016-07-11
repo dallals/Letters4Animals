@@ -6,16 +6,16 @@ AnimalApp.controller('profileController', function ($scope, $routeParams, $http)
 
     // using dummy static data for now
     $scope.user = {
-        first_name : 'John',
-        last_name : 'Smith',
-        street_address: '123 Street Way',
-        city: 'City',
-        state: 'CA',
-        zipcode : '35522',
-        phone_number: '4083453455',
-        email: 'test@user.com',
-        password: 'testpassword',
-        volunteer: true
+    //     first_name : 'John',
+    //     last_name : 'Smith',
+    //     street_address: '123 Street Way',
+    //     city: 'City',
+    //     state: 'CA',
+    //     zipcode : '35522',
+    //     phone_number: '4083453455',
+    //     email: 'test@user.com',
+    //     password: 'testpassword',
+    //     volunteer: true
     }
 
     // The following is if the user wants to update their password, they can show/hide their password
