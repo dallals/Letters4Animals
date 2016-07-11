@@ -6,13 +6,20 @@ var users       = require('../controllers/users.js'),
 //
 module.exports = function(app){
 
-    //user queries
-    app.get('#', function(req, res){
-
+    //user queries for getting one user
+    app.get('/user', function(req, res){
+        users.create(req, res);
+    })
+    app.get('/confirmEmail/:link', function(req, res) {
+        users.confirmEmail(req, res);
+    })
+    app.get('/generate', function(req, res) {
+        users.generate(req, res);
     })
 
-    app.post('#', function(req,res){
-
+    //Register New User
+    app.post('/users', function(req,res){
+        users.create(req, res);
     })
 
     // contact us
@@ -20,10 +27,11 @@ module.exports = function(app){
         contact.contactMail(req, res);
     })
 
+    //For Address Finding
     app.post('/addressConfirmation', function(req, res) {
         addrConf.confirmAddr(req, res);
     })
-
+    //For Representative Finding
     app.post('/representatives/:user', function(req, res) {
         reps.findReps(req, res);
     })
