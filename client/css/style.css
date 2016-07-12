@@ -220,6 +220,11 @@ nav{
     margin: 12% auto !important;
 }
 
+.regErrors {
+	font-size: 0.8em;
+	color: red;
+}
+
 
 
 /***********************RESPONSIVE*******************/

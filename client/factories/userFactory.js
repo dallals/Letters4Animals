@@ -4,12 +4,12 @@ AnimalApp.factory('UserFactory', function($http) {
     factory.registerUser = function(user, callback) {
         //Throw to User
         $http.post('/users', user).success(function(data) {
-            console.log(data);
+            // console.log(data);
+            if (callback && typeof callback == 'function') {
+                callback(data);
+            }
         })
-        console.log(user);
-        if (callback && typeof callback == 'function') {
-            callback();
-        }
+        // console.log(user);
     },
 
     // Grab user by ID, send back user data

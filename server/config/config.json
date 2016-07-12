@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "vadim",
+    "username": "Howi",
     "password": null,
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "vadim",
+    "username": "Howi",
     "password": null,
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "vadim",
+    "username": "Howi",
     "password": null,
     "database": "Letters4Animals",
     "host": "127.0.0.1",

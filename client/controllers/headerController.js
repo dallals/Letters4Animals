@@ -13,6 +13,17 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
           state         : '',
           zip           : ''
     };
+    var errorMessages = {
+        firstName           : 'First name field is required',
+        lastName            : 'Last name field is required',
+        email               : 'Last name field is required',
+        password            : 'Password is required',
+        confirmPassword     : 'Passwords must match',
+        address             : 'Address field is required',
+        city                : 'City field is required',
+        state               : 'State field is required',
+        zip                 : 'Zip field is required'
+    }
 
     $scope.toggle = function() {
         $scope.mobile_drop = !$scope.mobile_drop;
@@ -54,6 +65,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         $scope.regErrors = {
             firstName       : '',
             lastName        : '',
+            email           : '',
             password        : '',
             confirmPassword : '',
             addrNotFound    : '',
@@ -64,24 +76,42 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
               zip             : ''
         };
 
+        var valid   = true,
+            bevalid = true;
+        //Front-end Validations TEMPORARY
+            //USER
+        if ( !$scope.user.firstName || $scope.user.firstName.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.firstName = errorMessages.firstName; }
+        if ( !$scope.user.lastName || $scope.user.lastName.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.lastName = errorMessages.lastName; }
+        if ( !$scope.user.email || $scope.user.email.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.email = errorMessages.email; }
+        if ( !$scope.user.password || $scope.user.password.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.password = errorMessages.password; }
+        if ( !$scope.confirmPassword || !$scope.user.password || $scope.user.password != $scope.confirmPassword ) {
+            valid = false;
+            $scope.regErrors.confirmPassword = errorMessages.confirmPassword; }
+            //ADDRESS
+        if ( !$scope.addr || $scope.addr.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.address = errorMessages.address; }
+        if ( !$scope.city || $scope.city.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.city = errorMessages.city; }
+        if ( !$scope.state || $scope.state.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.state = errorMessages.state; }
+        if ( !$scope.zip || $scope.zip.trim().length < 1 ) {
+            valid = false;
+            $scope.regErrors.zip = errorMessages.zip; }
+
         //address, city state zip
-        if ( $scope.address.choice && $scope.user ){
-<<<<<<< HEAD
-            if ( !$scope.user.firstName || $scope.user.firstName.trim().length < 1 ) {
-                $scope.regErrors.firstName = 'First name field must not be empty'; }
-            if ( !$scope.user.lastName || $scope.user.lastName.trim().length < 1 ) {
-                $scope.regErrors.lastName = 'Last name field must not be empty'; }
-            if ( !$scope.user.password || $scope.user.password.trim().length < 1 ) {
-                $scope.regErrors.password = 'Password must not be empty'; }
-            if ( !$scope.user.confirmPassword || $scope.user.password != $scope.user.confirmPassword ) {
-                $scope.regErrors.confirmPassword = 'Passwords must match'; }
+        if ( $scope.address.choice && $scope.user && valid ){
 
-            if ( !$scope.addr || $scope.addr.trim().length < 1 ) {
-                $scope.regErrors.address = 'Address field must not be empty'; }
-
-=======
-            // console.log($scope.address.choice)
->>>>>>> 6170986b9b6e5c17ae62a4d9279568637be01296
             var addrArr = $scope.address.choice.split(','),
                 last    = addrArr.length,
                 address = addrArr[last-4],
@@ -95,18 +125,56 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 user.state = state;
                 user.zip = zip;
 
-            UserFactory.registerUser(user, function() {
-                console.log('done');
+            UserFactory.registerUser(user, function(data) {
+                if (data.errors && data.errors.errors) {
+                    for (err of data.errors.errors) {
+                        if (err.path == 'first_name') {
+                            bevalid = false;
+                            $scope.regErrors.firstName += err.message; }
+                        if (err.path == 'last_name') {
+                            bevalid = false;
+                            $scope.regErrors.lastName += err.message; }
+                        if (err.path == 'email') {
+                            bevalid = false;
+                            $scope.regErrors.email += err.message; }
+                        if (err.path == 'password') {
+                            bevalid = false;
+                            $scope.regErrors.password += err.message; }
+                        if (err.path == 'street_address') {
+                            bevalid = false;
+                            $scope.regErrors.address += err.message; }
+                        if (err.path == 'city') {
+                            bevalid = false;
+                            $scope.regErrors.city += err.message; }
+                        if (err.path == 'state') {
+                            bevalid = false;
+                            $scope.regErrors.state += err.message; }
+                        if (err.path == 'zipcode') {
+                            bevalid = false;
+                            $scope.regErrors.zip += err.message; }
+
+                    }
+                }
+
+                if (bevalid) {
+                    $scope.user = {
+                        firstName: '',
+                        lastName: '',
+                        email: '',
+                        password: ''
+                    };
+                    $scope.addr  = '';
+                    $scope.city  = '';
+                    $scope.state = '';
+                    $scope.zip   = '';
+                    $scope.confirmPassword = '';
+                    $scope.choices = [];
+                    $('#Register').modal('toggle')
+                }
             });
 
 
-            $scope.user = {};
-            $scope.addr  = '';
-            $scope.city  = '';
-            $scope.state = '';
-            $scope.zip   = '';
-            $scope.confirmPassword = '';
-            $('#register').modal('toggle');
         }
+
     }
 });

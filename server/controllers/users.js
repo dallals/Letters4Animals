@@ -10,10 +10,6 @@ var emailConfGen = function(i, gen) {
     if (gen===undefined) {gen = ''} else {gen += valid[Math.floor(Math.random()*valid.length)]}
     if (i<genLength)     {return emailConfGen(i, gen)} else {emailConfLinks.push(gen); return gen;}
 }
-var includesS = function(haystack, needle) {
-}
-
-var models = require('../models');
 
 module.exports = (function(){
   return {
@@ -33,7 +29,7 @@ module.exports = (function(){
             res.send(emailConfLinks);
         },
         create: function(req, res) {
-            console.log(req.body)
+            // console.log(req.body)
 
             models.Pendinguser.create({
                 first_name: req.body.firstName,
@@ -46,6 +42,14 @@ module.exports = (function(){
                 zipcode: req.body.zip,
                 phone_number: req.body.phoneNumber,
                 volunteer: req.body.volunteer
+            }).then(function(user) {
+            //Does this after creating
+                // console.log(user);
+                res.json({success: true, errors: null});
+            }).catch(function(err) {
+            //Catches Errors
+                // console.log(err);
+                res.json({success: false, errors: err});
             })
         },
 

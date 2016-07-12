@@ -95,12 +95,16 @@
                   </div>
                   <div class="modal-body col-md-offset-2">
                       <form class="form-horizontal">
+                          <!-- First & Last Name Error Messages -->
+                          <!-- First & Last Name Input Fields -->
                           <div class="form-group">
                               <div class="col-sm-5">
                                   <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName">
+                                  <span class="regErrors" ng-bind="regErrors.firstName"></span>
                               </div>
                               <div class="col-sm-5">
                                   <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName">
+                                  <span class="regErrors" ng-bind="regErrors.lastName"></span>
                               </div>
                           </div>
 
@@ -108,19 +112,25 @@
                           <div class="form-group">
                               <div class="col-sm-10">
                                   <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="registerAddress()">
+                                  <span class="regErrors" ng-bind="regErrors.address"></span>
                               </div>
                           </div>
+                          <!-- City && State-->
                           <div class="form-group">
                               <div class="col-sm-5">
                                   <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="registerAddress()">
+                                  <span class="regErrors" ng-bind="regErrors.city"></span>
                               </div>
                               <div class="col-sm-5">
                                   <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()">
+                                  <span class="regErrors" ng-bind="regErrors.state"></span>
                               </div>
                           </div>
+                          <!-- Zip -->
                           <div class="form-group">
                               <div class="col-sm-10">
                                   <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="registerAddress()">
+                                  <span class="regErrors" ng-bind="regErrors.zip"></span>
                              </div>
                           </div>
                           <!-- For Selecting Correct Location -->
@@ -130,6 +140,7 @@
                                       <label style='display: block;' ng-repeat='choice in choices track by $index'>
                                           <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice }}
                                       </label>
+                                      <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                                   </div>
                               </div>
                           </div>
@@ -141,16 +152,19 @@
                           <div class="form-group">
                               <div class="col-sm-10">
                                   <input type="email" class="form-control" id="email" placeholder="Email Address" ng-model="user.email">
+                                  <span class="regErrors" ng-bind="regErrors.email"></span>
                               </div>
                           </div>
                           <div class="form-group">
                               <div class="col-sm-10">
                                   <input type="password" class="form-control" id="password" placeholder="password" ng-model="user.password">
+                                  <span class="regErrors" ng-bind="regErrors.password"></span>
                               </div>
                           </div>
                           <div class="form-group">
                               <div class="col-sm-10">
                                   <input type="password" class="form-control" id="confirm-password" placeholder="Confirm Password" ng-model="confirmPassword">
+                                  <span class="regErrors" ng-bind="regErrors.confirmPassword"></span>
                               </div>
                           </div>
                           <div class="form-group">
@@ -164,7 +178,7 @@
                           </div>
                           <div class="form-group">
                               <div class="col-sm-10">
-                                  <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="registerUser()">REGISTER</button>
+                                  <button type="button" class="btn btn-primary" ng-click="registerUser()">REGISTER</button>
                                   <button type="button" class="btn" data-dismiss="modal">CANCEL</button>
                               </div>
                           </div>
