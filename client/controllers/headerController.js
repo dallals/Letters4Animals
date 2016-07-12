@@ -2,6 +2,17 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     $scope.user = {};
     $scope.confirmedAddress;
     $scope.address = {choice: undefined}
+    $scope.regErrors = {
+        firstName       : '',
+        lastName        : '',
+        password        : '',
+        confirmPassword : '',
+        addrNotFound    : '',
+          address       : '',
+          city          : '',
+          state         : '',
+          zip           : ''
+    };
 
     $scope.toggle = function() {
         $scope.mobile_drop = !$scope.mobile_drop;
@@ -17,6 +28,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         $scope.addr
         $scope.state
         $scope.zip
+
+        $scope.regErrors.addrNotFound = '';
+
         if ($scope.addr && $scope.city && $scope.state && $scope.zip) {
             var address = {
                 address: $scope.addr,
@@ -25,12 +39,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 zip    : $scope.zip };
 
             $http.post('/addressConfirmation', address).success(function(data) {
-                // console.log(data);
-                // $scope.confirmedAddr = data;
                 if (data == 'Not Found') {
-                    // alert(address.address + ' ' + address.state + ' ' + address.zip + ' not found. Please make sure you entered your address correctly.');
-                }
-                else {
+                    $scope.regErrors.addrNotFound = 'Address is not found, Please double check your address fields';
+                } else {
                     if (typeof(data) == 'object') {
                         // Present all the choices and wait for them to pick
                         $scope.choices = data; }
@@ -40,8 +51,32 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     }
 
     $scope.registerUser = function() {
+        $scope.regErrors = {
+            firstName       : '',
+            lastName        : '',
+            password        : '',
+            confirmPassword : '',
+            addrNotFound    : '',
+            confirmAddr     : '',
+              address         : '',
+              city            : '',
+              state           : '',
+              zip             : ''
+        };
+
         //address, city state zip
         if ( $scope.address.choice && $scope.user ){
+            if ( !$scope.user.firstName || $scope.user.firstName.trim().length < 1 ) {
+                $scope.regErrors.firstName = 'First name field must not be empty'; }
+            if ( !$scope.user.lastName || $scope.user.lastName.trim().length < 1 ) {
+                $scope.regErrors.lastName = 'Last name field must not be empty'; }
+            if ( !$scope.user.password || $scope.user.password.trim().length < 1 ) {
+                $scope.regErrors.password = 'Password must not be empty'; }
+            if ( !$scope.user.confirmPassword || $scope.user.password != $scope.user.confirmPassword ) {
+                $scope.regErrors.confirmPassword = 'Passwords must match'; }
+
+            if ( !$scope.addr || $scope.addr.trim().length < 1 ) {
+                $scope.regErrors.address = 'Address field must not be empty'; }
 
             var addrArr = $scope.address.choice.split(','),
                 last    = addrArr.length,
