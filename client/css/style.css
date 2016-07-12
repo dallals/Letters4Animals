@@ -94,15 +94,6 @@ nav{
     margin-top: 2.8% !important;
 }
 
-.active {
-     background-color: none !important;
-     color: rgb(35,161,245) !important;
-}
-
-#navbar > li > a:active{
-	color: rgb(35,161,245);
-}
-
 #page > div.ng-scope > div{
 	padding-top:15%;
 }
@@ -225,9 +216,49 @@ nav{
 	color: red;
 }
 
-
-
 /***********************RESPONSIVE*******************/
+
+@media (max-width: 1200px) {
+	.nav-tabs{
+		font-size: .7em;
+	}
+}
+
+@media (max-width: 991px) {
+	div.col-md-5.col-md-offset-1{
+		margin-top: 20%;
+	}
+	div.col-md-12{
+		margin-top:15%;
+	}
+	div.col-md-6{
+		margin-top: 20%;
+	}
+
+ div.col-xs-6.right-letter{
+	 margin-left:10%;
+	 width: 80% !important;
+	 margin-right:10% !important;
+ }
+	div.col-xs-6.left-letter{
+		margin-left:10%;
+		width: 80% !important;
+	}
+}
+
+@media (max-width: 480px) {
+	#page h3{
+		font-size: 1.5em;
+	}
+  #page > div.ng-scope > div > div:nth-child(2) > div > p{
+		font-size: .80em;
+		line-height: normal;
+	}
+
+	#page > div.ng-scope > div > div.container.links > ul{
+		font-size: .90em;
+	}
+}
 
 @media (min-width: 320px) and (max-width: 600px) {
 a.btn.btn-default.bt-lg {
