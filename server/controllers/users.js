@@ -52,6 +52,9 @@ module.exports = (function(){
                 res.json({success: false, errors: err});
             })
         },
+        login: function(req, res) {
+            console.log(req.body);
+        },
 
         //Grabbing a single user's info by ID
         getUserInfo: function(req, res) {

@@ -21,6 +21,9 @@ module.exports = function(app){
     app.post('/users', function(req,res){
         users.create(req, res);
     })
+    app.post('/login', function(req, res) {
+        users.login(req, res);
+    })
 
     // contact us
     app.post('/contact', function(req,res){

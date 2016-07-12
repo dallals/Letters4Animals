@@ -61,6 +61,13 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         }
     }
 
+    $scope.login = function() {
+        console.log($scope.loginUser);
+        $http.post('/login', $scope.loginUser).success(function() {
+            console.log('ok');
+        })
+    }
+
     $scope.registerUser = function() {
         $scope.regErrors = {
             firstName       : '',
