@@ -7,9 +7,9 @@ var users       = require('../controllers/users.js'),
 module.exports = function(app){
 
     //user queries for getting one user
-    app.get('/user', function(req, res){    // Maybe not needed
-        users.create(req, res);
-    })
+    // app.get('/user', function(req, res){    // Maybe not needed
+    //     users.create(req, res);
+    // })
     app.get('/confirmEmail/:link', function(req, res) {
         users.confirmEmail(req, res);
     })
@@ -22,6 +22,9 @@ module.exports = function(app){
     //Register New User
     app.post('/users', function(req,res){
         users.create(req, res);
+    })
+    app.post('/login', function(req, res) {
+        users.login(req, res);
     })
 
     // contact us

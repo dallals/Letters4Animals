@@ -12,6 +12,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/writealetter',{
         templateUrl: 'partials/writealetter.html',
     })
+    .when('/letter-writing-matters',{
+        templateUrl: 'partials/lettersmatter.html',
+    })
     .when('/links',{
         templateUrl: 'partials/links.html',
     })
@@ -27,10 +30,12 @@ AnimalApp.config(function ($routeProvider) {
     .when('/profile',{
         templateUrl: 'partials/profile.html',
     })
+    .when('/administrator',{
+        templateUrl: 'partials/administrator.html',
+    })
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE
-
     .otherwise({
       redirectTo: '/'
     });
