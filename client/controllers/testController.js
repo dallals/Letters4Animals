@@ -65,5 +65,11 @@ AnimalApp.controller('TestController', function($scope, $http, UserFactory) {
         });
     }
 
+    // $scope.login = function(){
+    //     UserFactory.loginUser(user, function(data){
+            
+    //     })
+    // }
+
 
 })

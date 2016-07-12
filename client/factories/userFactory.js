@@ -1,5 +1,7 @@
 AnimalApp.factory('UserFactory', function($http) {
     var factory = {};
+    var thisUser = null;
+
 
     factory.registerUser = function(user, callback) {
         //Throw to User
@@ -22,6 +24,12 @@ AnimalApp.factory('UserFactory', function($http) {
     factory.updateUser = function(userinfo) {
         $http.post('/updateUser', userinfo).success(function(){
             console.log('updated user succesfully');
+        })
+    },
+
+    factory.loginUser = function(user, callback){
+        $http.get('/login').success(function(data){
+            thisUser = data
         })
     }
 

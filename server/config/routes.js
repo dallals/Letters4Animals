@@ -17,6 +17,8 @@ module.exports = function(app){
         users.generate(req, res);
     })
 
+
+
     //Register New User
     app.post('/users', function(req,res){
         users.create(req, res);
@@ -48,4 +50,15 @@ module.exports = function(app){
     app.get('/readUsers', function(req, res) {
         users.read(req, res);
     })
+};
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+        return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
 }

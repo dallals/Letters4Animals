@@ -62,7 +62,14 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+      },
+      generateHash: function(password) {
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+      },
+      validPassword: function(password) {
+        return bcrypt.compareSync(password, this.local.password);
       }
+
     }
   });
   return Pendinguser;
