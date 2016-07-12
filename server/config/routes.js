@@ -44,4 +44,8 @@ module.exports = function(app){
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
     })
+
+    app.get('/readUsers', function(req, res) {
+        users.read(req, res);
+    })
 }
