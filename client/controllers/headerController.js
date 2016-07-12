@@ -66,6 +66,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
         //address, city state zip
         if ( $scope.address.choice && $scope.user ){
+<<<<<<< HEAD
             if ( !$scope.user.firstName || $scope.user.firstName.trim().length < 1 ) {
                 $scope.regErrors.firstName = 'First name field must not be empty'; }
             if ( !$scope.user.lastName || $scope.user.lastName.trim().length < 1 ) {
@@ -78,6 +79,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
             if ( !$scope.addr || $scope.addr.trim().length < 1 ) {
                 $scope.regErrors.address = 'Address field must not be empty'; }
 
+=======
+            // console.log($scope.address.choice)
+>>>>>>> 6170986b9b6e5c17ae62a4d9279568637be01296
             var addrArr = $scope.address.choice.split(','),
                 last    = addrArr.length,
                 address = addrArr[last-4],
