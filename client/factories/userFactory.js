@@ -10,20 +10,25 @@ AnimalApp.factory('UserFactory', function($http) {
             }
         })
         // console.log(user);
-    },
+    };
+    factory.login = function(user, callback) {
+        $http.post('/login', user).success(function(data) {
+            callback(data);
+        })
+    }
 
     // Grab user by ID, send back user data
     factory.getUser = function(userid, callback) {
         $http.post('/getUserInfo', {userid}).success(function(data) {
             callback(data);
         })
-    },
+    };
 
     factory.updateUser = function(userinfo) {
         $http.post('/updateUser', userinfo).success(function(){
             console.log('updated user succesfully');
         })
-    }
+    };
 
     return factory;
 })
