@@ -69,6 +69,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 console.log(data.errors)
             } else {
                 $('#Login').modal('toggle');
+                console.log('=========data in client-side login=========');
+                console.log(data);
+                console.log('=========data in client-side login=========');
             }
         })
     }

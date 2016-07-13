@@ -57,9 +57,12 @@ module.exports = function(app){
 
 
     // Passport testing
-    app.post('/login', passport.authenticate('local-login'), function(req, res){
+    app.post('/login', app.post('/login', passport.authenticate('local-login'), function(req, res){
+        console.log('=========req in app.post after pass.auth=========');
+        console.log(req);
+        console.log('=========req in app.post after pass.auth=========');
         users.login(req, res);
-    });
+    }));
 
 
 };

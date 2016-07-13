@@ -4,12 +4,9 @@ var LocalStrategy   = require('passport-local').Strategy;
 // load up the user model
 var models            = require('../models');
 
-console.log('in passport.js');
-
 // expose this function to our app using module.exports
 module.exports = function(passport) {
 
-    console.log('in modeule.exports');
     // =========================================================================
     // passport session setup ==================================================
     // =========================================================================
@@ -116,8 +113,8 @@ module.exports = function(passport) {
 
 
             // if the user is found but the password is wrong
-            // if (!user.validPassword(password))
-            //     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+            if (!user.validPassword(password))
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
             console.log('right before password check. user is: ', user.dataValues.first_name);
             console.log('right before password check. password is: ', password);
