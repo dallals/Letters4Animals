@@ -53,27 +53,14 @@ module.exports = (function(){
             })
         },
         login: function(req, res) {
-
-            console.log('holy shit made it to login');
-
-            console.log('=========req in login=========');
-            console.log(req.body);
-            console.log('=========req in login=========');
-            if(req.body.loginerror){
-                console.log('=========error in req.user=========');
-                console.log(req.body.loginerror);
-                console.log('=========error in req.user=========');
+            if(!req.user){
+                console.log('in server login, error');
                 res.send('ERROR');
             }
             else{
-                res.send(req.user);
+                console.log('in server login, no errors');
+                res.send('OK');
             }
-            //IF THERE'S ERRORS. CHANGE IF (FALSE) TO IF THERE ARE ERRORS
-            // if (false) {
-            //     res.json({errors: 'error'})
-            // } else {
-            //     res.json({success: 'ok'})
-            // }
         },
 
         //Grabbing a single user's info by ID

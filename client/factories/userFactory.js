@@ -17,7 +17,7 @@ AnimalApp.factory('UserFactory', function($http) {
         $http.post('/login', user).success(function(data) {
             callback(data);
         })
-    }
+    };
 
     // Grab user by ID, send back user data
     factory.getUser = function(userid, callback) {
@@ -31,5 +31,17 @@ AnimalApp.factory('UserFactory', function($http) {
             console.log('updated user succesfully');
         })
     };
+
+
+    // Passport testing
+    factory.checkLog = function(){
+        console.log('in checkLog in factory');
+        $http.post('/checkLog').success(function(data){
+            console.log('=========in checklog factory success=========');
+            console.log(data);
+            console.log('=========in checklog factory success=========');
+        })
+    }
+
     return factory;
 })

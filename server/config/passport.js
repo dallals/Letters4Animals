@@ -15,9 +15,6 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        console.log('=========in serializeUser=========');
-        console.log(user);
-        console.log('=========in serializeUser=========');
         done(null, user.id);
     });
 
@@ -106,20 +103,12 @@ module.exports = function(passport) {
         // models.User.findOne({ 'email' :  email }, function(err, user) {
         models.User.find({where: ["email = ?", email]}).then(function(user){
 
-            console.log('=========user check in passport=========');
-            console.log(user);
-            console.log('=========user check in passport=========');
-
             // if no user is found, return the message
             if (!user){
                 console.log('in user errors');
                 return done(null, false, req.body);
                 // return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
             }
-            console.log('=========found user=========');
-            console.log(user.dataValues);
-            console.log('==================');
-
 
             // if the user is found but the password is wrong
             // if (!user.validPassword(password))

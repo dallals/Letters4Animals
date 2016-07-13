@@ -18,7 +18,7 @@ LocalStrategy = require('passport-local').Strategy;
 
 app.use(cookieParser());
 app.use(flash());
-app.use(session({ secret: 'so secret' }));
+app.use(session({ secret: 'L4ASecret' }));
 app.use(passport.initialize());
 app.use(passport.session());
 require('./server/config/passport')(passport); // pass passport for configuration

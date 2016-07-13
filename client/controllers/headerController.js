@@ -62,16 +62,16 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     }
 
     $scope.login = function() {
-        console.log($scope.loginUser);
         UserFactory.login($scope.loginUser, function(data) {
-            console.log('ok');
-            console.log('=========data=========');
+            console.log('=========login data=========');
             console.log(data);
-            console.log('=========data=========');
+            console.log('=========login data=========');
             if (data) {
+                console.log('login successful');
                 $('#Login').modal('toggle');
             }
             else{
+                console.log('login failed');
                 // Put in error message here
                 //
                 //
