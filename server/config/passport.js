@@ -15,14 +15,19 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
+        console.log('user serialized');
         done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        models.User.findById(id, function(err, user) {
-            done(err, user);
+        console.log('user deserialized');
+        models.User.find({where: ["id = ?", id]}).then(function(data){  // I spent 5 hours of my life figuring out that we needed to change this one line. How's your day going?
+            done(null, data.dataValues);
         });
+        // models.User.findById(id, function(err, user) {
+        //     done(err, user);
+        // });
     });
 
     // =========================================================================
@@ -106,8 +111,8 @@ module.exports = function(passport) {
             // if no user is found, return the message
             if (!user){
                 console.log('in user errors');
-                return done(null, false, req.body);
-                // return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                // return done(null, false, req.body);
+                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
             }
 
             // if the user is found but the password is wrong
@@ -117,10 +122,6 @@ module.exports = function(passport) {
             console.log('right before password check. user is: ', user.dataValues.first_name);
             console.log('right before password check. password is: ', password);
             if( user.dataValues.password == password){
-                console.log('=========returning user=========');
-                console.log(user.dataValues);
-                console.log('==================');
-
                 // all is well, return successful user
                 return done(null, user.dataValues);
                 // res.json({success: true});

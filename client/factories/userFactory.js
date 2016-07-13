@@ -15,6 +15,9 @@ AnimalApp.factory('UserFactory', function($http) {
     };
     factory.login = function(user, callback) {
         $http.post('/login', user).success(function(data) {
+            console.log('=========data in factory=========');
+            console.log(data);
+            console.log('=========data in factory=========');
             callback(data);
         })
     };
@@ -32,16 +35,6 @@ AnimalApp.factory('UserFactory', function($http) {
         })
     };
 
-
-    // Passport testing
-    factory.checkLog = function(){
-        console.log('in checkLog in factory');
-        $http.post('/checkLog').success(function(data){
-            console.log('=========in checklog factory success=========');
-            console.log(data);
-            console.log('=========in checklog factory success=========');
-        })
-    }
 
     return factory;
 })

@@ -52,10 +52,54 @@ module.exports = function(app){
         users.read(req, res);
     })
 
+    // app.get('/testLogin', function(req, res){
+    //     console.log('=========req.user in /testLogin=========');
+    //     console.log(req.user);
+    //     console.log('=========req.user in /testLogin=========');
+    // })
+    // app.get('/testLogin2', function(req, res){
+    //     console.log('=========req.user in /testLogin2=========');
+    //     console.log(req.user);
+    //     console.log('=========req.user in /testLogin2=========');
+    // })
 
     // Passport testing
-    app.post('/login', passport.authenticate('local-login'), function(req, res){
-        users.login(req, res);
+    // app.post('/login', passport.authenticate('local-login'), function(req, res){
+    //     console.log('logged in successfull');
+    //     users.login(req, res);
+    // });
+
+    // app.post('/login', function(req, res){
+    //     passport.authenticate('local-login')(req, res);
+    // });
+
+    // app.post('/login', passport.authenticate('local-login', {
+    //     successRedirect : '/testLogin', // redirect to the secure profile section
+    //     failureRedirect : '/testLogin2', // redirect back to the signup page if there is an error
+    //     failureFlash : true // allow flash messages
+    // }));
+
+    app.post('/login', function(req, res, next) {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.status(401).json({
+                    err: info
+                });
+            }
+            req.logIn(user, function(err) {
+                if (err) {
+                    return res.status(500).json({
+                        err: 'Could not log in user'
+                    });
+                }
+                res.status(200).json({
+                    status: 'Login successful!'
+                });
+            });
+        })(req, res, next);
     });
 
     // app.post('/login', function(req, res, next) {
