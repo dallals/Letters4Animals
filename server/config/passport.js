@@ -15,15 +15,23 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
+        var current_user = { _id: user._id, first_name: user.first_name, last_name: user.last_name, email: user.email }
+        console.log(current_user)
         done(null, user.id);
     });
 
     // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        });
-    });
+    // passport.deserializeUser(function(id, done) {
+    //     User.findById(id, function(err, user) {
+    //         done(err, user);
+    //     });
+    // });
+
+        passport.deserializeUser( (current_user, done) => {
+  // The sessionUser object is different from the user mongoose collection
+  // it's actually req.session.passport.user and comes from the session collection
+        done(null, current_user)
+        })
 
     // =========================================================================
     // LOCAL SIGNUP ============================================================
