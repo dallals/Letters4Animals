@@ -57,12 +57,27 @@ module.exports = function(app){
 
 
     // Passport testing
-    app.post('/login', app.post('/login', passport.authenticate('local-login'), function(req, res){
-        console.log('=========req in app.post after pass.auth=========');
-        console.log(req);
-        console.log('=========req in app.post after pass.auth=========');
-        users.login(req, res);
-    }));
+    // app.post('/login', passport.authenticate('local-login'), function(req, res){
+    //     console.log('=========req in app.post after pass.auth=========');
+    //     console.log(req.body);
+    //     console.log('=========req in app.post after pass.auth=========');
+    //     users.login(req, res);
+    // });
+
+    app.post('/login', function(req, res, next) {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) {
+                return next(err); // will generate a 500 error
+            }
+            // Generate a JSON response reflecting authentication status
+            if (! user) {
+                return res.send({ success : false, message : 'authentication failed' });
+            }
+            else{
+                return res.json(user);
+            }
+        })(req, res, next);
+    });
 
 
 };

@@ -68,10 +68,15 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
             if (data.errors) {
                 console.log(data.errors)
             } else {
-                $('#Login').modal('toggle');
-                console.log('=========data in client-side login=========');
-                console.log(data);
-                console.log('=========data in client-side login=========');
+                if(!data.success){
+                    console.log('in $scope.login error handling');
+                    console.log('=========data in client-side login=========');
+                    console.log(data);
+                    console.log('=========data in client-side login=========');
+                }
+                else{
+                    $('#Login').modal('toggle');
+                }
             }
         })
     }

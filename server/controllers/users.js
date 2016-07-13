@@ -59,8 +59,15 @@ module.exports = (function(){
             console.log('=========req.user in login=========');
             console.log(req.user);
             console.log('=========req.user in login=========');
-
-            res.json(req.user);
+            if(req.body.loginerror){
+                console.log('=========error in req.user=========');
+                console.log(req.body.loginerror);
+                console.log('=========error in req.user=========');
+                res.send('ERROR');
+            }
+            else{
+                res.json(req.user);
+            }
             //IF THERE'S ERRORS. CHANGE IF (FALSE) TO IF THERE ARE ERRORS
             // if (false) {
             //     res.json({errors: 'error'})

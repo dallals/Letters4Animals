@@ -15,6 +15,9 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
+        console.log('=========in serializeUser=========');
+        console.log(user);
+        console.log('=========in serializeUser=========');
         done(null, user.id);
     });
 
@@ -103,9 +106,15 @@ module.exports = function(passport) {
         // models.User.findOne({ 'email' :  email }, function(err, user) {
         models.User.find({where: ["email = ?", email]}).then(function(user){
 
+            console.log('=========user check in passport=========');
+            console.log(user);
+            console.log('=========user check in passport=========');
+
             // if no user is found, return the message
             if (!user){
-                return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                console.log('in user errors');
+                return done(null, false, req.body);
+                // return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
             }
             console.log('=========found user=========');
             console.log(user.dataValues);
@@ -113,8 +122,8 @@ module.exports = function(passport) {
 
 
             // if the user is found but the password is wrong
-            if (!user.validPassword(password))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+            // if (!user.validPassword(password))
+            //     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
             console.log('right before password check. user is: ', user.dataValues.first_name);
             console.log('right before password check. password is: ', password);
@@ -128,13 +137,16 @@ module.exports = function(passport) {
                 // res.json({success: true});
             }
         })
-        .catch(function(err){
-            // if there are any errors, return the error before anything else
-            if (err){
-                return done(err);
-                // res.json({success: false});
-            }
-        })
+        // .catch(function(err){
+        //     console.log('=========error check in passport .catch=========');
+        //     console.log(err);
+        //     console.log('=========error check in passport .catch=========');
+        //     // if there are any errors, return the error before anything else
+        //     if (err){
+        //         return done(err);
+        //         // res.json({success: false});
+        //     }
+        // })
     // );
 
     }));    // End of Local Login strategy
