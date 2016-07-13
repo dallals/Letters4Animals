@@ -33,6 +33,12 @@ AnimalApp.config(function ($routeProvider) {
     .when('/administrator',{
         templateUrl: 'partials/administrator.html',
     })
+    .when('/causeadmin',{
+        templateUrl: 'partials/causeadmin.html',
+    })
+    .when('/letteradmin',{
+        templateUrl: 'partials/letteradmin.html',
+    })
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE

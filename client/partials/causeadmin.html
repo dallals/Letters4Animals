@@ -1,0 +1,35 @@
+<div id="main">
+  <a href="#administrator"><button class="btn btn-info">Back to Admin Panel</button></a>
+
+  <h2>Add & Edit a Cause</h2>
+
+  <form name="causeadmin" ng-controller="adminController" ng-model="cause">
+    <label>Cause Name</label><br><input type="text" name="causename"><br><br>
+    <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
+
+    <div class="halfsection">
+      <h4>Recipients</h4>
+        <input type="checkbox" ng-model="checkboxModel.president"><label> President</label><br>
+        <input type="checkbox" ng-model="checkboxModel.senator"> <label> Senators</label><br>
+        <input type="checkbox" ng-model="checkboxModel.house"><label> House of Representatives</label><br>
+        <input type="checkbox" ng-model="checkboxModel.special"><label> Special Purpose</label><br>
+        <input type="checkbox" ng-model="checkboxModel.governor"><label> Govenor</label><br>
+        <input type="checkbox" ng-model="checkboxModel.school"><label> School Board</label><br>
+    </div>
+
+    <div class="halfsection">
+      <h4>Other Recipients</h4>
+      <input type="text" name="other_recipient" ng-model="cause.addlrecipients">
+    </div>
+
+    <div class="letter content">
+      <h4>Letter Content</h4>
+      <textarea  name="string" class="lettertext" ng-model="cause.lettertext" required></textarea>
+    </div>
+
+    <input type="submit" class="btn btn-success" id="update_cause" name="update_cause" value="Update Cause"></input>
+    <input type="submit" class="btn btn-success" id="new_cause" name="new_cause" value="Add Cause"></input>
+
+  </form>
+
+</div>
