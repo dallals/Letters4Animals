@@ -15,7 +15,7 @@ module.exports = {
     return queryInterface.bulkInsert('Users', [{
         first_name: 'User1',
         last_name: 'last name of user 1',
-        email: 'test@test.scom',
+        email: 'test@test.com',
         password: 'test',
         street_address: '123 way',
         city: '123 city',
@@ -31,7 +31,7 @@ module.exports = {
       },{
         first_name: 'User2',
         last_name: 'last name of user 2',
-        email: 'test2@test2.scom',
+        email: 'test2@test2.com',
         password: 'test',
         street_address: '112323 way',
         city: '123434 city',
@@ -47,7 +47,7 @@ module.exports = {
       },{
         first_name: 'User3',
         last_name: 'last name of user 3',
-        email: 'test3@test3.scom',
+        email: 'test3@test3.com',
         password: 'test',
         street_address: '112312323 way',
         city: '123333 city',

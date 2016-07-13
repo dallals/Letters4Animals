@@ -17,9 +17,9 @@ module.exports = {
       description: 'Test Causes 1',
       letter_body: 'letter_body letter_body letter_body',
       rep_level: 'Senator',
-      enable: true,
+      enabled: true,
       fixed: false,
-      fixed_address: '717 South Leaf Dr.'
+      fixed_address: '717 South Leaf Dr.',
       createdAt: new Date(),
       updatedAt: new Date()
     },{
@@ -27,9 +27,9 @@ module.exports = {
       description: 'Test Causes 2',
       letter_body: 'letter_body letter_body letter_body',
       rep_level: 'Obama',
-      enable: true,
+      enabled: true,
       fixed: false,
-      fixed_address: '717 South Leaf Dr.'
+      fixed_address: '717 South Leaf Dr.',
       createdAt: new Date(),
       updatedAt: new Date()
 
