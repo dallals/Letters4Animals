@@ -56,9 +56,9 @@ module.exports = (function(){
 
             console.log('holy shit made it to login');
 
-            console.log('=========req.user in login=========');
-            console.log(req.user);
-            console.log('=========req.user in login=========');
+            console.log('=========req in login=========');
+            console.log(req.body);
+            console.log('=========req in login=========');
             if(req.body.loginerror){
                 console.log('=========error in req.user=========');
                 console.log(req.body.loginerror);
@@ -66,7 +66,7 @@ module.exports = (function(){
                 res.send('ERROR');
             }
             else{
-                res.json(req.user);
+                res.send(req.user);
             }
             //IF THERE'S ERRORS. CHANGE IF (FALSE) TO IF THERE ARE ERRORS
             // if (false) {

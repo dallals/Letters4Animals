@@ -65,18 +65,17 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         console.log($scope.loginUser);
         UserFactory.login($scope.loginUser, function(data) {
             console.log('ok');
-            if (data.errors) {
-                console.log(data.errors)
-            } else {
-                if(!data.success){
-                    console.log('in $scope.login error handling');
-                    console.log('=========data in client-side login=========');
-                    console.log(data);
-                    console.log('=========data in client-side login=========');
-                }
-                else{
-                    $('#Login').modal('toggle');
-                }
+            console.log('=========data=========');
+            console.log(data);
+            console.log('=========data=========');
+            if (data) {
+                $('#Login').modal('toggle');
+            }
+            else{
+                // Put in error message here
+                //
+                //
+                ////////////////////////////
             }
         })
     }
