@@ -2,7 +2,8 @@
 var users       = require('../controllers/users.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
-    reps        = require('../controllers/representatives.js');
+    reps        = require('../controllers/representatives.js'),
+    passport    = require("passport");
 //
 module.exports = function(app){
 
@@ -23,9 +24,9 @@ module.exports = function(app){
     app.post('/users', function(req,res){
         users.create(req, res);
     })
-    app.post('/login', function(req, res) {
-        users.login(req, res);
-    })
+    // app.post('/login', function(req, res) {
+    //     users.login(req, res);
+    // })
 
     // contact us
     app.post('/contact', function(req,res){
@@ -53,12 +54,20 @@ module.exports = function(app){
     app.get('/readUsers', function(req, res) {
         users.read(req, res);
     })
+
+
+    // Passport testing
+    app.post('/login', passport.authenticate('local-login'), function(req, res){
+        users.login(req, res);
+    });
+
+
 };
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
+    // if user is authenticated in the session, carry on
     if (req.isAuthenticated())
         return next();
 

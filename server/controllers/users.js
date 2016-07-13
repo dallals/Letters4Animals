@@ -53,13 +53,16 @@ module.exports = (function(){
             })
         },
         login: function(req, res) {
+
+            console.log('holy shit made it to login');
+
             console.log(req.body);
             //IF THERE'S ERRORS. CHANGE IF (FALSE) TO IF THERE ARE ERRORS
-            if (false) {
-                res.json({errors: 'error'})
-            } else {
-                res.json({success: 'ok'})
-            }
+            // if (false) {
+            //     res.json({errors: 'error'})
+            // } else {
+            //     res.json({success: 'ok'})
+            // }
         },
 
         //Grabbing a single user's info by ID
