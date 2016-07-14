@@ -1,5 +1,7 @@
 AnimalApp.controller('headerController', function ($scope, $routeParams, $location,$route, $http, UserFactory) {
     $scope.user = {};
+    $scope.loggedUser = {};
+    $scope.loggedIn = false;
     $scope.confirmedAddress;
     $scope.address = {choice: undefined}
     $scope.regErrors = {
@@ -24,6 +26,16 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         state               : 'State field is required',
         zip                 : 'Zip field is required'
     }
+
+
+    // Checking login status
+    UserFactory.isLoggedIn(function(user){
+        if(user.id){
+            $scope.loggedUser = user;
+            $scope.loggedIn = true;
+        }
+    });
+
 
     $scope.toggle = function() {
         $scope.mobile_drop = !$scope.mobile_drop;
@@ -64,6 +76,8 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     $scope.login = function() {
         UserFactory.login($scope.loginUser, function(data) {
             if (data) {
+                $scope.loggedUser = data;
+                $scope.loggedIn = true;
                 $('#Login').modal('toggle');
             }
             else{
@@ -74,6 +88,14 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 ////////////////////////////
             }
         })
+    }
+
+    $scope.logout = function() {
+        // UserFactory.logout();
+        $http.get('/logout');
+        $scope.loggedUser = {};
+        $scope.loggedIn = false;
+        $location.url('/');
     }
 
     $scope.registerUser = function() {

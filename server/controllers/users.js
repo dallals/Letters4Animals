@@ -52,19 +52,6 @@ module.exports = (function(){
                 res.json({success: false, errors: err});
             })
         },
-        // login: function(req, res) {
-        //     if(!req.user){
-        //         console.log('in server login, error');
-        //         res.send('ERROR');
-        //     }
-        //     else{
-        //         console.log('in server login, no errors');
-        //         console.log('=========req.user=========');
-        //         console.log(req.user);
-        //         console.log('=========req.user=========');
-        //         res.json(req.user);
-        //     }
-        // },
 
         //Grabbing a single user's info by ID
         getUserInfo: function(req, res) {

@@ -13,13 +13,22 @@ AnimalApp.factory('UserFactory', function($http) {
         })
         // console.log(user);
     };
+
     factory.login = function(user, callback) {
         $http.post('/login', user).success(function(data) {
-            console.log('=========data in factory=========');
-            console.log(data);
-            console.log('=========data in factory=========');
             callback(data);
         })
+    };
+    // Manual login status check, to be used on controller loads
+    factory.isLoggedIn = function(callback){
+        $http.get('/checkLogin').success(function(user){
+            if(user.id){
+                callback(user);
+            }
+            else{
+                callback('NO');
+            }
+        });
     };
 
     // Grab user by ID, send back user data

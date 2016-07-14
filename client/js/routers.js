@@ -1,48 +1,37 @@
 AnimalApp.config(function ($routeProvider) {
   $routeProvider
     .when('/',{
-        templateUrl: 'partials/home.html',
-        access: {restricted: false}
+        templateUrl: 'partials/home.html'
     })
     .when('/home',{
-        templateUrl: 'partials/home.html',
-        access: {restricted: false}
+        templateUrl: 'partials/home.html'
     })
     .when('/aboutus',{
-        templateUrl: 'partials/aboutus.html',
-        access: {restricted: false}
+        templateUrl: 'partials/aboutus.html'
     })
     .when('/writealetter',{
-        templateUrl: 'partials/writealetter.html',
-        access: {restricted: false}
+        templateUrl: 'partials/writealetter.html'
     })
     .when('/letter-writing-matters',{
-        templateUrl: 'partials/lettersmatter.html',
-        access: {restricted: false}
+        templateUrl: 'partials/lettersmatter.html'
     })
     .when('/links',{
-        templateUrl: 'partials/links.html',
-        access: {restricted: false}
+        templateUrl: 'partials/links.html'
     })
     .when('/issues',{
-        templateUrl: 'partials/issues.html',
-        access: {restricted: false}
+        templateUrl: 'partials/issues.html'
     })
     .when('/issuessec',{
-        templateUrl: 'partials/issues.html',
-        access: {restricted: false}
+        templateUrl: 'partials/issues.html'
     })
     .when('/contact',{
-        templateUrl: 'partials/contact.html',
-        access: {restricted: false}
+        templateUrl: 'partials/contact.html'
     })
     .when('/profile',{
-        templateUrl: 'partials/profile.html',
-        access: {restricted: false}
+        templateUrl: 'partials/profile.html'
     })
     .when('/administrator',{
-        templateUrl: 'partials/administrator.html',
-        access: {restricted: true}
+        templateUrl: 'partials/administrator.html'
     })
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'

@@ -72,6 +72,7 @@ AnimalApp.controller('TestController', function($scope, $http, $location, UserFa
             console.log('=========login data=========');
             if (data) {
                 console.log('login successful');
+                $scope.loggedUser = data;
                 // $location.url('/issues');
                 // $('#Login').modal('toggle');
             }

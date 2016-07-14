@@ -15,15 +15,10 @@ module.exports = function(app){
         users.generate(req, res);
     })
 
-
-
     //Register New User
     app.post('/users', function(req,res){
         users.create(req, res);
     })
-    // app.post('/login', function(req, res) {
-    //     users.login(req, res);
-    // })
 
     // contact us
     app.post('/contact', function(req,res){
@@ -52,33 +47,7 @@ module.exports = function(app){
         users.read(req, res);
     })
 
-    // app.get('/testLogin', function(req, res){
-    //     console.log('=========req.user in /testLogin=========');
-    //     console.log(req.user);
-    //     console.log('=========req.user in /testLogin=========');
-    // })
-    // app.get('/testLogin2', function(req, res){
-    //     console.log('=========req.user in /testLogin2=========');
-    //     console.log(req.user);
-    //     console.log('=========req.user in /testLogin2=========');
-    // })
-
     // Passport testing
-    // app.post('/login', passport.authenticate('local-login'), function(req, res){
-    //     console.log('logged in successfull');
-    //     users.login(req, res);
-    // });
-
-    // app.post('/login', function(req, res){
-    //     passport.authenticate('local-login')(req, res);
-    // });
-
-    // app.post('/login', passport.authenticate('local-login', {
-    //     successRedirect : '/testLogin', // redirect to the secure profile section
-    //     failureRedirect : '/testLogin2', // redirect back to the signup page if there is an error
-    //     failureFlash : true // allow flash messages
-    // }));
-
     app.post('/login', function(req, res, next) {
         passport.authenticate('local-login', function(err, user, info) {
             if (err) {
@@ -95,28 +64,23 @@ module.exports = function(app){
                         err: 'Could not log in user'
                     });
                 }
-                res.status(200).json({
-                    status: 'Login successful!'
-                });
+                return res.json(user);
             });
         })(req, res, next);
     });
 
-    // app.post('/login', function(req, res, next) {
-    //     passport.authenticate('local-login', function(err, user, info) {
-    //         if (err) {
-    //             return next(err); // will generate a 500 error
-    //         }
-    //         // Generate a JSON response reflecting authentication status
-    //         if (! user) {
-    //             return res.send({ success : false, message : 'authentication failed' });
-    //         }
-    //         // else{
-    //             users.login(req, res);
-    //         // }
-    //     })(req, res, next);
-    // });
+    app.get('/logout', function(req, res){
+        req.logout();
+        res.send('Logout Ok');
+    });
 
+    app.get('/checkLogin', isLoggedIn, function(req, res){
+        res.json(req.user);
+    });
+
+    app.get('/profile', isLoggedIn, function(req, res){
+        res.redirect('/');
+    })
 
 };
 
@@ -124,9 +88,11 @@ module.exports = function(app){
 function isLoggedIn(req, res, next) {
 
     // if user is authenticated in the session, carry on
-    if (req.isAuthenticated())
+    if (req.isAuthenticated()){
+        console.log('IS AUTHENTICATED BEEP BOOP');
         return next();
+    }
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    return res.redirect('/');
 }
