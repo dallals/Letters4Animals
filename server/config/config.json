@@ -14,7 +14,7 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "sharolchand",
+      "username": "sharolchand",
     "password": null,
     "database": "Letters4Animals",
     "host": "127.0.0.1",

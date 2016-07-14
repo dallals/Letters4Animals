@@ -54,6 +54,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     verify_url: {
       type: DataTypes.STRING,
       allowNull:true
@@ -62,7 +66,14 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
+      },
+      generateHash: function(password) {
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+      },
+      validPassword: function(password) {
+        return bcrypt.compareSync(password, this.local.password);
       }
+
     }
   });
   return Pendinguser;

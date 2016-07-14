@@ -5,7 +5,24 @@ var path = require('path');
 var debug = require('debug')('Letters4Animals-master:server');
 var http = require('http');
 var models = require('./server/models');
+var flash = require("connect-flash");
+var passport = require("passport");
+var cookieParser = require("cookie-parser");
+var session = require("express-session");
+var morgan = require('morgan');
 
+LocalStrategy = require('passport-local').Strategy;
+
+// passport ///////////////////////////////////////
+// app.use(morgan('dev')); // log every request to the console
+
+app.use(cookieParser());
+app.use(flash());
+app.use(session({ secret: 'L4ASecret' }));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./server/config/passport')(passport); // pass passport for configuration
+////////////////////////////////////////////////////
 
 
 app.use(bodyParser.json());
@@ -14,6 +31,8 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, './client')));
 require('./server/config/routes.js')(app);
+
+// app.use(app.router);
 
 /**
  * Get port from environment and store in Express.

@@ -1,8 +1,6 @@
 var models = require('../models');
 var emailConfLinks = [],
     genLength      = 50;
-// var user = require('../models/user.js');
-
 
 var emailConfGen = function(i, gen) {
     var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -10,10 +8,6 @@ var emailConfGen = function(i, gen) {
     if (gen===undefined) {gen = ''} else {gen += valid[Math.floor(Math.random()*valid.length)]}
     if (i<genLength)     {return emailConfGen(i, gen)} else {emailConfLinks.push(gen); return gen;}
 }
-var includesS = function(haystack, needle) {
-}
-
-var models = require('../models');
 
 module.exports = (function(){
   return {
@@ -23,35 +17,73 @@ module.exports = (function(){
             res.send(gen)
         },
         confirmEmail: function(req, res) {
-            var contains = false;
-            for (var hay of emailConfLinks) {
-                if (hay == req.params.link) {
-                    contains = true; }
-            }
-            if (contains) {
-                emailConfLinks.splice(emailConfLinks.indexOf(req.params.link),1); }
-            res.send(emailConfLinks);
+
+            models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
+                console.log('in confirmEmail');
+                if(user){
+                    console.log(user.dataValues);
+                    // console.log(user.dataValues.first_name);
+                    founduser = user.dataValues
+                    deleteid = founduser.id
+                    founduser.id = null;
+                    models.User.create(founduser).then(function(createdUser) {
+                        //Does this after creating
+                        founduser.id = deleteid;
+                        user.destroy();
+                        // console.log(user);
+                        res.json({success: true, errors: null});
+                    }).catch(function(err) {
+                    //Catches Errors
+                        // console.log(err);
+                        res.json({success: false, errors: err});
+                    })
+
+                }
+                else {
+                    res.json('Pending user Not Found');
+                }
+            })
         },
         create: function(req, res) {
-            console.log(req.body)
+            // console.log(req.body)
 
-            models.Pendinguser.create({
-                first_name: req.body.firstName,
-                last_name: req.body.lastName,
-                email: req.body.email,
-                password: req.body.password,
-                street_address: req.body.address,
-                city: req.body.city,
-                state: req.body.state,
-                zipcode: req.body.zip,
-                phone_number: req.body.phoneNumber,
-                volunteer: req.body.volunteer
+            models.User.find({where: ["email = ?", req.body.email]}).then(function(founduser){
+                if(founduser){
+                    console.log('User with that email already exists');
+                    res.json('User with that email already exists');
+                }
+                else {
+                    var randString = emailConfGen(20);
+                    models.Pendinguser.create({
+                        first_name: req.body.firstName,
+                        last_name: req.body.lastName,
+                        email: req.body.email,
+                        password: req.body.password,
+                        street_address: req.body.address,
+                        city: req.body.city,
+                        state: req.body.state,
+                        zipcode: req.body.zip,
+                        phone_number: req.body.phoneNumber,
+                        volunteer: req.body.volunteer,
+                        admin: false,
+                        verify_url: randString
+                    }).then(function(user) {
+                    //Does this after creating
+                        // console.log(user);
+                        res.json({success: true, errors: null});
+                    }).catch(function(err) {
+                    //Catches Errors
+                        // console.log(err);
+                        res.json({success: false, errors: err});
+                    })
+                }
             })
         },
 
         //Grabbing a single user's info by ID
         getUserInfo: function(req, res) {
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
+                console.log('in user info');
                 if(data){
                     res.json(data.dataValues);
                 }
@@ -67,18 +99,23 @@ module.exports = (function(){
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
-        read: function(req, res){
-            // models.user.find({}, function(err, data){
-                console.log("dfsdfsdf")
-                // console.log(models)
+        getAllUsers: function(req, res){
+            console.log("in getAllUsers");
             models.User.findAll({}).then(function(data){
-                // if(err){
-                //     console.log(err)
-                // }
-                // else{
-                    console.log(data)
-                    res.json(data)
-                // }
+                res.json(data);
+            })
+        },
+
+        delUser: function(req, res){
+            console.log('in delUser');
+            // Find user and delete him
+            models.User.find({where: ['id = ?', req.body.id]}).then(function(user){
+                user.destroy().then(function(){
+                    // Send back all remaining users
+                    models.User.findAll({}).then(function(users){
+                        res.json(users);
+                    })
+                })
             })
         }
 

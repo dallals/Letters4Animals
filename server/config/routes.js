@@ -1,20 +1,22 @@
 //
 var users       = require('../controllers/users.js'),
+    causes      = require('../controllers/causes.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
-    reps        = require('../controllers/representatives.js');
+    reps        = require('../controllers/representatives.js'),
+    passport    = require("passport");
 //
 module.exports = function(app){
 
     //user queries for getting one user
-    app.get('/user', function(req, res){    // Maybe not needed
-        users.create(req, res);
-    })
     app.get('/confirmEmail/:link', function(req, res) {
         users.confirmEmail(req, res);
     })
     app.get('/generate', function(req, res) {
         users.generate(req, res);
+    })
+    app.post('/confEmail', function(req, res){
+        contact.confEmail(req, res);
     })
 
     //Register New User
@@ -44,8 +46,70 @@ module.exports = function(app){
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
     })
-
-    app.get('/readUsers', function(req, res) {
-        users.read(req, res);
+    //Grabbing all users
+    app.get('/getAllUsers', function(req, res) {
+        users.getAllUsers(req, res);
     })
+    //Deleting user, returning all remaining users
+    app.post('/delUser', function(req, res) {
+        users.delUser(req, res);
+    })
+
+    // Passport login
+    app.post('/login', function(req, res, next) {
+        passport.authenticate('local-login', function(err, user, info) {
+            if (err) {
+                return next(err);
+            }
+            if (!user) {
+                return res.status(401).json({
+                    err: info
+                });
+            }
+            req.logIn(user, function(err) {
+                if (err) {
+                    return res.status(500).json({
+                        err: 'Could not log in user'
+                    });
+                }
+                return res.json(user);
+            });
+        })(req, res, next);
+    });
+
+    app.get('/logout', function(req, res){
+        req.logout();
+        res.send('Logout Ok');
+    });
+
+    app.get('/checkLogin', isLoggedIn, function(req, res){
+        res.json(req.user);
+    });
+
+    app.get('/profile', isLoggedIn, function(req, res){
+        res.redirect('/');
+    })
+
+    // Causes
+    app.get('/getAllCauses', function(req, res){
+        causes.getAllCauses(req, res);
+    })
+
+    app.post('/delCause', function(req, res){
+        causes.delCause(req, res);
+    })
+
+};
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on
+    if (req.isAuthenticated()){
+        console.log('IS AUTHENTICATED BEEP BOOP');
+        return next();
+    }
+
+    // if they aren't redirect them to the home page
+    return res.redirect('/');
 }

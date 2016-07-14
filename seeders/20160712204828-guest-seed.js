@@ -12,60 +12,37 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Users', [{
+    return queryInterface.bulkInsert('Guests', [{
         first_name: 'User1',
         last_name: 'last name of user 1',
-        email: 'test@test.com',
-        password: 'test',
         street_address: '123 way',
         city: '123 city',
         state: 'CA',
         zipcode: 12344,
-        phone_notification: false,
-        email_notification: false,
-        volunteer: false,
-        admin: false,
-        phone_number: "123456778",
-        login_count: 0,
+        cause_id: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },{
         first_name: 'User2',
         last_name: 'last name of user 2',
-        email: 'test2@test2.com',
-        password: 'test',
-        street_address: '112323 way',
-        city: '123434 city',
-        state: 'WA',
-        zipcode: 22344,
-        phone_notification: false,
-        email_notification: false,
-        volunteer: false,
-        admin: false,
-        phone_number: "333456778",
-        login_count: 0,
+        street_address: '123 way',
+        city: '123 city',
+        state: 'CA',
+        zipcode: 12344,
+        cause_id: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },{
         first_name: 'User3',
         last_name: 'last name of user 3',
-        email: 'test3@test3.com',
-        password: 'test',
-        street_address: '112312323 way',
-        city: '123333 city',
+        street_address: '123 way',
+        city: '123 city',
         state: 'CA',
-        zipcode: 55554,
-        phone_notification: false,
-        email_notification: false,
-        volunteer: false,
-        admin: false,
-        phone_number: "2554356778",
-        login_count: 0,
+        zipcode: 12344,
+        cause_id: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
-
-
   },
 
   down: function (queryInterface, Sequelize) {
@@ -76,6 +53,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-      return queryInterface.bulkDelete('Users', null, {});
+    return queryInterface.bulkDelete('Guests', null, {});
   }
 };

@@ -1,4 +1,3 @@
-
 /*HEADER- Basic CSS*/
 
 body{
@@ -13,7 +12,7 @@ body{
   background:#ffffff;
   font-weight:500;
   position:fixed;
-  z-index: 9999;
+  z-index: 999;
   display:inline-block;
   border-bottom: solid 1.5px rgba(180, 179, 182, 0.5);
   transition:background-color 0.4s, color 0.4s, transform 0s, opacity 0s ease-in-out;
@@ -75,8 +74,9 @@ body{
   color: rgba(68, 68, 68, 0.60);
 }
 
-#navbar > li:active {
-    color: rgb(35,161,245) !important;
+.activemenu {
+     background-color: none !important;
+     color: rgb(35,161,245) !important;
 }
 
 .fixed {
@@ -94,13 +94,14 @@ body{
   padding-top:1% !important;
   margin:0px !important;
   padding-bottom:1% !important;
+  z-index: 1015;
 }
-
 
 .reducemenu{
   padding-top:1% !important;
   margin:1% !important;
   padding-bottom:1% !important;
+  z-index: 1015;
 }
 
 #buttonnav{
@@ -129,9 +130,9 @@ body{
 @media (max-width: 1060px) {
   #menu{
     padding-left:2%;
-    margin-top:2%;
+    margin-top:4.5%;
     padding-right:0px;
-    width: 60%;
+    width: 65%;
     font-weight:500;
     font-size: 1em;
   }
@@ -177,7 +178,7 @@ body{
     padding-left:1%;
     padding-right:0px;
     padding-bottom:0px;
-    width:60%;
+    width:70%;
     margin-top:.5%;
     float:right;
   }
@@ -208,6 +209,7 @@ body{
 
   #mobile-nav > div.responsive-menu > ul{
     width:100px;
+    z-index: 1015 !important;
   }
 
   #mobile-nav li {
@@ -277,7 +279,7 @@ body{
       width: 150px;
       padding-bottom: 20px;
       text-align: center;
-      z-index: 99 !important;
+      z-index: 1015 !important;
     }
 
     .responsive-menu li{
