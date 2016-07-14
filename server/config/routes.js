@@ -1,5 +1,6 @@
 //
 var users       = require('../controllers/users.js'),
+    causes      = require('../controllers/causes.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
     reps        = require('../controllers/representatives.js'),
@@ -13,6 +14,9 @@ module.exports = function(app){
     })
     app.get('/generate', function(req, res) {
         users.generate(req, res);
+    })
+    app.post('/confEmail', function(req, res){
+        contact.confEmail(req, res);
     })
 
     //Register New User
@@ -42,14 +46,16 @@ module.exports = function(app){
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
     })
-
-    app.get('/readUsers', function(req, res) {
-        users.read(req, res);
+    //Grabbing all users
+    app.get('/getAllUsers', function(req, res) {
+        users.getAllUsers(req, res);
+    })
+    //Deleting user, returning all remaining users
+    app.post('/delUser', function(req, res) {
+        users.delUser(req, res);
     })
 
-
-
-    // Passport testing
+    // Passport login
     app.post('/login', function(req, res, next) {
         passport.authenticate('local-login', function(err, user, info) {
             if (err) {
@@ -84,6 +90,14 @@ module.exports = function(app){
         res.redirect('/');
     })
 
+    // Causes
+    app.get('/getAllCauses', function(req, res){
+        causes.getAllCauses(req, res);
+    })
+
+    app.post('/delCause', function(req, res){
+        causes.delCause(req, res);
+    })
 
 };
 

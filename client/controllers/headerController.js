@@ -194,6 +194,24 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 }
 
                 if (bevalid) {
+
+                    // Send confirmation email
+                    var confEmail = {
+                        first_name  : $scope.user.firstName,
+                        last_name   : $scope.user.lastName,
+                        rand_url    : data.string,
+                        email       : $scope.user.email
+                    }
+                    $http.post('/confEmail', confEmail).success(function(result){
+                        console.log('=========post contact=========');
+                        console.log(result);
+                        console.log('=========post contact=========');
+                    });
+
+                    $('#Register').modal('toggle')
+                      swal("Thanks for registering!", "Please check your email for a link to activate your account", "success");
+
+
                     $scope.user = {
                         firstName: '',
                         lastName: '',
@@ -206,7 +224,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                     $scope.zip   = '';
                     $scope.confirmPassword = '';
                     $scope.choices = [];
-                    $('#Register').modal('toggle')
+
                 }
             });
 
