@@ -1,0 +1,108 @@
+.no_left_padding{
+    padding-left: 0px !important;
+}
+
+.letter_form_address{
+    /*border: 1px solid grey;*/
+    background: #fff;
+    color: #555 !important;
+    font-family: sans-serif;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFFFFF));
+    background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE);
+    -webkit-box-shadow: 0px 0 50px #ccc;
+    -moz-box-shadow: 0px 0 50px #ccc;
+    box-shadow: 0px 0 50px #ccc;
+    padding: 30px 40px 20px 40px;
+    margin: 10px 0 10px 0;
+}
+
+/*
+.find_button{
+background-color: RGBA(0,0,0,0.6);
+color: #ffffff;
+display: inline-block;
+margin: 0 0 0 15px;
+font-family: inherit;
+cursor: pointer;
+line-height: 2.7em !important;
+padding: 0.3em 2em;
+border: 2px solid;
+border-radius: 3px;
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+transition: all 0.2s;
+}
+
+.find_button:hover{
+margin-left: 1em;
+font-size: 1em;
+line-height: 3em !important;
+color: #444;
+background: white;
+border: white;
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+transition: all 0.2s;
+}
+.find_button:hover:after{
+content: "\00a0\00a0\232A";
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+transition: all 0.2s;
+color: #333;
+} */
+
+.find_button:hover{
+    box-shadow: 0px 0px 20px #555;
+    cursor: pointer;
+}
+
+.find_button{
+    color: #eee !important;
+    background-color: #18a5cc;
+    border: none;
+    -webkit-transition: -webkit-box-shadow 0.3s linear;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#18a5cc), to(#0a85a8));
+    background: -moz-linear-gradient(25% 75% 90deg,#0a85a8, #18a5cc);
+    width: 80px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+#user_address{
+    background: #fff;
+    font-size: 14px;
+    color: #555;
+    border: 1px #ddd solid;
+    -webkit-box-shadow: 0px 0px 4px #aaa;
+    -moz-box-shadow: 0px 0px 4px #aaa;
+    box-shadow: 0px 0px 4px #aaa;
+    -webkit-transition: background 0.3s;
+    /*padding: 8px;*/
+    /*margin: 4px 0 20px 0;*/
+    width: 20em;
+    margin-left: 1em;
+}
+p.congress_example{
+    margin-top: 1em;
+    font-size: 0.8em;
+}
+.congress_example i{
+    margin-left: 6.8em;
+    padding-top: 2em;
+}
+
+.list-group-item {
+    display: list-item;
+}
+.list-group{
+    padding-left: 15px;
+}
