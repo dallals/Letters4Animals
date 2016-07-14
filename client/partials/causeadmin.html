@@ -27,8 +27,8 @@
       <textarea  name="string" class="lettertext" ng-model="cause.lettertext" required></textarea>
     </div>
 
-    <input type="submit" class="btn btn-success" id="update_cause" name="update_cause" value="Update Cause"></input>
-    <input type="submit" class="btn btn-success" id="new_cause" name="new_cause" value="Add Cause"></input>
+    <input type="submit" ng-click="updateCause()" class="btn btn-success" id="update_cause" name="update_cause" value="Update Cause"></input>
+    <input type="submit" ng-click="addCause()" class="btn btn-success" id="new_cause" name="new_cause" value="Add Cause"></input>
 
   </form>
 

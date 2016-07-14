@@ -53,6 +53,10 @@ module.exports = function(app){
     app.get('/readUsers', function(req, res) {
         users.read(req, res);
     })
+
+    app.post('/causes', function(req, res) {
+        causes.create(req, res);
+    })
 };
 
 // route middleware to make sure a user is logged in
