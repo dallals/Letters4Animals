@@ -1,4 +1,4 @@
-<div id="admin_container">
+<div id="admin_container" ng-controller='adminController'>
 
 <!-- Left Admin panel -->
 <div class="col-sm-7 admin_container">
@@ -10,7 +10,6 @@
                     <li role="presentation" class="active"><a showtab="" href="#causes" aria-controls="home" role="tab" data-toggle="tab">CAUSES</a></li>
                     <li role="presentation"><a showtab="" href="#users" aria-controls="profile" role="tab" data-toggle="tab">USERS</a></li>
                     <li role="presentation"><a showtab="" href="#letters" aria-controls="messages" role="tab" data-toggle="tab">LETTERS</a></li>
-                    <li role="presentation"><a showtab="" href="#donations" aria-controls="settings" role="tab" data-toggle="tab">DONATIONS</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -41,21 +40,21 @@
                       <table class="table">
                         <thead>
                           <th>Name</th>
+                          <th>Email</th>
                           <th># Causes</th>
                           <th>State</th>
                           <th>Text?</th>
                           <th>Email?</th>
-                          <th>Donation?</th>
                           <th>Delete</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="user in users">
-                            <td>{{user.name}}</td>
+                            <td>{{ user.first_name }} {{ user.last_name }}</td>
+                            <td>{{user.email}}</td>
                             <td>{{user.causes}}</td>
                             <td>{{user.state}}</td>
-                            <td>{{user.text}}</td>
-                            <td>{{user.email}}</td>
-                            <td>{{user.donation}}</td>
+                            <td>{{user.phone_notification}}</td>
+                            <td>{{user.email_notification}}</td>
                             <td><button id="deletecause">Delete</button></td>
                           </tr>
                         </tbody>
@@ -82,9 +81,6 @@
                         </tbody>
                       </table>
                     </div>
-                    <!-- <div role="tabpanel" class="tab-pane" id="donations">
-                    Take this part out?
-                    </div> -->
                 </div>
             </div>
         </div>

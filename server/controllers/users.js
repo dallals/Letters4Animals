@@ -94,18 +94,10 @@ module.exports = (function(){
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
-        read: function(req, res){
-            // models.user.find({}, function(err, data){
-                console.log("dfsdfsdf")
-                // console.log(models)
+        getAllUsers: function(req, res){
+            console.log("in getAllUsers");
             models.User.findAll({}).then(function(data){
-                // if(err){
-                //     console.log(err)
-                // }
-                // else{
-                    console.log(data)
-                    res.json(data)
-                // }
+                res.json(data);
             })
         }
 

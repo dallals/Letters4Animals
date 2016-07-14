@@ -3,7 +3,8 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
     UserFactory.isLoggedIn(function(user){
         if(user.id){
             // If logged in, populate form with user info
-            $scope.user = user;
+            $scope.loggedUser = user;
+            $scope.loggedIn = true;
         }
         else{ $location.url('/'); }
     });

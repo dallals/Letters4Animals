@@ -46,10 +46,9 @@ module.exports = function(app){
         users.updateUser(req, res);
     })
 
-    app.get('/readUsers', function(req, res) {
-        users.read(req, res);
+    app.get('/getAllUsers', function(req, res) {
+        users.getAllUsers(req, res);
     })
-
 
 
     // Passport testing

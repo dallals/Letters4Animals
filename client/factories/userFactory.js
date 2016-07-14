@@ -44,6 +44,13 @@ AnimalApp.factory('UserFactory', function($http) {
         })
     };
 
+    // Get all users for admin panel
+    factory.getAllUsers = function(callback) {
+        $http.get('/getAllUsers').success(function(users){
+            callback(users);
+        })
+    };
+
 
     return factory;
 })
