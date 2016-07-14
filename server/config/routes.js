@@ -47,6 +47,8 @@ module.exports = function(app){
         users.read(req, res);
     })
 
+
+
     // Passport testing
     app.post('/login', function(req, res, next) {
         passport.authenticate('local-login', function(err, user, info) {
@@ -81,6 +83,7 @@ module.exports = function(app){
     app.get('/profile', isLoggedIn, function(req, res){
         res.redirect('/');
     })
+
 
 };
 
