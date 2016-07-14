@@ -27,6 +27,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/profile',{
         templateUrl: 'partials/profile.html',
     })
+    .when('/templatesubmission',{
+        templateUrl: 'partials/templatesubmission.html',
+    })
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE

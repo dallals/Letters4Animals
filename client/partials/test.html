@@ -1,5 +1,14 @@
 <div ng-controller="TestController" class="container">
-    <h2 style="font-size: 20px; font-weight: bolder; margin-bottom: 1em; color: blue">{{ confirmedAddr }}</h2>
+
+    <div>
+        <input type="text" ng-model=testUserID placeholder='User ID (1-3)'>
+        <button ng-click=getUser()>TEST</button>
+    </div>
+    <div>
+        {{ showUser }}
+    </div>
+
+    <!-- <h2 style="font-size: 20px; font-weight: bolder; margin-bottom: 1em; color: blue">{{ confirmedAddr }}</h2>
 
     <div class="row">
         <div class="col-md-12">
@@ -21,7 +30,6 @@
                 <label style='display: block;' ng-repeat='choice in choices track by $index'>
                     <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="finalAddr()">{{ choice }}
                 </label>
-                <!-- <button ng-show='choices.length > 1' ng-click='finalAddr()'>Confirm Location</button> -->
             </div>
         </div>
     </div>
@@ -31,5 +39,5 @@
         <ul ng-repeat='official in repData.officials track by $index'>
             <li>{{ official }}</li>
         </ul>
-    </div>
+    </div> -->
 </div>

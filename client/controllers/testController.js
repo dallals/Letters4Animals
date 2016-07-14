@@ -1,4 +1,4 @@
-AnimalApp.controller('TestController', function($scope, $http) {
+AnimalApp.controller('TestController', function($scope, $http, UserFactory) {
     $scope.confirmedAddr = 'noe';
     $scope.address = {
         choice: 'STH'
@@ -6,15 +6,6 @@ AnimalApp.controller('TestController', function($scope, $http) {
     $scope.repData = {};
 
     $scope.subinfo = function() {
-
-        // var place = {
-        //     number:  '19814',
-        //     street:  'Oakhaven',
-        //     strtype: 'Dr.',
-        //     city:    'Saratoga',
-        //     state:   'CA',
-        //     position:'Senate'
-        // }
 
         $scope.choices = [];
         $scope.finalData = {};
@@ -65,5 +56,14 @@ AnimalApp.controller('TestController', function($scope, $http) {
         $scope.confirmedAddr = $scope.address.choice;
         // send to database, register, etc.
     }
+
+
+    // DB connection test
+    $scope.getUser = function() {
+        UserFactory.getUser($scope.testUserID, function(users){
+            $scope.showUser = users;
+        });
+    }
+
 
 })

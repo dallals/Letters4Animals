@@ -1,5 +1,7 @@
+var models = require('../models');
 var emailConfLinks = [],
     genLength      = 50;
+// var user = require('../models/user.js');
 
 
 var emailConfGen = function(i, gen) {
@@ -10,6 +12,8 @@ var emailConfGen = function(i, gen) {
 }
 var includesS = function(haystack, needle) {
 }
+
+var models = require('../models');
 
 module.exports = (function(){
   return {
@@ -29,8 +33,53 @@ module.exports = (function(){
             res.send(emailConfLinks);
         },
         create: function(req, res) {
-            console.log(req.body);
-            res.json(req.body);
+            console.log(req.body)
+
+            models.Pendinguser.create({
+                first_name: req.body.firstName,
+                last_name: req.body.lastName,
+                email: req.body.email,
+                password: req.body.password,
+                street_address: req.body.address,
+                city: req.body.city,
+                state: req.body.state,
+                zipcode: req.body.zip,
+                phone_number: req.body.phoneNumber,
+                volunteer: req.body.volunteer
+            })
+        },
+
+        //Grabbing a single user's info by ID
+        getUserInfo: function(req, res) {
+            models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
+                if(data){
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
+
+        //Update user info
+        updateUser: function(req, res) {
+            // Pass req.body object to the update function to update appropriate fields
+            models.User.update(req.body, { where: { id: req.body.userid } })
+        },
+
+        read: function(req, res){
+            // models.user.find({}, function(err, data){
+                console.log("dfsdfsdf")
+                // console.log(models)
+            models.User.findAll({}).then(function(data){
+                // if(err){
+                //     console.log(err)
+                // }
+                // else{
+                    console.log(data)
+                    res.json(data)
+                // }
+            })
         }
 
   }//closes return

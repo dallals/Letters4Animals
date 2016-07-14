@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       phone_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       phone_notification: {
         type: Sequelize.BOOLEAN

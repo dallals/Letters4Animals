@@ -219,3 +219,27 @@ nav{
 .modal-dialog {
     margin: 12% auto !important;
 }
+
+
+
+/***********************RESPONSIVE*******************/
+
+@media (min-width: 320px) and (max-width: 600px) {
+a.btn.btn-default.bt-lg {
+	width: 161px !important;
+    font-size: 16px !important;
+}
+
+.slider{
+	margin:10px;
+}
+
+.right-side{
+	margin:10px;
+}
+
+.h4{
+	padding-top: :0px !important;
+}
+
+}

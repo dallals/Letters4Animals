@@ -25,7 +25,7 @@ module.exports = {
         email_notification: false,
         volunteer: false,
         admin: false,
-        phone_number: 123456778,
+        phone_number: "123456778",
         createdAt: new Date(),
         updatedAt: new Date()
       },{
@@ -41,7 +41,7 @@ module.exports = {
         email_notification: false,
         volunteer: false,
         admin: false,
-        phone_number: 333456778,
+        phone_number: "333456778",
         createdAt: new Date(),
         updatedAt: new Date()
       },{
@@ -57,7 +57,7 @@ module.exports = {
         email_notification: false,
         volunteer: false,
         admin: false,
-        phone_number: 554356778,
+        phone_number: "2554356778",
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});

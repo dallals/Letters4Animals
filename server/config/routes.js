@@ -7,7 +7,7 @@ var users       = require('../controllers/users.js'),
 module.exports = function(app){
 
     //user queries for getting one user
-    app.get('/user', function(req, res){
+    app.get('/user', function(req, res){    // Maybe not needed
         users.create(req, res);
     })
     app.get('/confirmEmail/:link', function(req, res) {
@@ -34,5 +34,18 @@ module.exports = function(app){
     //For Representative Finding
     app.post('/representatives/:user', function(req, res) {
         reps.findReps(req, res);
+    })
+
+    //Grabbing single user info
+    app.post('/getUserInfo', function(req, res) {
+        users.getUserInfo(req, res);
+    })
+    //Updating user in DB
+    app.post('/updateUser', function(req, res) {
+        users.updateUser(req, res);
+    })
+
+    app.get('/readUsers', function(req, res) {
+        users.read(req, res);
     })
 }
