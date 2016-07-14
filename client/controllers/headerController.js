@@ -207,6 +207,8 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                     $scope.confirmPassword = '';
                     $scope.choices = [];
                     $('#Register').modal('toggle')
+                      swal("Thanks for registering!", "Please check your email for a link to activate your account", "success");
+
                 }
             });
 
