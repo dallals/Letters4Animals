@@ -13,11 +13,23 @@ AnimalApp.factory('UserFactory', function($http) {
         })
         // console.log(user);
     };
+
     factory.login = function(user, callback) {
         $http.post('/login', user).success(function(data) {
             callback(data);
         })
-    }
+    };
+    // Manual login status check, to be used on controller loads
+    factory.isLoggedIn = function(callback){
+        $http.get('/checkLogin').success(function(user){
+            if(user.id){
+                callback(user);
+            }
+            else{
+                callback('NO');
+            }
+        });
+    };
 
     // Grab user by ID, send back user data
     factory.getUser = function(userid, callback) {
@@ -31,5 +43,7 @@ AnimalApp.factory('UserFactory', function($http) {
             console.log('updated user succesfully');
         })
     };
+
+
     return factory;
 })

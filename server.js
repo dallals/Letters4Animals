@@ -13,6 +13,17 @@ var morgan = require('morgan');
 
 LocalStrategy = require('passport-local').Strategy;
 
+// passport ///////////////////////////////////////
+// app.use(morgan('dev')); // log every request to the console
+
+app.use(cookieParser());
+app.use(flash());
+app.use(session({ secret: 'L4ASecret' }));
+app.use(passport.initialize());
+app.use(passport.session());
+require('./server/config/passport')(passport); // pass passport for configuration
+////////////////////////////////////////////////////
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -20,15 +31,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, './client')));
 require('./server/config/routes.js')(app);
-
-app.use(morgan('dev')); // log every request to the console
-
-app.use(cookieParser());
-app.use(flash());
-app.use(session({ secret: 'so secret' }));
-app.use(passport.initialize());
-app.use(passport.session());
-require('./server/config/passport')(passport); // pass passport for configuration
 
 // app.use(app.router);
 

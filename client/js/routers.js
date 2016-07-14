@@ -1,37 +1,37 @@
 AnimalApp.config(function ($routeProvider) {
   $routeProvider
     .when('/',{
-        templateUrl: 'partials/home.html',
+        templateUrl: 'partials/home.html'
     })
     .when('/home',{
-        templateUrl: 'partials/home.html',
+        templateUrl: 'partials/home.html'
     })
     .when('/aboutus',{
-        templateUrl: 'partials/aboutus.html',
+        templateUrl: 'partials/aboutus.html'
     })
     .when('/writealetter',{
-        templateUrl: 'partials/writealetter.html',
+        templateUrl: 'partials/writealetter.html'
     })
     .when('/letter-writing-matters',{
-        templateUrl: 'partials/lettersmatter.html',
+        templateUrl: 'partials/lettersmatter.html'
     })
     .when('/links',{
-        templateUrl: 'partials/links.html',
+        templateUrl: 'partials/links.html'
     })
     .when('/issues',{
-        templateUrl: 'partials/issues.html',
+        templateUrl: 'partials/issues.html'
     })
     .when('/issuessec',{
-        templateUrl: 'partials/issues.html',
+        templateUrl: 'partials/issues.html'
     })
     .when('/contact',{
-        templateUrl: 'partials/contact.html',
+        templateUrl: 'partials/contact.html'
     })
     .when('/profile',{
-        templateUrl: 'partials/profile.html',
+        templateUrl: 'partials/profile.html'
     })
     .when('/administrator',{
-        templateUrl: 'partials/administrator.html',
+        templateUrl: 'partials/administrator.html'
     })
     .when('/causeadmin',{
         templateUrl: 'partials/causeadmin.html',

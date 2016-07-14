@@ -52,19 +52,11 @@ module.exports = (function(){
                 res.json({success: false, errors: err});
             })
         },
-        login: function(req, res) {
-            console.log(req.body);
-            //IF THERE'S ERRORS. CHANGE IF (FALSE) TO IF THERE ARE ERRORS
-            if (false) {
-                res.json({errors: 'error'})
-            } else {
-                res.json({success: 'ok'})
-            }
-        },
 
         //Grabbing a single user's info by ID
         getUserInfo: function(req, res) {
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
+                console.log('in user info');
                 if(data){
                     res.json(data.dataValues);
                 }
