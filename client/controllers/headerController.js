@@ -91,11 +91,12 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     }
 
     $scope.logout = function() {
-        // UserFactory.logout();
-        $http.get('/logout');
-        $scope.loggedUser = {};
-        $scope.loggedIn = false;
-        $location.url('/');
+        // Log out through Passport, then clear local user data and redirect
+        $http.get('/logout').success(function(){
+            $scope.loggedUser = {};
+            $scope.loggedIn = false;
+            $location.url('/');
+        });
     }
 
     $scope.registerUser = function() {
@@ -203,9 +204,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                         email       : $scope.user.email
                     }
                     $http.post('/confEmail', confEmail).success(function(result){
-                        console.log('=========post contact=========');
-                        console.log(result);
-                        console.log('=========post contact=========');
+                        console.log('=========confirm email sent successfully=========');
                     });
 
                     $('#Register').modal('toggle')
