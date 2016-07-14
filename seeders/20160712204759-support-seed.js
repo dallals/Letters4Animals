@@ -12,32 +12,27 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Supports', [{
-      user_id: 1,
-      cause_id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },{
-      user_id: 2,
-      cause_id: 1,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },{
-      user_id: 1,
-      cause_id: 2,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },{
-      user_id: 2,
-      cause_id: 2,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    },{
-      user_id: 2,
-      cause_id: 2,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    }], {});
+  //   return queryInterface.bulkInsert('Supports', [{
+  //     user_id: 1,
+  //     cause_id: 1,
+  //     createdAt: new Date(),
+  //     updatedAt: new Date()
+  //   },{
+  //     user_id: 2,
+  //     cause_id: 1,
+  //     createdAt: new Date(),
+  //     updatedAt: new Date()
+  //   },{
+  //     user_id: 1,
+  //     cause_id: 2,
+  //     createdAt: new Date(),
+  //     updatedAt: new Date()
+  //   },{
+  //     user_id: 2,
+  //     cause_id: 2,
+  //     createdAt: new Date(),
+  //     updatedAt: new Date()
+  //   }], {});
   },
 
   down: function (queryInterface, Sequelize) {

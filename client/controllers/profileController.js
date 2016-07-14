@@ -40,7 +40,7 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
     // Update user profile info
     $scope.updateProfile = function(){
         // SEND UPDATED INFO TO THE DB AND UPDATE IT THERE!
-        $scope.updatedUser.userid = $scope.tempUserID;
+        $scope.updatedUser.userid = $scope.user.id;
         for(var field in $scope.updatedUser){ // Empty field check
             if($scope.updatedUser[field] == ''){
                 return false;

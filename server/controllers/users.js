@@ -19,14 +19,43 @@ module.exports = (function(){
             res.send(gen)
         },
         confirmEmail: function(req, res) {
-            var contains = false;
-            for (var hay of emailConfLinks) {
-                if (hay == req.params.link) {
-                    contains = true; }
-            }
-            if (contains) {
-                emailConfLinks.splice(emailConfLinks.indexOf(req.params.link),1); }
-            res.send(emailConfLinks);
+            // var contains = false;
+
+            // for (var hay of emailConfLinks) {
+            //     if (hay == req.params.link) {
+            //         contains = true; }
+            // }
+
+            // if (contains) {
+                // emailConfLinks.splice(emailConfLinks.indexOf(req.params.link),1); 
+            // }
+            // res.send(emailConfLinks);
+
+            models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
+                console.log('in confirmEmail');
+                if(user){
+                    console.log(user.dataValues);
+                    // console.log(user.dataValues.first_name);
+                    founduser = user.dataValues
+                    deleteid = founduser.id
+                    founduser.id = null;
+                    models.User.create(founduser).then(function(createdUser) {
+                    //Does this after creating
+                    founduser.id = deleteid;
+                    user.destroy();
+                        // console.log(user);
+                        res.json({success: true, errors: null});
+                    }).catch(function(err) {
+                    //Catches Errors
+                        // console.log(err);
+                        res.json({success: false, errors: err});
+                    })
+
+                }
+                else {
+                    res.json('Pending user Not Found');
+                }
+            })
         },
         create: function(req, res) {
             // console.log(req.body)
@@ -41,7 +70,9 @@ module.exports = (function(){
                 state: req.body.state,
                 zipcode: req.body.zip,
                 phone_number: req.body.phoneNumber,
-                volunteer: req.body.volunteer
+                volunteer: req.body.volunteer,
+                admin: null,
+                verify_url: emailConfGen(20)
             }).then(function(user) {
             //Does this after creating
                 // console.log(user);

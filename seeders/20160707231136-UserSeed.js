@@ -26,6 +26,7 @@ module.exports = {
         volunteer: false,
         admin: false,
         phone_number: "123456778",
+        login_count: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },{
@@ -42,6 +43,7 @@ module.exports = {
         volunteer: false,
         admin: false,
         phone_number: "333456778",
+        login_count: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       },{
@@ -58,6 +60,7 @@ module.exports = {
         volunteer: false,
         admin: false,
         phone_number: "2554356778",
+        login_count: 0,
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});

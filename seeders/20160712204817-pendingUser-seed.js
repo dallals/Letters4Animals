@@ -13,8 +13,8 @@ module.exports = {
       }], {});
     */
     return queryInterface.bulkInsert('Pendingusers', [{
-        first_name: 'User1',
-        last_name: 'last name of user 1',
+        first_name: 'pendinguser',
+        last_name: 'lastname1',
         email: 'test@test.scom',
         password: 'test',
         street_address: '123 way',
@@ -26,11 +26,12 @@ module.exports = {
         volunteer: false,
         admin: false,
         phone_number: "123456778",
+        verify_url: '24h23kbjdskuhhj32weddasdffs1',
         createdAt: new Date(),
         updatedAt: new Date()
       },{
-        first_name: 'User2',
-        last_name: 'last name of user 2',
+        first_name: 'Pending2',
+        last_name: 'lastname2',
         email: 'test2@test2.scom',
         password: 'test',
         street_address: '112323 way',
@@ -42,11 +43,12 @@ module.exports = {
         volunteer: false,
         admin: false,
         phone_number: "333456778",
+        verify_url: '24h23kbjdskuhhj32weddasdffs2',
         createdAt: new Date(),
         updatedAt: new Date()
       },{
-        first_name: 'User3',
-        last_name: 'last name of user 3',
+        first_name: 'Pending3',
+        last_name: 'lastname3',
         email: 'test3@test3.scom',
         password: 'test',
         street_address: '112312323 way',
@@ -58,6 +60,7 @@ module.exports = {
         volunteer: false,
         admin: false,
         phone_number: "2554356778",
+        verify_url: '24h23kbjdskuhhj32weddasdffs3',
         createdAt: new Date(),
         updatedAt: new Date()
       }], {});
