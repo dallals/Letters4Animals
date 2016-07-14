@@ -65,6 +65,8 @@ module.exports = (function(){
                         zipcode: req.body.zip,
                         phone_number: req.body.phoneNumber,
                         volunteer: req.body.volunteer,
+                        email_notification: req.body.emailalert,
+                        phone_notification: req.body.textalert,
                         admin: false,
                         verify_url: randString
                     }).then(function(user) {
@@ -96,6 +98,7 @@ module.exports = (function(){
         //Update user info
         updateUser: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
+            req.body.admin = false;
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
