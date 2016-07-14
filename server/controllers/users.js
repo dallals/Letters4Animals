@@ -60,27 +60,35 @@ module.exports = (function(){
         create: function(req, res) {
             // console.log(req.body)
 
-            models.Pendinguser.create({
-                first_name: req.body.firstName,
-                last_name: req.body.lastName,
-                email: req.body.email,
-                password: req.body.password,
-                street_address: req.body.address,
-                city: req.body.city,
-                state: req.body.state,
-                zipcode: req.body.zip,
-                phone_number: req.body.phoneNumber,
-                volunteer: req.body.volunteer,
-                admin: null,
-                verify_url: emailConfGen(20)
-            }).then(function(user) {
-            //Does this after creating
-                // console.log(user);
-                res.json({success: true, errors: null});
-            }).catch(function(err) {
-            //Catches Errors
-                // console.log(err);
-                res.json({success: false, errors: err});
+            models.User.find({where: ["email = ?", req.body.email]}).then(function(founduser){
+                if(founduser){
+                    console.log('User with that email already exists');
+                    res.json('User with that email already exists');
+                }
+                else {
+                    models.Pendinguser.create({
+                        first_name: req.body.firstName,
+                        last_name: req.body.lastName,
+                        email: req.body.email,
+                        password: req.body.password,
+                        street_address: req.body.address,
+                        city: req.body.city,
+                        state: req.body.state,
+                        zipcode: req.body.zip,
+                        phone_number: req.body.phoneNumber,
+                        volunteer: req.body.volunteer,
+                        admin: false,
+                        verify_url: emailConfGen(20)
+                    }).then(function(user) {
+                    //Does this after creating
+                        // console.log(user);
+                        res.json({success: true, errors: null});
+                    }).catch(function(err) {
+                    //Catches Errors
+                        // console.log(err);
+                        res.json({success: false, errors: err});
+                    })
+                }
             })
         },
 
