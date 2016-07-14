@@ -51,6 +51,13 @@ AnimalApp.factory('UserFactory', function($http) {
         })
     };
 
+    // Delete user
+    factory.delUser = function(user, callback) {
+        $http.post('/delUser', user).success(function(users){
+            callback(users);
+        })
+    };
+
 
     return factory;
 })

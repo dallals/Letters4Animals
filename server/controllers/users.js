@@ -29,9 +29,9 @@ module.exports = (function(){
                     deleteid = founduser.id
                     founduser.id = null;
                     models.User.create(founduser).then(function(createdUser) {
-                    //Does this after creating
-                    founduser.id = deleteid;
-                    user.destroy();
+                        //Does this after creating
+                        founduser.id = deleteid;
+                        user.destroy();
                         // console.log(user);
                         res.json({success: true, errors: null});
                     }).catch(function(err) {
@@ -98,6 +98,19 @@ module.exports = (function(){
             console.log("in getAllUsers");
             models.User.findAll({}).then(function(data){
                 res.json(data);
+            })
+        },
+
+        delUser: function(req, res){
+            console.log('in delUser');
+            // Find user and delete him
+            models.User.find({where: ['id = ?', req.body.id]}).then(function(user){
+                user.destroy().then(function(){
+                    // Send back all remaining users
+                    models.User.findAll({}).then(function(data){
+                        res.json(data);
+                    })
+                })
             })
         }
 

@@ -45,13 +45,16 @@ module.exports = function(app){
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
     })
-
+    //Grabbing all users
     app.get('/getAllUsers', function(req, res) {
         users.getAllUsers(req, res);
     })
+    //Deleting user, returning all remaining users
+    app.post('/delUser', function(req, res) {
+        users.delUser(req, res);
+    })
 
-
-    // Passport testing
+    // Passport login
     app.post('/login', function(req, res, next) {
         passport.authenticate('local-login', function(err, user, info) {
             if (err) {
