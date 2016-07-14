@@ -47,29 +47,36 @@ module.exports = (function(){
         create: function(req, res) {
             // console.log(req.body)
 
-            var randString = emailConfGen(20);
-
-            models.Pendinguser.create({
-                first_name: req.body.firstName,
-                last_name: req.body.lastName,
-                email: req.body.email,
-                password: req.body.password,
-                street_address: req.body.address,
-                city: req.body.city,
-                state: req.body.state,
-                zipcode: req.body.zip,
-                phone_number: req.body.phoneNumber,
-                volunteer: req.body.volunteer,
-                admin: null,
-                verify_url: randString
-            }).then(function(user) {
-            //Does this after creating
-                // Returns the randomly generated string so it can be emailed
-                res.json({success: true, errors: null, string: randString});
-            }).catch(function(err) {
-            //Catches Errors
-                // console.log(err);
-                res.json({success: false, errors: err});
+            models.User.find({where: ["email = ?", req.body.email]}).then(function(founduser){
+                if(founduser){
+                    console.log('User with that email already exists');
+                    res.json('User with that email already exists');
+                }
+                else {
+                    var randString = emailConfGen(20);
+                    models.Pendinguser.create({
+                        first_name: req.body.firstName,
+                        last_name: req.body.lastName,
+                        email: req.body.email,
+                        password: req.body.password,
+                        street_address: req.body.address,
+                        city: req.body.city,
+                        state: req.body.state,
+                        zipcode: req.body.zip,
+                        phone_number: req.body.phoneNumber,
+                        volunteer: req.body.volunteer,
+                        admin: false,
+                        verify_url: randString
+                    }).then(function(user) {
+                    //Does this after creating
+                        // console.log(user);
+                        res.json({success: true, errors: null});
+                    }).catch(function(err) {
+                    //Catches Errors
+                        // console.log(err);
+                        res.json({success: false, errors: err});
+                    })
+                }
             })
         },
 
