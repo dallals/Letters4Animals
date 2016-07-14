@@ -1,5 +1,6 @@
 //
 var users       = require('../controllers/users.js'),
+    causes      = require('../controllers/causes.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
     reps        = require('../controllers/representatives.js'),
@@ -89,6 +90,14 @@ module.exports = function(app){
         res.redirect('/');
     })
 
+    // Causes
+    app.get('/getAllCauses', function(req, res){
+        causes.getAllCauses(req, res);
+    })
+
+    app.post('/delCause', function(req, res){
+        causes.delCause(req, res);
+    })
 
 };
 

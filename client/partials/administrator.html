@@ -1,4 +1,4 @@
-<div id="admin_container" ng-controller='adminController'>
+<div id="admin_container" ng-controller='adminController' ng-show='loggedIn'>
 
 <!-- Left Admin panel -->
 <div class="col-sm-7 admin_container">
@@ -30,7 +30,7 @@
                             <td>{{cause.users}}</td>
                             <td>{{cause.createdAt}}</td>
                             <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause">Delete</button></td>
+                            <td><button id="deletecause" ng-click='delCause(cause)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>

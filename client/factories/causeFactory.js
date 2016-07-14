@@ -21,6 +21,19 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
+    factory.getAllCauses = function(callback) {
+        console.log('getting all causes');
+        $http.get('/getAllCauses').success(function(causes){
+            callback(causes);
+        })
+    };
+
+    factory.delCause = function(cause, callback) {
+        $http.post('/delCause', cause).success(function(causes){
+            callback(causes);
+        })
+    }
+
     factory.updateCause = function(causeinfo) {
         $http.post('/updateCause', causeinfo).success(function(){
             console.log('updated Cause succesfully');

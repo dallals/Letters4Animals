@@ -1,8 +1,6 @@
 var models = require('../models');
 var emailConfLinks = [],
     genLength      = 50;
-// var user = require('../models/user.js');
-
 
 var emailConfGen = function(i, gen) {
     var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -107,8 +105,8 @@ module.exports = (function(){
             models.User.find({where: ['id = ?', req.body.id]}).then(function(user){
                 user.destroy().then(function(){
                     // Send back all remaining users
-                    models.User.findAll({}).then(function(data){
-                        res.json(data);
+                    models.User.findAll({}).then(function(users){
+                        res.json(users);
                     })
                 })
             })
