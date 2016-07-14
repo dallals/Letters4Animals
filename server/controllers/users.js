@@ -19,17 +19,6 @@ module.exports = (function(){
             res.send(gen)
         },
         confirmEmail: function(req, res) {
-            // var contains = false;
-
-            // for (var hay of emailConfLinks) {
-            //     if (hay == req.params.link) {
-            //         contains = true; }
-            // }
-
-            // if (contains) {
-                // emailConfLinks.splice(emailConfLinks.indexOf(req.params.link),1); 
-            // }
-            // res.send(emailConfLinks);
 
             models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
                 console.log('in confirmEmail');
@@ -60,6 +49,8 @@ module.exports = (function(){
         create: function(req, res) {
             // console.log(req.body)
 
+            var randString = emailConfGen(20);
+
             models.Pendinguser.create({
                 first_name: req.body.firstName,
                 last_name: req.body.lastName,
@@ -72,11 +63,11 @@ module.exports = (function(){
                 phone_number: req.body.phoneNumber,
                 volunteer: req.body.volunteer,
                 admin: null,
-                verify_url: emailConfGen(20)
+                verify_url: randString
             }).then(function(user) {
             //Does this after creating
-                // console.log(user);
-                res.json({success: true, errors: null});
+                // Returns the randomly generated string so it can be emailed
+                res.json({success: true, errors: null, string: randString});
             }).catch(function(err) {
             //Catches Errors
                 // console.log(err);

@@ -14,6 +14,9 @@ module.exports = function(app){
     app.get('/generate', function(req, res) {
         users.generate(req, res);
     })
+    app.post('/confEmail', function(req, res){
+        contact.confEmail(req, res);
+    })
 
     //Register New User
     app.post('/users', function(req,res){

@@ -6,12 +6,11 @@ AnimalApp.factory('UserFactory', function($http) {
     factory.registerUser = function(user, callback) {
         //Throw to User
         $http.post('/users', user).success(function(data) {
-            // console.log(data);
+            // Returns random string in data.string
             if (callback && typeof callback == 'function') {
                 callback(data);
             }
         })
-        // console.log(user);
     };
 
     factory.login = function(user, callback) {
@@ -19,6 +18,7 @@ AnimalApp.factory('UserFactory', function($http) {
             callback(data);
         })
     };
+
     // Manual login status check, to be used on controller loads
     factory.isLoggedIn = function(callback){
         $http.get('/checkLogin').success(function(user){
