@@ -28,7 +28,7 @@
                         <tbody>
                           <tr ng-repeat="cause in causes">
                             <td>{{cause.name}}</td>
-                            <td>{{cause.users}}</td>
+                            <td>{{cause.supports}}</td>
                             <td>{{cause.createdAt}}</td>
                             <td><button id="editcause">Edit</button></td>
                             <td><button id="deletecause" ng-click='delCause(cause)'>Disable</button></td>
@@ -50,7 +50,7 @@
                           <th>Disable</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="user in users | orderBy: id">
+                          <tr ng-repeat="user in users | orderBy: createdAt">
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.supports}}</td>
