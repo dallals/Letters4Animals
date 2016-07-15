@@ -126,9 +126,11 @@ module.exports = function(passport) {
                 new_login_count = user.dataValues.login_count + 1
                 user.update({login_count: new_login_count});
                 // models.User.update({login_count: new_login_count}).then(function(updatedUser){
-                    return done(null, user.dataValues);                    
+                    return done(null, user.dataValues);
                 // })
                 // res.json({success: true});
+            } else {
+                return done(null, {error: 'Bad Password'});
             }
         })
         // .catch(function(err){
