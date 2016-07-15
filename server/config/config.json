@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "postgres",
+    "username": "sharolchand",
 
     "password": "root$",
     "database": "Letters4Animals",
@@ -8,7 +8,7 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "postgres",
+    "username": "sharolchand",
 
     "password": "root$",
     "database": "Letters4Animals",
@@ -16,7 +16,7 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "postgres",
+    "username": "sharolchand",
 
     "password": "root$",
     "database": "Letters4Animals",
