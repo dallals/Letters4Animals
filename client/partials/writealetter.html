@@ -1,5 +1,10 @@
 <div class="container" ng-controller='letterDisplayController'>
-
+    <div class="row banner">
+        <div class="col-md-12">
+            <img src="/assets/pigsbanner.jpg" alt="pigs banner" />
+        </div>
+    </div>
+    
     <select id="causeSelect" ng-options='cause.name for cause in causes' ng-model='selCause'>
         <option value='' selected disabled>Choose a Cause</option>
     </select>
