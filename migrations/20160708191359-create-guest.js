@@ -24,7 +24,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       zipcode: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       cause_id: {
         type: Sequelize.INTEGER,
