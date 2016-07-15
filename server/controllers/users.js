@@ -71,11 +71,9 @@ module.exports = (function(){
                         verify_url: randString
                     }).then(function(user) {
                     //Does this after creating
-                        // console.log(user);
-                        res.json({success: true, errors: null});
+                        res.json({success: true, errors: null, string: randString});
                     }).catch(function(err) {
-                    //Catches Errors
-                        // console.log(err);
+                        //Catches Errors
                         res.json({success: false, errors: err});
                     })
                 }
