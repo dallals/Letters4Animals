@@ -1,36 +1,105 @@
-<div id="admin_container">
+<div id="admin_container" ng-controller='adminController' ng-show='loggedIn'>
 
 <!-- Left Admin panel -->
-<div ng-cloak>
-  <md-content>
-    <md-tabs md-dynamic-height md-border-bottom>
-      <md-tab label="one">
-        <md-content class="md-padding">
-          <h1 class="md-display-2">CAUSES</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-        </md-content>
-      </md-tab>
-      <md-tab label="two">
-        <md-content class="md-padding">
-          <h1 class="md-display-2">USERS</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
-          <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
-          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-        </md-content>
-      </md-tab>
-      <md-tab label="three">
-        <md-content class="md-padding">
-          <h1 class="md-display-2">Tab Three</h1>
-          <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
-        </md-content>
-      </md-tab>
-    </md-tabs>
-  </md-content>
-</div>
+<div class="col-sm-7 admin_container">
+  <h3>Admin Panel</h3>
+    <div class="row">
+            <div>
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a showtab="" href="#causes" aria-controls="home" role="tab" data-toggle="tab">CAUSES</a></li>
+                    <li role="presentation"><a showtab="" href="#users" aria-controls="profile" role="tab" data-toggle="tab">USERS</a></li>
+                    <li role="presentation"><a showtab="" href="#letters" aria-controls="messages" role="tab" data-toggle="tab">LETTERS</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="causes">
+                      <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-info">Add/Edit a Cause</button></a>
+                      <table class="table">
+                        <thead>
+                          <th>Cause</th>
+                          <th># of Users</th>
+                          <th>Created</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="cause in causes">
+                            <td>{{cause.name}}</td>
+                            <td>{{cause.users}}</td>
+                            <td>{{cause.createdAt}}</td>
+                            <td><button id="editcause">Edit</button></td>
+                            <td><button id="deletecause" ng-click='delCause(cause)'>Delete</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="users">
+                      <table class="table">
+                        <thead>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th># Causes</th>
+                          <th>State</th>
+                          <th>Text?</th>
+                          <th>Email?</th>
+                          <th>Delete</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="user in users">
+                            <td>{{ user.first_name }} {{ user.last_name }}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.causes}}</td>
+                            <td>{{user.state}}</td>
+                            <td>{{user.phone_notification}}</td>
+                            <td>{{user.email_notification}}</td>
+                            <td><button id="deletecause" ng-click='delUser(user)'>Delete</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="letters">
+                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-info">Add/Edit a Letter</button></a>
+                      <table class="table">
+                        <thead>
+                          <th>Letter Name</th>
+                          <th>Cause</th>
+                          <th>Last updated</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="letter in letters">
+                            <td>{{letter.name}}</td>
+                            <td>{{letter.cause}}</td>
+                            <td>{{letter.updatedAt}}</td>
+                            <td><button id="editcause">Edit</button></td>
+                            <td><button id="deletecause">Delete</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- Right analytics panel -->
-  <div class="analytics">
-    <a href="https://accounts.google.com/servicelogin?service=analytics">Take me to Google Analytics</a>
-  </div>
+  <div class="col-sm-5 analytics">
+    <h3>Site Stats</h3><a href="https://accounts.google.com/servicelogin?service=analytics"><button class="btn btn-primary"> To Google Analytics</button></a>
+    <div class="stats">
+      <div class="stat-graph-top">
+      </div>
+      <div class="stat-graph-top">
+      </div>
+      <div class="stat-graph-bottom">
+      </div>
+      <div class="stat-graph-bottom">
+      </div>
+    </div>
+  </div
 
 </div>

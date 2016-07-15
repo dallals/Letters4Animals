@@ -12,28 +12,33 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Causes', [{
-      name: 'Cause1',
-      description: 'Test Causes 1 Description',
-      letter_body: 'letter_body letter_body letter_body',
-      rep_level: 'Senator',
-      enabled: true,
-      fixed: false,
-      fixed_address: '717 South Leaf Dr.',
+    return queryInterface.bulkInsert('Supports', [{
+      user_id: 1,
+      cause_id: 1,
       createdAt: new Date(),
       updatedAt: new Date()
     },{
-      name: 'Cause2',
-      description: 'Test Causes 2 Description',
-      letter_body: 'letter_body letter_body letter_body',
-      rep_level: 'President',
-      enabled: true,
-      fixed: false,
-      fixed_address: '1600 Pennsylvania Ave., Washington, D.C.',
+      user_id: 1,
+      cause_id: 1,
       createdAt: new Date(),
       updatedAt: new Date()
-
-    }], {});
+    },{
+      user_id: 2,
+      cause_id: 1,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      user_id: 1,
+      cause_id: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },{
+      user_id: 2,
+      cause_id: 2,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+    ], {});
   },
 
   down: function (queryInterface, Sequelize) {
@@ -44,6 +49,7 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('Person', null, {});
     */
-    return queryInterface.bulkDelete('Causes', null, {});
+     return queryInterface.bulkDelete('Supports', null, {});
+
   }
 };

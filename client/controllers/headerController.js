@@ -1,5 +1,7 @@
 AnimalApp.controller('headerController', function ($scope, $routeParams, $location,$route, $http, UserFactory) {
     $scope.user = {};
+    $scope.loggedUser = {};
+    $scope.loggedIn = false;
     $scope.confirmedAddress;
     $scope.address = {choice: undefined}
     $scope.regErrors = {
@@ -24,6 +26,16 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         state               : 'State field is required',
         zip                 : 'Zip field is required'
     }
+
+
+    // Checking login status
+    UserFactory.isLoggedIn(function(user){
+        if(user.id){
+            $scope.loggedUser = user;
+            $scope.loggedIn = true;
+        }
+    });
+
 
     $scope.toggle = function() {
         $scope.mobile_drop = !$scope.mobile_drop;
@@ -62,15 +74,29 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     }
 
     $scope.login = function() {
-        console.log($scope.loginUser);
         UserFactory.login($scope.loginUser, function(data) {
-            console.log('ok');
-            if (data.errors) {
-                console.log(data.errors)
-            } else {
+            if (data) {
+                $scope.loggedUser = data;
+                $scope.loggedIn = true;
                 $('#Login').modal('toggle');
             }
+            else{
+                console.log('login failed');
+                // Put in error message here
+                //
+                //
+                ////////////////////////////
+            }
         })
+    }
+
+    $scope.logout = function() {
+        // Log out through Passport, then clear local user data and redirect
+        $http.get('/logout').success(function(){
+            $scope.loggedUser = {};
+            $scope.loggedIn = false;
+            $location.url('/');
+        });
     }
 
     $scope.registerUser = function() {
@@ -169,6 +195,26 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 }
 
                 if (bevalid) {
+
+                    console.log('returning user data -------------');
+                    console.log(data);
+                    console.log('returning user data -------------');
+
+                    // Send confirmation email
+                    var confEmail = {
+                        first_name  : $scope.user.firstName,
+                        last_name   : $scope.user.lastName,
+                        rand_url    : data.string,
+                        email       : $scope.user.email
+                    }
+                    $http.post('/confEmail', confEmail).success(function(result){
+                        console.log('=========confirm email sent successfully=========');
+                    });
+
+                    $('#Register').modal('toggle')
+                      swal("Thanks for registering!", "Please check your email for a link to activate your account", "success");
+
+
                     $scope.user = {
                         firstName: '',
                         lastName: '',
@@ -181,7 +227,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                     $scope.zip   = '';
                     $scope.confirmPassword = '';
                     $scope.choices = [];
-                    $('#Register').modal('toggle')
+
                 }
             });
 

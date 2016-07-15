@@ -1,4 +1,4 @@
-AnimalApp.controller('TestController', function($scope, $http, UserFactory) {
+AnimalApp.controller('TestController', function($scope, $http, $location, UserFactory) {
     $scope.confirmedAddr = 'noe';
     $scope.address = {
         choice: 'STH'
@@ -65,11 +65,26 @@ AnimalApp.controller('TestController', function($scope, $http, UserFactory) {
         });
     }
 
-    // $scope.login = function(){
-    //     UserFactory.loginUser(user, function(data){
-            
-    //     })
-    // }
+    $scope.login = function() {
+        UserFactory.login($scope.loginUser, function(data) {
+            console.log('=========login data=========');
+            console.log(data);
+            console.log('=========login data=========');
+            if (data) {
+                console.log('login successful');
+                $scope.loggedUser = data;
+                // $location.url('/issues');
+                // $('#Login').modal('toggle');
+            }
+            else{
+                console.log('login failed');
+                // Put in error message here
+                //
+                //
+                ////////////////////////////
+            }
+        })
+    }
 
 
 })

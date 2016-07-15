@@ -8,15 +8,13 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         Support.belongsTo(models.User, {
           onDelete: "CASCADE",
-          foreignKey: {
-            allowNull: false
-          }
+          foreignKey: 'user_id',
+          constraints: false
         });
         Support.belongsTo(models.Cause, {
           onDelete: "CASCADE",
-          foreignKey: {
-            allowNull: false
-          }
+          foreignKey: 'cause_id',
+          constraints: false
         });
       }
     }

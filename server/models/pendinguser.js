@@ -54,6 +54,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     verify_url: {
       type: DataTypes.STRING,
       allowNull:true
