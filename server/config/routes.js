@@ -9,8 +9,7 @@ var users       = require('../controllers/users.js'),
 module.exports = function(app){
 
     //user queries for getting one user
-    app.get('/confirmUser', function(req, res) {
-        console.log('user to validate: ', req.body);
+    app.get('/confirmEmail/:link', function(req, res) {
         users.confirmEmail(req, res);
     })
     app.get('/generate', function(req, res) {
@@ -79,7 +78,6 @@ module.exports = function(app){
     });
 
     app.get('/logout', function(req, res){
-        req.session.destroy();
         req.logout();
         res.send('Logout Ok');
     });
