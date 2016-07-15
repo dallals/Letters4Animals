@@ -57,13 +57,5 @@ AnimalApp.factory('UserFactory', function($http) {
             callback(users);
         })
     };
-
-    // validate user
-    factory.confirmUser = function(randString, callback) {
-        $http.get('/confirmUser', randString).success(function(users){
-            callback(randString);
-        })
-    }
-
     return factory;
 })
