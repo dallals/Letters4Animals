@@ -34,7 +34,7 @@ module.exports = (function(){
                         user.destroy();
                         // console.log(user);
                         // res.json({success: true, errors: null});
-                        res.redirect('/#/issues');
+                        res.redirect('/#/accountactivation');
                     }).catch(function(err) {
                     //Catches Errors
                         // console.log(err);
@@ -43,7 +43,7 @@ module.exports = (function(){
 
                 }
                 else {
-                    res.json('Pending user Not Found');
+                    res.redirect('/#/activationerror');
                 }
             })
         },
