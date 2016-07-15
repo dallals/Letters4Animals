@@ -5,8 +5,7 @@
     </select>
 
     <div>
-        Selected Cause Info: <br>
-        {{ selCause }}<br><br>
+        <b>Selected Cause Info:</b> <br>
 
         Cause Description: {{ selCause.description }}<br>
         Cause Letter Body: {{ selCause.letter_body }}<br>
@@ -14,15 +13,6 @@
     </div>
 
     <br><br><br>
-
-    <div ng-show='loggedIn'>
-        <b>Logged in user info:</b><br>
-        First Name: {{ loggedUser.first_name }}<br>
-        Last Name: {{ loggedUser.last_name }}<br>
-        Address: {{ loggedUser.street_address }}, {{ loggedUser.city }} {{ loggedUser.state }}, {{ loggedUser.zipcode }}<br><br>
-        <hr>
-        <br><br>
-    </div>
 
     <div ng-show='!loggedIn'>
         <b>Guest Info:</b>
@@ -80,5 +70,38 @@
     </div>
 
     <br><br><br>
+
+    <button ng-click='getReps(selCause.rep_level)'>Print Letter</button>
+
+    <br><br><br>
+
+    <div ng-show='gotCause'>
+        <div ng-show='loggedIn'> <!--- Shows stored user info if user is logged in --->
+            <b>Logged in user info:</b><br>
+            First Name: {{ loggedUser.first_name }}<br>
+            Last Name: {{ loggedUser.last_name }}<br>
+            Address: {{ loggedUser.street_address }}, {{ loggedUser.city }} {{ loggedUser.state }}, {{ loggedUser.zipcode }}<br><br>
+            <hr>
+            <br><br>
+        </div>
+        <div ng-show="!loggedIn"> <!--- Shows form info if guest --->
+            {{ user.firstName + ' ' + user.lastName }}<br>
+            {{ addr }} <br>
+            {{ city + ' ' + state }}<br>
+            {{ zip }} <br>
+        </div>
+    </div>
+
+    <br><br><br>
+
+    <div ng-repeat='rep in reps'>
+        <br><br>
+        Representative Name     : {{ rep.rep.name }}<br>
+        Representative Position : {{ rep.position }}<br>
+        Representative Address  : {{ rep.rep.address[0].line1 + ', ' +
+                                     rep.rep.address[0].city + ' ' +
+                                     rep.rep.address[0].state + ', ' +
+                                     rep.rep.address[0].zip }}<br>
+    </div>
 
 </div>
