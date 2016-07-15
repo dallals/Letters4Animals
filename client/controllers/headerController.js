@@ -3,7 +3,8 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     $scope.loggedUser = {};
     $scope.loggedIn = false;
     $scope.confirmedAddress;
-    $scope.address = {choice: undefined}
+    $scope.address = {choice: undefined};
+    $scope.loginErrors = '';
     $scope.regErrors = {
         firstName       : '',
         lastName        : '',
@@ -74,18 +75,20 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     }
 
     $scope.login = function() {
+        $scope.loginErrors = '';
         UserFactory.login($scope.loginUser, function(data) {
             if (data) {
-                $scope.loggedUser = data;
-                $scope.loggedIn = true;
-                $('#Login').modal('toggle');
+                if (!data.error) {
+                    console.log(data);
+                    $scope.loggedUser = data;
+                    $scope.loggedIn = true;
+                    $('#Login').modal('toggle');
+                } else {
+                    $scope.loginErrors = 'Failed login, please check your email and password.';
+                }
             }
             else{
-                console.log('login failed');
-                // Put in error message here
-                //
-                //
-                ////////////////////////////
+                $scope.loginErrors = 'Failed login, please check your email and password.';
             }
         })
     }
@@ -166,32 +169,28 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
             UserFactory.registerUser(user, function(data) {
                 if (data.errors && data.errors.errors) {
                     for (err of data.errors.errors) {
-                        if (err.path == 'first_name') {
-                            bevalid = false;
+                        if (err.path == 'first_name') { bevalid = false;
                             $scope.regErrors.firstName += err.message; }
-                        if (err.path == 'last_name') {
-                            bevalid = false;
+                        if (err.path == 'last_name') { bevalid = false;
                             $scope.regErrors.lastName += err.message; }
-                        if (err.path == 'email') {
-                            bevalid = false;
+                        if (err.path == 'email') { bevalid = false;
                             $scope.regErrors.email += err.message; }
-                        if (err.path == 'password') {
-                            bevalid = false;
+                        if (err.path == 'password') { bevalid = false;
                             $scope.regErrors.password += err.message; }
-                        if (err.path == 'street_address') {
-                            bevalid = false;
+                        if (err.path == 'street_address') { bevalid = false;
                             $scope.regErrors.address += err.message; }
-                        if (err.path == 'city') {
-                            bevalid = false;
+                        if (err.path == 'city') { bevalid = false;
                             $scope.regErrors.city += err.message; }
-                        if (err.path == 'state') {
-                            bevalid = false;
+                        if (err.path == 'state') { bevalid = false;
                             $scope.regErrors.state += err.message; }
-                        if (err.path == 'zipcode') {
-                            bevalid = false;
+                        if (err.path == 'zipcode') { bevalid = false;
                             $scope.regErrors.zip += err.message; }
-
                     }
+                }
+                if (data.errors) {
+                    console.log(data.errors)
+                    $scope.regErrors.email += 'User with that email already exists';
+                    bevalid = false;
                 }
 
                 if (bevalid) {

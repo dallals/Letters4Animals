@@ -51,7 +51,7 @@ module.exports = (function(){
             models.User.find({where: ["email = ?", req.body.email]}).then(function(founduser){
                 if(founduser){
                     console.log('User with that email already exists');
-                    res.json('User with that email already exists');
+                    res.json({success: false, errors:'User with that email already exists'});
                 }
                 else {
                     var randString = emailConfGen(20);

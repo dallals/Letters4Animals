@@ -215,6 +215,10 @@ nav{
 	font-size: 0.8em;
 	color: red;
 }
+.loginErrors {
+	font-size: 0.8em;
+	color: red;
+}
 
 /***********************RESPONSIVE*******************/
 

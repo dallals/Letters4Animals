@@ -16,6 +16,10 @@ AnimalApp.factory('UserFactory', function($http) {
     factory.login = function(user, callback) {
         $http.post('/login', user).success(function(data) {
             callback(data);
+        }).error(function() {
+            if (callback && typeof callback=="function") {
+                callback();
+            }
         })
     };
 

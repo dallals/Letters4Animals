@@ -58,20 +58,20 @@ module.exports = function(app){
     // Passport login
     app.post('/login', function(req, res, next) {
         passport.authenticate('local-login', function(err, user, info) {
+            console.log('heufijakn');
             if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return res.status(401).json({
-                    err: info
-                });
-            }
+                return next(err); }
+            // if (!user) {
+            //     return res.status(401).json({
+            //         err: info
+            //     });
+            // }
             req.logIn(user, function(err) {
-                if (err) {
-                    return res.status(500).json({
-                        err: 'Could not log in user'
-                    });
-                }
+                // if (err) {
+                //     return res.status(500).json({
+                //         err: 'Could not log in user'
+                //     });
+                // }
                 return res.json(user);
             });
         })(req, res, next);
