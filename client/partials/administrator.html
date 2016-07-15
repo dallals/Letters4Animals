@@ -3,7 +3,7 @@
 <!-- Left Admin panel -->
 <div class="col-sm-7 admin_container">
   <h3>Admin Panel</h3>
-  {{users}}
+  <!-- {{users}} -->
     <div class="row">
             <div>
                 <!-- Nav tabs -->
@@ -16,14 +16,14 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="causes">
-                      <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-info">Add/Edit a Cause</button></a>
-                      <table class="table">
+                      <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-info">Create New Cause</button></a>
+                      <table class="table admintable">
                         <thead>
                           <th>Cause</th>
                           <th># of Users</th>
                           <th>Created</th>
                           <th>Edit</th>
-                          <th>Delete</th>
+                          <th>Disable</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="cause in causes">
@@ -31,14 +31,14 @@
                             <td>{{cause.users}}</td>
                             <td>{{cause.createdAt}}</td>
                             <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause" ng-click='delCause(cause)'>Delete</button></td>
+                            <td><button id="deletecause" ng-click='delCause(cause)'>Disable</button></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="users">
-                      <table class="table">
+                      <table class="table admintable">
                         <thead>
                           <th>Name</th>
                           <th>Email</th>
@@ -47,7 +47,7 @@
                           <th>Text?</th>
                           <th>Email?</th>
                           <th># Logins</th>
-                          <th>Delete</th>
+                          <th>Disable</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="user in users | orderBy: id">
@@ -58,20 +58,20 @@
                             <td>{{user.phone_notification}}</td>
                             <td>{{user.email_notification}}</td>
                             <td>{{user.login_count}}</td>
-                            <td><button id="deletecause" ng-click='delUser(user)'>Delete</button></td>
+                            <td><button id="deletecause" ng-click='delUser(user)'>Disable</button></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="letters">
-                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-info">Add/Edit a Letter</button></a>
-                      <table class="table">
+                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-info">Create New Letter</button></a>
+                      <table class="table admintable">
                         <thead>
                           <th>Letter Name</th>
                           <th>Cause</th>
                           <th>Last updated</th>
                           <th>Edit</th>
-                          <th>Delete</th>
+                          <th>Disable</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="letter in letters">
@@ -79,7 +79,7 @@
                             <td>{{letter.cause}}</td>
                             <td>{{letter.updatedAt}}</td>
                             <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause">Delete</button></td>
+                            <td><button id="deletecause">Disable</button></td>
                           </tr>
                         </tbody>
                       </table>
