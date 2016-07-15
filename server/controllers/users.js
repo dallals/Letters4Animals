@@ -1,4 +1,6 @@
 var models = require('../models');
+var Sequelize = require('sequelize');
+
 var emailConfLinks = [],
     genLength      = 50;
 
@@ -104,10 +106,19 @@ module.exports = (function(){
 
         getAllUsers: function(req, res){
             console.log("in getAllUsers");
-            models.User.findAll({}).then(function(data){
+            // models.User.findAll({
+            //     include: [{
+            //     model: models.Support,
+            //     where: { user_id: Sequelize.col('"Users".id') }
+            //     }]
+            // })
+            models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
+            .then(function(data){
+                console.log(data);
                 res.json(data);
             })
         },
+        // SELECT "Users".id, "Users".email, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;
 
         delUser: function(req, res){
             console.log('in delUser');
