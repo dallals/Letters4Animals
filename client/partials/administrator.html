@@ -3,6 +3,7 @@
 <!-- Left Admin panel -->
 <div class="col-sm-7 admin_container">
   <h3>Admin Panel</h3>
+  {{users}}
     <div class="row">
             <div>
                 <!-- Nav tabs -->
@@ -45,16 +46,18 @@
                           <th>State</th>
                           <th>Text?</th>
                           <th>Email?</th>
+                          <th># Logins</th>
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="user in users">
+                          <tr ng-repeat="user in users | orderBy: id">
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
-                            <td>{{user.causes}}</td>
+                            <td>{{user.supports}}</td>
                             <td>{{user.state}}</td>
                             <td>{{user.phone_notification}}</td>
                             <td>{{user.email_notification}}</td>
+                            <td>{{user.login_count}}</td>
                             <td><button id="deletecause" ng-click='delUser(user)'>Delete</button></td>
                           </tr>
                         </tbody>
