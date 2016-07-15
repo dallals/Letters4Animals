@@ -1,6 +1,8 @@
 {
   "development": {
     "username": "Howi",
+
+
     "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
@@ -8,6 +10,7 @@
   },
   "test": {
     "username": "Howi",
+
     "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
@@ -15,6 +18,7 @@
   },
   "production": {
     "username": "Howi",
+
     "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
