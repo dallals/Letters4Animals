@@ -193,6 +193,18 @@ nav{
     padding: 27px !important;
 }
 
+
+.get_facts{
+	background: #485454 !important;
+}
+
+.facts_left{
+	background-color: #DDDDDD;
+font-family: Arial;
+color: black;
+border-radius: 21px;
+padding: 17px;
+}
 /*******************MODAL********************/
 .modal-content .btn{
     background-color: transparent !important;
