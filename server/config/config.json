@@ -1,21 +1,21 @@
 {
   "development": {
 
-    "username": "sammydallal",
+    "username": "sharolchand",
     "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "test": {
-    "username": "sammydallal",
+    "username": "sharolchand",
     "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "sammydallal",
+    "username": "sharolchand",
     "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
