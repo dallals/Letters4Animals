@@ -9,8 +9,10 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
         else{ $location.url('/'); }
     });
 
+
     // Make sure controller doesn't do anything until someone's actually logged in
     if($scope.loggedIn){
+
 
         // The following is if the user wants to update their password, they can show/hide their password
         $scope.showpass = 'show';

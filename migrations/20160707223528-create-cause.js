@@ -20,6 +20,23 @@ module.exports = {
       rep_level: {
         type: Sequelize.STRING
       },
+      enabled: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
+      enabled: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+      },
+      fixed: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+        allowNull: false
+      },
+      fixed_address:{
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -57,7 +57,5 @@ AnimalApp.factory('UserFactory', function($http) {
             callback(users);
         })
     };
-
-
     return factory;
 })

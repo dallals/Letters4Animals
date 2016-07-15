@@ -31,7 +31,8 @@ module.exports = (function(){
                         founduser.id = deleteid;
                         user.destroy();
                         // console.log(user);
-                        res.json({success: true, errors: null});
+                        // res.json({success: true, errors: null});
+                        res.redirect('/#/issues');
                     }).catch(function(err) {
                     //Catches Errors
                         // console.log(err);
@@ -65,15 +66,16 @@ module.exports = (function(){
                         zipcode: req.body.zip,
                         phone_number: req.body.phoneNumber,
                         volunteer: req.body.volunteer,
+                        email_notification: req.body.emailalert,
+                        phone_notification: req.body.textalert,
                         admin: false,
                         verify_url: randString
                     }).then(function(user) {
                     //Does this after creating
-                        // console.log(user);
-                        res.json({success: true, errors: null});
+
+                        res.json({success: true, errors: null, string: randString});
                     }).catch(function(err) {
-                    //Catches Errors
-                        // console.log(err);
+                        //Catches Errors
                         res.json({success: false, errors: err});
                     })
                 }
@@ -96,6 +98,7 @@ module.exports = (function(){
         //Update user info
         updateUser: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
+            req.body.admin = false;
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 

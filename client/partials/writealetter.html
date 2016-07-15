@@ -1,5 +1,20 @@
 <div ng-controller='letterDisplayController'>
 
+    <select id="causeSelect" ng-options='cause.name for cause in causes' ng-model='selCause'>
+        <option value='' selected disabled>Choose a Cause</option>
+    </select>
+
+    <div>
+        Selected Cause Info: <br>
+        {{ selCause }}<br><br>
+
+        Cause Description: {{ selCause.description }}<br>
+        Cause Letter Body: {{ selCause.letter_body }}<br>
+        Cause Rep. Level: {{ selCause.rep_level }}<br>
+    </div>
+
+    <br><br><br>
+
     <div ng-show='loggedIn'>
         <b>Logged in user info:</b><br>
         First Name: {{ loggedUser.first_name }}<br>
@@ -64,14 +79,6 @@
         </form>
     </div>
 
-    <select id="causeSelect">
-        <option ng-repeat='cause in causes'>{{ cause.name }}</option>
-    </select>
-
-    <div>
-        {{ causes }}
-    </div>
-
-
+    <br><br><br>
 
 </div>

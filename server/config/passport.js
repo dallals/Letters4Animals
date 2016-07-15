@@ -123,7 +123,11 @@ module.exports = function(passport) {
             console.log('right before password check. password is: ', password);
             if( user.dataValues.password == password){
                 // all is well, return successful user
-                return done(null, user.dataValues);
+                new_login_count = user.dataValues.login_count + 1
+                user.update({login_count: new_login_count});
+                // models.User.update({login_count: new_login_count}).then(function(updatedUser){
+                    return done(null, user.dataValues);                    
+                // })
                 // res.json({success: true});
             }
         })
