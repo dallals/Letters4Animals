@@ -1,9 +1,9 @@
 //
 var users       = require('../controllers/users.js'),
     causes      = require('../controllers/causes.js'),
+    reps        = require('../controllers/representatives.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
-    reps        = require('../controllers/representatives.js'),
     passport    = require("passport");
 //
 module.exports = function(app){
@@ -34,7 +34,7 @@ module.exports = function(app){
         addrConf.confirmAddr(req, res);
     })
     //For Representative Finding
-    app.post('/representatives/:user', function(req, res) {
+    app.post('/representatives', function(req, res) {
         reps.findReps(req, res);
     })
 
