@@ -9,7 +9,8 @@ var users       = require('../controllers/users.js'),
 module.exports = function(app){
 
     //user queries for getting one user
-    app.get('/confirmEmail/:link', function(req, res) {
+    app.get('/confirmUser', function(req, res) {
+        console.log('user to validate: ', req.body);
         users.confirmEmail(req, res);
     })
     app.get('/generate', function(req, res) {

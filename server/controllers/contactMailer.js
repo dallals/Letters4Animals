@@ -19,11 +19,17 @@ module.exports = (function(){
 
         // User registration email confirmation
         confEmail: function(req, res) {
+
+            console.log('=========confEmail req.body=========');
+            console.log(req.body);
+            console.log('=========confEmail req.body=========');
+            var confURL = "http://localhost:8000/confirmEmail/" + req.body.rand_url;
+
             transporter.sendMail({
-                from: 'vdayspam@gmail.com',
+                from: 'vdayspam@gmail.com', //change this email to ????
                 to: req.body.email,
                 subject: 'Letters4Animals Registration Confirmation',
-                html: '<h2>Hello '+req.body.first_name+' '+req.body.last_name+'!</h2><br><a href=http://localhost:8000/#/accountactivation/'+req.body.rand_url+'>Confirm</a>',
+                html: '<h2>Hello '+req.body.first_name+' '+req.body.last_name+'!</h2><br><a href='+confURL+'>Confirm</a>',
                 text: 'What goes here?'
             });
             transporter.close();

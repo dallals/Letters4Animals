@@ -196,9 +196,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
                 if (bevalid) {
 
-                    console.log('=========data.string=========');
+                    console.log('returning user data -------------');
                     console.log(data);
-                    console.log('=========data.string=========');
+                    console.log('returning user data -------------');
 
                     // Send confirmation email
                     var confEmail = {

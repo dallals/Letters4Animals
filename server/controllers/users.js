@@ -31,7 +31,8 @@ module.exports = (function(){
                         founduser.id = deleteid;
                         user.destroy();
                         // console.log(user);
-                        res.json({success: true, errors: null});
+                        // res.json({success: true, errors: null});
+                        res.redirect('/issues');
                     }).catch(function(err) {
                     //Catches Errors
                         // console.log(err);
@@ -71,6 +72,7 @@ module.exports = (function(){
                         verify_url: randString
                     }).then(function(user) {
                     //Does this after creating
+
                         res.json({success: true, errors: null, string: randString});
                     }).catch(function(err) {
                         //Catches Errors
