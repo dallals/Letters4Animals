@@ -31,7 +31,7 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
         $scope.updateInfo = function(field){
             if(!$scope.updatedUser){ $scope.updatedUser = {}; }
             // Update property of temp user based on what changes
-            $scope.updatedUser[field] = $scope.user[field];
+            $scope.updatedUser[field] = $scope.loggedUser[field];
         }
         // Checks if an object is empty so user can't submit updates without actually updating something
         $scope.isUpdated = function(user) {
@@ -46,7 +46,7 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
         // Update user profile info
         $scope.updateProfile = function(){
             // SEND UPDATED INFO TO THE DB AND UPDATE IT THERE!
-            $scope.updatedUser.userid = $scope.user.id;
+            $scope.updatedUser.userid = $scope.loggedUser.id;
             for(var field in $scope.updatedUser){ // Empty field check
                 if($scope.updatedUser[field] == ''){
                     return false;

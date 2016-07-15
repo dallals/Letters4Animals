@@ -1,7 +1,7 @@
 <div id="admin_container" ng-controller='adminController' ng-show='loggedIn'>
 
 <!-- Left Admin panel -->
-<div class="col-sm-7 admin_container">
+<div class="col-sm-12 admin_container">
   <h3>Admin Panel</h3>
   <!-- {{users}} -->
     <div class="row">
@@ -47,7 +47,7 @@
                           <th>Text?</th>
                           <th>Email?</th>
                           <th># Logins</th>
-                          <th>Disable</th>
+                          <th>Delete</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="user in users | orderBy: createdAt">
@@ -58,7 +58,7 @@
                             <td>{{user.phone_notification}}</td>
                             <td>{{user.email_notification}}</td>
                             <td>{{user.login_count}}</td>
-                            <td><button id="deletecause" ng-click='delUser(user)'>Disable</button></td>
+                            <td><button id="deletecause" ng-click='delUser(user)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -91,7 +91,7 @@
 </section>
 
 <!-- Right analytics panel -->
-  <div class="col-sm-5 analytics">
+  <div class="col-sm-12 analytics">
     <h3>Site Stats</h3><a href="https://accounts.google.com/servicelogin?service=analytics"><button class="btn btn-primary"> To Google Analytics</button></a>
     <div class="stats">
       <div class="stat-graph-top">
