@@ -42,7 +42,7 @@ AnimalApp.config(function ($routeProvider) {
     .when('/templatesubmission',{
         templateUrl: 'partials/templatesubmission.html',
     })
-    .when('/accountactivation/:randString',{
+    .when('/accountactivation',{
         templateUrl: 'partials/accountactivation.html',
     })
     .when('/test', {        //TESTING USE
