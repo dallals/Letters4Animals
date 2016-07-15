@@ -14,7 +14,7 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Causes', [{
       name: 'Cause1',
-      description: 'Test Causes 1',
+      description: 'Test Causes 1 Description',
       letter_body: 'letter_body letter_body letter_body',
       rep_level: 'Senator',
       enabled: true,
@@ -24,12 +24,12 @@ module.exports = {
       updatedAt: new Date()
     },{
       name: 'Cause2',
-      description: 'Test Causes 2',
+      description: 'Test Causes 2 Description',
       letter_body: 'letter_body letter_body letter_body',
-      rep_level: 'Obama',
+      rep_level: 'President',
       enabled: true,
       fixed: false,
-      fixed_address: '717 South Leaf Dr.',
+      fixed_address: '1600 Pennsylvania Ave., Washington, D.C.',
       createdAt: new Date(),
       updatedAt: new Date()
 
