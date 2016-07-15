@@ -205,6 +205,20 @@ color: black;
 border-radius: 21px;
 padding: 17px;
 }
+
+.fact_panel{
+	border-color: white !important;
+	background-color: white !important;
+}
+
+.fact_body{
+	border-top: 0px solid white !important;
+}
+
+.smallPic {
+    float: right;
+    padding-left: 10px;
+}
 /*******************MODAL********************/
 .modal-content .btn{
     background-color: transparent !important;
