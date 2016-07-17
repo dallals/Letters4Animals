@@ -13,11 +13,6 @@ var emailConfGen = function(i, gen) {
 
 module.exports = (function(){
   return {
-        // generate: function(req, res) {
-        //     var gen = emailConfGen();
-        //     console.log(gen);
-        //     res.send(gen)
-        // },
         confirmEmail: function(req, res) {
 
             models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
@@ -46,18 +41,16 @@ module.exports = (function(){
 
             models.User.find({where: ["email = ?", req.body.email]}).then(function(founduser){
                 if(founduser){
-                    console.log('==================');
-                    console.log('User with that email already exists');
-                    console.log('==================');
                     res.json({success: false, errors:'User with that email already exists'});
                 }
                 else {
+                    var hashPass = models.Pendinguser.generateHash(req.body.password);
                     var randString = emailConfGen(20);
                     models.Pendinguser.create({
                         first_name: req.body.firstName,
                         last_name: req.body.lastName,
                         email: req.body.email,
-                        password: req.body.password,
+                        password: hashPass,
                         street_address: req.body.address,
                         city: req.body.city,
                         state: req.body.state,
@@ -103,7 +96,6 @@ module.exports = (function(){
             console.log("in getAllUsers");
             models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(data){
-                console.log(data);
                 res.json(data);
             })
         },

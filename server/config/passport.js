@@ -43,26 +43,41 @@ module.exports = function(passport) {
         // we are checking to see if the user trying to login already exists
         models.User.find({where: ["email = ?", email]}).then(function(user){
 
+            //////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////
+            // FOR DEV/TESTING PURPOSES ONLY. DELETE BEFORE DEPLOYMENT////
+            if(email == 'test@test.com'){                             ////
+                return done(null, user.dataValues);                   ////
+            }                                                         ////
+            //////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////
+            //////////////////////////////////////////////////////////////
+
             // if no user is found, return the message
             if (!user){
                 console.log('in user errors');
                 return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
             }
 
-            // if the user is found but the password is wrong
-            // if (!user.validPassword(password))
-            //     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
-
-            console.log('right before password check. user is: ', user.dataValues.first_name);
-            console.log('right before password check. password is: ', password);
-            if( user.dataValues.password == password){
+            if (user.validPassword(password)){
                 // all is well, return successful user
                 new_login_count = user.dataValues.login_count + 1
                 user.update({login_count: new_login_count});
                 return done(null, user.dataValues);
-            } else {
+            }
+            else {
                 return done(null, {error: 'Bad Password'});
             }
+
+            // if( user.dataValues.password == password){
+            //     // all is well, return successful user
+            //     new_login_count = user.dataValues.login_count + 1
+            //     user.update({login_count: new_login_count});
+            //     return done(null, user.dataValues);
+            // }
+            // else {
+            //     return done(null, {error: 'Bad Password'});
+            // }
         })
 
     }));    // End of Local Login strategy

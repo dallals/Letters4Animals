@@ -12,9 +12,6 @@ module.exports = function(app){
     app.get('/confirmEmail/:link', function(req, res) {
         users.confirmEmail(req, res);
     })
-    // app.get('/generate', function(req, res) {
-    //     users.generate(req, res);
-    // })
     app.post('/confEmail', function(req, res){
         contact.confEmail(req, res);
     })
@@ -58,7 +55,6 @@ module.exports = function(app){
     // Passport login
     app.post('/login', function(req, res, next) {
         passport.authenticate('local-login', function(err, user, info) {
-            console.log('heufijakn');
             if (err) {
                 return next(err);
             }

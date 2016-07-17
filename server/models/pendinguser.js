@@ -1,4 +1,7 @@
 'use strict';
+
+var bcrypt   = require('bcrypt-nodejs');
+
 module.exports = function(sequelize, DataTypes) {
   var Pendinguser = sequelize.define('Pendinguser', {
     first_name: {

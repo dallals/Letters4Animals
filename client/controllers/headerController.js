@@ -79,7 +79,6 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         UserFactory.login($scope.loginUser, function(data) {
             if (data) {
                 if (!data.error) {
-                    console.log(data);
                     $scope.loggedUser = data;
                     $scope.loggedIn = true;
                     $('#Login').modal('toggle');
