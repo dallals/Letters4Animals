@@ -119,7 +119,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
         var valid   = true,
             bevalid = true;
-        //Front-end Validations TEMPORARY
+        //Front-end Validations
             //USER
         if ( !$scope.user.firstName || $scope.user.firstName.trim().length < 1 ) {
             valid = false;
@@ -195,10 +195,6 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
                 if (bevalid) {
 
-                    console.log('returning user data -------------');
-                    console.log(data);
-                    console.log('returning user data -------------');
-
                     // Send confirmation email
                     var confEmail = {
                         first_name  : $scope.user.firstName,
@@ -210,10 +206,10 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                         console.log('=========confirm email sent successfully=========');
                     });
 
-                    $('#Register').modal('toggle')
-                      swal("Thanks for registering!", "Please check your email for a link to activate your account", "success");
+                    $('#Register').modal('toggle');
+                    swal("Thanks for registering!", "Please check your email for a link to activate your account", "success");
 
-
+                    // Reset regitration form
                     $scope.user = {
                         firstName: '',
                         lastName: '',
@@ -228,10 +224,8 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                     $scope.choices = [];
 
                 }
-            });
-
-
+            }); // End of UserFactory.registerUser
         }
+    }   // End of $scope.registerUser
 
-    }
 });

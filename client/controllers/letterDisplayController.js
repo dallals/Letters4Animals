@@ -8,9 +8,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.loggedUser = user;
             $scope.loggedIn = true;
         }
-        else{
-            // Do something to mark guest account
-        }
     });
 
     CauseFactory.getAllCauses(function(causes){
@@ -29,15 +26,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         else{
             payload.userAddr = $scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;
         }
-        console.log('=========userAddr=========');
-        console.log(payload.userAddr);
-        console.log('=========userAddr=========');
 
         // Grab proper representatives
         $http.post('/representatives', payload).success(function(reps){
-            console.log('=========returned reps=========');
-            console.log(reps);
-            console.log('=========returned reps=========');
             $scope.reps = reps;
             $scope.gotCause = true;
         })

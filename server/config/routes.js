@@ -12,9 +12,9 @@ module.exports = function(app){
     app.get('/confirmEmail/:link', function(req, res) {
         users.confirmEmail(req, res);
     })
-    app.get('/generate', function(req, res) {
-        users.generate(req, res);
-    })
+    // app.get('/generate', function(req, res) {
+    //     users.generate(req, res);
+    // })
     app.post('/confEmail', function(req, res){
         contact.confEmail(req, res);
     })
@@ -60,18 +60,9 @@ module.exports = function(app){
         passport.authenticate('local-login', function(err, user, info) {
             console.log('heufijakn');
             if (err) {
-                return next(err); }
-            // if (!user) {
-            //     return res.status(401).json({
-            //         err: info
-            //     });
-            // }
+                return next(err);
+            }
             req.logIn(user, function(err) {
-                // if (err) {
-                //     return res.status(500).json({
-                //         err: 'Could not log in user'
-                //     });
-                // }
                 return res.json(user);
             });
         })(req, res, next);
