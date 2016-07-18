@@ -11,7 +11,6 @@ AnimalApp.controller('adminController', function($scope, $location, $http, UserF
 			$scope.loggedUser = user;
             $scope.loggedIn = true;
 		}
-		// Comment this else out if you don't have a working database
 		else{ $location.url('/'); }
 	});
 
@@ -44,6 +43,6 @@ AnimalApp.controller('adminController', function($scope, $location, $http, UserF
 	        }
 		}
 
-		
+
 	} // End of logged in check
 });

@@ -6,12 +6,10 @@ AnimalApp.factory('CauseFactory', function($http) {
     factory.createCause = function(cause, callback) {
         //Throw to cause
         $http.post('/causes', cause).success(function(data) {
-            // console.log(data);
             if (callback && typeof callback == 'function') {
                 callback(data);
             }
         })
-        // console.log(Cause);
     };
 
     // Grab Cause by ID, send back Cause data
