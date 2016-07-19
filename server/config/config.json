@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "Howi",
+    "username": "postgres",
     "password": "null",
     "password": "root$",
     "database": "Letters4Animals",
@@ -8,14 +8,14 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "Howi",
+    "username": "postgres",
     "password": "root$",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "Howi",
+    "username": "postgres",
     "password": "root$",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
