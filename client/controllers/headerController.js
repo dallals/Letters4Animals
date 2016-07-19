@@ -49,10 +49,6 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
 
     $scope.registerAddress = function() {
-        $scope.addr
-        $scope.state
-        $scope.zip
-
         $scope.regErrors.addrNotFound = '';
 
         if ($scope.addr && $scope.city && $scope.state && $scope.zip) {
@@ -78,17 +74,19 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         $scope.loginErrors = '';
         UserFactory.login($scope.loginUser, function(data) {
             if (data) {
+            //Yes User.
                 if (!data.error) {
                     $scope.loggedUser = data;
                     $scope.loggedIn = true;
-                    
+
                     $('#Login').modal('toggle');
                     $scope.loginUser = {};
                 } else {
+                    //Bad Password.
                     $scope.loginErrors = 'Failed login, please check your email and password.';
                 }
-            }
-            else{
+            //No User.
+            } else{
                 $scope.loginErrors = 'Failed login, please check your email and password.';
             }
         })
