@@ -188,7 +188,6 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                     }
                 }
                 if (data.errors) {
-                    console.log(data.errors)
                     $scope.regErrors.email += 'User with that email already exists';
                     bevalid = false;
                 }
