@@ -50,7 +50,7 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="user in users | orderBy: createdAt">
+                          <tr ng-repeat="user in users | orderBy: id">
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.supports}}</td>

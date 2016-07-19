@@ -1,4 +1,5 @@
 'use strict';
+var models = require('../server/models');
 
 module.exports = {
   up: function (queryInterface, Sequelize) {
@@ -16,7 +17,7 @@ module.exports = {
         first_name: 'pendinguser',
         last_name: 'lastname1',
         email: 'pend1@pend.com',
-        password: 'test',
+        password: models.Pendinguser.generateHash('test'),
         street_address: '3003 SE Belmont St',
         city: 'Portland',
         state: 'OR',
@@ -33,7 +34,7 @@ module.exports = {
         first_name: 'Pending2',
         last_name: 'lastname2',
         email: 'pend2@pend.com',
-        password: 'test',
+        password: models.Pendinguser.generateHash('test'),
         street_address: '311 South Lanai Street',
         city: 'Kahului',
         state: 'HI',
@@ -50,7 +51,7 @@ module.exports = {
         first_name: 'Pending3',
         last_name: 'lastname3',
         email: 'pend3@pend.com',
-        password: 'test',
+        password: models.Pendinguser.generateHash('test'),
         street_address: '158 Winthrop Street',
         city: 'Brooklyn',
         state: 'NY',
