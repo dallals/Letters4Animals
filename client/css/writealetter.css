@@ -106,3 +106,26 @@ p.congress_example{
 .list-group{
     padding-left: 15px;
 }
+
+.causeinfo{
+  margin-left:5%;
+}
+
+.guestinfo{
+  margin-left:5%;
+}
+
+.printletter{
+  margin-left:5%;
+}
+
+.indent{
+  margin-left:2%;
+}
+
+.titles{
+  font-weight:bold;
+}
+h3{
+  font-weight:bold;
+}

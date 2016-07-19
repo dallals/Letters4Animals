@@ -1,8 +1,9 @@
 <div id="admin_container" ng-controller='adminController' ng-show='loggedIn'>
 
 <!-- Left Admin panel -->
-<div class="col-sm-7 admin_container">
+<div class="col-sm-12 admin_container">
   <h3>Admin Panel</h3>
+  <!-- {{users}} -->
     <div class="row">
             <div>
                 <!-- Nav tabs -->
@@ -15,29 +16,29 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="causes">
-                      <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-info">Add/Edit a Cause</button></a>
-                      <table class="table">
+                      <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-info">Create New Cause</button></a>
+                      <table class="table admintable">
                         <thead>
                           <th>Cause</th>
                           <th># of Users</th>
                           <th>Created</th>
                           <th>Edit</th>
-                          <th>Delete</th>
+                          <th>Disable</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="cause in causes">
                             <td>{{cause.name}}</td>
-                            <td>{{cause.users}}</td>
+                            <td>{{cause.supports}}</td>
                             <td>{{cause.createdAt}}</td>
                             <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause" ng-click='delCause(cause)'>Delete</button></td>
+                            <td><button id="deletecause" ng-click='delCause(cause)'>Disable</button></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="users">
-                      <table class="table">
+                      <table class="table admintable">
                         <thead>
                           <th>Name</th>
                           <th>Email</th>
@@ -45,30 +46,32 @@
                           <th>State</th>
                           <th>Text?</th>
                           <th>Email?</th>
+                          <th># Logins</th>
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="user in users">
+                          <tr ng-repeat="user in users | orderBy: createdAt">
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
-                            <td>{{user.causes}}</td>
+                            <td>{{user.supports}}</td>
                             <td>{{user.state}}</td>
                             <td>{{user.phone_notification}}</td>
                             <td>{{user.email_notification}}</td>
+                            <td>{{user.login_count}}</td>
                             <td><button id="deletecause" ng-click='delUser(user)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="letters">
-                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-info">Add/Edit a Letter</button></a>
-                      <table class="table">
+                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-info">Create New Letter</button></a>
+                      <table class="table admintable">
                         <thead>
                           <th>Letter Name</th>
                           <th>Cause</th>
                           <th>Last updated</th>
                           <th>Edit</th>
-                          <th>Delete</th>
+                          <th>Disable</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="letter in letters">
@@ -76,7 +79,7 @@
                             <td>{{letter.cause}}</td>
                             <td>{{letter.updatedAt}}</td>
                             <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause">Delete</button></td>
+                            <td><button id="deletecause">Disable</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -88,7 +91,7 @@
 </section>
 
 <!-- Right analytics panel -->
-  <div class="col-sm-5 analytics">
+  <div class="col-sm-12 analytics">
     <h3>Site Stats</h3><a href="https://accounts.google.com/servicelogin?service=analytics"><button class="btn btn-primary"> To Google Analytics</button></a>
     <div class="stats">
       <div class="stat-graph-top">
