@@ -1,6 +1,6 @@
 {
   "development": {
-    "username": "sammydallal",
+    "username": "Howi",
     "password": "null",
     "password": "root$",
     "password": "null",
@@ -9,7 +9,7 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "sammydallal",
+    "username": "Howi",
     "password": "root$",
     "password": "null",
     "database": "Letters4Animals",
@@ -17,7 +17,7 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "sammydallal",
+    "username": "Howi",
     "password": "root$",
     "password": "null",
     "database": "Letters4Animals",
