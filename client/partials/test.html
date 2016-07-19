@@ -1,72 +1,148 @@
-<div ng-controller="TestController" class="container">
+<div class="container" ng-controller='testController'>
 
-    IN TEST GOOD JOB IT WORKED
-
-    <div>
-        <input type="text" ng-model=testUserID placeholder='User ID (1-3)'>
-        <button ng-click=getUser()>TEST</button>
-    </div>
-    <div>
-        {{ showUser }}
+    <div class="row banner">
+        <div class="col-md-12">
+            <img src="/assets/pigsbanner.jpg" alt="pigs banner" />
+        </div>
     </div>
 
     <div>
-        Logged in user: <br>
-        --------------- <br>
-        {{ loggedUser }}
+      <h3>Step 1: Choose your cause</h3>
+      <div class="causeinfo">
+        <label>Cause:</label>
+          <select id="causeSelect" ng-options='cause.name for cause in causes' ng-model='selCause'>
+            <option value='' selected disabled>Choose a Cause</option>
+          </select><br><br>
+        <h5><b>Details on the cause</b></h5>
+          <ul>
+            <li class="indent"><label class="titles"> Cause Description: </label>{{ selCause.description }}</li>
+            <li class="indent"><label class="titles">Cause Letter Body:  </label>{{ selCause.letter_body }}</li>
+            <li class="indent"><label class="titles">Cause Rep. Level: </label> {{ selCause.rep_level }}</li>
+          </ul>
+      </div>
+    </div>
+
+
+    <div ng-show='!loggedIn'>
+      <h3>Step 2: Enter your information </h3>
+        <div class="guestinfo">
+          <b>Guest Info:</b>
+          <form class="form-horizontal">
+              <!-- First & Last Name Error Messages -->
+              <!-- First & Last Name Input Fields -->
+              <div class="form-group">
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName">
+                      <span class="regErrors" ng-bind="regErrors.firstName"></span>
+                  </div>
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName">
+                      <span class="regErrors" ng-bind="regErrors.lastName"></span>
+                  </div>
+              </div>
+
+                <!-- Address -->
+              <div class="form-group">
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="registerAddress()">
+                      <span class="regErrors" ng-bind="regErrors.address"></span>
+                  </div>
+              </div>
+              <!-- City && State-->
+              <div class="form-group">
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="registerAddress()">
+                      <span class="regErrors" ng-bind="regErrors.city"></span>
+                  </div>
+                  <div class="col-sm-5">
+                      <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()">
+                      <span class="regErrors" ng-bind="regErrors.state"></span>
+                  </div>
+              </div>
+              <!-- Zip -->
+              <div class="form-group">
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="registerAddress()">
+                      <span class="regErrors" ng-bind="regErrors.zip"></span>
+                 </div>
+              </div>
+              <!-- For Selecting Correct Location -->
+              <div class="row">
+                  <div class="col-md-12">
+                      <div id="choices">
+                          <label style='display: block;' ng-repeat='choice in choices track by $index'>
+                              <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice }}
+                          </label>
+                          <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+          <!-- end guest info -->
+
+    <br>
+    <h3>Wrap Up: Preview and print your letter </h3><br>
+    <div class="printletter">
+        <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button>
+        <br><br>
+
+    <!-- <div ng-show='gotCause'> -->
+        <!--- Shows stored user info if user is logged in --->
+        <!-- <div ng-show='loggedIn'>
+            <b>Your Information:</b><br>
+              <ul>
+                <li class="indent"><label class="titles">First Name:</label> {{ loggedUser.first_name }}<br>
+                <li class="indent"><label class="titles">Last Name:</label> {{ loggedUser.last_name }}<br>
+                <li class="indent"><label class="titles">Address:</label> {{ loggedUser.street_address }}, {{ loggedUser.city }} {{ loggedUser.state }}, {{ loggedUser.zipcode }}<br><br>
+              </ul>
+            <hr>
+        </div> -->
+        <!--- Shows form info if guest --->
+        <!-- <div ng-show="!loggedIn">
+            {{ user.firstName + ' ' + user.lastName }}<br>
+            {{ addr }} <br>
+            {{ city + ' ' + state }}<br>
+            {{ zip }} <br>
+        </div> -->
+    <!-- </div> -->
+
+    <!-- <div ng-repeat='rep in reps'>
         <br>
-    </div>
+          <label class="titles">Representative Name     :</label> {{ rep.rep.name }}<br>
+          <label class="titles">Representative Position :</label>  {{ rep.position }}<br>
+          <label class="titles">Representative Address  :</label>  {{ rep.rep.address[0].line1 + ', ' +
+                                       rep.rep.address[0].city + ' ' +
+                                       rep.rep.address[0].state + ', ' +
+                                       rep.rep.address[0].zip }}<br>
+    </div>     -->
 
-    <form class="form-horizontal">
+    <input type="checkbox" ng-click='chosenRep.push(reps[0])'>{{ reps[0] }}<br><br><br>
+    <input type="checkbox" ng-click="chosenRep.push(reps[1])">{{ reps[1] }}<br><br><br>
 
-        <div class="form-group">
-            <div class="col-sm-10">
-                <input ng-model="loginUser.email" type="text" class="form-control" id="login-email" placeholder="Email Address">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-10">
-                <input ng-model="loginUser.password" type="password" class="form-control" id="login-password" placeholder="password">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-10">
-                <button type="button" class="btn btn-primary" ng-click="login()">Login</button>
-
-            </div>
-        </div>
-    </form>
-
-    <!-- <h2 style="font-size: 20px; font-weight: bolder; margin-bottom: 1em; color: blue">{{ confirmedAddr }}</h2>
-
-    <div class="row">
-        <div class="col-md-12">
-            <form action="">
-                <h1>GUEST</h1>
-                <input ng-model="Gaddr" type="text" placeholder="ADDRESS" required>
-                <input ng-model="Gstate" type="text" placeholder="State" maxlength="2" style="text-transform:uppercase">
-                <input ng-model="Gzip" type="text" placeholder="ZIP">
-                <input type="text" placeholder="position" ng-model="position">
-                <input type="submit" ng-click="subinfo()">
-            </form>
-        </div>
-    </div>
+</div> <!--- End of printLetter --->
 
 
-    <div class="row">
-        <div class="col-md-12">
-            <div id="choices">
-                <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                    <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="finalAddr()">{{ choice }}
-                </label>
-            </div>
-        </div>
-    </div>
-    <button ng-click="showReps()" style="width: 100%; margin-top: 1em;"> Show Reps </button>
+<br>
+<button ng-click="printLetter('#printDiv')">PRINT</button>
+<br>
 
-    <div id="finaldata" ng-show=repData>
-        <ul ng-repeat='official in repData.officials track by $index'>
-            <li>{{ official }}</li>
-        </ul>
-    </div> -->
+<div id='printDiv' ng-show=false>
+    <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+    {{ loggedUser.first_name + ' ' + loggedUser.last_name }}<br>
+    {{ loggedUser.street_address }}<br>
+    {{ loggedUser.city }}, {{ loggedUser.state }} {{ loggedUser.zipcode }}
+    <br><br>
+    Senator {{ chosenRep[0].rep.name }}<br>
+    {{ chosenRep[0].position }}<br>
+    {{ chosenRep[0].rep.address[0].line1 }}<br>
+    {{ chosenRep[0].rep.address[0].city + ', ' + chosenRep[0].rep.address[0].state + ' ' + chosenRep[0].rep.address[0].zip }}<br><br>
+
+    Dear Senator {{ chosenRep[0].rep.name }},<br><br>
+    {{ selCause.letter_body }}<br><br>
+    Sincerely, <br><br><br>
+    {{ loggedUser.first_name + ' ' + loggedUser.last_name }}
+</div>
+
 </div>
