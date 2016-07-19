@@ -10,7 +10,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
     });
 
-    CauseFactory.getAllCauses(function(causes){
+    CauseFactory.getEnabledCauses(function(causes){
         $scope.causes = causes;
     })
 

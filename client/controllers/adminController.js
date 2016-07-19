@@ -1,4 +1,4 @@
-AnimalApp.controller('adminController', function($scope, $location, $http, UserFactory, CauseFactory) {
+AnimalApp.controller('adminController', function($scope, $location, UserFactory, CauseFactory) {
 
 	$scope.checkboxModel = {
 		value1 : true,

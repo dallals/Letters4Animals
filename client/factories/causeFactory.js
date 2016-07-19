@@ -5,7 +5,7 @@ AnimalApp.factory('CauseFactory', function($http) {
 
     factory.createCause = function(cause, callback) {
         //Throw to cause
-        $http.post('/causes', cause).success(function(data) {
+        $http.post('/addCause', {cause}).success(function(data) {
             if (callback && typeof callback == 'function') {
                 callback(data);
             }
@@ -26,10 +26,26 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
-    factory.delCause = function(cause, callback) {
-        $http.post('/delCause', cause).success(function(causes){
+    factory.getEnabledCauses = function(callback) {
+        $http.get('/getEnabledCauses').success(function(causes) {
             callback(causes);
         })
+    }
+
+    factory.disableCause = function(cause, callback) {
+        console.log('FACTORY:', cause)
+        $http.post('/disableCause', cause).success(function(causes){
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
+    }
+    factory.enableCause = function(cause, callback) {
+    $http.post('/enableCause', cause).success(function(causes){
+        if (callback && typeof callback == 'function') {
+            callback(causes);
+        }
+    })
     }
 
     factory.updateCause = function(causeinfo) {

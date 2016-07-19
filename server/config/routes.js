@@ -81,9 +81,20 @@ module.exports = function(app){
     app.get('/getAllCauses', function(req, res){
         causes.getAllCauses(req, res);
     })
+    app.get('/getEnabledCauses', function(req, res) {
+        causes.getEnabledCauses(req, res);
+    })
 
-    app.post('/delCause', function(req, res){
-        causes.delCause(req, res);
+    app.post('/disableCause', function(req, res){
+        causes.disableCause(req, res);
+    })
+
+    app.post('/enableCause', function(req, res) {
+        causes.enableCause(req, res);
+    })
+
+    app.post('/addCause', function(req, res) {
+        causes.addCause(req, res);
     })
 
 };
