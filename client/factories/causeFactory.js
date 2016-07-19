@@ -20,7 +20,6 @@ AnimalApp.factory('CauseFactory', function($http) {
     };
 
     factory.getAllCauses = function(callback) {
-        console.log('getting all causes');
         $http.get('/getAllCauses').success(function(causes){
             callback(causes);
         })
@@ -33,7 +32,6 @@ AnimalApp.factory('CauseFactory', function($http) {
     }
 
     factory.disableCause = function(cause, callback) {
-        console.log('FACTORY:', cause)
         $http.post('/disableCause', cause).success(function(causes){
             if (callback && typeof callback == 'function') {
                 callback(causes);

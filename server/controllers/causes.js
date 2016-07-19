@@ -21,22 +21,14 @@ module.exports = (function(){
             // Find and delete cause
             models.Cause.find({where: ['id = ?', req.body.id]}).then(function(cause){
                 // Going to need to do a lot to make sure we delete all the things a cause is attached to first
-                cause.update({enabled: false})
-                console.log(cause.enabled)
-                // models.Cause.findAll({}).then(function(causes){
-                //     res.json(causes);
-                // })
+                cause.update({enabled: false});
                 res.json();
             })
         },
         enableCause: function(req, res) {
             models.Cause.find({where: ['id = ?', req.body.id]}).then(function(cause){
                 // Going to need to do a lot to make sure we delete all the things a cause is attached to first
-                cause.update({enabled: true})
-                console.log(cause.enabled)
-                // models.Cause.findAll({}).then(function(causes){
-                //     res.json();
-                // })
+                cause.update({enabled: true});
                 res.json();
             })
         },
@@ -44,7 +36,6 @@ module.exports = (function(){
         addCause: function(req, res) {
             if (req.body.cause) {
                 var cause = req.body.cause;
-                console.log(req.body.cause);
                 models.Cause.create({
                     name: cause.name,
                     description: cause.description,
@@ -59,7 +50,7 @@ module.exports = (function(){
 
                 res.json();
             } else {
-                console.log('Missing User or Cause');
+                console.log('Missing Cause');
             }
         }
 
