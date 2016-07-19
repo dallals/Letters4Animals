@@ -81,7 +81,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 if (!data.error) {
                     $scope.loggedUser = data;
                     $scope.loggedIn = true;
+                    
                     $('#Login').modal('toggle');
+                    $scope.loginUser = {};
                 } else {
                     $scope.loginErrors = 'Failed login, please check your email and password.';
                 }
