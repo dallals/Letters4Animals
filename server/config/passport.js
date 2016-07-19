@@ -62,7 +62,7 @@ module.exports = function(passport) {
             if (user.validPassword(password)){
                 // all is well, return successful user
                 new_login_count = user.dataValues.login_count + 1
-                user.update({login_count: new_login_count});
+                user.update({login_count: new_login_count, last_login: new Date()});
                 return done(null, user.dataValues);
             }
             else {
