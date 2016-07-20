@@ -1,5 +1,5 @@
 var models = require('../models');
-var Sequelize = require('sequelize');
+// var Sequelize = require('sequelize');
 
 var emailConfLinks = [],
     genLength      = 50;
