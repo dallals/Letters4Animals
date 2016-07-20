@@ -32,6 +32,29 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
         // Grab proper representatives
         $http.post('/representatives', payload).success(function(reps){
+            for(var rep of reps){
+                // Grab the representative position for the letter salutation
+                var posArr = rep.position.split(' ');
+                if(posArr.includes('Senate')){
+                    rep.letterPos = 'Senator';
+                }
+                if(posArr.includes('President')){
+                    rep.letterPos = 'President';
+                }
+                if(posArr.includes('Vice-President')){
+                    rep.letterPos = 'Vice-President';
+                }
+
+                // Grab the representative's last name for letter salutation
+                var nameSplit = rep.rep.name.split(' ');
+                rep.letterName = nameSplit[nameSplit.length-1];
+
+                // Format the address to upper-case for letter
+                var formAdd     = rep.rep.address[0].line1.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
+                    formCity    = rep.rep.address[0].city.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+                rep.rep.address[0].line1 = formAdd;
+                rep.rep.address[0].city = formCity;
+            }
             $scope.reps = reps;
             $scope.gotCause = true;
         })
@@ -72,10 +95,12 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var letter of letters){
-            var link = document.createElement('a');
-            var mimeType = 'application/msword';
-            var elHtml = letter.innerHTML;
-            link.setAttribute('download', 'Letter.doc');
+            var letterName  = 'Letter_to_' + $('.repPosName').html() + '.doc',
+                letterName  = letterName.split(' ').join('_'),
+                link        = document.createElement('a'),
+                mimeType    = 'application/msword',
+                elHtml      = letter.innerHTML;
+            link.setAttribute('download', letterName);
             link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
             link.click();
         }

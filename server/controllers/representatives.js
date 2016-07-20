@@ -57,7 +57,6 @@ module.exports = (function() {
 
                         for (things of dataJson.offices) {
                             if (things.name.includes(position)) {
-                                // console.log(things)
                                 for (thing of things.officialIndices) {
                                     var finalRep = {};
                                         finalRep.rep        = dataJson.officials[thing];

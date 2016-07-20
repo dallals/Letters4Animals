@@ -127,12 +127,12 @@
             {{ addr || loggedUser.street_address }}<br>
             {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
             <br><br>
-            Senator {{ rep.rep.name }}<br>
+            {{ rep.letterPos }} {{ rep.rep.name }}<br>
             {{ rep.position }}<br>
             {{ rep.rep.address[0].line1 }}<br>
             {{ rep.rep.address[0].city + ', ' + rep.rep.address[0].state + ' ' + rep.rep.address[0].zip }}<br><br>
 
-            Dear Senator {{ rep.rep.name }},<br><br>
+            Dear <span class='repPosName'>{{ rep.letterPos }} {{ rep.letterName }}</span>,<br><br>
             {{ selCause.letter_body }}<br><br>
             Sincerely, <br><br><br>
             {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
