@@ -48,6 +48,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
 
     $scope.printLetter = function(elem) {
+        // Create a new window, write the contents of the letter div(s) into the window, print it
         var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');
         mywindow.document.write('<html><head><title>Letter To Representative</title>');
         mywindow.document.write('<link rel="stylesheet" href="./css/letterStyle.css" type="text/css" />');
@@ -64,6 +65,20 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             mywindow.close();
         }, 500);
 
+    }
+
+    $scope.saveLetter = function(){
+        // Grab the letter(s) in the printDiv and store them in letters
+        var letters = document.getElementById('printDiv').getElementsByTagName('div');
+        // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
+        for(var letter of letters){
+            var link = document.createElement('a');
+            var mimeType = 'application/msword';
+            var elHtml = letter.innerHTML;
+            link.setAttribute('download', 'Letter.doc');
+            link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+            link.click();
+        }
     }
 
 });
