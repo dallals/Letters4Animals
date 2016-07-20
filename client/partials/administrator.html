@@ -35,7 +35,7 @@
                             <td>{{cause.createdAt}}</td>
                             <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
                             <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause">Delete</button></td>
+                            <td><button ng-click="deleteCause(cause)" id="deletecause">Delete</button></td>
                           </tr>
                         </tbody>
                       </table>

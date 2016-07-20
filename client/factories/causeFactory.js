@@ -39,11 +39,11 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
     factory.enableCause = function(cause, callback) {
-    $http.post('/enableCause', cause).success(function(causes){
-        if (callback && typeof callback == 'function') {
-            callback(causes);
-        }
-    })
+        $http.post('/enableCause', cause).success(function(causes){
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
     }
 
     factory.updateCause = function(causeinfo) {
@@ -51,5 +51,16 @@ AnimalApp.factory('CauseFactory', function($http) {
             console.log('updated Cause succesfully');
         })
     };
+
+    factory.deleteCause = function(cause, callback) {
+        console.log('Angular Factory Delete');
+        $http.post('/deleteCause', cause).success(function(causes) {
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
+    }
+
+
     return factory;
 })

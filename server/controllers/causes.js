@@ -52,6 +52,20 @@ module.exports = (function(){
             } else {
                 console.log('Missing Cause');
             }
+        },
+        deleteCause: function(req, res) {
+            console.log('Server Controller Delete');
+            console.log(req.body.id)
+            if (req.body.id) {
+                console.log('IN IF')
+                models.Cause.find({where: ['id = ?', req.body.id]}).then(function(cause){
+                    console.log(cause);
+                    // Going to need to do a lot to make sure we delete all the things a cause is attached to first
+                    cause.destroy().then(function() {
+                        res.json();
+                    })
+                })
+            }
         }
 
     }//closes return

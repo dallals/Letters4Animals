@@ -81,5 +81,14 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 			}
 		}
 
+		$scope.deleteCause = function(cause) {
+			console.log('Angular Controller Delete');
+			CauseFactory.deleteCause(cause, function() {
+				CauseFactory.getAllCauses(function(causes) {
+					$scope.causes = causes;
+				})
+			})
+		}
+
 	} // End of logged in check
 });
