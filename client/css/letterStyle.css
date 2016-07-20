@@ -1,0 +1,28 @@
+@page{
+    margin: 0;
+}
+
+body{
+    padding: 25px 45px;
+}
+
+#letterlogo{
+    margin-left: 50%;
+}
+
+@media all {
+	.page-break	{
+        display: none;
+    }
+}
+
+@media print {
+	.page-break	{
+        display: block;
+        page-break-before: always;
+    }
+}
+
+#repbox div{
+    
+}
