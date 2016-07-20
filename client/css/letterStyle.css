@@ -3,7 +3,7 @@
 }
 
 body{
-    padding: 25px 45px;
+    padding: 0px 45px;
 }
 
 #letterlogo{
@@ -20,9 +20,6 @@ body{
 	.page-break	{
         display: block;
         page-break-before: always;
+        margin-top: 25px;
     }
-}
-
-#repbox div{
-    
 }

@@ -105,55 +105,18 @@
 
     <!--- Letters --->
     <div id='printDiv' ng-show=false>
-        <!--- First Letter --->
-        <div id=firstpage class='page-break'>
+        <div class='page-break' ng-repeat='rep in chosenRep'>
             <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
             {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
             {{ addr || loggedUser.street_address }}<br>
             {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
             <br><br>
-            Senator {{ chosenRep[0].rep.name }}<br>
-            {{ chosenRep[0].position }}<br>
-            {{ chosenRep[0].rep.address[0].line1 }}<br>
-            {{ chosenRep[0].rep.address[0].city + ', ' + chosenRep[0].rep.address[0].state + ' ' + chosenRep[0].rep.address[0].zip }}<br><br>
+            Senator {{ rep.rep.name }}<br>
+            {{ rep.position }}<br>
+            {{ rep.rep.address[0].line1 }}<br>
+            {{ rep.rep.address[0].city + ', ' + rep.rep.address[0].state + ' ' + rep.rep.address[0].zip }}<br><br>
 
-            Dear Senator {{ chosenRep[0].rep.name }},<br><br>
-            {{ selCause.letter_body }}<br><br>
-            Sincerely, <br><br><br>
-            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-        </div>
-        <!--- Second Letter --->
-        <div id=secondpage class='page-break' ng-if='chosenRep.length > 1'>
-            <br><br><br>
-            <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
-            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
-            {{ addr || loggedUser.street_address }}<br>
-            {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
-            <br><br>
-            Senator {{ chosenRep[1].rep.name }}<br>
-            {{ chosenRep[1].position }}<br>
-            {{ chosenRep[1].rep.address[0].line1 }}<br>
-            {{ chosenRep[1].rep.address[0].city + ', ' + chosenRep[1].rep.address[0].state + ' ' + chosenRep[1].rep.address[0].zip }}<br><br>
-
-            Dear Senator {{ chosenRep[1].rep.name }},<br><br>
-            {{ selCause.letter_body }}<br><br>
-            Sincerely, <br><br><br>
-            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-        </div>
-        <!--- Third Letter --->
-        <div id=secondpage class='page-break' ng-if='chosenRep.length > 2'>
-            <br><br><br>
-            <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
-            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
-            {{ addr || loggedUser.street_address }}<br>
-            {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
-            <br><br>
-            Senator {{ chosenRep[2].rep.name }}<br>
-            {{ chosenRep[2].position }}<br>
-            {{ chosenRep[2].rep.address[0].line1 }}<br>
-            {{ chosenRep[2].rep.address[0].city + ', ' + chosenRep[2].rep.address[0].state + ' ' + chosenRep[2].rep.address[0].zip }}<br><br>
-
-            Dear Senator {{ chosenRep[2].rep.name }},<br><br>
+            Dear Senator {{ rep.rep.name }},<br><br>
             {{ selCause.letter_body }}<br><br>
             Sincerely, <br><br><br>
             {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
