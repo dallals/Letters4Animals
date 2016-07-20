@@ -63,7 +63,25 @@ module.exports = {
         login_count: 0,
         createdAt: new Date(),
         updatedAt: new Date()
-      }], {});
+      },{
+        first_name: 'User4',
+        last_name: 'lastname4',
+        email: 'test4@test4.com',
+        password: models.User.generateHash('test'),
+        street_address: '600 4th Avenue South',
+        city: 'Minneapolis',
+        state: 'MN',
+        zipcode: "55415",
+        phone_notification: true,
+        email_notification: true,
+        volunteer: false,
+        admin: false,
+        phone_number: "",
+        login_count: 0,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+      ], {});
 
 
   },
