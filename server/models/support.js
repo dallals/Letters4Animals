@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       associate: function(models) {
         // associations can be defined here
         Support.belongsTo(models.User, {
-          onDelete: "CASCADE",
+          onDelete: 'cascade',
           foreignKey: 'user_id',
           constraints: false
         });

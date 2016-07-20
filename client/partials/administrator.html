@@ -17,21 +17,25 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="causes">
                       <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-info">Create New Cause</button></a>
+                      <button class="btn btn-info" ng-click="enableAllCauses()">Enable All</button>
+                      <button class="btn btn-info" ng-click="disableAllCauses()">Disable All</button>
                       <table class="table admintable">
                         <thead>
                           <th>Cause</th>
                           <th># of Users</th>
                           <th>Created</th>
+                          <th>Enabled</th>
                           <th>Edit</th>
-                          <th>Disable</th>
+                          <th>Delete</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="cause in causes">
                             <td>{{cause.name}}</td>
                             <td>{{cause.supports}}</td>
                             <td>{{cause.createdAt}}</td>
+                            <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
                             <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause" ng-click='delCause(cause)'>Disable</button></td>
+                            <td><button id="deletecause">Delete</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -50,7 +54,7 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="user in users | orderBy: createdAt">
+                          <tr ng-repeat="user in users | orderBy: id">
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.supports}}</td>

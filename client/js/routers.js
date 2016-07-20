@@ -51,6 +51,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE
+    .when('/causetest', {
+        templateUrl: 'partials/causetest.html'
+    })
     .otherwise({
       redirectTo: '/'
     });

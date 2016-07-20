@@ -20,7 +20,7 @@ module.exports = (function() {
             // Cause/letter representative level
             var causePos;
             if(req.body.rep_level == 'Senator'){
-                causePos = 'Senate';
+                causePos = 'United States Senate';
             }
             else{
                 causePos = req.body.rep_level;

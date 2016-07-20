@@ -1,4 +1,4 @@
-AnimalApp.controller('adminController', function($scope, $location, $http, UserFactory, CauseFactory) {
+AnimalApp.controller('adminController', function($scope, $location, UserFactory, CauseFactory) {
 
 	$scope.checkboxModel = {
 		value1 : true,
@@ -43,6 +43,43 @@ AnimalApp.controller('adminController', function($scope, $location, $http, UserF
 	        }
 		}
 
+	    $scope.toggleCause = function(cause) {
+	        if (!cause) {
+	            return;
+	        }
+	        if (cause.enabled) {
+                CauseFactory.disableCause(cause, function() {
+                    CauseFactory.getAllCauses(function(causes) {
+                        $scope.causes = causes;
+                    })
+                })
+	        } else {
+                CauseFactory.enableCause(cause, function() {
+                    CauseFactory.getAllCauses(function(causes) {
+                        $scope.causes = causes;
+                    })
+                })
+	        }
+	        // var confirmCause = confirm()
+	    }
+		$scope.enableAllCauses = function() {
+			for (cause of $scope.causes) {
+				CauseFactory.enableCause(cause, function() {
+					CauseFactory.getAllCauses(function(causes) {
+						$scope.causes = causes;
+					})
+				})
+			}
+		}
+		$scope.disableAllCauses = function() {
+			for (cause of $scope.causes) {
+				CauseFactory.disableCause(cause, function() {
+					CauseFactory.getAllCauses(function(causes) {
+						$scope.causes = causes;
+					})
+				})
+			}
+		}
 
 	} // End of logged in check
 });

@@ -1,90 +1,69 @@
-AnimalApp.controller('TestController', function($scope, $http, $location, UserFactory) {
-    $scope.confirmedAddr = 'noe';
-    $scope.address = {
-        choice: 'STH'
-    }
-    $scope.repData = {};
+AnimalApp.controller('testController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
 
-    $scope.subinfo = function() {
+    $scope.gotCause = false;
+    $scope.printing = false;
+    $scope.selDiv = '';
+    $scope.chosenRep = [];
 
-        $scope.choices = [];
-        $scope.finalData = {};
+    UserFactory.isLoggedIn(function(user){
+        if(user.id){
+            // If logged in, populate form with user info
+            $scope.loggedUser = user;
+            $scope.loggedIn = true;
+        }
+    });
 
-        $http.post('/test', $scope.newAdd).success(function(data){
-            // console.log('=========/test post data=========');
-            // console.log(data);
-            // console.log('==================');
-            if(data == 'Not Found'){
-                // alert($scope.newAdd.precheck + ' not found. Please make sure you entered your address correctly.');
-            }
-            else{
-                if(typeof(data) == 'object'){
-                    // Present all the choices and wait for them to pick
-                    $scope.choices = data;
-                }
-                else{
-                    // Present a confirmation
-                    // var r = confirm('Is '+data+' correct?');
-                    $scope.confirmedAddr = data;
-                    if (r) {
-                        $http.post('/representatives', {data}).success(function(data2){
-                            console.log('=========/rep post data=========');
-                            console.log(data2)
-                            console.log('==================');
-                            $scope.finalData = data2;
-                        })
-                    }
-                }
-            }
+    CauseFactory.getAllCauses(function(causes){
+        $scope.causes = causes;
+    })
+
+
+    $scope.getReps = function(level){
+        var payload             = {};
+            payload.rep_level   = level;
+
+        // Format address to send to civics API
+        if($scope.loggedIn){
+            payload.userAddr = $scope.loggedUser.street_address + ', ' + $scope.loggedUser.city + ' ' + $scope.loggedUser.state + ', ' + $scope.loggedUser.zipcode;
+        }
+        else{
+            payload.userAddr = $scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;
+        }
+
+        // Grab proper representatives
+        $http.post('/representatives', payload).success(function(reps){
+            $scope.reps = reps;
+            $scope.gotCause = true;
         })
-
     }
 
-    $scope.showReps = function() {
-        var position = $scope.position;
-        var confAddr = $scope.confirmedAddr;
-
-        if ($scope.confirmedAddr != 'noe') {
-            $http.post('/representatives/placeholder', {data: confAddr}).success(function(repData) {
-                $scope.repData = repData;
-            })
+    $scope.repPicked = function(rep) {
+        // Add or remove representative on checkbox tick/untick
+        if($scope.chosenRep.includes(rep)){
+            $scope.chosenRep.splice($scope.chosenRep.indexOf(rep), 1);
+        }
+        else{
+            $scope.chosenRep.push(rep);
         }
     }
 
-    $scope.finalAddr = function(choice) {
-        console.log('CC',$scope.address.choice);
-        $scope.confirmedAddr = $scope.address.choice;
-        // send to database, register, etc.
+    $scope.printLetter = function(elem) {
+        var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');
+        mywindow.document.write('<html><head><title>Letter To Representative</title>');
+        mywindow.document.write('<link rel="stylesheet" href="./css/letterStyle.css" type="text/css" />');
+        mywindow.document.write('</head><body >');
+        mywindow.document.write($(elem).html());
+        mywindow.document.write('</body></html>');
+
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+
+        // Pause to make sure style/images are loaded
+        setTimeout(function(){
+            mywindow.print();
+            mywindow.close();
+        }, 1000);
+
     }
 
-
-    // DB connection test
-    $scope.getUser = function() {
-        UserFactory.getUser($scope.testUserID, function(users){
-            $scope.showUser = users;
-        });
-    }
-
-    $scope.login = function() {
-        UserFactory.login($scope.loginUser, function(data) {
-            console.log('=========login data=========');
-            console.log(data);
-            console.log('=========login data=========');
-            if (data) {
-                console.log('login successful');
-                $scope.loggedUser = data;
-                // $location.url('/issues');
-                // $('#Login').modal('toggle');
-            }
-            else{
-                console.log('login failed');
-                // Put in error message here
-                //
-                //
-                ////////////////////////////
-            }
-        })
-    }
-
-
-})
+});
