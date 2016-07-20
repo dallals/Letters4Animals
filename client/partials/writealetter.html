@@ -1,4 +1,5 @@
 <div class="container" ng-controller='letterDisplayController'>
+
     <div class="row banner">
         <div class="col-md-12">
             <img src="/assets/pigsbanner.jpg" alt="pigs banner" />
@@ -27,7 +28,6 @@
         <div class="guestinfo">
           <b>Guest Info:</b>
           <form class="form-horizontal">
-              <!-- First & Last Name Error Messages -->
               <!-- First & Last Name Input Fields -->
               <div class="form-group">
                   <div class="col-sm-5">
@@ -83,42 +83,45 @@
 
     <br>
     <h3>Wrap Up: Preview and print your letter </h3><br>
+
     <div class="printletter">
-      <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button>
-    <br><br>
+        <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button>
+        <br><br>
 
-    <div ng-show='gotCause'>
-        <div ng-show='loggedIn'> <!--- Shows stored user info if user is logged in --->
-            <b>Your Information:</b><br>
-              <ul>
-                <li class="indent"><label class="titles">First Name:</label> {{ loggedUser.first_name }}<br>
-                <li class="indent"><label class="titles">Last Name:</label> {{ loggedUser.last_name }}<br>
-                <li class="indent"><label class="titles">Address:</label> {{ loggedUser.street_address }}, {{ loggedUser.city }} {{ loggedUser.state }}, {{ loggedUser.zipcode }}<br><br>
-              </ul>
-            <hr>
+        <div ng-show=gotCause id=repbox>
+            <div id=rep1 class='col-sm-6' ng-repeat='rep in reps'>
+                <img ng-src='{{rep.rep.photoUrl}}' alt=Rep width=150><br>
+                <input type="checkbox" ng-click='repPicked(rep)'>
+                {{ rep.rep.name + ', ' + rep.position }}<br><br><br>
+            </div>
         </div>
-        <div ng-show="!loggedIn"> <!--- Shows form info if guest --->
-            {{ user.firstName + ' ' + user.lastName }}<br>
-            {{ addr }} <br>
-            {{ city + ' ' + state }}<br>
-            {{ zip }} <br>
+
+    </div> <!--- End of printLetter --->
+
+    <br>
+    <button ng-click="printLetter('#printDiv')">PRINT</button>
+    <br>
+
+
+    <!--- Letters --->
+    <div id='printDiv' ng-show=false>
+        <div class='page-break' ng-repeat='rep in chosenRep'>
+            <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
+            {{ addr || loggedUser.street_address }}<br>
+            {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
+            <br><br>
+            Senator {{ rep.rep.name }}<br>
+            {{ rep.position }}<br>
+            {{ rep.rep.address[0].line1 }}<br>
+            {{ rep.rep.address[0].city + ', ' + rep.rep.address[0].state + ' ' + rep.rep.address[0].zip }}<br><br>
+
+            Dear Senator {{ rep.rep.name }},<br><br>
+            {{ selCause.letter_body }}<br><br>
+            Sincerely, <br><br><br>
+            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
         </div>
     </div>
+    <!--- End of letters --->
 
-  <script>
-    if (reps.length > 1){
-      "<h3>Where will my letter go?</h3>"
-    }
-  </script>
-
-    <div ng-repeat='rep in reps'>
-        <br>
-          <label class="titles">Representative Name     :</label> {{ rep.rep.name }}<br>
-          <label class="titles">Representative Position :</label>  {{ rep.position }}<br>
-          <label class="titles">Representative Address  :</label>  {{ rep.rep.address[0].line1 + ', ' +
-                                       rep.rep.address[0].city + ' ' +
-                                       rep.rep.address[0].state + ', ' +
-                                       rep.rep.address[0].zip }}<br>
-    </div>
-  </div>
 </div>
