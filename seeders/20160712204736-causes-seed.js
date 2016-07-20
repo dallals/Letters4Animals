@@ -22,7 +22,8 @@ module.exports = {
       fixed_address: '717 South Leaf Dr.',
       createdAt: new Date(),
       updatedAt: new Date()
-    },{
+    },
+    {
       name: 'Cause2',
       description: 'Test Causes 2 Description',
       letter_body: 'letter_body letter_body letter_body',
@@ -33,7 +34,24 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
 
-    }], {});
+    },
+    {
+      name: 'fixed address cause',
+      description: 'Test Causes Description',
+      letter_body: 'letter_body letter_body letter_body',
+      rep_level: 'Congressman',
+      enabled: true,
+      fixed: true,
+      fixed_name: 'Bob, CEO of Company X',
+      fixed_address: '1600 Pennsylvania Ave., Washington, D.C.',
+      fixed_city: 'Seattle',
+      fixed_state: 'WA',
+      fixed_zipcode: '23493',
+      createdAt: new Date(),
+      updatedAt: new Date()
+
+    }
+    ], {});
   },
 
   down: function (queryInterface, Sequelize) {

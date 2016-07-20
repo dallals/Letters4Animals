@@ -13,6 +13,7 @@ var emailConfGen = function(i, gen) {
 
 module.exports = (function(){
   return {
+
         confirmEmail: function(req, res) {
 
             models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
@@ -95,19 +96,25 @@ module.exports = (function(){
         getAllUsers: function(req, res){
             console.log("in getAllUsers");
             models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
-            .then(function(data){
-                res.json(data);
+            .then(function(users){
+                // console.log(users);
+                res.json(users);
             })
         },
 
         delUser: function(req, res){
+            var self = this;
+            // console.log(self);
             console.log('in delUser');
-            // Find user and delete him
-            models.User.find({where: ['id = ?', req.body.id]}).then(function(user){
-                user.destroy().then(function(){
-                    // Send back all remaining users
-                    models.User.findAll({}).then(function(users){
-                        res.json(users);
+            // Find user, find and delete user's supports, then delete user
+            models.User.find({where: ['id = ?', req.body.id]})
+            .then(function(user){
+                models.Support.destroy({where: ['user_id = ?', req.body.id]})
+                .then(function(destroyed){
+                    user.destroy()          
+                    .then(function(){
+                        // Send back all remaining users
+                        self.getAllUsers(req, res)
                     })
                 })
             })
