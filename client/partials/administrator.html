@@ -11,6 +11,8 @@
                     <li role="presentation" class="active"><a showtab="" href="#causes" aria-controls="home" role="tab" data-toggle="tab">CAUSES</a></li>
                     <li role="presentation"><a showtab="" href="#users" aria-controls="profile" role="tab" data-toggle="tab">USERS</a></li>
                     <li role="presentation"><a showtab="" href="#letters" aria-controls="messages" role="tab" data-toggle="tab">LETTERS</a></li>
+                    <li role="presentation"><a showtab="" href="#guests" aria-controls="messages" role="tab" data-toggle="tab">GUEST USERS</a></li>
+                    <li role="presentation"><a showtab="" href="#pendingCause" aria-controls="messages" role="tab" data-toggle="tab">PENDING CAUSES</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -88,6 +90,51 @@
                         </tbody>
                       </table>
                     </div>
+                    <div role="tabpanel" class="tab-pane" id="guests">
+                      <table class="table admintable">
+                        <thead>
+                          <th>First Name</th>
+                          <th>Last Name</th>
+                          <th># Causes</th>
+                          <th>State</th>
+                          <th>Delete</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="guest in guests | orderBy: id">
+                            <td>{{guest.first_name}}</td>
+                            <td>{{guest.last_name}}</td>
+                            <td>{{guest.cause}}</td>
+                            <td>{{guest.state}}</td>
+                            <td><button id="deletecause" ng-click='delGuest(guest)'>Delete</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div role="tabpanel" class="tab-pane " id="pendingcauses">
+                      <button class="btn btn-info" ng-click="enableAllCauses()">Enable All</button>
+                      <button class="btn btn-info" ng-click="disableAllCauses()">Disable All</button>
+                      <table class="table admintable">
+                        <thead>
+                          <th>Cause</th>
+                          <th># of Users</th>
+                          <th>Created</th>
+                          <th>Enabled</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="pendingcause in pendingcauses">
+                            <td>{{pendingcause.name}}</td>
+                            <td>{{pendingcause.supports}}</td>
+                            <td>{{pendingcause.createdAt}}</td>
+                            <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
+                            <td><button id="editpendingcause">Edit</button></td>
+                            <td><button id="deletependingcause">Delete</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
                 </div>
             </div>
         </div>

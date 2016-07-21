@@ -5,6 +5,7 @@ var users       = require('../controllers/users.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
     passport    = require("passport");
+    guests      = require('../controllers/guests.js'),
 //
 module.exports = function(app){
 
@@ -95,6 +96,13 @@ module.exports = function(app){
 
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
+    })
+
+    app.get('/getAllGuests', function(req, res) {
+        guests.getAllGuests(req, res);
+    })
+    app.post('/delGuest', function(req, res) {
+        guests.delGuest(req, res);
     })
 
 };

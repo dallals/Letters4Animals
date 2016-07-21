@@ -22,6 +22,10 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 		CauseFactory.getAllCauses(function(causes){
 			$scope.causes = causes;
 		})
+		UserFactory.getAllGuests(function(guests){
+			console.log(guests)
+			$scope.guests = guests;
+		});
 
 		$scope.delUser = function(user){
 			// Prompt the admin to confirm user deletion to avoid accidents
@@ -29,6 +33,15 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 	        if (confPrompt) {
 				UserFactory.delUser(user, function(users){
 					$scope.users = users;
+				})
+	        }
+		};
+		$scope.delGuest = function(guest){
+			// Prompt the admin to confirm user deletion to avoid accidents
+			var confPrompt = confirm("About to delete "+guest.first_name+". Proceed?");
+	        if (confPrompt) {
+				UserFactory.delGuest(guest, function(guests){
+					$scope.guests = guests;
 				})
 	        }
 		};
