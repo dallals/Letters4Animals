@@ -18,22 +18,25 @@ module.exports = (function() {
             var address     = {};
 
             // Cause/letter representative level
-            var causePos;
-            if(req.body.rep_level == 'Senator'){
-                causePos = 'United States Senate';
-            }
-            else if(req.body.rep_level == 'Congressman'){
-                causePos = 'United States House of Representatives';
-            }
-            else{
-                causePos = req.body.rep_level;
-            }
+            // var causePos;
+            // if(req.body.rep_level == 'Senator'){
+            //     causePos = 'United States Senate';
+            // }
+            // else if(req.body.rep_level == 'Congressman'){
+            //     causePos = 'United States House of Representatives';
+            // }
+            // else if(req.body.rep_level == 'President'){
+            //     causePos = 'President of the United States';
+            // }
+            // else{
+            //     causePos = req.body.rep_level;
+            // }
 
             var
                 data        = [],                //Where all of the data will be stored
                 dataString  = '',
                 dataJson    = {},
-                position    = causePos,
+                position    = req.body.rep_level,
                 results     = [],
 
                 civics      = {
