@@ -93,11 +93,36 @@ module.exports = (function(){
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
+        changePassword: function(req, res) {
+            // Pass req.body object to the update function to update appropriate fields
+            models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){ 
+                console.log('in changePassword');
+                if(user){
+                    if (user.validPassword(req.body.password)){
+                        if (req.body.newPassword === req.body.newPasswordConfirm) {
+                            newPass = models.User.generateHash(req.body.newPassword); 
+                            user.update({password: newPass});
+                            res.send('Password Changed');
+                            
+                        }
+                        else {
+                        res.send('Passwords Do Not Match');
+                        }
+                    }
+                    else {
+                        res.send('Bad Password');
+                    }
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
+
         getAllUsers: function(req, res){
             console.log("in getAllUsers");
             models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
-                // console.log(users);
                 res.json(users);
             })
         },
@@ -111,7 +136,7 @@ module.exports = (function(){
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(destroyed){
-                    user.destroy()          
+                    user.destroy()
                     .then(function(){
                         // Send back all remaining users
                         self.getAllUsers(req, res)
