@@ -104,6 +104,9 @@ module.exports = function(app){
     app.post('/delGuest', function(req, res) {
         guests.delGuest(req, res);
     })
+    app.get('/getAllPendingcauses', function(req, res) {
+        pendingcauses.getAllPendingcouses(req, res);
+    })
 
 };
 

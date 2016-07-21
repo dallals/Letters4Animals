@@ -51,5 +51,11 @@ AnimalApp.factory('CauseFactory', function($http) {
             console.log('updated Cause succesfully');
         })
     };
+
+    factory.getAllPendingcauses = function(callback) {
+        $http.get('/getAllPendingcauses').success(function(causes){
+            callback(causes);
+        })
+    };
     return factory;
 })

@@ -12,7 +12,7 @@
                     <li role="presentation"><a showtab="" href="#users" aria-controls="profile" role="tab" data-toggle="tab">USERS</a></li>
                     <li role="presentation"><a showtab="" href="#letters" aria-controls="messages" role="tab" data-toggle="tab">LETTERS</a></li>
                     <li role="presentation"><a showtab="" href="#guests" aria-controls="messages" role="tab" data-toggle="tab">GUEST USERS</a></li>
-                    <li role="presentation"><a showtab="" href="#pendingCause" aria-controls="messages" role="tab" data-toggle="tab">PENDING CAUSES</a></li>
+                    <li role="presentation"><a showtab="" href="#pendingcauses" aria-controls="messages" role="tab" data-toggle="tab">PENDING CAUSES</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -103,7 +103,7 @@
                           <tr ng-repeat="guest in guests | orderBy: id">
                             <td>{{guest.first_name}}</td>
                             <td>{{guest.last_name}}</td>
-                            <td>{{guest.cause}}</td>
+                            <td>{{guest.cause_id}}</td>
                             <td>{{guest.state}}</td>
                             <td><button id="deletecause" ng-click='delGuest(guest)'>Delete</button></td>
                           </tr>
@@ -111,7 +111,7 @@
                       </table>
                     </div>
                     <div role="tabpanel" class="tab-pane " id="pendingcauses">
-                      <button class="btn btn-info" ng-click="enableAllCauses()">Enable All</button>
+                      <button class="btn btn-info" ng-click="enableAllPendingcauses()">Enable All</button>
                       <button class="btn btn-info" ng-click="disableAllCauses()">Disable All</button>
                       <table class="table admintable">
                         <thead>
