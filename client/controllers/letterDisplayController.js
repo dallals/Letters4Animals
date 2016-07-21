@@ -4,6 +4,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.printing = false;
     $scope.selDiv = '';
     $scope.chosenRep = [];
+    $scope.logoDown = false;
 
     UserFactory.isLoggedIn(function(user){
         if(user.id){
@@ -95,14 +96,31 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var letter of letters){
-            var letterName  = 'Letter_to_' + $('.repPosName').html() + '.doc',
+            // Change logo src to local and set new css style
+            letter.children[0].src = 'L4Alogo.png';
+            letter.children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
+
+            var letterName  = 'Letter_to_' + letter.children[11].innerHTML + '.doc',
                 letterName  = letterName.split(' ').join('_'),
                 link        = document.createElement('a'),
                 mimeType    = 'application/msword',
                 elHtml      = letter.innerHTML;
+
+            // 'Click' the generated link to force file download
             link.setAttribute('download', letterName);
             link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
             link.click();
+
+            // Reset logo src so printing doesn't break
+            letter.children[0].src = './assets/L4A-logo-cattle2-7-2016.png';
+        }
+        // Download the logo once
+        if(!$scope.logoDown){
+            var link = document.createElement('a');
+            link.setAttribute('download', 'L4Alogo.png');
+            link.setAttribute('href', './assets/L4A-logo-cattle2-7-2016.png');
+            link.click();
+            $scope.logoDown = true;
         }
     }
 

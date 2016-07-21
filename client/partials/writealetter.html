@@ -105,20 +105,6 @@
     <br>
     <button ng-click='saveLetter()'>SAVE</button>
 
-
-    <div id="test">
-        <div id="test2">
-            <div id="test3">
-
-            </div>
-        </div>
-        <div id="test4">
-            <div id="test5">
-
-            </div>
-        </div>
-    </div>
-
     <!--- Letters --->
     <div id='printDiv' ng-show=false>
         <div class='page-break' ng-repeat='rep in chosenRep'>
@@ -132,7 +118,7 @@
             {{ rep.rep.address[0].line1 }}<br>
             {{ rep.rep.address[0].city + ', ' + rep.rep.address[0].state + ' ' + rep.rep.address[0].zip }}<br><br>
 
-            Dear <span class='repPosName'>{{ rep.letterPos }} {{ rep.letterName }}</span>,<br><br>
+            Dear <span id='repPosName'>{{ rep.letterPos }} {{ rep.letterName }}</span>,<br><br>
             {{ selCause.letter_body }}<br><br>
             Sincerely, <br><br><br>
             {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
