@@ -8,6 +8,8 @@ AnimalApp.directive("scroll", function ($window) {
                  scope.boolChangeClass = true;
                  $("#main-header").addClass('fixed');
                  $('.left-header').addClass('reduce');
+                 $('#adminheader.ng-scope').removeClass('ng-scope');
+                 $('#adminheader').addClass('reduceheader');
                  $("#menu").addClass('reducemenu');
                  $("#container").addClass('border');
                  $("#logo").animate({
@@ -25,6 +27,8 @@ AnimalApp.directive("scroll", function ($window) {
                  $("#container").removeClass('border');
                  $("#main-header").removeClass('fixed');
                  $('.left-header').removeClass('reduce');
+                 $('#adminheader').addClass('ng-scope');
+                 $('#adminheader.ng-scope').removeClass('reduceheader');
                  $("#menu").removeClass('reducemenu');
                  $("#logo").animate({
                       width: '100%'},
@@ -40,6 +44,7 @@ AnimalApp.directive("scroll", function ($window) {
         });
     };
 });
+
 
 AnimalApp.directive('showtab',
 function () {
