@@ -1,10 +1,17 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
 
-    $scope.gotCause = false;
-    $scope.printing = false;
-    $scope.selDiv = '';
-    $scope.chosenRep = [];
-    $scope.logoDown = false;
+    $scope.gotCause     = false;
+    $scope.printing     = false;
+    $scope.selDiv       = '';
+    $scope.chosenRep    = [];
+    $scope.logoDown     = false;
+    $scope.fixedName    = '';
+    $scope.fixedPos     = '';
+    $scope.fixedAddr    = '';
+    $scope.fixedCity    = '';
+    $scope.fixedState   = '';
+    $scope.fixedZip     = '';
+    $scope.fixedPic     = '';
 
     UserFactory.isLoggedIn(function(user){
         if(user.id){
@@ -20,48 +27,79 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
 
     $scope.getReps = function(level){
-        var payload             = {};
-            payload.rep_level   = level;
 
-        // Format address to send to civics API
-        if($scope.loggedIn){
-            payload.userAddr = $scope.loggedUser.street_address + ', ' + $scope.loggedUser.city + ' ' + $scope.loggedUser.state + ', ' + $scope.loggedUser.zipcode;
+        // Check if the cause has a fixed recipient/address
+        if($scope.selCause.fixed){
+            $scope.fixedName    = $scope.selCause.fixed_name;
+            $scope.fixedAddr    = $scope.selCause.fixed_address;
+            $scope.fixedCity    = $scope.selCause.fixed_city;
+            $scope.fixedState   = $scope.selCause.fixed_state;
+            $scope.fixedZip     = $scope.selCause.fixed_zipcode;
+            $scope.fixedPos     = $scope.selCause.rep_level;
+            $scope.fixedPic     = './assets/blank.jpg';
+            $scope.gotCause     = true;
         }
         else{
-            payload.userAddr = $scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;
-        }
+            var payload             = {};
+                payload.rep_level   = level;
 
-        // Grab proper representatives
-        $http.post('/representatives', payload).success(function(reps){
-            for(var rep of reps){
-                // Grab the representative position for the letter salutation
-                var posArr = rep.position.split(' ');
-                if(posArr.includes('Senate')){
-                    rep.letterPos = 'Senator';
-                }
-                if(posArr.includes('President')){
-                    rep.letterPos = 'President';
-                }
-                if(posArr.includes('Vice-President')){
-                    rep.letterPos = 'Vice-President';
-                }
-                if(posArr.includes('Representatives')){
-                    rep.letterPos = 'Representative';
-                }
-
-                // Grab the representative's last name for letter salutation
-                var nameSplit = rep.rep.name.split(' ');
-                rep.letterName = nameSplit[nameSplit.length-1];
-
-                // Format the address to upper-case for letter
-                var formAdd     = rep.rep.address[0].line1.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
-                    formCity    = rep.rep.address[0].city.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
-                rep.rep.address[0].line1 = formAdd;
-                rep.rep.address[0].city = formCity;
+            // Format address to send to civics API
+            if($scope.loggedIn){
+                payload.userAddr = $scope.loggedUser.street_address + ', ' + $scope.loggedUser.city + ' ' + $scope.loggedUser.state + ', ' + $scope.loggedUser.zipcode;
             }
-            $scope.reps = reps;
-            $scope.gotCause = true;
-        })
+            else{
+                payload.userAddr = $scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;
+            }
+
+            // Grab proper representatives
+            $http.post('/representatives', payload).success(function(reps){
+                for(var rep of reps){
+                    // Grab the representative position for the letter salutation
+                    var posArr = rep.position.split(' ');
+                    if(posArr.includes('Senate')){
+                        rep.letterPos = 'Senator';
+                    }
+                    if(posArr.includes('President')){
+                        rep.letterPos = 'President';
+                    }
+                    if(posArr.includes('Vice-President')){
+                        rep.letterPos = 'Vice-President';
+                    }
+                    if(posArr.includes('Representatives')){
+                        rep.letterPos = 'Representative';
+                    }
+                    if(posArr.includes('Governor')){
+                        rep.letterPos = 'Governor';
+                    }
+                    if(posArr.includes('Lieutenant')){
+                        rep.letterPos = 'Lieutenant Governor';
+                    }
+
+                    // Grab the representative's last name for letter salutation
+                    var nameSplit = rep.rep.name.split(' ');
+                    // Check if representative has a 'Jr.', 'Sr.', or other title at the end
+                    if(nameSplit[nameSplit.length-1][nameSplit[nameSplit.length-1].length-1] == '.'){
+                        rep.letterName = nameSplit[nameSplit.length-2];
+                    }
+                    else{
+                        rep.letterName = nameSplit[nameSplit.length-1];
+                    }
+
+                    // Check representative photo
+                    if(!rep.rep.photoUrl){
+                        rep.rep.photoUrl = './assets/blank.jpg';
+                    }
+
+                    // Format the address to upper-case for letter
+                    var formAdd     = rep.rep.address[0].line1.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
+                        formCity    = rep.rep.address[0].city.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+                    rep.rep.address[0].line1 = formAdd;
+                    rep.rep.address[0].city = formCity;
+                }
+                $scope.reps = reps;
+                $scope.gotCause = true;
+            })
+        }
     }
 
     $scope.repPicked = function(rep) {
@@ -92,7 +130,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             mywindow.close();
         }, 500);
 
-    }
+    }   // End of printLetter()
 
     $scope.saveLetter = function(){
         // Grab the letter(s) in the printDiv and store them in letters
@@ -125,6 +163,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             link.click();
             $scope.logoDown = true;
         }
-    }
+    }   // End of saveLetter()
 
 });

@@ -123,7 +123,6 @@ module.exports = (function(){
             console.log("in getAllUsers");
             models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
-                // console.log(users);
                 res.json(users);
             })
         },
@@ -137,7 +136,7 @@ module.exports = (function(){
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(destroyed){
-                    user.destroy()          
+                    user.destroy()
                     .then(function(){
                         // Send back all remaining users
                         self.getAllUsers(req, res)

@@ -89,21 +89,29 @@
         <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button>
         <br><br>
 
-        <div ng-show=gotCause id=repbox>
-            <div id=rep1 class='col-sm-6' ng-repeat='rep in reps'>
-                <img ng-src='{{rep.rep.photoUrl}}' alt=Rep width=150><br>
+        <div ng-show=gotCause>
+            <div class='col-sm-2 repbox' ng-repeat='rep in reps'>
+                <img ng-src='{{rep.rep.photoUrl || fixedPic }}' alt=Rep width=150 height=187><br>
                 <input type="checkbox" ng-click='repPicked(rep)'>
                 {{ rep.rep.name }}<br>
-                {{ rep.position }}<br><br><br>
+                {{ rep.position }}
+            </div>
+            <div ng-if='!reps' class='col-sm-12'>
+                <img ng-src='{{rep.rep.photoUrl || fixedPic }}' alt=Rep width=150 height=187><br>
+                <input type="checkbox" ng-click='repPicked(rep)'>
+                {{ fixedName }}<br>
+                {{ fixedPos }}
             </div>
         </div>
 
     </div> <!--- End of printLetter --->
 
-    <br>
-    <button ng-click="printLetter('#printDiv')">PRINT</button>
-    <br>
-    <button ng-click='saveLetter()'>SAVE</button>
+    <div class="col-sm-12">
+        <br>
+        <button ng-click="printLetter('#printDiv')">PRINT</button>
+        <br>
+        <button ng-click='saveLetter()'>SAVE</button>
+    </div>
 
     <!--- Letters --->
     <div id='printDiv' ng-show=false>
@@ -113,12 +121,12 @@
             {{ addr || loggedUser.street_address }}<br>
             {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
             <br><br>
-            {{ rep.letterPos }} {{ rep.rep.name }}<br>
-            {{ rep.position }}<br>
-            {{ rep.rep.address[0].line1 }}<br>
-            {{ rep.rep.address[0].city + ', ' + rep.rep.address[0].state + ' ' + rep.rep.address[0].zip }}<br><br>
+            {{ rep.letterPos }} {{ rep.rep.name || fixedName }}<br>
+            {{ rep.position || fixedPos }}<br>
+            {{ rep.rep.address[0].line1 || fixedAddr }}<br>
+            {{ rep.rep.address[0].city || fixedCity }}, {{ rep.rep.address[0].state || fixedState }} {{ rep.rep.address[0].zip || fixedZip }}<br><br>
 
-            Dear <span id='repPosName'>{{ rep.letterPos }} {{ rep.letterName }}</span>,<br><br>
+            Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixedName }}</span>,<br><br>
             {{ selCause.letter_body }}<br><br>
             Sincerely, <br><br><br>
             {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
