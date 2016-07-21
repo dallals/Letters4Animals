@@ -1,4 +1,5 @@
 // This page is using Nodemailer for the contact form
+var models = require('../models');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
 
@@ -34,7 +35,23 @@ module.exports = (function(){
             });
             transporter.close();
             res.json({ email_sent: 'success'});
-        }
+        },
+        // Send Email notification for a cause
+        emailNotification: function(req, res){
+            models.User.find({where: ["email_notification = ?", true]})
+            .then(function(users){
+                console.log(users)
+            })
+            // transporter.sendMail({
+            //     from: req.body.email,
+            //     to: 'info@letters4animals.com',
+            //     subject: 'Contact Us - letters4animals',
+            //     html: '<b>Message from</b> '+req.body.name+'<br><b>Message: </b>'+req.body.message+'<br>',
+            //     text: req.body.message
+            // });
+            // transporter.close();
+            res.json({ email_sent: 'success'});
+        },
 
     }   // End of return
 })();
