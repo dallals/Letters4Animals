@@ -5,13 +5,15 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.selDiv       = '';
     $scope.chosenRep    = [];
     $scope.logoDown     = false;
-    $scope.fixedName    = '';
-    $scope.fixedPos     = '';
-    $scope.fixedAddr    = '';
-    $scope.fixedCity    = '';
-    $scope.fixedState   = '';
-    $scope.fixedZip     = '';
-    $scope.fixedPic     = '';
+    $scope.fixed        = {
+                name    : '',
+                pos     : '',
+                addr    : '',
+                city    : '',
+                state   : '',
+                zip     : '',
+                pic     : ''
+    }
 
     UserFactory.isLoggedIn(function(user){
         if(user.id){
@@ -30,13 +32,13 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
         // Check if the cause has a fixed recipient/address
         if($scope.selCause.fixed){
-            $scope.fixedName    = $scope.selCause.fixed_name;
-            $scope.fixedAddr    = $scope.selCause.fixed_address;
-            $scope.fixedCity    = $scope.selCause.fixed_city;
-            $scope.fixedState   = $scope.selCause.fixed_state;
-            $scope.fixedZip     = $scope.selCause.fixed_zipcode;
-            $scope.fixedPos     = $scope.selCause.rep_level;
-            $scope.fixedPic     = './assets/blank.jpg';
+            $scope.fixed.name    = $scope.selCause.fixed_name;
+            $scope.fixed.addr    = $scope.selCause.fixed_address;
+            $scope.fixed.city    = $scope.selCause.fixed_city;
+            $scope.fixed.state   = $scope.selCause.fixed_state;
+            $scope.fixed.zip     = $scope.selCause.fixed_zipcode;
+            $scope.fixed.pos     = $scope.selCause.rep_level;
+            $scope.fixed.pic     = './assets/blank.jpg';
             $scope.gotCause     = true;
         }
         else{
@@ -99,7 +101,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 $scope.reps = reps;
                 $scope.gotCause = true;
             })
-        }
+        }   // End of static address check
         console.log('=========selCause=========');
         console.log($scope.selCause);
         console.log('=========selCause=========');
