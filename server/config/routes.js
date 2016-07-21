@@ -6,6 +6,7 @@ var users       = require('../controllers/users.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
     passport    = require("passport");
     guests      = require('../controllers/guests.js'),
+    pendingcauses = require('../controllers/pendingcauses.js'),
 //
 module.exports = function(app){
 
@@ -105,7 +106,7 @@ module.exports = function(app){
         guests.delGuest(req, res);
     })
     app.get('/getAllPendingcauses', function(req, res) {
-        pendingcauses.getAllPendingcouses(req, res);
+        pendingcauses.getAllPendingcauses(req, res);
     })
 
 };
