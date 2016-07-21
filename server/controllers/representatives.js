@@ -20,7 +20,10 @@ module.exports = (function() {
             // Cause/letter representative level
             var causePos;
             if(req.body.rep_level == 'Senator'){
-                causePos = 'Senate';
+                causePos = 'United States Senate';
+            }
+            else if(req.body.rep_level == 'Congressman'){
+                causePos = 'United States House of Representatives';
             }
             else{
                 causePos = req.body.rep_level;
@@ -57,7 +60,6 @@ module.exports = (function() {
 
                         for (things of dataJson.offices) {
                             if (things.name.includes(position)) {
-                                // console.log(things)
                                 for (thing of things.officialIndices) {
                                     var finalRep = {};
                                         finalRep.rep        = dataJson.officials[thing];

@@ -64,6 +64,12 @@ module.exports = function(sequelize, DataTypes) {
     login_count: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    reset_pw_url: {
+      type: DataTypes.STRING
+    },
+    reset_pw_url_created_at: {
+      type: DataTypes.DATE
     }
   }, {
     classMethods: {

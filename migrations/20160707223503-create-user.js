@@ -50,6 +50,12 @@ module.exports = {
       login_count: {
         type: Sequelize.INTEGER
       },
+      reset_pw_url: {
+        type: Sequelize.STRING
+      },
+      reset_pw_url_created_at: {
+        type: Sequelize.DATE
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
