@@ -1,8 +1,11 @@
+<div id="adminheader"><h3>Administrative Panel</h3></div>
 <div id="admin_container" ng-controller='adminController' ng-show='loggedIn'>
 
 <!-- Left Admin panel -->
 <div class="col-sm-12 admin_container">
-  <h3>Admin Panel</h3>
+
+  <a href="https://accounts.google.com/servicelogin?service=analytics"><button class="btn btn-primary analytics"> To Google Analytics</button></a>
+
   <!-- {{users}} -->
     <div class="row">
             <div>
@@ -18,9 +21,9 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="causes">
-                      <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-info">Create New Cause</button></a>
-                      <button class="btn btn-info" ng-click="enableAllCauses()">Enable All</button>
-                      <button class="btn btn-info" ng-click="disableAllCauses()">Disable All</button>
+                      <a href="#causeadmin"><button id="addcause" class="admin_buttons btn btn-primary analytics">Create New Cause</button></a>
+                      <button class="btn btn-primary analytics" ng-click="enableAllCauses()">Enable All</button>
+                      <button class="btn btn-primary analytics" ng-click="disableAllCauses()">Disable All</button>
                       <table class="table admintable">
                         <thead>
                           <th>Cause</th>
@@ -29,6 +32,8 @@
                           <th>Enabled</th>
                           <th>Edit</th>
                           <th>Delete</th>
+                          <th>Text</th>
+                          <th>Email</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="cause in causes">
@@ -36,8 +41,10 @@
                             <td>{{cause.supports}}</td>
                             <td>{{cause.createdAt}}</td>
                             <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
-                            <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause">Delete</button></td>
+                            <td><button id="editcause" class="admin_panel" ng-click='editCause(cause)'>Edit</button></td>
+                            <td><button id="deletecause" class="admin_panel" ng-click='deleteCause(cause)'>Delete</button></td>
+                            <td><button id="sendText" class="admin_panel" ng-click='sendText(cause)'>Send Text</button></td>
+                            <td><button id="sendEmail" class="admin_panel" ng-click='sendEmail(cause)'>Send Email</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -64,13 +71,13 @@
                             <td>{{user.phone_notification}}</td>
                             <td>{{user.email_notification}}</td>
                             <td>{{user.login_count}}</td>
-                            <td><button id="deletecause" ng-click='delUser(user)'>Delete</button></td>
+                            <td><button id="deletecause" class="admin_panel" ng-click='delUser(user)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div role="tabpanel" class="tab-pane" id="letters">
-                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-info">Create New Letter</button></a>
+                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-primary">Create New Letter</button></a>
                       <table class="table admintable">
                         <thead>
                           <th>Letter Name</th>
@@ -84,8 +91,8 @@
                             <td>{{letter.name}}</td>
                             <td>{{letter.cause}}</td>
                             <td>{{letter.updatedAt}}</td>
-                            <td><button id="editcause">Edit</button></td>
-                            <td><button id="deletecause">Disable</button></td>
+                            <td><button id="editletter" class="admin_panel" ng-click='editLetter(letter)'>Edit</button></td>
+                            <td><button id="disableletter" class="admin_panel" ng-click='disableLetter(letter)'>Disable</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -105,14 +112,15 @@
                             <td>{{guest.last_name}}</td>
                             <td>{{guest.cause_id}}</td>
                             <td>{{guest.state}}</td>
-                            <td><button id="deletecause" ng-click='delGuest(guest)'>Delete</button></td>
+                            <td><button id="deletecause" class="admin_panel" ng-click='delGuest(guest)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>
                     </div>
                     <div role="tabpanel" class="tab-pane " id="pendingcauses">
-                      <button class="btn btn-info" ng-click="enableAllPendingcauses()">Enable All</button>
-                      <button class="btn btn-info" ng-click="disableAllCauses()">Disable All</button>
+    
+                      <button class="btn btn-primary analytics" ng-click="enableAllCauses()">Enable All</button>
+                      <button class="btn btn-primary analytics" ng-click="disableAllCauses()">Disable All</button>
                       <table class="table admintable">
                         <thead>
                           <th>Cause</th>
@@ -128,8 +136,8 @@
                             <td>{{pendingcause.supports}}</td>
                             <td>{{pendingcause.createdAt}}</td>
                             <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
-                            <td><button id="editpendingcause">Edit</button></td>
-                            <td><button id="deletependingcause">Delete</button></td>
+                            <td><button id="editPendingCause" class="admin_panel" ng-click='editPendCause(letter)'>Edit & Add</button></td>
+                            <td><button id="deletePendingCause" class="admin_panel">Delete</button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -143,8 +151,8 @@
 
 <!-- Right analytics panel -->
   <div class="col-sm-12 analytics">
-    <h3>Site Stats</h3><a href="https://accounts.google.com/servicelogin?service=analytics"><button class="btn btn-primary"> To Google Analytics</button></a>
-    <div class="stats">
+    <h3>Site Stats</h3>
+    <!-- <div class="stats">
       <div class="stat-graph-top">
       </div>
       <div class="stat-graph-top">
@@ -153,7 +161,7 @@
       </div>
       <div class="stat-graph-bottom">
       </div>
-    </div>
-  </div
+    </div> -->
+  </div>
 
 </div>
