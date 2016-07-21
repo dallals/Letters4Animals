@@ -22,6 +22,9 @@ module.exports = (function() {
             if(req.body.rep_level == 'Senator'){
                 causePos = 'United States Senate';
             }
+            else if(req.body.rep_level == 'Congressman'){
+                causePos = 'United States House of Representatives';
+            }
             else{
                 causePos = req.body.rep_level;
             }

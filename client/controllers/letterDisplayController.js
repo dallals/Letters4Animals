@@ -45,6 +45,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 if(posArr.includes('Vice-President')){
                     rep.letterPos = 'Vice-President';
                 }
+                if(posArr.includes('Representatives')){
+                    rep.letterPos = 'Representative';
+                }
 
                 // Grab the representative's last name for letter salutation
                 var nameSplit = rep.rep.name.split(' ');
