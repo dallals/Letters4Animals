@@ -1,0 +1,33 @@
+<div ng-controller="PassController" id="forgottenPassword">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Forgotten Password</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                Please enter your email below, we will send you an email with the steps to reset your password.
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <form>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-2 forgotErrors" ng-bind="errors"></div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Email:
+                </div>
+                <div class="col-md-6">
+                    <input type="text" placeholder="Email Address" ng-model="email">
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" value="Send" class="btn btn-info" ng-click="checkEmail()" class="forgotInput">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 AnimalApp.factory('UserFactory', function($http) {
     var factory = {};
     var thisUser = null;
+    var resetPassUser = {};
 
 
     factory.registerUser = function(user, callback) {
@@ -41,6 +42,20 @@ AnimalApp.factory('UserFactory', function($http) {
             callback(data);
         })
     };
+
+    factory.getUserByEmail = function(email, callback) {
+        console.log('FACTORY GET USER BY EMAIL');
+        $http.post('/getUserByEmail', {email: email}).success(function(data) {
+            if (callback) {
+                console.log('Client Factory Done');
+                callback(data);
+                resetPassUser = data.data;
+            }
+        })
+    }
+    factory.getResetPassUser = function() {
+        return resetPassUser;
+    }
 
     factory.updateUser = function(userinfo) {
         $http.post('/updateUser', userinfo).success(function(){

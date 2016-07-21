@@ -1,5 +1,8 @@
 var models = require('../models');
 var Sequelize = require('sequelize');
+//For sending reset email
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport();
 
 var emailConfLinks = [],
     genLength      = 50;
@@ -9,6 +12,26 @@ var emailConfGen = function(i, gen) {
     if (i===undefined)   {i = 0;}   else {i++;}
     if (gen===undefined) {gen = ''} else {gen += valid[Math.floor(Math.random()*valid.length)]}
     if (i<genLength)     {return emailConfGen(i, gen)} else {emailConfLinks.push(gen); return gen;}
+}
+var resetPassGen = function() {
+    var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    var gen = '';
+
+    for (var i = 0; i < genLength; i++) {
+        gen += valid[Math.floor(Math.random()*valid.length)];
+    }
+    return gen;
+}
+
+var sendResetEmail = function(email) {
+    transporter.sendMail({
+        from: 'info@letters4animals.com',
+        to: 'howard.yunghao.jiang@gmail.com',
+        subject: 'Forgotten Password - letters4animals',
+        html: resetPassGen()+'<br>'+email,
+        text: 'something'
+    });
+    transporter.close();
 }
 
 module.exports = (function(){
@@ -85,6 +108,43 @@ module.exports = (function(){
                 }
             })
         },
+        //For Reset
+        getUserByEmail: function(req, res) {
+            models.User.find({where: ["email = ?", req.body.email]}).then(function(data) {
+                console.log('Server Controller Sequelize');
+                if (data) {
+                    res.json({data: data.dataValues});
+                    console.log(data.dataValues.email);
+                    sendResetEmail(data.dataValues.email);
+                    data.update({reset_url: resetPassGen()});
+                    console.log('Sent');
+                } else {
+                    res.json({errors: 'Email not found'});
+                }
+            })
+        },
+        getUserByResetUrl: function(req, res) {
+            models.User.find({where: ["reset_url = ?", req.body.resetUrl]}).then(function(data) {
+                if (data) {
+                    res.json({data: data.dataValues});
+                    console.log(data.dataValues);
+                } else {
+                    res.json({errors: 'Url not found'});
+                }
+            })
+        },
+        resetPasswordForUser: function(req, res) {
+            models.User.find({where: ["reset_url = ?", req.body.resetUrl]}).then(function(data) {
+                var password = models.Pendinguser.generateHash(req.body.password);;
+                if (data) {
+                    data.update({password: password})
+                    res.json({success: true, statusMessage: 'Password successfully updated'});
+                    //update the user
+                } else {
+                    res.json({success: false, statusMessage: 'User not found'})
+                }
+            })
+        },
 
         //Update user info
         updateUser: function(req, res) {
@@ -111,7 +171,7 @@ module.exports = (function(){
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(destroyed){
-                    user.destroy()          
+                    user.destroy()
                     .then(function(){
                         // Send back all remaining users
                         self.getAllUsers(req, res)

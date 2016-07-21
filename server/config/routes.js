@@ -39,6 +39,9 @@ module.exports = function(app){
     app.post('/getUserInfo', function(req, res) {
         users.getUserInfo(req, res);
     })
+    app.post('/getUserByEmail', function(req, res) {
+        users.getUserByEmail(req, res);
+    })
     //Updating user in DB
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
