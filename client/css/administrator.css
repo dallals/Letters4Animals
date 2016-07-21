@@ -156,3 +156,7 @@
   background:rgb(51,122,183);
   color:white;
 }
+
+#admin_container > div.col-sm-12.admin_container > div > div > ul{
+  background:white !important;
+}
