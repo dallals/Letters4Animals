@@ -102,9 +102,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 $scope.gotCause = true;
             })
         }   // End of static address check
-        console.log('=========selCause=========');
-        console.log($scope.selCause);
-        console.log('=========selCause=========');
     }
 
     $scope.repPicked = function(rep) {
