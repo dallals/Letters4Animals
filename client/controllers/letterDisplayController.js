@@ -100,6 +100,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 $scope.gotCause = true;
             })
         }
+        console.log('=========selCause=========');
+        console.log($scope.selCause);
+        console.log('=========selCause=========');
     }
 
     $scope.repPicked = function(rep) {

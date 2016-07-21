@@ -23,7 +23,7 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 			$scope.causes = causes;
 		})
 		CauseFactory.getAllPendingcauses(function(pendingcauses){
-			console.log(pendingcause, "Getting to pendingcauses")
+			console.log(pendingcauses, "Getting to pendingcauses")
 			$scope.pendingcauses = pendingcauses;
 		})
 		UserFactory.getAllGuests(function(guests){

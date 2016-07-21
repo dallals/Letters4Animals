@@ -130,7 +130,8 @@
             {{ selCause.letter_body }}<br><br>
             Sincerely, <br><br><br>
             {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-            <br>
+            <br><br><br><br>
+            {{ selCause.letter_footnote }}
         </div>
     </div>
     <!--- End of letters --->

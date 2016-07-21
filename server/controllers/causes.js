@@ -11,6 +11,7 @@ module.exports = (function(){
                 res.json(causes);
             })
         },
+
         getEnabledCauses: function(req, res) {
             models.Cause.findAll({where: ['enabled = ?', true]})
             .then(function(causes){

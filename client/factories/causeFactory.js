@@ -53,8 +53,8 @@ AnimalApp.factory('CauseFactory', function($http) {
     };
 
     factory.getAllPendingcauses = function(callback) {
-        $http.get('/getAllPendingcauses').success(function(causes){
-            callback(causes);
+        $http.get('/getAllPendingcauses').success(function(pendingcauses){
+            callback(pendingcauses);
         })
     };
     return factory;
