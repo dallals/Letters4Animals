@@ -5,6 +5,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Users", // Can be both a string representing the table name, or a reference to the model
+        key:   "id"
+      }
+    },
     description: {
       type: DataTypes.TEXT
     },
@@ -50,7 +57,11 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-
+        Pendingcause.belongsTo(models.User, {
+          onDelete: "CASCADE",
+          foreignKey: 'user_id',
+          constraints: false
+        });
       }
     }
   });

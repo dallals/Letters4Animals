@@ -61,6 +61,25 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $http.post('/representatives', payload).success(function(reps){
                 for(var rep of reps){
                     // Grab the representative position for the letter salutation
+                    // var posArr = rep.position.split(' ');
+                    // if(posArr.includes('Senate')){
+                    //     rep.letterPos = 'Senator';
+                    // }
+                    // if(posArr.includes('President')){
+                    //     rep.letterPos = 'President';
+                    // }
+                    // if(posArr.includes('Vice-President')){
+                    //     rep.letterPos = 'Vice-President';
+                    // }
+                    // if(posArr.includes('Representatives')){
+                    //     rep.letterPos = 'Representative';
+                    // }
+                    // if(posArr.includes('Governor')){
+                    //     rep.letterPos = 'Governor';
+                    // }
+                    // if(posArr.includes('Lieutenant')){
+                    //     rep.letterPos = 'Lieutenant Governor';
+                    // }
                     var posArr = rep.position.split(' ');
                     for(var i=0; i< posArr.length; i++){
                         switch(posArr[i]){
@@ -72,7 +91,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
                         }
                     }
-
+                    
                     // Grab the representative's last name for letter salutation
                     var nameSplit = rep.rep.name.split(' ');
                     // Check if representative has a 'Jr.', 'Sr.', or other title at the end
