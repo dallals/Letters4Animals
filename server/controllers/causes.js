@@ -41,20 +41,59 @@ module.exports = (function(){
                 models.Cause.create({
                     name: cause.name,
                     description: cause.description,
-                    letter_body: cause.letter_body,
                     rep_level: cause.rep_level,
-                    enabled: cause.enabled
+                    letter_body: cause.letter_body,
+                    letter_footnote: cause.letter_footnote,
+                    enabled: cause.enabled,
+                    fixed: cause.fixed,
+                    fixed_name: cause.fixed_name,
+                    fixed_address: cause.fixed_address,
+                    fixed_city: cause.fixed_city,
+                    fixed_state: cause.fixed_state,
+                    fixed_zipcode: cause.fixed_zipcode
                 }).then(function(cause) {
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
 
-                res.json();
+                res.json(); //needed?
             } else {
                 console.log('Missing Cause');
             }
         },
+
+        convertPendingCause: function(req, res) {
+
+            if (req.body.cause) {
+                var cause = req.body.cause;
+                models.Cause.create({
+                    name: cause.name,
+                    description: cause.description,
+                    rep_level: cause.rep_level,
+                    letter_body: cause.letter_body,
+                    letter_footnote: cause.letter_footnote,
+                    enabled: cause.enabled,
+                    fixed: cause.fixed,
+                    fixed_name: cause.fixed_name,
+                    fixed_address: cause.fixed_address,
+                    fixed_city: cause.fixed_city,
+                    fixed_state: cause.fixed_state,
+                    fixed_zipcode: cause.fixed_zipcode
+                }).then(function(cause) {
+                //need ti delete pending cause
+                    models.Pendingcause.destroy({where: ['id = ?', req.body.pendingcause_id]})
+                    res.json({success: true, data: cause})
+                }).catch(function(err) {
+                    res.json({success: false, errors: err})
+                })
+
+                res.json(); //needed?
+            } else {
+                console.log('Missing Cause');
+            }
+        }
+
         deleteCause: function(req, res){
             var self = this;
             // console.log(self);

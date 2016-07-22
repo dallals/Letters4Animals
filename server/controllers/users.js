@@ -91,7 +91,10 @@ module.exports = (function(){
         //Update user info
         updateUser: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            req.body.admin = false;
+            console.log(req.body);
+            if (req.body.userid != 1) {
+                req.body.admin = false;
+            }
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
@@ -138,11 +141,14 @@ module.exports = (function(){
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
-                .then(function(destroyed){
-                    user.destroy()
-                    .then(function(){
+                .then(function(supports){
+                    models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
+                    .then(function(pendingcauses){
+                        user.destroy()
+                        .then(function(){
                         // Send back all remaining users
-                        self.getAllUsers(req, res)
+                            self.getAllUsers(req, res)
+                        })
                     })
                 })
             })

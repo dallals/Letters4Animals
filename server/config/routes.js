@@ -1,6 +1,7 @@
 //
 var users       = require('../controllers/users.js'),
     causes      = require('../controllers/causes.js'),
+    supports    = require('../controllers/supports.js'),
     reps        = require('../controllers/representatives.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
@@ -97,6 +98,11 @@ module.exports = function(app){
 
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
+    })
+    //Supports
+
+    app.post('/addSupport', function(req, res) {
+        supports.addSupport(req, res);
     })
 
     app.get('/getAllGuests', function(req, res) {

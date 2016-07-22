@@ -52,6 +52,13 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
+    factory.addSupport = function(supportinfo) {
+        $http.post('/addSupport', supportinfo).success(function(){
+            console.log('added support succesfully');
+        })
+    };
+
+
     factory.getAllPendingcauses = function(callback) {
         $http.get('/getAllPendingcauses').success(function(pendingcauses){
             callback(pendingcauses);
