@@ -58,6 +58,13 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
+    factory.getPendingCause = function(id, callback) {
+  		$http.get('/pendingCause/'+id).success(function(data) {
+        console.log("coming back from factory",data);
+  			callback(data);
+  		})
+  	};
+
     factory.sendText = function(causeInfo){
        $http.post('/sendText', causeInfo).success(function(twilio){
            console.log(twilio);

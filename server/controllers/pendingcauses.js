@@ -10,8 +10,16 @@ module.exports = (function(){
             .then(function(pendingcauses){
                 res.json(pendingcauses);
             })
-        },
+    },
 
+		getPendingCause: function(req,res){
+				console.log("made it to model",req.params.id);
+				var id = req.params.id;
+				models.sequelize.query('SELECT "Pendingcauses".id, "Pendingcauses".name, "Pendingcauses".description, "Pendingcauses".letter_body, "Pendingcauses".fixed, "Pendingcauses".enabled, "Pendingcauses".rep_level, "Pendingcauses"."createdAt", "Pendingcauses"."updatedAt" FROM "Pendingcauses" WHERE "Pendingcauses".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+				.then(function(pendingcauses){
+						res.json(pendingcauses);
+				})
+		}
 
 	} // closes return
 

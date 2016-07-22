@@ -1,0 +1,46 @@
+<div id="main">
+  <header id="addcauseheader">
+    <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
+    <h2>Add & Edit a Donated Cause</h2>
+  </header>
+
+  <form name="causeadmin" ng-controller="pendingCauseController" ng-model="cause">
+    <label>Cause Name</label><br><input type="text" name="causename" ng-model="pendingcause.name"></input><br><br>
+    <label>Description</label><br><textarea name="description" class="admintext" ng-model="pendingcause.description"></textarea><br>
+
+    <div class="halfsection">
+      <h4>Recipients</h4>
+        <input type="radio" name="rep_level"><label> President</label><br>
+        <input type="radio" name="rep_level"><label> Senators</label><br>
+        <input type="radio" name="rep_level"><label> House of Representatives</label><br>
+        <input type="radio" name="rep_level"><label> Special Purpose</label><br>
+        <input type="radio" name="rep_level"><label> Govenor</label><br>
+        <input type="radio" name="rep_level"><label> School Board</label><br>
+    </div>
+
+    <div class="halfsection">
+      <h4>Fixed Recipients?</h4>
+        <label>Yes:</label> <input type="checkbox" ng-click='toggleFixed(recipient)' ng-checked="{{pendingcause.fixed}}"></td><br>
+        <label>Name of Recipient</label><input type="text" name="fixed_name" ng-model="pendingcause.fixed_name">
+        <label>Street Address</label><input type="text" name="fixed_address" ng-model="pendingcause.fixed_address">
+        <label>City</label><input type="text" name="fixed_city" ng-model="pendingcause.fixed_city">
+        <!-- for state do we have any data formatting for the DB? potentially change to a select of state abbreviations or names -->
+        <label>State</label><input type="text" name="fixed_state" ng-model="pendingcause.fixed_state">
+        <label>Zipcode</label><input type="text" name="fixed_zipcode" ng-model="pendingcause.fixed_zipcode">
+    </div>
+
+    <div class="letter content">
+      <h4>Letter Content</h4>
+      <textarea  name="string" class="lettertext" ng-model="pendingcause.letter_body" required></textarea>
+    </div>
+
+    <div class="letter content">
+      <h4>Footnotes</h4>
+      <textarea name="string" class="footnotetext" ng-model="pendingcause.letter_footnote"></textarea>
+    </div>
+
+    <input type="submit" ng-click="addCause()" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Create Cause"></input>
+
+  </form>
+
+</div>

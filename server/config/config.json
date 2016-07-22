@@ -1,7 +1,7 @@
 {
   "development": {
 
-    "username": "postgres",
+    "username": "laurawandres",
     "password": "root$",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
@@ -9,14 +9,14 @@
   },
   "test": {
 
-    "username": "vadim",
+    "username": "laurawandres",
     "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
   "production": {
-    "username": "pegah",
+    "username": "laurawandres",
     "password": null,
     "database": "Letters4Animals",
     "host": "127.0.0.1",
