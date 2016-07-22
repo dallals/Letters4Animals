@@ -1,11 +1,37 @@
 
 /*ADMIN HOME*/
+
+/*header info*/
 #admin_container{
   width: 85%;
   margin: 0px auto;
   height:900px;
-  color:black;
 }
+
+
+#adminheader{
+  width: 100%;
+  color:white;
+  background: rgb(51,122,183);
+  padding-bottom:2%;
+}
+
+#adminheader h3{
+  margin-left:8%;
+  vertical-align: top;
+  font-weight: lighter;
+
+}
+
+#adminheader.ng-scope{
+  padding-top:14% !important;
+}
+
+#admin_container.ng-scope{
+  padding-top:2% !important;
+}
+
+/*header info*/
 
 .admin_buttons{
   float:right;
@@ -75,4 +101,62 @@
 #admin_container > div.col-sm-5.analytics > h3{
   display:inline-block;
   width:55%;
+}
+
+.admintable{
+  font-size: .9em;
+  margin-top:6%;
+}
+
+.analytics{
+  float:right;
+  margin-bottom:2%;
+  margin-right:1%;
+}
+
+#admin_container > div.col-sm-12.admin_container > div > div > ul{
+  background:black;
+}
+
+#admin_container .nav-tabs>li>a{
+  background:white;
+  border:none;
+  color:silver !important;
+  font-size:1.3em;
+}
+
+#admin_container .nav-tabs>li.active>a{
+  background:rgb(191,191,191)!important;
+  color:white !important;
+}
+
+.reduceheader{
+  padding-top:7% !important;
+}
+
+#admin_container .table>thead>tr>th{
+  background:rgb(191,191,191);
+  color:white;
+  vertical-align: middle;
+}
+
+#admin_container .admin_panel,button{
+  padding:5px;
+  border:solid 3px silver;
+  border-radius:5px;
+  background:white;
+  color:black;
+}
+
+
+#admin_container .admin_panel:hover{
+  padding:6px;
+  border:solid 2px white;
+  border-radius:5px;
+  background:rgb(51,122,183);
+  color:white;
+}
+
+#admin_container > div.col-sm-12.admin_container > div > div > ul{
+  background:white !important;
 }

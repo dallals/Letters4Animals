@@ -45,9 +45,15 @@ AnimalApp.config(function ($routeProvider) {
     .when('/accountactivation',{
         templateUrl: 'partials/accountactivation.html',
     })
+    .when('/activationerror',{
+        templateUrl: 'partials/activationerror.html',
+    })
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE
+    .when('/causetest', {
+        templateUrl: 'partials/causetest.html'
+    })
     .otherwise({
       redirectTo: '/'
     });

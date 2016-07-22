@@ -1,4 +1,4 @@
-AnimalApp.controller('adminController', function($scope, $location, $http, UserFactory, CauseFactory) {
+AnimalApp.controller('adminController', function($scope, $location, UserFactory, CauseFactory) {
 
 	$scope.checkboxModel = {
 		value1 : true,
@@ -11,7 +11,6 @@ AnimalApp.controller('adminController', function($scope, $location, $http, UserF
 			$scope.loggedUser = user;
             $scope.loggedIn = true;
 		}
-		// Comment this else out if you don't have a working database
 		else{ $location.url('/'); }
 	});
 
@@ -23,6 +22,14 @@ AnimalApp.controller('adminController', function($scope, $location, $http, UserF
 		CauseFactory.getAllCauses(function(causes){
 			$scope.causes = causes;
 		})
+		CauseFactory.getAllPendingcauses(function(pendingcauses){
+			console.log(pendingcauses, "Getting to pendingcauses")
+			$scope.pendingcauses = pendingcauses;
+		})
+		UserFactory.getAllGuests(function(guests){
+			console.log(guests)
+			$scope.guests = guests;
+		});
 
 		$scope.delUser = function(user){
 			// Prompt the admin to confirm user deletion to avoid accidents
@@ -30,6 +37,15 @@ AnimalApp.controller('adminController', function($scope, $location, $http, UserF
 	        if (confPrompt) {
 				UserFactory.delUser(user, function(users){
 					$scope.users = users;
+				})
+	        }
+		};
+		$scope.delGuest = function(guest){
+			// Prompt the admin to confirm user deletion to avoid accidents
+			var confPrompt = confirm("About to delete "+guest.first_name+". Proceed?");
+	        if (confPrompt) {
+				UserFactory.delGuest(guest, function(guests){
+					$scope.guests = guests;
 				})
 	        }
 		};
@@ -44,6 +60,53 @@ AnimalApp.controller('adminController', function($scope, $location, $http, UserF
 	        }
 		}
 
-		
+	    $scope.toggleCause = function(cause) {
+	        if (!cause) {
+	            return;
+	        }
+	        if (cause.enabled) {
+                CauseFactory.disableCause(cause, function() {
+                    CauseFactory.getAllCauses(function(causes) {
+                        $scope.causes = causes;
+                    })
+                })
+	        } else {
+                CauseFactory.enableCause(cause, function() {
+                    CauseFactory.getAllCauses(function(causes) {
+                        $scope.causes = causes;
+                    })
+                })
+	        }
+	        // var confirmCause = confirm()
+	    }
+
+
+		$scope.enableAllCauses = function() {
+			for (cause of $scope.causes) {
+				CauseFactory.enableCause(cause, function() {
+					CauseFactory.getAllCauses(function(causes) {
+						$scope.causes = causes;
+					})
+				})
+			}
+		}
+		$scope.disableAllCauses = function() {
+			for (cause of $scope.causes) {
+				CauseFactory.disableCause(cause, function() {
+					CauseFactory.getAllCauses(function(causes) {
+						$scope.causes = causes;
+					})
+				})
+			}
+		}
+
 	} // End of logged in check
+
+	//send twilio msg
+   $scope.sendText = function(cause){
+	   CauseFactory.sendText(cause, function(data){
+		   console.log(data);
+	   })
+   }
+
 });

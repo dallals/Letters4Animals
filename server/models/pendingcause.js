@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Cause = sequelize.define('Cause', {
+  var Pendingcause = sequelize.define('Pendingcause', {
     name: {
       type: DataTypes.STRING,
       allowNull: false
@@ -50,11 +50,9 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        Cause.hasMany(models.Support);
-        Cause.hasMany(models.Guest);
 
       }
     }
   });
-  return Cause;
+  return Pendingcause;
 };

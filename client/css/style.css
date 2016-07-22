@@ -193,6 +193,58 @@ nav{
     padding: 27px !important;
 }
 
+
+.get_facts{
+	background: #485454 !important;
+}
+
+.facts_left{
+	background-color: #DDDDDD;
+font-family: Arial;
+color: black;
+border-radius: 21px;
+padding: 17px;
+}
+
+.fact_panel{
+	border: none !important;
+	margin-bottom: 2em !important;
+}
+
+.fact_heading{
+	border-color: white !important;
+	background-color: white !important;
+	padding: 1.5em !important;
+}
+
+.fact_body{
+	border-top: 0px solid white !important;
+	padding: 1.5em !important;
+}
+
+.smallPic {
+    float: right;
+    padding-left: 10px;
+}
+
+/*
+.et_pb_toggle h5.et_pb_toggle_title {
+    position: relative;
+    padding: 0 50px 0 0;
+    cursor: pointer;
+}
+
+.et_pb_toggle_title:before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -0.5em;
+    color: #ccc;
+    font-size: 16px;
+    content: "\e050";
+}
+*/
+
 /*******************MODAL********************/
 .modal-content .btn{
     background-color: transparent !important;
@@ -212,6 +264,10 @@ nav{
 }
 
 .regErrors {
+	font-size: 0.8em;
+	color: red;
+}
+.loginErrors {
 	font-size: 0.8em;
 	color: red;
 }

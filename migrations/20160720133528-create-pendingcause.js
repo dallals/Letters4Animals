@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Causes', {
+    return queryInterface.createTable('Pendingcauses', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -59,6 +59,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Causes');
+    return queryInterface.dropTable('Pendingcauses');
   }
 };

@@ -16,6 +16,10 @@ AnimalApp.factory('UserFactory', function($http) {
     factory.login = function(user, callback) {
         $http.post('/login', user).success(function(data) {
             callback(data);
+        }).error(function() {
+            if (callback && typeof callback=="function") {
+                callback();
+            }
         })
     };
 
@@ -57,5 +61,19 @@ AnimalApp.factory('UserFactory', function($http) {
             callback(users);
         })
     };
+
+    // Get all Guest Users
+    factory.getAllGuests = function(callback){
+        $http.get('/getAllGuests').success(function(guests){
+            callback(guests);
+        })
+    }
+
+    // Delete Guest Users
+    factory.delGuest = function(guest, callback){
+        $http.post('/delGuest', guest).success(function(guests){
+            callback(guests);
+        })
+    }
     return factory;
 })

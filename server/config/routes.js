@@ -1,19 +1,18 @@
 //
 var users       = require('../controllers/users.js'),
     causes      = require('../controllers/causes.js'),
+    reps        = require('../controllers/representatives.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
-    reps        = require('../controllers/representatives.js'),
     passport    = require("passport");
+    guests      = require('../controllers/guests.js'),
+    pendingcauses = require('../controllers/pendingcauses.js'),
 //
 module.exports = function(app){
 
     //user queries for getting one user
     app.get('/confirmEmail/:link', function(req, res) {
         users.confirmEmail(req, res);
-    })
-    app.get('/generate', function(req, res) {
-        users.generate(req, res);
     })
     app.post('/confEmail', function(req, res){
         contact.confEmail(req, res);
@@ -34,7 +33,7 @@ module.exports = function(app){
         addrConf.confirmAddr(req, res);
     })
     //For Representative Finding
-    app.post('/representatives/:user', function(req, res) {
+    app.post('/representatives', function(req, res) {
         reps.findReps(req, res);
     })
 
@@ -61,17 +60,7 @@ module.exports = function(app){
             if (err) {
                 return next(err);
             }
-            if (!user) {
-                return res.status(401).json({
-                    err: info
-                });
-            }
             req.logIn(user, function(err) {
-                if (err) {
-                    return res.status(500).json({
-                        err: 'Could not log in user'
-                    });
-                }
                 return res.json(user);
             });
         })(req, res, next);
@@ -94,9 +83,33 @@ module.exports = function(app){
     app.get('/getAllCauses', function(req, res){
         causes.getAllCauses(req, res);
     })
+    app.get('/getEnabledCauses', function(req, res) {
+        causes.getEnabledCauses(req, res);
+    })
 
-    app.post('/delCause', function(req, res){
-        causes.delCause(req, res);
+    app.post('/disableCause', function(req, res){
+        causes.disableCause(req, res);
+    })
+
+    app.post('/enableCause', function(req, res) {
+        causes.enableCause(req, res);
+    })
+
+    app.post('/addCause', function(req, res) {
+        causes.addCause(req, res);
+    })
+
+    app.get('/getAllGuests', function(req, res) {
+        guests.getAllGuests(req, res);
+    })
+    app.post('/delGuest', function(req, res) {
+        guests.delGuest(req, res);
+    })
+    app.get('/getAllPendingcauses', function(req, res) {
+        pendingcauses.getAllPendingcauses(req, res);
+    })
+    app.post('/sendText', function(req,res){
+        users.sendText(req,res);
     })
 
 };

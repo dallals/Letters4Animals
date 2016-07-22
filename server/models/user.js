@@ -1,4 +1,7 @@
 'use strict';
+
+var bcrypt   = require('bcrypt-nodejs');
+
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     first_name: {
@@ -61,6 +64,12 @@ module.exports = function(sequelize, DataTypes) {
     login_count: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    reset_pw_url: {
+      type: DataTypes.STRING
+    },
+    reset_pw_url_created_at: {
+      type: DataTypes.DATE
     }
   }, {
     classMethods: {
@@ -70,9 +79,11 @@ module.exports = function(sequelize, DataTypes) {
       },
       generateHash: function(password) {
         return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-      },
+      }
+    },
+    instanceMethods: {
       validPassword: function(password) {
-        return bcrypt.compareSync(password, this.local.password);
+        return bcrypt.compareSync(password, this.password);
       }
     }
   });

@@ -1,0 +1,45 @@
+<style>
+    .true {
+        background-color: rgba(213, 252, 217, 0.72);
+    }
+    .false {
+        background-color: rgba(247, 145, 87, 0.77);
+    }
+</style>
+
+<div ng-controller="CauseTestController">
+    <h1>CAUSE TEST CONTROLLER</h1>
+    <div ng-repeat="cause in causes">
+    </div>
+    <table class="container">
+        <tr class="row">
+            <th class="col-md-1">Id</th>
+            <th class="col-md-1">Name</th>
+            <th class="col-md-6">Description</th>
+            <th class="col-md-1">Enabled</th>
+            <th class="col-md-1">rep_level</th>
+            <th class="col-md-1">Toggle</th>
+            <th class="col-md-1">Delete</th>
+        </tr>
+        <tr class="row {{cause.enabled}}" ng-repeat="cause in causes track by $index | orderBy: $index">
+            <td class="col-md-1">{{cause.id}}</td>
+            <td class="col-md-1">{{cause.name}}</td>
+            <td class="col-md-6">{{cause.description}}</td>
+            <td class="col-md-1">{{cause.enabled}}</td>
+            <td class="col-md-1">{{cause.rep_level}}</td>
+            <td class="col-md-1"><button ng-click="toggleCause(cause)">Toggle</button></td>
+            <td class="col-md-1"><button ng-click="deleteCause(cause)">Delete</button></td>
+        </tr>
+    </table>
+
+    <form class="container">
+        <div class="row">
+            <input ng-model="cause.name" type="text" class="col-md-1 col-md-offset-1" placeholder="name">
+            <input ng-model="cause.description" type="text" class="col-md-6" placeholder="description">
+            <input ng-model="cause.rep_level" type="text" class="col-md-1" placeholder="rep_level">
+            <input ng-model="cause.enabled" type="checkbox" class="col-md-1">
+        </div>
+
+        <input type="submit" value="Add New Cause" ng-click="addCause()">
+    </form>
+</div>

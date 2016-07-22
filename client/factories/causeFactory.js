@@ -5,13 +5,11 @@ AnimalApp.factory('CauseFactory', function($http) {
 
     factory.createCause = function(cause, callback) {
         //Throw to cause
-        $http.post('/causes', cause).success(function(data) {
-            // console.log(data);
+        $http.post('/addCause', {cause}).success(function(data) {
             if (callback && typeof callback == 'function') {
                 callback(data);
             }
         })
-        // console.log(Cause);
     };
 
     // Grab Cause by ID, send back Cause data
@@ -22,16 +20,30 @@ AnimalApp.factory('CauseFactory', function($http) {
     };
 
     factory.getAllCauses = function(callback) {
-        console.log('getting all causes');
         $http.get('/getAllCauses').success(function(causes){
             callback(causes);
         })
     };
 
-    factory.delCause = function(cause, callback) {
-        $http.post('/delCause', cause).success(function(causes){
+    factory.getEnabledCauses = function(callback) {
+        $http.get('/getEnabledCauses').success(function(causes) {
             callback(causes);
         })
+    }
+
+    factory.disableCause = function(cause, callback) {
+        $http.post('/disableCause', cause).success(function(causes){
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
+    }
+    factory.enableCause = function(cause, callback) {
+    $http.post('/enableCause', cause).success(function(causes){
+        if (callback && typeof callback == 'function') {
+            callback(causes);
+        }
+    })
     }
 
     factory.updateCause = function(causeinfo) {
@@ -39,5 +51,17 @@ AnimalApp.factory('CauseFactory', function($http) {
             console.log('updated Cause succesfully');
         })
     };
+
+    factory.getAllPendingcauses = function(callback) {
+        $http.get('/getAllPendingcauses').success(function(pendingcauses){
+            callback(pendingcauses);
+        })
+    };
+
+    factory.sendText = function(causeInfo){
+       $http.post('/sendText', causeInfo).success(function(twilio){
+           console.log(twilio);
+       })
+    }
     return factory;
 })
