@@ -14,6 +14,7 @@ module.exports = {
     */
     return queryInterface.bulkInsert('Pendingcauses', [{
       name: 'Pendingcause1',
+      user_id: 2,
       description: 'Test Pendingcauses 1 Description',
       letter_body: 'letter_body letter_body letter_body',
       rep_level: 'Senator',
@@ -25,6 +26,7 @@ module.exports = {
     },
     {
       name: 'Pendingcause2',
+      user_id: 3,
       description: 'Test Pendingcauses 2 Description',
       letter_body: 'letter_body letter_body letter_body',
       rep_level: 'President',
@@ -37,6 +39,7 @@ module.exports = {
     },
     {
       name: 'fixed address Pendingcause',
+      user_id: 4,
       description: 'Test Pendingcauses Description',
       letter_body: 'letter_body letter_body letter_body',
       rep_level: 'Congressman',
