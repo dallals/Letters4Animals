@@ -1,8 +1,8 @@
 {
   "development": {
 
-    "username": "pegah",
-    "password": null,
+    "username": "postgres",
+    "password": "root$",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
