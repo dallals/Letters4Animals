@@ -115,6 +115,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
 
     $scope.printLetter = function(elem) {
+
+        var isFirefox = typeof InstallTrigger !== 'undefined';
+
         // Create a new window, write the contents of the letter div(s) into the window, print it
         var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');
         mywindow.document.write('<html><head><title>Letter To Representative</title>');
@@ -152,6 +155,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             // 'Click' the generated link to force file download
             link.setAttribute('download', letterName);
             link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+            // Check if browser is Firefox
+            if(typeof InstallTrigger !== 'undefined'){
+                document.body.appendChild(link);
+            }
             link.click();
 
             // Reset logo src so printing doesn't break
@@ -162,6 +169,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             var link = document.createElement('a');
             link.setAttribute('download', 'L4Alogo.png');
             link.setAttribute('href', './assets/L4A-logo-cattle2-7-2016.png');
+            // Check if browser is Firefox
+            if(typeof InstallTrigger !== 'undefined'){
+                document.body.appendChild(link);
+            }
             link.click();
             $scope.logoDown = true;
         }
