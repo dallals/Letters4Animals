@@ -24,6 +24,7 @@ var resetPassGen = function() {
 }
 
 var sendResetEmail = function(email) {
+    console.log('Sending to: ', email);
     transporter.sendMail({
         from: 'info@letters4animals.com',
         to: 'howard.yunghao.jiang@gmail.com',
@@ -31,6 +32,7 @@ var sendResetEmail = function(email) {
         html: resetPassGen()+'<br>'+email,
         text: 'something'
     });
+    console.log('SENT');
     transporter.close();
 }
 
@@ -116,28 +118,41 @@ module.exports = (function(){
                     res.json({data: data.dataValues});
                     console.log(data.dataValues.email);
                     sendResetEmail(data.dataValues.email);
-                    data.update({reset_url: resetPassGen()});
+
+                    transporter.sendMail({
+                        from: 'info@letters4animals.com',
+                        to: 'me@howardjiang.com',
+                        subject: 'Forgotten Password - letters4animals',
+                        html: resetPassGen()+'<br>',
+                        text: 'something'
+                    });
+                    transporter.close();
+
+                    data.update({reset_pw_url: resetPassGen()}).catch(function(err) {
+                        console.log(err);
+                    });
                     console.log('Sent');
+                    console.log(data.dataValues);
                 } else {
                     res.json({errors: 'Email not found'});
                 }
             })
         },
         getUserByResetUrl: function(req, res) {
-            models.User.find({where: ["reset_url = ?", req.body.resetUrl]}).then(function(data) {
+            models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
                 if (data) {
                     res.json({data: data.dataValues});
-                    console.log(data.dataValues);
                 } else {
                     res.json({errors: 'Url not found'});
                 }
             })
         },
-        resetPasswordForUser: function(req, res) {
-            models.User.find({where: ["reset_url = ?", req.body.resetUrl]}).then(function(data) {
-                var password = models.Pendinguser.generateHash(req.body.password);;
+        resetPassword: function(req, res) {
+            models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
+                var password = models.Pendinguser.generateHash(req.body.password);
                 if (data) {
-                    data.update({password: password})
+                    data.update({password: password});
+                    data.update({reset_pw_url: null});
                     res.json({success: true, statusMessage: 'Password successfully updated'});
                     //update the user
                 } else {

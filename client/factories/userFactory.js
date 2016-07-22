@@ -44,12 +44,24 @@ AnimalApp.factory('UserFactory', function($http) {
     };
 
     factory.getUserByEmail = function(email, callback) {
-        console.log('FACTORY GET USER BY EMAIL');
         $http.post('/getUserByEmail', {email: email}).success(function(data) {
             if (callback) {
-                console.log('Client Factory Done');
                 callback(data);
                 resetPassUser = data.data;
+            }
+        })
+    }
+    factory.getUserByResetUrl = function(url, callback) {
+        $http.post('/getUserByResetUrl', {resetUrl: url}).success(function(data) {
+            if (callback) {
+                callback(data);
+            }
+        })
+    }
+    factory.resetPassword = function(password, url, callback) {
+        $http.post('/resetPassword', {password: password, resetUrl: url}).success(function(data) {
+            if (callback) {
+                callback(data)
             }
         })
     }

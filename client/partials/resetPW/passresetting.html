@@ -1,0 +1,33 @@
+<div ng-controller="ResettingController">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Change Password</h1>
+            </div>
+        </div>
+    </div>
+
+    <form class="container">
+        <div class="row">
+            <div class="col-md-2">
+                Password
+            </div>
+            <div class="col-md-8">
+                <input type="password" placeholder="New Password" ng-model="password">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                Confirm Password
+            </div>
+            <div class="col-md-8">
+                <input type="password" placeholder="Confirm Password" ng-model="confirmPassword">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-2">
+                <input type="submit" class="btn btn-info" value="Change Password" ng-click="resetPassword()">
+            </div>
+        </div>
+    </form>
+</div>

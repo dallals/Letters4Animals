@@ -48,14 +48,25 @@ AnimalApp.config(function ($routeProvider) {
     .when('/activationerror',{
         templateUrl: 'partials/activationerror.html'
     })
+
     //PASSWORD RESETTING
     .when('/forgottenPassword', {
-        templateUrl: 'partials/forgotpass.html'
+        templateUrl: 'partials/resetPW/forgotpass.html'
     })
     .when('/emailSent', {
-        templateUrl: 'partials/resetsend.html'
+        templateUrl: 'partials/resetPW/resetsend.html'
+    })
+    .when('/resetPassword/success', {
+        templateUrl: 'partials/resetPW/resetPassSuccess.html'
+    })
+    .when('/resetPassword/failure', {
+        templateUrl: 'partials/resetPW/resetPassFailure.html'
+    })
+    .when('/resetPassword/:url', {
+        templateUrl: 'partials/resetPW/passresetting.html'
     })
 
+    //TESTING
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE

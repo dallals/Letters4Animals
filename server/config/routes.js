@@ -42,6 +42,12 @@ module.exports = function(app){
     app.post('/getUserByEmail', function(req, res) {
         users.getUserByEmail(req, res);
     })
+    app.post('/getUserByResetUrl', function(req, res) {
+        users.getUserByResetUrl(req, res);
+    })
+    app.post('/resetPassword', function(req, res) {
+        users.resetPassword(req, res);
+    })
     //Updating user in DB
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
