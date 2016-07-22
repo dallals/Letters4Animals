@@ -1,5 +1,9 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
 
+    // Check for Safari, will need to use later to tell people to download a real broswer
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+
     $scope.gotCause     = false;
     $scope.printing     = false;
     $scope.selDiv       = '';
@@ -58,23 +62,15 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 for(var rep of reps){
                     // Grab the representative position for the letter salutation
                     var posArr = rep.position.split(' ');
-                    if(posArr.includes('Senate')){
-                        rep.letterPos = 'Senator';
-                    }
-                    if(posArr.includes('President')){
-                        rep.letterPos = 'President';
-                    }
-                    if(posArr.includes('Vice-President')){
-                        rep.letterPos = 'Vice-President';
-                    }
-                    if(posArr.includes('Representatives')){
-                        rep.letterPos = 'Representative';
-                    }
-                    if(posArr.includes('Governor')){
-                        rep.letterPos = 'Governor';
-                    }
-                    if(posArr.includes('Lieutenant')){
-                        rep.letterPos = 'Lieutenant Governor';
+                    for(var i=0; i< posArr.length; i++){
+                        switch(posArr[i]){
+                            case 'Senate'           : rep.letterPos = 'Senator'; break;
+                            case 'President'        : rep.letterPos = 'President'; break;
+                            case 'Vice-President'   : rep.letterPos = 'Vice-President'; break;
+                            case 'Representatives'  : rep.letterPos = 'Representative'; break;
+                            case 'Governor'         : rep.letterPos = 'Governor'; break;
+                            case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
+                        }
                     }
 
                     // Grab the representative's last name for letter salutation
@@ -93,8 +89,17 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     }
 
                     // Format the address to upper-case for letter
-                    var formAdd     = rep.rep.address[0].line1.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
-                        formCity    = rep.rep.address[0].city.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+                    var formAdd   = rep.rep.address[0].line1.split(' ').map(function(word){
+                                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                                        return upWord;
+                                    }).join(' ');
+
+                    // .map(function(word){ word = word[0].toUpperCase() + word.slice(1)}).join(' ');
+                    var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
+                                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                                        return upWord;
+                                    }).join(' ');
+
                     rep.rep.address[0].line1 = formAdd;
                     rep.rep.address[0].city = formCity;
                 }
@@ -106,17 +111,26 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     $scope.repPicked = function(rep) {
         // Add or remove representative on checkbox tick/untick
-        if($scope.chosenRep.includes(rep)){
-            $scope.chosenRep.splice($scope.chosenRep.indexOf(rep), 1);
+        var alreadyPicked = false;
+        for(var i=0; i < $scope.chosenRep.length; i++){
+            if($scope.chosenRep[i] == rep){
+                $scope.chosenRep.splice($scope.chosenRep[i], 1);
+                alreadyPicked = true;
+            }
         }
-        else{
+        if(!alreadyPicked){
             $scope.chosenRep.push(rep);
         }
+
+        // if($scope.chosenRep.includes(rep)){
+        //     $scope.chosenRep.splice($scope.chosenRep.indexOf(rep), 1);
+        // }
+        // else{
+        //     $scope.chosenRep.push(rep);
+        // }
     }
 
     $scope.printLetter = function(elem) {
-
-        var isFirefox = typeof InstallTrigger !== 'undefined';
 
         // Create a new window, write the contents of the letter div(s) into the window, print it
         var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');

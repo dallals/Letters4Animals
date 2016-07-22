@@ -1,8 +1,8 @@
 {
   "development": {
 
-    "username": "pegah",
-    "password": null,
+    "username": "vadim",
+    "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
@@ -16,8 +16,8 @@
     "dialect": "postgres"
   },
   "production": {
-    "username": "pegah",
-    "password": null,
+    "username": "vadim",
+    "password": "null",
     "database": "Letters4Animals",
     "host": "127.0.0.1",
     "dialect": "postgres"
