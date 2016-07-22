@@ -10,6 +10,7 @@ var passport = require("passport");
 var cookieParser = require("cookie-parser");
 var session = require("express-session");
 var morgan = require('morgan');
+var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
 
 LocalStrategy = require('passport-local').Strategy;
 

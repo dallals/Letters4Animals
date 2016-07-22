@@ -57,5 +57,11 @@ AnimalApp.factory('CauseFactory', function($http) {
             callback(pendingcauses);
         })
     };
+
+    factory.sendText = function(causeInfo){
+       $http.post('/sendText', causeInfo).success(function(twilio){
+           console.log(twilio);
+       })
+    }
     return factory;
 })

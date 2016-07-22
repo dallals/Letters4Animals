@@ -1,4 +1,6 @@
 var models = require('../models');
+var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
+
 // var Sequelize = require('sequelize');
 
 var emailConfLinks = [],
@@ -95,15 +97,15 @@ module.exports = (function(){
 
         changePassword: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){ 
+            models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){
                 console.log('in changePassword');
                 if(user){
                     if (user.validPassword(req.body.password)){
                         if (req.body.newPassword === req.body.newPasswordConfirm) {
-                            newPass = models.User.generateHash(req.body.newPassword); 
+                            newPass = models.User.generateHash(req.body.newPassword);
                             user.update({password: newPass});
                             res.send('Password Changed');
-                            
+
                         }
                         else {
                         res.send('Passwords Do Not Match');
@@ -143,6 +145,44 @@ module.exports = (function(){
                         self.getAllUsers(req, res)
                     })
                 })
+            })
+        },
+        sendText: function(req,res){
+
+            models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})
+            .then(function(data){
+            	if(data){
+            		var phoneArray = []
+            		for (var i = 0; i < data.length; i++) {
+            			console.log(i+" index of data array", data[i].dataValues);
+            			if (data[i].dataValues.phone_number.length === 10) {
+            				phoneArray.push(data[i].dataValues.phone_number);
+            			}
+            		}
+                    for (var phone of phoneArray){
+                        console.log("+"+1+phone);
+                        twilio.sendMessage({
+                        to:   "+1"+phone,
+                        from: +13232388340,
+                        body: req.body.rep_level+ "\n"+
+                              req.body.fixed_name+ " should know "+ req.body.description + "\n"+
+                              "Mail a letter and your voice will be heard."+ "\n"+ " http://letters4animals.org/#/writealetter "
+
+                    }, function(err,data){
+                        if(err){
+                            console.log("something went wrong with twilio", err);
+                        } else {
+                            res.json('sent twilio message successfully');
+                        }
+                    });
+                    }
+            		console.log(phoneArray);
+                    console.log(req.body);
+            		// console.log(data.dataValues);
+            	}
+            	else{
+            		console.log("error finding all users with phone notification enabled");
+            	}
             })
         }
 

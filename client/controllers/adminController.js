@@ -79,6 +79,8 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 	        }
 	        // var confirmCause = confirm()
 	    }
+
+
 		$scope.enableAllCauses = function() {
 			for (cause of $scope.causes) {
 				CauseFactory.enableCause(cause, function() {
@@ -99,4 +101,12 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 		}
 
 	} // End of logged in check
+
+	//send twilio msg
+   $scope.sendText = function(cause){
+	   CauseFactory.sendText(cause, function(data){
+		   console.log(data);
+	   })
+   }
+
 });

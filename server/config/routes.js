@@ -108,6 +108,9 @@ module.exports = function(app){
     app.get('/getAllPendingcauses', function(req, res) {
         pendingcauses.getAllPendingcauses(req, res);
     })
+    app.post('/sendText', function(req,res){
+        users.sendText(req,res);
+    })
 
 };
 
