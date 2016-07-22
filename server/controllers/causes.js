@@ -92,7 +92,7 @@ module.exports = (function(){
             } else {
                 console.log('Missing Cause');
             }
-        }
+        },
 
         deleteCause: function(req, res){
             var self = this;

@@ -1,5 +1,9 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
 
+    // Check for Safari, will need to use later to tell people to download a real broswer
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+
+
     $scope.gotCause     = false;
     $scope.printing     = false;
     $scope.selDiv       = '';
@@ -87,6 +91,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
                         }
                     }
+                    
                     // Grab the representative's last name for letter salutation
                     var nameSplit = rep.rep.name.split(' ');
                     // Check if representative has a 'Jr.', 'Sr.', or other title at the end
@@ -103,8 +108,17 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     }
 
                     // Format the address to upper-case for letter
-                    var formAdd     = rep.rep.address[0].line1.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' '),
-                        formCity    = rep.rep.address[0].city.split(' ').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+                    var formAdd   = rep.rep.address[0].line1.split(' ').map(function(word){
+                                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                                        return upWord;
+                                    }).join(' ');
+
+                    // .map(function(word){ word = word[0].toUpperCase() + word.slice(1)}).join(' ');
+                    var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
+                                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                                        return upWord;
+                                    }).join(' ');
+
                     rep.rep.address[0].line1 = formAdd;
                     rep.rep.address[0].city = formCity;
                 }
@@ -116,17 +130,26 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     $scope.repPicked = function(rep) {
         // Add or remove representative on checkbox tick/untick
-        if($scope.chosenRep.includes(rep)){
-            $scope.chosenRep.splice($scope.chosenRep.indexOf(rep), 1);
+        var alreadyPicked = false;
+        for(var i=0; i < $scope.chosenRep.length; i++){
+            if($scope.chosenRep[i] == rep){
+                $scope.chosenRep.splice($scope.chosenRep[i], 1);
+                alreadyPicked = true;
+            }
         }
-        else{
+        if(!alreadyPicked){
             $scope.chosenRep.push(rep);
         }
+
+        // if($scope.chosenRep.includes(rep)){
+        //     $scope.chosenRep.splice($scope.chosenRep.indexOf(rep), 1);
+        // }
+        // else{
+        //     $scope.chosenRep.push(rep);
+        // }
     }
 
     $scope.printLetter = function(elem) {
-
-        var isFirefox = typeof InstallTrigger !== 'undefined';
 
         // Create a new window, write the contents of the letter div(s) into the window, print it
         var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');
