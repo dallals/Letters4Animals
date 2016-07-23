@@ -13,17 +13,13 @@ module.exports = (function(){
   //       },
         addSupport: function(req, res) {
             if (req.body.support) {
-                var support = req.body.support;
-                models.Support.create({
-                    user_id: support.user_id,
-                    cause_id: support.cause_id
-                }).then(function(support) {
-                    res.json({success: true, data: support})
+                models.Support.create(
+               		req.body.support
+                ).then(function(support) {
+                    res.json({success: true, data: support.dataValues})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
-
-                res.json(); //needed?
             } else {
                 console.log('Missing Support');
             }

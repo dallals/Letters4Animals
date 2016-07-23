@@ -105,6 +105,11 @@ module.exports = function(app){
         supports.addSupport(req, res);
     })
 
+    //guests
+    app.post('/addGuest', function(req, res) {
+        guests.addGuest(req, res);
+    })
+
     app.get('/getAllGuests', function(req, res) {
         guests.getAllGuests(req, res);
     })

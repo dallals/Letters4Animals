@@ -52,9 +52,15 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
-    factory.addSupport = function(supportinfo) {
-        $http.post('/addSupport', supportinfo).success(function(){
+    factory.addSupport = function(support) {
+        $http.post('/addSupport', support).success(function(){
             console.log('added support succesfully');
+        })
+    };
+
+    factory.addGuest = function(guest) {
+        $http.post('/addGuest', guest).success(function(){
+            console.log('added Guest succesfully');
         })
     };
 
