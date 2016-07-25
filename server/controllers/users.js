@@ -2,7 +2,8 @@ var models = require('../models');
 var Sequelize = require('sequelize');
 //For sending reset email
 var transporter = require('nodemailer').createTransport();
-// var mailer = nodemailer.createTransport();
+var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
+
 
 var emailConfLinks = [],
     genLength      = 50;
@@ -173,15 +174,44 @@ module.exports = (function(){
         //Update user info
         updateUser: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            req.body.admin = false;
+            console.log(req.body);
+            if (req.body.userid != 1) {
+                req.body.admin = false;
+            }
             models.User.update(req.body, { where: { id: req.body.userid } })
+        },
+
+        changePassword: function(req, res) {
+            // Pass req.body object to the update function to update appropriate fields
+            models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){
+                console.log('in changePassword');
+                if(user){
+                    if (user.validPassword(req.body.password)){
+                        if (req.body.newPassword === req.body.newPasswordConfirm) {
+                            newPass = models.User.generateHash(req.body.newPassword);
+                            user.update({password: newPass});
+                            res.send('Password Changed');
+
+                        }
+                        else {
+                        res.send('Passwords Do Not Match');
+                        }
+                    }
+                    else {
+                        res.send('Bad Password');
+                    }
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
         },
 
         getAllUsers: function(req, res){
             console.log("in getAllUsers");
-            models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
+            // models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
-                // console.log(users);
                 res.json(users);
             })
         },
@@ -194,13 +224,54 @@ module.exports = (function(){
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
-                .then(function(destroyed){
-                    user.destroy()
-                    .then(function(){
+                .then(function(supports){
+                    models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
+                    .then(function(pendingcauses){
+                        user.destroy()
+                        .then(function(){
                         // Send back all remaining users
-                        self.getAllUsers(req, res)
+                            self.getAllUsers(req, res)
+                        })
                     })
                 })
+            })
+        },
+        sendText: function(req,res){
+
+            models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})
+            .then(function(data){
+            	if(data){
+            		var phoneArray = []
+            		for (var i = 0; i < data.length; i++) {
+            			console.log(i+" index of data array", data[i].dataValues);
+            			if (data[i].dataValues.phone_number.length === 10) {
+            				phoneArray.push(data[i].dataValues.phone_number);
+            			}
+            		}
+                    for (var phone of phoneArray){
+                        console.log("+"+1+phone);
+                        twilio.sendMessage({
+                        to:   "+1"+phone,
+                        from: +13232388340,
+                        body: req.body.rep_level+ "\n"+
+                              req.body.fixed_name+ " should know "+ req.body.description + "\n"+
+                              "Mail a letter and your voice will be heard."+ "\n"+ " http://letters4animals.org/#/writealetter "
+
+                    }, function(err,data){
+                        if(err){
+                            console.log("something went wrong with twilio", err);
+                        } else {
+                            res.json('sent twilio message successfully');
+                        }
+                    });
+                    }
+            		console.log(phoneArray);
+                    console.log(req.body);
+            		// console.log(data.dataValues);
+            	}
+            	else{
+            		console.log("error finding all users with phone notification enabled");
+            	}
             })
         }
 

@@ -70,8 +70,14 @@ AnimalApp.config(function ($routeProvider) {
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE
-    .when('/causetest', {
+    .when('/causetest',{
         templateUrl: 'partials/causetest.html'
+    })
+    .when('/causeadmin/:id', {
+        templateUrl: 'partials/causeadmin.html'
+    })
+    .when('/pendingcauseadmin/:id', {
+        templateUrl: 'partials/pendingcauseadmin.html'
     })
     .otherwise({
       redirectTo: '/'

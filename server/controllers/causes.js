@@ -5,13 +5,15 @@ module.exports = (function(){
 
         getAllCauses: function(req, res) {
             // models.Cause.findAll({})
-            models.sequelize.query('SELECT "Causes".id, "Causes".name, "Causes".description, "Causes".letter_body, "Causes".fixed, "Causes".enabled, "Causes".rep_level, "Causes"."createdAt", "Causes"."updatedAt", COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
+            // models.sequelize.query('SELECT "Causes".id, "Causes".name, "Causes".description, "Causes".letter_body, "Causes".fixed, "Causes".enabled, "Causes".rep_level, "Causes"."createdAt", "Causes"."updatedAt", COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id WHERE "Causes".enabled = true GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Causes".*, COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(causes){
                 res.json(causes);
             })
         },
+
         getEnabledCauses: function(req, res) {
-            models.sequelize.query('SELECT "Causes".id, "Causes".name, "Causes".description, "Causes".letter_body, "Causes".fixed, "Causes".enabled, "Causes".rep_level, "Causes"."createdAt", "Causes"."updatedAt", COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id WHERE "Causes".enabled = true GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
+            models.Cause.findAll({where: ['enabled = ?', true]})
             .then(function(causes){
                 res.json(causes);
             })
@@ -39,33 +41,89 @@ module.exports = (function(){
                 models.Cause.create({
                     name: cause.name,
                     description: cause.description,
-                    letter_body: cause.letter_body,
                     rep_level: cause.rep_level,
-                    enabled: cause.enabled
+                    letter_body: cause.letter_body,
+                    letter_footnote: cause.letter_footnote,
+                    enabled: cause.enabled,
+                    fixed: cause.fixed,
+                    fixed_name: cause.fixed_name,
+                    fixed_address: cause.fixed_address,
+                    fixed_city: cause.fixed_city,
+                    fixed_state: cause.fixed_state,
+                    fixed_zipcode: cause.fixed_zipcode
                 }).then(function(cause) {
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
 
-                res.json();
+                res.json(); //needed?
             } else {
                 console.log('Missing Cause');
             }
         },
-        deleteCause: function(req, res) {
-            console.log('Server Controller Delete');
-            console.log(req.body.id)
-            if (req.body.id) {
-                console.log('IN IF')
-                models.Cause.find({where: ['id = ?', req.body.id]}).then(function(cause){
-                    console.log(cause);
-                    // Going to need to do a lot to make sure we delete all the things a cause is attached to first
-                    cause.destroy().then(function() {
-                        res.json();
-                    })
+
+        convertPendingCause: function(req, res) {
+
+            if (req.body.cause) {
+                var cause = req.body.cause;
+                models.Cause.create({
+                    name: cause.name,
+                    description: cause.description,
+                    rep_level: cause.rep_level,
+                    letter_body: cause.letter_body,
+                    letter_footnote: cause.letter_footnote,
+                    enabled: cause.enabled,
+                    fixed: cause.fixed,
+                    fixed_name: cause.fixed_name,
+                    fixed_address: cause.fixed_address,
+                    fixed_city: cause.fixed_city,
+                    fixed_state: cause.fixed_state,
+                    fixed_zipcode: cause.fixed_zipcode
+                }).then(function(cause) {
+                //need ti delete pending cause
+                    models.Pendingcause.destroy({where: ['id = ?', req.body.pendingcause_id]})
+                    res.json({success: true, data: cause})
+                }).catch(function(err) {
+                    res.json({success: false, errors: err})
                 })
+
+                res.json(); //needed?
+            } else {
+                console.log('Missing Cause');
             }
+        },
+
+        deleteCause: function(req, res){
+            var self = this;
+            // console.log(self);
+            console.log('in deleteCause');
+            // Find cause, find and delete cause's supports/guests, then delete cause
+            // models.Cause.find({where: ['id = ?', req.body.id]})
+            // .then(function(cause){
+            //     models.Support.destroy({where: ['cause_id = ?', cause.id]})
+            //     .then(function(supportsDestroyed){
+            //         models.Guest.destroy({where: ['cause_id = ?', cause.id]})
+            //         .then(function(guestsDestroyed){
+            //             cause.destroy()
+            //             .then(function(){
+            //                 // Send back all remaining users
+            //                 self.getAllCauses(req, res)
+            //         })
+            //     })
+            // })
+            models.Cause.find({
+                where: ['id = ?', req.body.id]
+            }).then(function(cause){
+                models.Support.destroy({where: ['cause_id = ?', cause.id]})
+            }).then(function(supportsDestroyed){
+                models.Guest.destroy({where: ['cause_id = ?', req.body.id]})
+            }).then(function(guestsDestroyed){
+                models.Cause.destroy({where: ['id = ?', req.body.id]})
+            }).then(function(causeDestroyed){
+                self.getAllCauses(req, res)
+            })
+
         }
 
     }//closes return

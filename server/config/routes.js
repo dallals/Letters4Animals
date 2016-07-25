@@ -1,10 +1,13 @@
 //
 var users       = require('../controllers/users.js'),
     causes      = require('../controllers/causes.js'),
+    supports    = require('../controllers/supports.js'),
     reps        = require('../controllers/representatives.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
     passport    = require("passport");
+    guests      = require('../controllers/guests.js'),
+    pendingcauses = require('../controllers/pendingcauses.js'),
 //
 module.exports = function(app){
 
@@ -109,6 +112,32 @@ module.exports = function(app){
         console.log('Server Route Delete');
         console.log(req.body);
         causes.deleteCause(req, res);
+    })
+    //Supports
+
+    app.post('/addSupport', function(req, res) {
+        supports.addSupport(req, res);
+    })
+
+    //guests
+    app.post('/addGuest', function(req, res) {
+        guests.addGuest(req, res);
+    })
+
+    app.get('/getAllGuests', function(req, res) {
+        guests.getAllGuests(req, res);
+    })
+    app.post('/delGuest', function(req, res) {
+        guests.delGuest(req, res);
+    })
+    app.get('/getAllPendingcauses', function(req, res) {
+        pendingcauses.getAllPendingcauses(req, res);
+    })
+    app.get('/pendingCause/:id', function(req, res) {
+  		  pendingcauses.getPendingCause(req, res);
+	  })
+    app.post('/sendText', function(req,res){
+        users.sendText(req,res);
     })
 
 };

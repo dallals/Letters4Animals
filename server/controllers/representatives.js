@@ -17,23 +17,11 @@ module.exports = (function() {
             //Address Object instantiate
             var address     = {};
 
-            // Cause/letter representative level
-            var causePos;
-            if(req.body.rep_level == 'Senator'){
-                causePos = 'United States Senate';
-            }
-            else if(req.body.rep_level == 'Congressman'){
-                causePos = 'United States House of Representatives';
-            }
-            else{
-                causePos = req.body.rep_level;
-            }
-
             var
                 data        = [],                //Where all of the data will be stored
                 dataString  = '',
                 dataJson    = {},
-                position    = causePos,
+                position    = req.body.rep_level,
                 results     = [],
 
                 civics      = {
@@ -61,10 +49,13 @@ module.exports = (function() {
                         for (things of dataJson.offices) {
                             if (things.name.includes(position)) {
                                 for (thing of things.officialIndices) {
-                                    var finalRep = {};
-                                        finalRep.rep        = dataJson.officials[thing];
-                                        finalRep.position   = things.name;
-                                    results.push(finalRep);
+                                    // Check that only officials with exact matching position are returned
+                                    if(things.name == position){
+                                        var finalRep = {};
+                                            finalRep.rep        = dataJson.officials[thing];
+                                            finalRep.position   = things.name;
+                                        results.push(finalRep);
+                                    }
                                 }
                             }
                         }
