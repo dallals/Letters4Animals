@@ -129,3 +129,8 @@ p.congress_example{
 h3{
   font-weight:bold;
 }
+
+.repbox{
+    float: none !important;
+    display: inline-block;
+}

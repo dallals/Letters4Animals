@@ -111,7 +111,7 @@
 
     <div ng-show="select_recipients">
         <!-- <h3>Wrap Up: Preview and print your letter </h3><br> -->
-        <h3>Select recipient(s)</h3>
+        <h3>Select recipient(s) and Preview your letter(s)</h3>
         <!-- <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button> -->
         <div class="printletter letter_background">
             <div ng-show=gotCause>
@@ -131,35 +131,61 @@
         </div>
 
 
-    </div> <!--- End of printLetter --->
 
-    <div class="col-sm-12" ng-show="show_print_save">
-        <br>
-        <button ng-click="printLetter('#printDiv')">PRINT</button>
-        <br>
-        <button ng-click='saveLetter()'>SAVE</button>
-    </div>
 
-    <!--- Letters --->
-    <div id='printDiv' ng-show=false>
-        <div class='page-break' ng-repeat='rep in chosenRep'>
-            <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
-            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
-            {{ addr || loggedUser.street_address }}<br>
-            {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
-            <br><br>
-            {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
-            {{ rep.position || fixed.pos }}<br>
-            {{ rep.rep.address[0].line1 || fixed.addr }}<br>
-            {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
+            <!--- Letters --->
+            <div id='printDiv' ng-show=true>
+                <div class='page-break' ng-repeat='rep in chosenRep'>
+                    <div class="printletter letter_background">
+                    <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+                    {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
+                    {{ addr || loggedUser.street_address }}<br>
+                    {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
+                    <br><br>
+                    {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
+                    {{ rep.position || fixed.pos }}<br>
+                    {{ rep.rep.address[0].line1 || fixed.addr }}<br>
+                    {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
 
-            Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-            {{ selCause.letter_body }}<br><br>
-            Sincerely, <br><br><br>
-            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-            <br><br><br><br>
-            {{ selCause.letter_footnote }}
+                    Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
+                    {{ selCause.letter_body }}<br><br>
+                    Sincerely, <br><br><br>
+                    {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
+                    <br><br><br><br>
+                    {{ selCause.letter_footnote }}
+                </div>
+            </div>
+            <!--- End of letters --->
+
+        </div> <!--- End of printLetter --->
+
+        <div class="col-sm-12" ng-show="show_print_save">
+            <br>
+            <button ng-click="printLetter('#printDiv')">PRINT</button>
+            <br>
+            <button ng-click='saveLetter()'>SAVE</button>
         </div>
+
+        <!--- Letters --->
+        <div id='printDiv' ng-show=false>
+            <div class='page-break' ng-repeat='rep in chosenRep'>
+                <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+                {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
+                {{ addr || loggedUser.street_address }}<br>
+                {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
+                <br><br>
+                {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
+                {{ rep.position || fixed.pos }}<br>
+                {{ rep.rep.address[0].line1 || fixed.addr }}<br>
+                {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
+
+                Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
+                {{ selCause.letter_body }}<br><br>
+                Sincerely, <br><br><br>
+                {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
+                <br><br><br><br>
+                {{ selCause.letter_footnote }}
+            </div>
+        </div>
+        <!--- End of letters --->
     </div>
-    <!--- End of letters --->
-</div>
