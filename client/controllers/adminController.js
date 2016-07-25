@@ -50,7 +50,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 				// console.log(guests)
 				console.log("Deleting Guests")
 				$scope.guests = guests;
-				// });	
+				// });
 				})
 	        }
 		};
@@ -64,6 +64,13 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 					$scope.causes = causes;
 				})
 	        }
+		}
+
+		$scope.addCause = function(){
+				CauseFactory.createCause($scope.cause, function(causes){
+					$scope.causes = causes;
+					$location.url('/administrator');
+				})
 		}
 
 	    $scope.toggleCause = function(cause) {

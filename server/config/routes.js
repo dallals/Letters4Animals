@@ -122,6 +122,7 @@ module.exports = function(app){
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
     })
+
     app.post('/deleteCause', function(req, res) {
         console.log('Server Route Delete');
         console.log(req.body);

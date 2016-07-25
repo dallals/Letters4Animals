@@ -4,13 +4,12 @@ AnimalApp.factory('CauseFactory', function($http) {
 
 
     factory.createCause = function(cause, callback) {
-        //Throw to cause
-        $http.post('/addCause', {cause}).success(function(data) {
-            if (callback && typeof callback == 'function') {
-                callback(data);
-            }
+      console.log("made it to factory",cause);
+        $http.post('/addCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
         })
-    };
+    }
 
     // Grab Cause by ID, send back Cause data
     factory.getCause = function(id, callback) {
@@ -116,7 +115,7 @@ AnimalApp.factory('CauseFactory', function($http) {
     factory.delCause = function(cause, callback){
         $http.post('/delCause', cause).success(function(causes){
             console.log("getting to call back")
-            callback(causes);   
+            callback(causes);
         })
     }
     return factory;
