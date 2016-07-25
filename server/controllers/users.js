@@ -127,7 +127,28 @@ module.exports = (function(){
             })
         },
 
-        //Grabbing a single user's info by ID
+        //for /users/show/:id type route
+        showUserInfo: function (req, res) {
+            models.User.find({where: ["id = ?", req.params.id]}).then(function(data){
+                if(data){
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
+
+        //for /users/show/:id type route
+        //show all the causes a single user supported, and how many times they supported it
+        showUserCauses: function (req, res){
+            models.sequelize.query('SELECT "Causes".id, "Causes".name, COUNT("Supports".cause_id) as "supports" FROM "Supports" LEFT JOIN "Causes" ON "cause_id" = "Causes".id WHERE "Supports".user_id = ? GROUP BY "Causes".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            .then(function(causesSupported){
+                res.json(causesSupported);
+            })
+        },
+
+        //Grabbing a single user's info by SESSION ID
         getUserInfo: function(req, res) {
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
                 if(data){
