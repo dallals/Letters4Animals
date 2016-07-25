@@ -5,15 +5,35 @@
 <div class="col-sm-12 admin_container">
     <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
 
-  <h3>Cause Name: {{cause.name}}</h3>
+  <h3>{{cause.name}}</h3><br><br>
   <label>Cause Description:</label><br>
-  {{cause.description}}<br>
+  {{cause.description}}<br><br><br>
   <label>Letter:</label><br>
-  {{cause.letter_body}}<br>
+  {{cause.letter_body}}<br><br>
+
 
   <h3>Need the following supporters in a table:</h3>
   {{supporters}}
 
   <h3>Need the following guests in a table:</h3>
   {{guests}}
+
+  <div role="tabpanel" class="tab-pane" id="users">
+
+    <table class="table admintable">
+          <h4>Users Who Supported the Cause</h4>
+      <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th>State</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="user in causeusers | orderBy: id">
+          <td>{{user.first_name }} {{ user.last_name }}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.state}}</td>
+        </tr>
+      </tbody>
+    </table>
+
 </div>

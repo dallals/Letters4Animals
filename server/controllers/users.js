@@ -56,12 +56,14 @@ var checkExistingUrl = function(email, user) {
             sendResetEmail(url, email);
             console.log('Sent reset Url to',email,'url is',url);
 
-            user.update({reset_pw_url: url}).catch(function(err) {
+            var today = new Date();
+            user.update({reset_pw_url: url, reset_pw_url_created_at: today}).catch(function(err) {
                 console.log(err);
             });
         }
     })
 }
+
 
 module.exports = (function(){
   return {
@@ -232,6 +234,15 @@ module.exports = (function(){
             console.log("in getAllUsers");
             // models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
+            .then(function(users){
+                res.json(users);
+            })
+        },
+
+        getCauseUsers: function (req,res){
+          console.log("made it to model",req.params.id);
+          var id = req.params.id;
+            models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
                 res.json(users);
             })

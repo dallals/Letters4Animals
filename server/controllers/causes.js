@@ -51,7 +51,6 @@ module.exports = (function(){
         //     })
         // },    
 
-// =======
         getSingleCause: function(req,res){
             console.log("made it to model",req.params.id);
             var id = req.params.id;
@@ -60,7 +59,6 @@ module.exports = (function(){
                 res.json(cause);
             })
         },
-// >>>>>>> dd2e4451499998601b942ea81faede01bab65196
 
         getEnabledCauses: function(req, res) {
             models.Cause.findAll({where: ['enabled = ?', true]})

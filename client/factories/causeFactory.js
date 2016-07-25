@@ -19,6 +19,7 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
+<<<<<<< HEAD
     factory.getSupporters = function(id, callback) {
         $http.get('/getSupporters/'+id).success(function(data) {
             callback(data);
@@ -27,6 +28,11 @@ AnimalApp.factory('CauseFactory', function($http) {
 
     factory.getGuests = function(id, callback) {
         $http.get('/getGuests/'+id).success(function(data) {
+=======
+    factory.getCauseUsers = function(id, callback) {
+        $http.get('/getCauseUsers/'+id).success(function(data) {
+          console.log("in get cause factory",data);
+>>>>>>> 64ba57100d819625b6f6122713bbfb8a8f9bec02
             callback(data);
         })
     };

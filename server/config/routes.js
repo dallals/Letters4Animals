@@ -102,6 +102,11 @@ module.exports = function(app){
     app.get('/getGuests/:id', function(req, res) {
         causes.showCauseGuests(req, res);
     })
+
+    app.get('/getCauseUsers/:id', function(req, res) {
+        users.getCauseUsers(req, res);
+    })
+
     app.get('/getEnabledCauses', function(req, res) {
         causes.getEnabledCauses(req, res);
     })
