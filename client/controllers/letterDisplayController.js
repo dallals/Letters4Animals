@@ -19,6 +19,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 zip     : '',
                 pic     : ''
     }
+    $scope.showDetails = false;
 
     UserFactory.isLoggedIn(function(user){
         if(user.id){
@@ -92,7 +93,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
                         }
                     }
-                    
+
                     // Grab the representative's last name for letter salutation
                     var nameSplit = rep.rep.name.split(' ');
                     // Check if representative has a 'Jr.', 'Sr.', or other title at the end
@@ -240,8 +241,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.supported = true;
     }
 
-
-
+    // to hide or show the Cause Details
+    $scope.update = function(){
+        $scope.showDetails = true;
+    }
 
 
 });
