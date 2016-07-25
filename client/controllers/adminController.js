@@ -105,15 +105,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		}
 
-		// $scope.deleteCause = function(cause) {
-		// 	console.log('Angular Controller Delete');
-		// 	CauseFactory.deleteCause(cause, function() {
-		// 		CauseFactory.getAllCauses(function(causes) {
-		// 			$scope.causes = causes;
-		// 		})
-		// 	})
-		// }
-
 	} // End of logged in check
 
 	//send twilio msg
