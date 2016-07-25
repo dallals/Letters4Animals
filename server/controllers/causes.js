@@ -156,5 +156,14 @@ module.exports = (function(){
 
       },
 
+      update: function(req, res){
+        models.Cause.find({where: ['id = ?', req.body.id]})
+            .then(function(cause){
+                res.json(cause);
+            }).catch(function(err){
+                console.log(err)
+            })
+      }
+
     }//closes return
 })();
