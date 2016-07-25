@@ -27,6 +27,7 @@ AnimalApp.factory('CauseFactory', function($http) {
 
     factory.getGuests = function(id, callback) {
         $http.get('/getGuests/'+id).success(function(data) {
+            callback(data);
         })
     };
     factory.getCauseUsers = function(id, callback) {
