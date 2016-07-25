@@ -1,8 +1,8 @@
 var models = require('../models');
 var Sequelize = require('sequelize');
 //For sending reset email
-var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport();
+var transporter = require('nodemailer').createTransport();
+// var mailer = nodemailer.createTransport();
 
 var emailConfLinks = [],
     genLength      = 50;
@@ -23,17 +23,43 @@ var resetPassGen = function() {
     return gen;
 }
 
-var sendResetEmail = function(email) {
-    console.log('Sending to: ', email);
+var sendResetEmail = function(url, email) {
     transporter.sendMail({
         from: 'info@letters4animals.com',
         to: 'howard.yunghao.jiang@gmail.com',
         subject: 'Forgotten Password - letters4animals',
-        html: resetPassGen()+'<br>'+email,
+        html:   '<div style="background: black">To reset your password, please click on the button below, or click the following link if the button does not work. '+
+                '<a href="http://localhost:8000/#/resetPassword/'+url+'"><button style="width: 100px; height: 50px; background: white">Reset Password</button></a></div><br>'+
+                'http://localhost:8000/#/resetPassword/'+
+                url+'<br>'+email,
         text: 'something'
+    }, function(error, response) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(response);
+        }
+
     });
-    console.log('SENT');
     transporter.close();
+}
+
+var checkExistingUrl = function(email, user) {
+    var url = resetPassGen();
+    models.User.find({where: ["reset_pw_url = ?", url]}).then(function(data) {
+        if (data) {
+            url = resetPassGen();
+
+            checkExistingUrl(url);
+        } else {
+            sendResetEmail(url, email);
+            console.log('Sent reset Url to',email,'url is',url);
+
+            user.update({reset_pw_url: url}).catch(function(err) {
+                console.log(err);
+            });
+        }
+    })
 }
 
 module.exports = (function(){
@@ -101,7 +127,6 @@ module.exports = (function(){
         //Grabbing a single user's info by ID
         getUserInfo: function(req, res) {
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
-                console.log('in user info');
                 if(data){
                     res.json(data.dataValues);
                 }
@@ -113,26 +138,10 @@ module.exports = (function(){
         //For Reset
         getUserByEmail: function(req, res) {
             models.User.find({where: ["email = ?", req.body.email]}).then(function(data) {
-                console.log('Server Controller Sequelize');
                 if (data) {
                     res.json({data: data.dataValues});
-                    console.log(data.dataValues.email);
-                    sendResetEmail(data.dataValues.email);
 
-                    transporter.sendMail({
-                        from: 'info@letters4animals.com',
-                        to: 'me@howardjiang.com',
-                        subject: 'Forgotten Password - letters4animals',
-                        html: resetPassGen()+'<br>',
-                        text: 'something'
-                    });
-                    transporter.close();
-
-                    data.update({reset_pw_url: resetPassGen()}).catch(function(err) {
-                        console.log(err);
-                    });
-                    console.log('Sent');
-                    console.log(data.dataValues);
+                    checkExistingUrl(data.dataValues.email, data);
                 } else {
                     res.json({errors: 'Email not found'});
                 }
