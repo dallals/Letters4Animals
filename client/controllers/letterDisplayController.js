@@ -92,7 +92,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
                         }
                     }
-                    
+
                     // Grab the representative's last name for letter salutation
                     var nameSplit = rep.rep.name.split(' ');
                     // Check if representative has a 'Jr.', 'Sr.', or other title at the end
@@ -176,16 +176,16 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
-        for(var letter of letters){
+        for(var i=0; i < letters.length; i++){
             // Change logo src to local and set new css style
-            letter.children[0].src = 'L4Alogo.png';
-            letter.children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
+            letters[i].children[0].src = 'L4Alogo.png';
+            letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            var letterName  = 'Letter_to_' + letter.children[11].innerHTML + '.doc',
+            var letterName  = 'Letter_to_' + letters[i].children[11].innerHTML + '.doc',
                 letterName  = letterName.split(' ').join('_'),
                 link        = document.createElement('a'),
                 mimeType    = 'application/msword',
-                elHtml      = letter.innerHTML;
+                elHtml      = letters[i].innerHTML;
 
             // 'Click' the generated link to force file download
             link.setAttribute('download', letterName);
@@ -197,7 +197,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             link.click();
 
             // Reset logo src so printing doesn't break
-            letter.children[0].src = './assets/L4A-logo-cattle2-7-2016.png';
+            letters[i].children[0].src = './assets/L4A-logo-cattle2-7-2016.png';
         }
         // Download the logo once
         if(!$scope.logoDown){

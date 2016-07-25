@@ -18,7 +18,7 @@ module.exports = (function(){
                     res.json(data.dataValues);
                 }
                 else {
-                    res.send('User Not Found');
+                    res.send('Cause Not Found');
                 }
             })
         },
@@ -30,6 +30,16 @@ module.exports = (function(){
                 res.json(supporters);
             })
         },
+// =======
+        // getSingleCause: function(req,res){
+        //     console.log("made it to model",req.params.id);
+        //     var id = req.params.id;
+        //     models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+        //     .then(function(cause){
+        //         res.json(cause);
+        //     })
+        // },
+// >>>>>>> dd2e4451499998601b942ea81faede01bab65196
 
         getEnabledCauses: function(req, res) {
             models.Cause.findAll({where: ['enabled = ?', true]})
