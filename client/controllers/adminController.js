@@ -105,6 +105,12 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		}
 
+		$scope.editCause = function(cause){
+			CauseFactory.update(cause, function(cause){
+				$scope.cause = cause
+			})
+		}
+
 	} // End of logged in check
 
 	//send twilio msg
@@ -125,6 +131,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 
 			//  }
 	 }
+
 
 
 

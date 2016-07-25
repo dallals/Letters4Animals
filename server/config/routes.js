@@ -159,6 +159,10 @@ module.exports = function(app){
         causes.delCause(req, res);
     })
 
+    app.post('/updateCause', function(req, res){
+        causes.update(req, res);
+    })
+
 };
 
 // route middleware to make sure a user is logged in

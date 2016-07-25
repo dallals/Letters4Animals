@@ -119,5 +119,11 @@ AnimalApp.factory('CauseFactory', function($http) {
             callback(causes);   
         })
     }
+
+    factory.update = function(info, callback){
+        $http.post('/updateCause', info).success(function(output){
+            callback(output);
+        })
+    }
     return factory;
 })
