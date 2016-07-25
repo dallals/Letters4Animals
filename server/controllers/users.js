@@ -1,7 +1,9 @@
 var models = require('../models');
+var Sequelize = require('sequelize');
+//For sending reset email
+var transporter = require('nodemailer').createTransport();
 var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
 
-// var Sequelize = require('sequelize');
 
 var emailConfLinks = [],
     genLength      = 50;
@@ -11,6 +13,54 @@ var emailConfGen = function(i, gen) {
     if (i===undefined)   {i = 0;}   else {i++;}
     if (gen===undefined) {gen = ''} else {gen += valid[Math.floor(Math.random()*valid.length)]}
     if (i<genLength)     {return emailConfGen(i, gen)} else {emailConfLinks.push(gen); return gen;}
+}
+var resetPassGen = function() {
+    var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    var gen = '';
+
+    for (var i = 0; i < genLength; i++) {
+        gen += valid[Math.floor(Math.random()*valid.length)];
+    }
+    return gen;
+}
+
+var sendResetEmail = function(url, email) {
+    transporter.sendMail({
+        from: 'info@letters4animals.com',
+        to: email,
+        subject: 'Forgotten Password - letters4animals',
+        html:   '<div style="background: black">To reset your password, please click on the button below, or click the following link if the button does not work. '+
+                '<a href="http://localhost:8000/#/resetPassword/'+url+'"><button style="width: 100px; height: 50px; background: white">Reset Password</button></a></div><br>'+
+                'http://localhost:8000/#/resetPassword/'+
+                url,
+        text: 'something'
+    }, function(error, response) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(response);
+        }
+
+    });
+    transporter.close();
+}
+
+var checkExistingUrl = function(email, user) {
+    var url = resetPassGen();
+    models.User.find({where: ["reset_pw_url = ?", url]}).then(function(data) {
+        if (data) {
+            url = resetPassGen();
+
+            checkExistingUrl(url);
+        } else {
+            sendResetEmail(url, email);
+            console.log('Sent reset Url to',email,'url is',url);
+
+            user.update({reset_pw_url: url}).catch(function(err) {
+                console.log(err);
+            });
+        }
+    })
 }
 
 module.exports = (function(){
@@ -78,7 +128,6 @@ module.exports = (function(){
         //Grabbing a single user's info by ID
         getUserInfo: function(req, res) {
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
-                console.log('in user info');
                 if(data){
                     res.json(data.dataValues);
                 }
@@ -87,11 +136,48 @@ module.exports = (function(){
                 }
             })
         },
+        //For Reset
+        getUserByEmail: function(req, res) {
+            models.User.find({where: ["email = ?", req.body.email]}).then(function(data) {
+                if (data) {
+                    res.json({data: data.dataValues});
+
+                    checkExistingUrl(data.dataValues.email, data);
+                } else {
+                    res.json({errors: 'Email not found'});
+                }
+            })
+        },
+        getUserByResetUrl: function(req, res) {
+            models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
+                if (data) {
+                    res.json({data: data.dataValues});
+                } else {
+                    res.json({errors: 'Url not found'});
+                }
+            })
+        },
+        resetPassword: function(req, res) {
+            models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
+                var password = models.Pendinguser.generateHash(req.body.password);
+                if (data) {
+                    data.update({password: password});
+                    data.update({reset_pw_url: null});
+                    res.json({success: true, statusMessage: 'Password successfully updated'});
+                    //update the user
+                } else {
+                    res.json({success: false, statusMessage: 'User not found'})
+                }
+            })
+        },
 
         //Update user info
         updateUser: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            req.body.admin = false;
+            console.log(req.body);
+            if (req.body.userid != 1) {
+                req.body.admin = false;
+            }
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
@@ -138,11 +224,14 @@ module.exports = (function(){
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
-                .then(function(destroyed){
-                    user.destroy()
-                    .then(function(){
+                .then(function(supports){
+                    models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
+                    .then(function(pendingcauses){
+                        user.destroy()
+                        .then(function(){
                         // Send back all remaining users
-                        self.getAllUsers(req, res)
+                            self.getAllUsers(req, res)
+                        })
                     })
                 })
             })

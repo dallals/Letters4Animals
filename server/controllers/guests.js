@@ -23,7 +23,7 @@ module.exports = (function(){
              var self = this;
              console.log(self);
              console.log('in delGuest');
-             // Find usepasswor, find and delete user's supports, then delete user
+             // Find usepasswor, find and delete user's Supports, then delete user
              models.Guest.find({where: ['id = ?', req.body.id]})
              .then(function(guest){
                  models.Support.destroy({where: ['guest_id = ?', req.body.id]})
@@ -36,6 +36,21 @@ module.exports = (function(){
              	})
          	})
      	},
+
+      addGuest: function(req, res) {
+            // console.log(req.body.guest)
+            if (req.body.guest) {
+                models.Guest.create(
+                  req.body.guest
+                ).then(function(guest) {
+                    res.json({success: true, data: guest.dataValues})
+                }).catch(function(err) {
+                    res.json({success: false, errors: err})
+                })
+            } else {
+                console.log('Missing Guest');
+            }
+        }
 
 
 

@@ -1,4 +1,4 @@
-AnimalApp.controller('adminController', function($scope, $location, UserFactory, CauseFactory) {
+AnimalApp.controller('adminController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
 
 	$scope.checkboxModel = {
 		value1 : true,
@@ -80,7 +80,6 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 	        // var confirmCause = confirm()
 	    }
 
-
 		$scope.enableAllCauses = function() {
 			for (cause of $scope.causes) {
 				CauseFactory.enableCause(cause, function() {
@@ -100,6 +99,15 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 			}
 		}
 
+		$scope.deleteCause = function(cause) {
+			console.log('Angular Controller Delete');
+			CauseFactory.deleteCause(cause, function() {
+				CauseFactory.getAllCauses(function(causes) {
+					$scope.causes = causes;
+				})
+			})
+		}
+
 	} // End of logged in check
 
 	//send twilio msg
@@ -108,5 +116,19 @@ AnimalApp.controller('adminController', function($scope, $location, UserFactory,
 		   console.log(data);
 	   })
    }
+
+	 //Set a fixed/non-fixed recipient on the normal Add Cause Page
+	 $scope.toggleFixed = function(recipient) {
+			//  if (!recipient) {
+			// 		 return;
+			//  }
+			//  if (recipient.fixed) {
+			// logic to set a fixed recipient for letter/cause goes here
+			//  } else {
+
+			//  }
+	 }
+
+
 
 });

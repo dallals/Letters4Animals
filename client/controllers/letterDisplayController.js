@@ -9,6 +9,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.selDiv       = '';
     $scope.chosenRep    = [];
     $scope.logoDown     = false;
+    $scope.supported    = false;
     $scope.fixed        = {
                 name    : '',
                 pos     : '',
@@ -150,7 +151,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
 
     $scope.printLetter = function(elem) {
-
+        $scope.addSupport();
         // Create a new window, write the contents of the letter div(s) into the window, print it
         var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');
         mywindow.document.write('<html><head><title>Letter To Representative</title>');
@@ -171,6 +172,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }   // End of printLetter()
 
     $scope.saveLetter = function(){
+        $scope.addSupport();
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
@@ -211,4 +213,36 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
     }   // End of saveLetter()
 
+    $scope.addSupport = function(){
+        if ($scope.loggedIn && !$scope.supported) {
+            var support = {
+                cause_id: $scope.selCause.id,
+                user_id: $scope.loggedUser.id
+            }
+            CauseFactory.addSupport({support});
+            $scope.supported = true;
+        } else if(!$scope.loggedIn && !$scope.supported){
+            $scope.addGuest();
+        }
+    }
+    $scope.addGuest = function(){
+        console.log("in sdfjdsfjl")
+        var guest = {
+            cause_id: $scope.selCause.id,
+            first_name: $scope.user.firstName,
+            last_name: $scope.user.lastName,
+            street_address: $scope.addr,
+            city: $scope.city,
+            state: $scope.state,
+            zipcode: $scope.zip
+        }
+        CauseFactory.addGuest({guest});
+        $scope.supported = true;
+    }
+
+
+
+
+
 });
+$scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;

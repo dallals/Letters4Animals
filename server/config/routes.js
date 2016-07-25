@@ -1,6 +1,7 @@
 //
 var users       = require('../controllers/users.js'),
     causes      = require('../controllers/causes.js'),
+    supports    = require('../controllers/supports.js'),
     reps        = require('../controllers/representatives.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
@@ -40,6 +41,15 @@ module.exports = function(app){
     //Grabbing single user info
     app.post('/getUserInfo', function(req, res) {
         users.getUserInfo(req, res);
+    })
+    app.post('/getUserByEmail', function(req, res) {
+        users.getUserByEmail(req, res);
+    })
+    app.post('/getUserByResetUrl', function(req, res) {
+        users.getUserByResetUrl(req, res);
+    })
+    app.post('/resetPassword', function(req, res) {
+        users.resetPassword(req, res);
     })
     //Updating user in DB
     app.post('/updateUser', function(req, res) {
@@ -98,6 +108,21 @@ module.exports = function(app){
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
     })
+    app.post('/deleteCause', function(req, res) {
+        console.log('Server Route Delete');
+        console.log(req.body);
+        causes.deleteCause(req, res);
+    })
+    //Supports
+
+    app.post('/addSupport', function(req, res) {
+        supports.addSupport(req, res);
+    })
+
+    //guests
+    app.post('/addGuest', function(req, res) {
+        guests.addGuest(req, res);
+    })
 
     app.get('/getAllGuests', function(req, res) {
         guests.getAllGuests(req, res);
@@ -108,6 +133,9 @@ module.exports = function(app){
     app.get('/getAllPendingcauses', function(req, res) {
         pendingcauses.getAllPendingcauses(req, res);
     })
+    app.get('/pendingCause/:id', function(req, res) {
+  		  pendingcauses.getPendingCause(req, res);
+	  })
     app.post('/sendText', function(req,res){
         users.sendText(req,res);
     })
