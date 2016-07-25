@@ -26,12 +26,12 @@ var resetPassGen = function() {
 var sendResetEmail = function(url, email) {
     transporter.sendMail({
         from: 'info@letters4animals.com',
-        to: 'howard.yunghao.jiang@gmail.com',
+        to: email,
         subject: 'Forgotten Password - letters4animals',
         html:   '<div style="background: black">To reset your password, please click on the button below, or click the following link if the button does not work. '+
                 '<a href="http://localhost:8000/#/resetPassword/'+url+'"><button style="width: 100px; height: 50px; background: white">Reset Password</button></a></div><br>'+
                 'http://localhost:8000/#/resetPassword/'+
-                url+'<br>'+email,
+                url,
         text: 'something'
     }, function(error, response) {
         if (error) {
