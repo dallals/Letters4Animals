@@ -57,13 +57,13 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 
 		$scope.deleteCause = function(cause){
 			// Prompt the admin to confirm user deletion to avoid accidents
-			// var confPrompt = confirm("About to delete "+cause.name+". Proceed?");
-	        // if (confPrompt) {
+			var confPrompt = confirm("About to delete "+cause.name+". Proceed?");
+	        if (confPrompt) {
 	        	console.log("getting to if")
 				CauseFactory.delCause(cause, function(causes){
 					$scope.causes = causes;
 				})
-	        // }
+	        }
 		}
 
 	    $scope.toggleCause = function(cause) {
@@ -105,14 +105,14 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		}
 
-		$scope.deleteCause = function(cause) {
-			console.log('Angular Controller Delete');
-			CauseFactory.deleteCause(cause, function() {
-				CauseFactory.getAllCauses(function(causes) {
-					$scope.causes = causes;
-				})
-			})
-		}
+		// $scope.deleteCause = function(cause) {
+		// 	console.log('Angular Controller Delete');
+		// 	CauseFactory.deleteCause(cause, function() {
+		// 		CauseFactory.getAllCauses(function(causes) {
+		// 			$scope.causes = causes;
+		// 		})
+		// 	})
+		// }
 
 	} // End of logged in check
 
