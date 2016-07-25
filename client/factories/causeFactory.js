@@ -13,8 +13,25 @@ AnimalApp.factory('CauseFactory', function($http) {
     };
 
     // Grab Cause by ID, send back Cause data
-    factory.getCause = function(causeid, callback) {
-        $http.post('/getCauseInfo', {causeid}).success(function(data) {
+    factory.getCause = function(id, callback) {
+        $http.get('/getSingleCause/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+
+    factory.getSupporters = function(id, callback) {
+        $http.get('/getSupporters/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+
+    factory.getGuests = function(id, callback) {
+        $http.get('/getGuests/'+id).success(function(data) {
+        })
+    };
+    factory.getCauseUsers = function(id, callback) {
+        $http.get('/getCauseUsers/'+id).success(function(data) {
+          console.log("in get cause factory",data);
             callback(data);
         })
     };
@@ -40,11 +57,11 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
     factory.enableCause = function(cause, callback) {
-    $http.post('/enableCause', cause).success(function(causes){
-        if (callback && typeof callback == 'function') {
-            callback(causes);
-        }
-    })
+        $http.post('/enableCause', cause).success(function(causes){
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
     }
 
     factory.updateCause = function(causeinfo) {
@@ -52,6 +69,16 @@ AnimalApp.factory('CauseFactory', function($http) {
             console.log('updated Cause succesfully');
         })
     };
+
+    factory.deleteCause = function(cause, callback) {
+        console.log('Angular Factory Delete');
+        $http.post('/deleteCause', cause).success(function(causes) {
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
+    }
+
 
     factory.addSupport = function(support) {
         $http.post('/addSupport', support).success(function(){

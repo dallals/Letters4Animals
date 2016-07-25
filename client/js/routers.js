@@ -33,32 +33,56 @@ AnimalApp.config(function ($routeProvider) {
     .when('/administrator',{
         templateUrl: 'partials/administrator.html'
     })
+
+    // CAUSES
     .when('/causeadmin',{
-        templateUrl: 'partials/causeadmin.html',
+        templateUrl: 'partials/causeadmin.html'
+    })
+    .when('/causeadmin/:id', {
+        templateUrl: 'partials/causeadmin.html'
+    })
+    .when('/getSingleCause/:id', {
+      templateUrl: 'partials/singlecause.html'
+    })
+    .when('/pendingcauseadmin/:id', {
+        templateUrl: 'partials/pendingcauseadmin.html'
     })
     .when('/letteradmin',{
-        templateUrl: 'partials/letteradmin.html',
+        templateUrl: 'partials/letteradmin.html'
     })
     .when('/templatesubmission',{
-        templateUrl: 'partials/templatesubmission.html',
+        templateUrl: 'partials/templatesubmission.html'
     })
     .when('/accountactivation',{
-        templateUrl: 'partials/accountactivation.html',
+        templateUrl: 'partials/accountactivation.html'
     })
     .when('/activationerror',{
-        templateUrl: 'partials/activationerror.html',
+        templateUrl: 'partials/activationerror.html'
     })
+
+    //PASSWORD RESETTING
+    .when('/forgottenPassword', {
+        templateUrl: 'partials/resetPW/forgotpass.html'
+    })
+    .when('/emailSent', {
+        templateUrl: 'partials/resetPW/resetsend.html'
+    })
+    .when('/resetPassword/success', {
+        templateUrl: 'partials/resetPW/resetPassSuccess.html'
+    })
+    .when('/resetPassword/failure', {
+        templateUrl: 'partials/resetPW/resetPassFailure.html'
+    })
+    .when('/resetPassword/:url', {
+        templateUrl: 'partials/resetPW/passresetting.html'
+    })
+
+    //TESTING
     .when('/test', {        //TESTING USE
         templateUrl: 'partials/test.html'
     })                      //TESTING USE
     .when('/causetest',{
         templateUrl: 'partials/causetest.html'
-    })
-    .when('/causeadmin/:id', {
-        templateUrl: 'partials/causeadmin.html'
-    })
-    .when('/pendingcauseadmin/:id', {
-        templateUrl: 'partials/pendingcauseadmin.html'
     })
     .otherwise({
       redirectTo: '/'

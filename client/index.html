@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="/css/style.css">  <!-- for home page -->
     <link rel="stylesheet" href="/css/about.css">  <!-- for about & links page -->
     <link rel="stylesheet" href="/css/issues.css">  <!-- for issue page -->
+    <link rel="stylesheet" href="/css/forgotpass.css">  <!-- for password reset -->
+
     <link rel="stylesheet" href="/css/animate.min.css">
     <link rel="stylesheet" href="/css/administrator.css">
     <link rel="stylesheet" href="/fonts/glyphicons-halflings-regular.woff">
@@ -229,10 +231,15 @@
                           </div>
                           <div class="form-group">
                               <div class="col-sm-3">
-                                  <button type="button" class="btn btn-primary" ng-click="login()">Login</button>
+                                  <button type="button" type="submit" class="btn btn-primary" ng-click="login()">Login</button>
                               </div>
                               <div class="col-sm-7">
                                   <span class="loginErrors" ng-bind="loginErrors"></span>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <div class="col-sm-10">
+                                  <a href="/#/forgottenPassword" ng-click="close()">Forgot Password</a>
                               </div>
                           </div>
                       </form>
@@ -292,6 +299,11 @@
     <script src="/controllers/profileController.js"></script>
     <script src="/controllers/adminController.js"></script>
     <script src="/controllers/letterDisplayController.js"></script>
+    <script src="/controllers/resetPW/passController.js"></script>
+    <script src="/controllers/resetPW/ResetController.js"></script>
+    <script src="/controllers/resetPW/ResettingController.js"></script>
+    <script src="/controllers/singleCauseController.js"></script>
+
     <script src="/controllers/pendingCauseController.js"></script>
     <script src="/controllers/testController.js"></script>
     <script src="/controllers/causeTest.js"></script>

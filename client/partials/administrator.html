@@ -13,7 +13,6 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a showtab="" href="#causes" aria-controls="home" role="tab" data-toggle="tab">CAUSES</a></li>
                     <li role="presentation"><a showtab="" href="#users" aria-controls="profile" role="tab" data-toggle="tab">USERS</a></li>
-                    <li role="presentation"><a showtab="" href="#letters" aria-controls="messages" role="tab" data-toggle="tab">LETTERS</a></li>
                     <li role="presentation"><a showtab="" href="#guests" aria-controls="messages" role="tab" data-toggle="tab">GUEST USERS</a></li>
                     <li role="presentation"><a showtab="" href="#pendingcauses" aria-controls="messages" role="tab" data-toggle="tab">PENDING CAUSES</a></li>
                 </ul>
@@ -37,7 +36,7 @@
                         </thead>
                         <tbody>
                           <tr ng-repeat="cause in causes">
-                            <td>{{cause.name}}</td>
+                            <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
                             <td>{{cause.supports}}</td>
                             <td>{{cause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</span></td>
                             <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
@@ -76,27 +75,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div role="tabpanel" class="tab-pane" id="letters">
-                      <a href="#letteradmin"><button id="addletter" class="admin_buttons btn btn-primary">Create New Letter</button></a>
-                      <table class="table admintable">
-                        <thead>
-                          <th>Letter Name</th>
-                          <th>Cause</th>
-                          <th>Last updated</th>
-                          <th>Edit</th>
-                          <th>Disable</th>
-                        </thead>
-                        <tbody>
-                          <tr ng-repeat="letter in letters">
-                            <td>{{letter.name}}</td>
-                            <td>{{letter.cause}}</td>
-                            <td>{{letter.updatedAt | date:"MM/dd/yyyy 'at' h:mma"}}</td>
-                            <td><button id="editletter" class="admin_panel" ng-click='editLetter(letter)'>Edit</button></td>
-                            <td><button id="disableletter" class="admin_panel" ng-click='disableLetter(letter)'>Disable</button></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+
                     <div role="tabpanel" class="tab-pane" id="guests">
                       <table class="table admintable">
                         <thead>
@@ -148,20 +127,5 @@
         </div>
     </div>
 </section>
-
-<!-- Right analytics panel -->
-  <div class="col-sm-12 analytics">
-    <h3>Site Stats</h3>
-    <!-- <div class="stats">
-      <div class="stat-graph-top">
-      </div>
-      <div class="stat-graph-top">
-      </div>
-      <div class="stat-graph-bottom">
-      </div>
-      <div class="stat-graph-bottom">
-      </div>
-    </div> -->
-  </div>
 
 </div>

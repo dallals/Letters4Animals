@@ -11,6 +11,54 @@ module.exports = (function(){
                 res.json(causes);
             })
         },
+        //for /users/show/:id type route
+        showCauseInfo: function (req, res) {
+            models.Cause.find({where: ["id = ?", req.params.id]}).then(function(data){
+                if(data){
+                    console.log("data.dataValues");
+                    console.log(data.dataValues);
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('Cause Not Found');
+                }
+            })
+        },
+        //for /causes/show/:id type route
+        //show all the users that have supported a single, and how many times they supported it
+        showCauseUsers: function (req, res){
+            models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Supports" LEFT JOIN "Users" ON "user_id" = "Users".id WHERE "Supports".cause_id = ? GROUP BY "Users".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            .then(function(supporters){
+                res.json(supporters);
+            })
+        },
+
+        showCauseGuests: function (req, res){
+            models.sequelize.query('SELECT "Guests".* FROM "Guests" WHERE "Guests".cause_id = ? GROUP BY "Guests".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            .then(function(guests){
+                res.json(guests);
+            })
+        },
+        //     models.Guest.findAll({where: ["cause_id = ?", req.params.id]}).then(function(data){
+        //         if(data){
+        //             console.log("data.dataValues");
+        //             console.log(data.dataValues);
+        //             res.json(data.dataValues);
+        //         }
+        //         else {
+        //             res.send('Cause Not Found');
+        //         }
+        //     })
+        // },    
+
+        getSingleCause: function(req,res){
+            console.log("made it to model",req.params.id);
+            var id = req.params.id;
+            models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            .then(function(cause){
+                res.json(cause);
+            })
+        },
 
         getEnabledCauses: function(req, res) {
             models.Cause.findAll({where: ['enabled = ?', true]})

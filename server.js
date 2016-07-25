@@ -118,6 +118,77 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
+//RESET PASSWORD URL CHECKING IF THAT
+var now = new Date();
+models.User.findAll().then(function(data) {
+    console.log('Checking All reset_pw_created_at');
+    for (user of data) {
+        if (user.dataValues.reset_pw_url_created_at) {
+            var urlCreatedAt = user.dataValues.reset_pw_url_created_at;
+            // console.log(now.getTime()-user.dataValues.reset_pw_url_created_at.getTime());
+            if (now.getTime()-urlCreatedAt.getTime() >= 86400000) {
+                console.log('User:',user.name+"'s",'reset password url is expired. Deleting it.');
+                user.update({reset_pw_url: null, reset_pw_url_created_at: null});
+            }
+        }
+    }
+}).catch(function(err) {
+    console.log(err);
+})
+models.Pendinguser.findAll().then(function(data) {
+    console.log('Checking All Pending Users');
+    for (user of data) {
+        if (user.dataValues) {
+            if (now.getTime()-user.dataValues.createdAt.getTime() > 259200000) {
+                console.log('Pending user:',user.dataValues.first_name,'has expired. Deleting');
+                user.destroy().catch(function(err) {
+                    console.log(err);
+                })
+            }
+        }
+    }
+})
+setInterval(function () {
+    var now = new Date();
+    models.User.findAll().then(function(data) {
+        console.log('Checking All reset_pw_created_at');
+        for (user of data) {
+            if (user.dataValues.reset_pw_url_created_at) {
+                var urlCreatedAt = user.dataValues.reset_pw_url_created_at;
+                if (now.getTime()-urlCreatedAt.getTime() >= 86400000) {
+                    console.log('User:',user.name+"'s",'reset password url is expired. Deleting it.');
+                    user.update({reset_pw_url: null, reset_pw_url_created_at: null});
+                }
+            }
+        }
+    }).catch(function(err) {
+        console.log(err);
+    })
+    //Deleting expired pendingusers
+    models.Pendinguser.findAll().then(function(data) {
+        console.log('Checking All Pending Users');
+        for (user of data) {
+            if (user.dataValues) {
+                if (now.getTime()-user.dataValues.createdAt.getTime() > 259200000) {
+                    console.log('Pending user:',user.dataValues.first_name,'has expired. Deleting');
+                    user.destroy().catch(function(err) {
+                        console.log(err);
+                    })
+                }
+            }
+        }
+    }).catch(function(err) {
+        console.log(err);
+    })
+}, 43200000);
+//Done with Checking Reset Password Url
+
+
+
+/*
+"What hosting service are you using and how are you connecting to it?
+We need the credentials"
+*/
 
 // var port = normalizePort(process.env.PORT || '8000');
 // app.set('port', port);

@@ -1,0 +1,8 @@
+#forgottenPassword div.container {
+    margin-bottom: 3em; }
+
+#forgottenPassword div.container input {
+    width: 100%; }
+
+#forgottenPassword div.forgotErrors {
+    color: red; }

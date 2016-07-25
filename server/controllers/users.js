@@ -1,7 +1,9 @@
 var models = require('../models');
+var Sequelize = require('sequelize');
+//For sending reset email
+var transporter = require('nodemailer').createTransport();
 var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
 
-// var Sequelize = require('sequelize');
 
 var emailConfLinks = [],
     genLength      = 50;
@@ -12,6 +14,56 @@ var emailConfGen = function(i, gen) {
     if (gen===undefined) {gen = ''} else {gen += valid[Math.floor(Math.random()*valid.length)]}
     if (i<genLength)     {return emailConfGen(i, gen)} else {emailConfLinks.push(gen); return gen;}
 }
+var resetPassGen = function() {
+    var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    var gen = '';
+
+    for (var i = 0; i < genLength; i++) {
+        gen += valid[Math.floor(Math.random()*valid.length)];
+    }
+    return gen;
+}
+
+var sendResetEmail = function(url, email) {
+    transporter.sendMail({
+        from: 'info@letters4animals.com',
+        to: email,
+        subject: 'Forgotten Password - letters4animals',
+        html:   '<div style="background: black">To reset your password, please click on the button below, or click the following link if the button does not work. '+
+                '<a href="http://localhost:8000/#/resetPassword/'+url+'"><button style="width: 100px; height: 50px; background: white">Reset Password</button></a></div><br>'+
+                'http://localhost:8000/#/resetPassword/'+
+                url,
+        text: 'something'
+    }, function(error, response) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(response);
+        }
+
+    });
+    transporter.close();
+}
+
+var checkExistingUrl = function(email, user) {
+    var url = resetPassGen();
+    models.User.find({where: ["reset_pw_url = ?", url]}).then(function(data) {
+        if (data) {
+            url = resetPassGen();
+
+            checkExistingUrl(url);
+        } else {
+            sendResetEmail(url, email);
+            console.log('Sent reset Url to',email,'url is',url);
+
+            var today = new Date();
+            user.update({reset_pw_url: url, reset_pw_url_created_at: today}).catch(function(err) {
+                console.log(err);
+            });
+        }
+    })
+}
+
 
 module.exports = (function(){
   return {
@@ -75,15 +127,69 @@ module.exports = (function(){
             })
         },
 
-        //Grabbing a single user's info by ID
-        getUserInfo: function(req, res) {
-            models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
-                console.log('in user info');
+        //for /users/show/:id type route
+        showUserInfo: function (req, res) {
+            models.User.find({where: ["id = ?", req.params.id]}).then(function(data){
                 if(data){
                     res.json(data.dataValues);
                 }
                 else {
                     res.send('User Not Found');
+                }
+            })
+        },
+
+        //for /users/show/:id type route
+        //show all the causes a single user supported, and how many times they supported it
+        showUserCauses: function (req, res){
+            models.sequelize.query('SELECT "Causes".id, "Causes".name, COUNT("Supports".cause_id) as "supports" FROM "Supports" LEFT JOIN "Causes" ON "cause_id" = "Causes".id WHERE "Supports".user_id = ? GROUP BY "Causes".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            .then(function(causesSupported){
+                res.json(causesSupported);
+            })
+        },
+
+        //Grabbing a single user's info by SESSION ID
+        getUserInfo: function(req, res) {
+            models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
+                if(data){
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
+        //For Reset
+        getUserByEmail: function(req, res) {
+            models.User.find({where: ["email = ?", req.body.email]}).then(function(data) {
+                if (data) {
+                    res.json({data: data.dataValues});
+
+                    checkExistingUrl(data.dataValues.email, data);
+                } else {
+                    res.json({errors: 'Email not found'});
+                }
+            })
+        },
+        getUserByResetUrl: function(req, res) {
+            models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
+                if (data) {
+                    res.json({data: data.dataValues});
+                } else {
+                    res.json({errors: 'Url not found'});
+                }
+            })
+        },
+        resetPassword: function(req, res) {
+            models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
+                var password = models.Pendinguser.generateHash(req.body.password);
+                if (data) {
+                    data.update({password: password});
+                    data.update({reset_pw_url: null});
+                    res.json({success: true, statusMessage: 'Password successfully updated'});
+                    //update the user
+                } else {
+                    res.json({success: false, statusMessage: 'User not found'})
                 }
             })
         },
@@ -128,6 +234,15 @@ module.exports = (function(){
             console.log("in getAllUsers");
             // models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
+            .then(function(users){
+                res.json(users);
+            })
+        },
+
+        getCauseUsers: function (req,res){
+          console.log("made it to model",req.params.id);
+          var id = req.params.id;
+            models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
                 res.json(users);
             })
