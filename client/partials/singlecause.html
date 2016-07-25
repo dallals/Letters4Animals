@@ -11,13 +11,6 @@
   <label>Letter:</label><br>
   {{cause.letter_body}}<br><br>
 
-
-  <h3>Need the following supporters in a table:</h3>
-  {{supporters}}
-
-  <h3>Need the following guests in a table:</h3>
-  {{guests}}
-
   <div role="tabpanel" class="tab-pane" id="users">
 
     <table class="table admintable">
@@ -28,10 +21,26 @@
         <th>State</th>
       </thead>
       <tbody>
-        <tr ng-repeat="user in causeusers | orderBy: id">
+        <tr ng-repeat="user in supporters | orderBy: id">
           <td>{{user.first_name }} {{ user.last_name }}</td>
           <td>{{user.email}}</td>
           <td>{{user.state}}</td>
+        </tr>
+      </tbody>
+    </table><br><br>
+
+    <table class="table admintable">
+          <h4>Guests Who Supported the Cause</h4>
+      <thead>
+        <th>Name</th>
+        <th>Email</th>
+        <th>State</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="guest in guests | orderBy: id">
+          <td>{{guest.first_name }} {{ guest.last_name }}</td>
+          <td>{{guest.email}}</td>
+          <td>{{guest.state}}</td>
         </tr>
       </tbody>
     </table>
