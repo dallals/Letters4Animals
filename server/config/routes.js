@@ -94,7 +94,13 @@ module.exports = function(app){
         causes.getAllCauses(req, res);
     })
     app.get('/getSingleCause/:id', function(req, res) {
-      causes.getSingleCause(req, res);
+        causes.showCauseInfo(req, res);
+    })
+    app.get('/getSupporters/:id', function(req, res) {
+        causes.showCauseUsers(req, res);
+    })
+    app.get('/getGuests/:id', function(req, res) {
+        causes.showCauseGuests(req, res);
     })
     app.get('/getEnabledCauses', function(req, res) {
         causes.getEnabledCauses(req, res);
