@@ -13,8 +13,8 @@ AnimalApp.factory('CauseFactory', function($http) {
     };
 
     // Grab Cause by ID, send back Cause data
-    factory.getCause = function(causeid, callback) {
-        $http.post('/getCauseInfo', {causeid}).success(function(data) {
+    factory.getCause = function(id, callback) {
+        $http.get('/getSingleCause/'+id).success(function(data) {
             callback(data);
         })
     };

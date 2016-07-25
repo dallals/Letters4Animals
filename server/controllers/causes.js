@@ -11,6 +11,14 @@ module.exports = (function(){
                 res.json(causes);
             })
         },
+        getSingleCause: function(req,res){
+            console.log("made it to model",req.params.id);
+            var id = req.params.id;
+            models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            .then(function(cause){
+                res.json(cause);
+            })
+        },
 
         getEnabledCauses: function(req, res) {
             models.Cause.findAll({where: ['enabled = ?', true]})

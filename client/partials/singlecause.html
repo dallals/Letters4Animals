@@ -1,0 +1,13 @@
+<div id="adminheader"><h3>Administrative Panel</h3></div>
+<div id="admin_container" ng-controller='singleCauseController' ng-show='loggedIn'>
+
+<!-- Left Admin panel -->
+<div class="col-sm-12 admin_container">
+    <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
+
+  <h3>Cause Name: {{cause.name}}</h3>
+  <label>Cause Description:</label><br>
+  {{cause.description}}<br>
+  <label>Letter:</label><br>
+  {{cause.letter_body}}<br>
+</div>
