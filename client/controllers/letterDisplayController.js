@@ -21,6 +21,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
     $scope.showDetails = false;
     $scope.showGuestFields = false;
+    $scope.select_recipients = false;
 
     // Steps for Guest-Users
     $scope.steps = ['Select Cause', 'Enter Guest Inforamtion', 'View Representatives', 'Preview Letter', 'Print/Save'];
@@ -257,6 +258,16 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // console.log('cause selected: ', $scope.causeSelected);
 
     }
+
+    // to hide or show the Print letter and show Representatives section
+    $scope.address_selection = function(){
+        $scope.select_recipients = true;
+        $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+
+    }
+
+
+
     //
     // STYLE STUFF
   //   $scope.steps = ['Select Cause', 'Enter Guest Inforamtion', 'View Representatives', 'Preview Letter', 'Print/Save'];
@@ -267,52 +278,52 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
   //   'Step 3: Campaign Media'
   // ];
 
-    $scope.selection = $scope.steps[0];
-    $scope.getCurrentStepIndex = function(){
-        // Get the index of the current step given selection
-        return _.indexOf($scope.steps, $scope.selection);
-    };
-
-    // Go to a defined step index
-    $scope.goToStep = function(index) {
-        if ( !_.isUndefined($scope.steps[index]) )
-        {
-            $scope.selection = $scope.steps[index];
-        }
-    };
-
-    $scope.hasNextStep = function(){
-        var stepIndex = $scope.getCurrentStepIndex();
-        var nextStep = stepIndex + 1;
-        // Return true if there is a next step, false if not
-        return !_.isUndefined($scope.steps[nextStep]);
-    };
-
-    $scope.hasPreviousStep = function(){
-        var stepIndex = $scope.getCurrentStepIndex();
-        var previousStep = stepIndex - 1;
-        // Return true if there is a next step, false if not
-        return !_.isUndefined($scope.steps[previousStep]);
-    };
-
-    $scope.incrementStep = function() {
-        if ( $scope.hasNextStep() )
-        {
-            var stepIndex = $scope.getCurrentStepIndex();
-            var nextStep = stepIndex + 1;
-            $scope.selection = $scope.steps[nextStep];
-        }
-    };
-
-    $scope.decrementStep = function() {
-        if ( $scope.hasPreviousStep() )
-        {
-            var stepIndex = $scope.getCurrentStepIndex();
-            var previousStep = stepIndex - 1;
-            $scope.selection = $scope.steps[previousStep];
-        }
-    };
-
+    // $scope.selection = $scope.steps[0];
+    // $scope.getCurrentStepIndex = function(){
+    //     // Get the index of the current step given selection
+    //     return _.indexOf($scope.steps, $scope.selection);
+    // };
+    //
+    // // Go to a defined step index
+    // $scope.goToStep = function(index) {
+    //     if ( !_.isUndefined($scope.steps[index]) )
+    //     {
+    //         $scope.selection = $scope.steps[index];
+    //     }
+    // };
+    //
+    // $scope.hasNextStep = function(){
+    //     var stepIndex = $scope.getCurrentStepIndex();
+    //     var nextStep = stepIndex + 1;
+    //     // Return true if there is a next step, false if not
+    //     return !_.isUndefined($scope.steps[nextStep]);
+    // };
+    //
+    // $scope.hasPreviousStep = function(){
+    //     var stepIndex = $scope.getCurrentStepIndex();
+    //     var previousStep = stepIndex - 1;
+    //     // Return true if there is a next step, false if not
+    //     return !_.isUndefined($scope.steps[previousStep]);
+    // };
+    //
+    // $scope.incrementStep = function() {
+    //     if ( $scope.hasNextStep() )
+    //     {
+    //         var stepIndex = $scope.getCurrentStepIndex();
+    //         var nextStep = stepIndex + 1;
+    //         $scope.selection = $scope.steps[nextStep];
+    //     }
+    // };
+    //
+    // $scope.decrementStep = function() {
+    //     if ( $scope.hasPreviousStep() )
+    //     {
+    //         var stepIndex = $scope.getCurrentStepIndex();
+    //         var previousStep = stepIndex - 1;
+    //         $scope.selection = $scope.steps[previousStep];
+    //     }
+    // };
+    //
 
 
 

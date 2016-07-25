@@ -2,7 +2,7 @@
     padding-left: 0px !important;
 }
 
-#letter_form_address{
+.letter_background{
     /*border: 1px solid grey;*/
     background: #fff;
     color: #555 !important;
@@ -115,9 +115,9 @@ p.congress_example{
   margin-left:5%;
 }
 
-/*.printletter{
+.printletter{
   margin-left:5%;
-}*/
+}
 
 .indent{
   margin-left:2%;

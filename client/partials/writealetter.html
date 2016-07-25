@@ -7,7 +7,7 @@
     </div>
 
     <h3>Choose your cause</h3>
-    <div class="causeinfo">
+    <div class="causeinfo letter_background" >
         <form class="form-horizontal">
             <div class="form-group">
                 <label for="causeSelect" class="col-sm-2 control-label">Cause:</label>
@@ -20,7 +20,7 @@
         </form>
 
         <!-- <div id="letter_form_address" > -->
-        <div id="letter_form_address" ng-if="showDetails" >
+        <div ng-if="showDetails" >
             <h4 class="text-center"><b>Cause Details</b></h4>
 
             <form class="form-horizontal">
@@ -48,7 +48,7 @@
 
     <div ng-show='!loggedIn && showGuestFields'>
         <h3>Enter your information </h3>
-        <div class="guestinfo">
+        <div class="guestinfo letter_background">
             <b>Guest Info:</b>
             <form class="form-horizontal">
                 <!-- First & Last Name Input Fields -->
@@ -96,7 +96,7 @@
                     <div class="col-md-12">
                         <div id="choices">
                             <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice }}
+                                <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required ng-change="address_selection()"> {{ choice }}
                             </label>
                             <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                         </div>
@@ -109,29 +109,31 @@
 
     <br>
 
-    <div class="printletter">
-        <h3>Wrap Up: Preview and print your letter </h3><br>
-        <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button>
-        <br><br>
-
-        <div ng-show=gotCause>
-            <div class='col-sm-2 repbox' ng-repeat='rep in reps'>
-                <img ng-src='{{rep.rep.photoUrl }}' alt=Rep width=150 height=187><br>
-                <input type="checkbox" ng-click='repPicked(rep)'>
-                {{ rep.rep.name }}<br>
-                {{ rep.position }}
-            </div>
-            <div ng-if='!reps' class='col-sm-12'>
-                <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187><br>
-                <input type="checkbox" ng-click='repPicked(rep)'>
-                {{ fixed.name }}<br>
-                {{ fixed.pos }}
+    <div ng-show="select_recipients">
+        <!-- <h3>Wrap Up: Preview and print your letter </h3><br> -->
+        <h3>Select recipient(s)</h3>
+        <!-- <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button> -->
+        <div class="printletter letter_background">
+            <div ng-show=gotCause>
+                <div class='col-sm-2 repbox' ng-repeat='rep in reps'>
+                    <img ng-src='{{rep.rep.photoUrl }}' alt=Rep width=150 height=187><br>
+                    <input type="checkbox" ng-click='repPicked(rep)'>
+                    {{ rep.rep.name }}<br>
+                    {{ rep.position }}
+                </div>
+                <div ng-if='!reps' class='col-sm-12'>
+                    <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187><br>
+                    <input type="checkbox" ng-click='repPicked(rep)'>
+                    {{ fixed.name }}<br>
+                    {{ fixed.pos }}
+                </div>
             </div>
         </div>
 
+
     </div> <!--- End of printLetter --->
 
-    <div class="col-sm-12">
+    <div class="col-sm-12" ng-show="show_print_save">
         <br>
         <button ng-click="printLetter('#printDiv')">PRINT</button>
         <br>
