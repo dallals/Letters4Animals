@@ -216,6 +216,15 @@ module.exports = (function(){
             })
         },
 
+        getCauseUsers: function (req,res){
+          console.log("made it to model",req.params.id);
+          var id = req.params.id;
+            models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            .then(function(users){
+                res.json(users);
+            })
+        },
+
         delUser: function(req, res){
             var self = this;
             // console.log(self);
