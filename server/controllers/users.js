@@ -142,17 +142,15 @@ module.exports = (function(){
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(supports){
-                    models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
-                    .then(function(pendingcauses){
-                        user.destroy()
-                        .then(function(){
-                        // Send back all remaining users
-                            self.getAllUsers(req, res)
-                        })
-                    })
+                    user.destroy()
+                    .then(function(){
+                    // Send back all remaining users
+                        self.getAllUsers(req, res)
+                    })       
                 })
             })
         },
+
         sendText: function(req,res){
 
             models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})

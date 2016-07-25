@@ -126,6 +126,10 @@ module.exports = function(app){
         users.sendText(req,res);
     })
 
+    app.post('/delCause', function(req,res){
+        causes.delCause(req, res);
+    })
+
 };
 
 // route middleware to make sure a user is logged in

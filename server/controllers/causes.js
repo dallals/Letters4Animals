@@ -94,37 +94,18 @@ module.exports = (function(){
             }
         },
 
-        deleteCause: function(req, res){
-            var self = this;
-            // console.log(self);
-            console.log('in deleteCause');
-            // Find cause, find and delete cause's supports/guests, then delete cause
-            // models.Cause.find({where: ['id = ?', req.body.id]})
-            // .then(function(cause){
-            //     models.Support.destroy({where: ['cause_id = ?', cause.id]})
-            //     .then(function(supportsDestroyed){
-            //         models.Guest.destroy({where: ['cause_id = ?', cause.id]})
-            //         .then(function(guestsDestroyed){
-            //             cause.destroy()
-            //             .then(function(){
-            //                 // Send back all remaining users
-            //                 self.getAllCauses(req, res)
-            //         })
-            //     })
-            // })
-            models.Cause.find({
-                where: ['id = ?', req.body.id]
-            }).then(function(cause){
-                models.Support.destroy({where: ['cause_id = ?', cause.id]})
-            }).then(function(supportsDestroyed){
-                models.Guest.destroy({where: ['cause_id = ?', req.body.id]})
-            }).then(function(guestsDestroyed){
-                models.Cause.destroy({where: ['id = ?', req.body.id]})
-            }).then(function(causeDestroyed){
-                self.getAllCauses(req, res)
+      delCause: function(req, res){
+        models.Cause.destroy({where: ['id = ?', req.body.id]})
+          .then(function(cause){
+            models.sequelize.query('SELECT "Causes".*, COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
+            .then(function(causes){
+                res.json(causes);
+            }).catch(function(err){
+              console.log(err)
             })
-
-        }
+          })
+        
+      },
 
     }//closes return
 })();

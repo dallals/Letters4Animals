@@ -25,6 +25,7 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
+
     factory.getEnabledCauses = function(callback) {
         $http.get('/getEnabledCauses').success(function(causes) {
             callback(causes);
@@ -82,6 +83,13 @@ AnimalApp.factory('CauseFactory', function($http) {
        $http.post('/sendText', causeInfo).success(function(twilio){
            console.log(twilio);
        })
+    }
+
+    factory.delCause = function(cause, callback){
+        $http.post('/delCause', cause).success(function(causes){
+            console.log("getting to call back")
+            callback(causes);   
+        })
     }
     return factory;
 })
