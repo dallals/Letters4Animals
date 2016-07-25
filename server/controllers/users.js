@@ -56,12 +56,14 @@ var checkExistingUrl = function(email, user) {
             sendResetEmail(url, email);
             console.log('Sent reset Url to',email,'url is',url);
 
-            user.update({reset_pw_url: url}).catch(function(err) {
+            var today = new Date();
+            user.update({reset_pw_url: url, reset_pw_url_created_at: today}).catch(function(err) {
                 console.log(err);
             });
         }
     })
 }
+
 
 module.exports = (function(){
   return {
