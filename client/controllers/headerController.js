@@ -69,6 +69,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
             })
         }
     }
+    $scope.close = function() {
+        $('#Login').modal('hide');
+    }
 
     $scope.login = function() {
         $scope.loginErrors = '';

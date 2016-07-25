@@ -39,11 +39,11 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
     factory.enableCause = function(cause, callback) {
-    $http.post('/enableCause', cause).success(function(causes){
-        if (callback && typeof callback == 'function') {
-            callback(causes);
-        }
-    })
+        $http.post('/enableCause', cause).success(function(causes){
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
     }
 
     factory.updateCause = function(causeinfo) {
@@ -52,6 +52,18 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
+<<<<<<< HEAD
+    factory.deleteCause = function(cause, callback) {
+        console.log('Angular Factory Delete');
+        $http.post('/deleteCause', cause).success(function(causes) {
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
+    }
+
+
+=======
     factory.addSupport = function(support) {
         $http.post('/addSupport', support).success(function(){
             console.log('added support succesfully');
@@ -83,5 +95,6 @@ AnimalApp.factory('CauseFactory', function($http) {
            console.log(twilio);
        })
     }
+>>>>>>> b27a41d4f571f5408885dcc72ea725c66b5f297a
     return factory;
 })

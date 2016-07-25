@@ -42,6 +42,15 @@ module.exports = function(app){
     app.post('/getUserInfo', function(req, res) {
         users.getUserInfo(req, res);
     })
+    app.post('/getUserByEmail', function(req, res) {
+        users.getUserByEmail(req, res);
+    })
+    app.post('/getUserByResetUrl', function(req, res) {
+        users.getUserByResetUrl(req, res);
+    })
+    app.post('/resetPassword', function(req, res) {
+        users.resetPassword(req, res);
+    })
     //Updating user in DB
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
@@ -98,6 +107,11 @@ module.exports = function(app){
 
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
+    })
+    app.post('/deleteCause', function(req, res) {
+        console.log('Server Route Delete');
+        console.log(req.body);
+        causes.deleteCause(req, res);
     })
     //Supports
 

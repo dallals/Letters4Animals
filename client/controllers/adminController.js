@@ -98,6 +98,19 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 				})
 			}
 		}
+<<<<<<< HEAD
+
+		$scope.deleteCause = function(cause) {
+			console.log('Angular Controller Delete');
+			CauseFactory.deleteCause(cause, function() {
+				CauseFactory.getAllCauses(function(causes) {
+					$scope.causes = causes;
+				})
+			})
+		}
+
+=======
+>>>>>>> b27a41d4f571f5408885dcc72ea725c66b5f297a
 	} // End of logged in check
 
 	//send twilio msg
