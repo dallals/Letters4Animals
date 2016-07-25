@@ -103,18 +103,19 @@
                       <table class="table admintable">
                         <thead>
                           <th>Cause</th>
-                          <th># of Users</th>
+                          <th>Volunteer</th>
+                          <th>Email</th>
                           <th>Created</th>
-                          <th>Enabled</th>
                           <th>Edit</th>
                           <th>Delete</th>
                         </thead>
                         <tbody>
                           <tr ng-repeat="pendingcause in pendingcauses">
                             <td>{{pendingcause.name}}</td>
-                            <td>{{pendingcause.supports}}</td>
+                            <td>{{pendingcause.first_name}} {{pendingcause.last_name}}</td>
+                            <td>{{pendingcause.email}}</td>
                             <td>{{pendingcause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</td>
-                            <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
+                            <!-- <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td> -->
                             <td><a href="#/pendingcauseadmin/{{pendingcause.id}}"><button id="editPendingCause" class="admin_panel" >Edit & Add</button></a></td>
                             <td><button id="deletePendingCause" class="admin_panel">Delete</button></td>
                           </tr>
