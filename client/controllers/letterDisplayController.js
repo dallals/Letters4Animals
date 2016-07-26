@@ -184,13 +184,16 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.addSupport();
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
+
+
+        console.log('letters: ', letters);
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var letter of letters){
             // Change logo src to local and set new css style
-            letter.children[0].src = 'L4Alogo.png';
-            letter.children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
+            letter.children[1].src = 'L4Alogo.png';
+            letter.children[1].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            var letterName  = 'Letter_to_' + letter.children[11].innerHTML + '.doc',
+            var letterName  = 'Letter_to_' + letter.children[12].innerHTML + '.doc',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
             mimeType    = 'application/msword',
@@ -206,7 +209,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             link.click();
 
             // Reset logo src so printing doesn't break
-            letter.children[0].src = './assets/L4A-logo-cattle2-7-2016.png';
+            letter.children[1].src = './assets/L4A-logo-cattle2-7-2016.png';
         }
         // Download the logo once
         if(!$scope.logoDown){
