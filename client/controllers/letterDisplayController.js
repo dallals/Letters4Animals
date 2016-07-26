@@ -40,6 +40,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     });
 
     CauseFactory.getAllCauses(function(causes){
+        for(var ind in causes){
+            causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
+        }
         $scope.causes = causes;
     })
 
@@ -59,7 +62,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
         else{
             var payload             = {};
-                payload.rep_level   = 'State Senate';
+                // payload.rep_level   = level;
+                payload.rep_level = 'Lieutenant Governor';
 
             // Format address to send to civics API
             if($scope.loggedIn){

@@ -201,6 +201,10 @@ module.exports = (function(){
             if (req.body.userid != 1) {
                 req.body.admin = false;
             }
+            console.log(req.body);
+            if (req.body.password) {
+                req.body.password = models.Pendinguser.generateHash(req.body.password)
+            }
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
@@ -261,7 +265,7 @@ module.exports = (function(){
                     .then(function(){
                     // Send back all remaining users
                         self.getAllUsers(req, res)
-                    })       
+                    })
                 })
             })
         },

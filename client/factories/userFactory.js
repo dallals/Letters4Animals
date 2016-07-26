@@ -70,6 +70,7 @@ AnimalApp.factory('UserFactory', function($http) {
     }
 
     factory.updateUser = function(userinfo) {
+        console.log(userinfo);
         $http.post('/updateUser', userinfo).success(function(){
             console.log('updated user succesfully');
         })
@@ -103,7 +104,7 @@ AnimalApp.factory('UserFactory', function($http) {
             callback(guests);
             // $http.get('getAllGuests').success(function(guests){
             //     callback(guests);
-            // })    
+            // })
         })
     }
     return factory;

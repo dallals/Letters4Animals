@@ -17,10 +17,12 @@ module.exports = (function() {
                     dataJson   = {},
                     results    = [],
 
+                // Change this once user coords are packaged into req.body /////////////////////
                 userCoords     = {
                     lat :   '37.281379',
                     lon :   '-122.0093907'
                 },
+                ////////////////////////////////////////////////////////////////////////////////
 
                 civics         = {
                     //Host: website that serves it.
@@ -60,11 +62,13 @@ module.exports = (function() {
                                 position: ''
                             };
 
-                        //Check if user is from Nebraska
-                        if(false){
+                        //Check if user is from Nebraska  /////////////////////////////////
+                        if(false){      // Replace this with actual code once Sharol is done
                             selRep = dataJson[0];
                             finalRep.position = 'State Senator';
                         }
+                        //////////////////////////////////////////////////////////////////
+
                         // Find the rep for the right cause level
                         else {
                             for(var rep of dataJson){
@@ -165,11 +169,23 @@ module.exports = (function() {
                             }
                             dataJson = JSON.parse(dataString);
 
+                            console.log('=========dataJson.offices=========');
+                            console.log(dataJson.offices);
+                            console.log('=========dataJson.offices=========');
+
                             for (things of dataJson.offices) {
                                 if (things.name.includes(position)) {
                                     for (thing of things.officialIndices) {
-                                        // Check that only officials with exact matching position are returned
-                                        if(things.name == position){
+                                        // Check for President/VP/gov/lt.Gov so that the right one is returned
+                                        if(position == 'President of the United States' || position == 'Vice-President of the United States' || position == 'Governor' || position == 'Lieutenant Governor'){
+                                            if(position == things.name){
+                                                var finalRep = {};
+                                                    finalRep.rep        = dataJson.officials[thing];
+                                                    finalRep.position   = things.name;
+                                                results.push(finalRep);
+                                            }
+                                        }
+                                        else{
                                             var finalRep = {};
                                                 finalRep.rep        = dataJson.officials[thing];
                                                 finalRep.position   = things.name;
