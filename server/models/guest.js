@@ -6,14 +6,15 @@ module.exports = function(sequelize, DataTypes) {
     street_address: DataTypes.STRING,
     city: DataTypes.STRING,
     state: DataTypes.STRING,
-    zipcode: DataTypes.INTEGER,
-    cause_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "Causes", // Can be both a string representing the table name, or a reference to the model
-        key:   "id"
-      }
-    }
+    zipcode: DataTypes.INTEGER 
+    //,
+    // cause_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: "Causes", // Can be both a string representing the table name, or a reference to the model
+    //     key:   "id"
+    //   }
+    // }
 
      //,
     // cause_id: DataTypes.INTEGER

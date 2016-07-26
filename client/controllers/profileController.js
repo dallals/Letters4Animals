@@ -1,4 +1,15 @@
 AnimalApp.controller('profileController', function ($scope, $location, $routeParams, $http, UserFactory) {
+    $scope.errors = {
+        first_name      : '',
+        last_name       : '',
+        street_address  : '',
+        city            : '',
+        state           : '',
+        zipcode         : '',
+        phone_number    : '',
+        email           : '',
+        password        : ''
+    };
 
     UserFactory.isLoggedIn(function(user){
         if(user.id){
@@ -26,27 +37,24 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
             }
         }
 
-        // Keep track of which fields are updating
+        // Keep track of which fields are updating on change
         $scope.updateInfo = function(field){
             if(!$scope.updatedUser){ $scope.updatedUser = {}; }
             // Update property of temp user based on what changes
-            // if (field == 'volunteer') {
-            //     $scope.updatedUser['volunteer'] = $scope.loggedUser[field];
-            //     console.log($scope.updatedUser.volunteer);
-            // }
-            // else if (field == 'emailNotif') {
-            //     $scope.updatedUser['email_notification'] = $scope.loggedUser['email_notification'];
-            //     console.log($scope.updatedUser);
-            // }
-            // else if (field == 'phoneNotif') {
-            //     $scope.updatedUser['phone_notification'] = $scope.loggedUser['phone_notification'];
-            //     console.log($scope.updatedUser);
-            // }
-            // else {
-                $scope.updatedUser[field] = $scope.loggedUser[field];
-                console.log('in the else, upUser: ', $scope.updatedUser);
-            // }
-            // console.log($scope.updatedUser);
+            if (!$scope.loggedUser[field] || $scope.loggedUser[field].trim() == '') {
+                $scope.errors[field] = 'red';
+            } else {
+                $scope.errors[field] = 'greenerr';
+            }
+
+            if (field == 'zipcode' && $scope.loggedUser[field].trim().length < 5) { $scope.errors[field] = 'red'}
+            else if (field == 'zipcode') { $scope.errors[field] = 'greenerr' }
+
+            if (field == 'phone_number' && $scope.loggedUser[field].trim().length != 10) { $scope.errors[field] = 'red' }
+            else if (field == 'phone_number') { $scope.errors[field] = 'greenerr' }
+
+            $scope.updatedUser[field] = $scope.loggedUser[field];
+            console.log('in the else, upUser: ', $scope.updatedUser);
         }
         // Checks if an object is empty so user can't submit updates without actually updating something
         $scope.isUpdated = function(user) {
@@ -71,6 +79,17 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
                         return false;
                     }
                 }
+                if (($scope.updatedUser.zipcode && $scope.updatedUser.zipcode.trim().length < 5) || ($scope.updatedUser.phone_number && $scope.updatedUser.phone_number.trim().length < 10)) {return false}
+                $scope.errors = {
+                    first_name      : '',
+                    last_name       : '',
+                    street_address  : '',
+                    city            : '',
+                    state           : '',
+                    zipcode         : '',
+                    phone_number    : '',
+                    email           : ''
+                };
                 // Send updated fields to factory/DB to update
                 UserFactory.updateUser($scope.updatedUser);
                 // after success show alert
@@ -80,11 +99,12 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
         }
 
         $scope.updatePassword = function() {
+            $scope.errors.password = '';
             //If they equal, if they exist, if not empty
-            if ($scope.newPassword === $scope.updatePassword && $scope.newPassword && $scope.updatePassword && $scope.newPassword.trim() != '') {
+            if ($scope.pass.newPassword === $scope.pass.confPassword && $scope.pass.newPassword && $scope.pass.confPassword && $scope.pass.newPassword.trim() != '') {
                 var newPass = {
                     userid: $scope.loggedUser.id,
-                    password: $scope.newPassword
+                    password: $scope.pass.newPassword
                 };
                 UserFactory.updateUser(newPass);
                 swal("Password Updated!", "Your password has been successfully updated!", "success");

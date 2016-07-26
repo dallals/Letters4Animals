@@ -60,7 +60,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
             // Grab proper representatives
             $http.post('/representatives', payload).success(function(reps){
-                for(var rep of reps){
+                for(var ind in reps){
+                    var rep = reps[ind];
                     // Grab the representative position for the letter salutation
                     // var posArr = rep.position.split(' ');
                     // if(posArr.includes('Senate')){
@@ -245,4 +246,3 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
 
 });
-$scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;

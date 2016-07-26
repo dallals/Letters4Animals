@@ -1,10 +1,9 @@
 <div id="main">
   <header id="addcauseheader">
-    <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
-    <h2>Add & Edit a Donated Cause</h2>
+    <h2>Volunteer a Letter</h2>
   </header>
 
-  <form name="causeadmin" method="post" ng-controller="pendingCauseController" ng-model="cause">
+  <form name="volunteercause" method="post" ng-controller="donateCauseController" ng-model="pendingcause">
     <label>Cause Name</label><br><input type="text" name="causename" ng-model="pendingcause.name"></input><br><br>
     <label>Description</label><br><textarea name="description" class="admintext" ng-model="pendingcause.description"></textarea><br>
 
@@ -24,7 +23,6 @@
         <label>Name of Recipient</label><input type="text" name="fixed_name" ng-model="pendingcause.fixed_name">
         <label>Street Address</label><input type="text" name="fixed_address" ng-model="pendingcause.fixed_address">
         <label>City</label><input type="text" name="fixed_city" ng-model="pendingcause.fixed_city">
-        <!-- for state do we have any data formatting for the DB? potentially change to a select of state abbreviations or names -->
         <label>State</label><input type="text" name="fixed_state" ng-model="pendingcause.fixed_state">
         <label>Zipcode</label><input type="text" name="fixed_zipcode" ng-model="pendingcause.fixed_zipcode">
     </div>
@@ -39,18 +37,7 @@
       <textarea name="string" class="footnotetext" ng-model="pendingcause.letter_footnote"></textarea>
     </div>
 
-    <h4>Notification Settings</h4>
-    <div class="notification_content">
-      <h5>Text Blurb</h5>
-      <textarea name="string" class="footnotetext" ng-model="pendingcause.text_content"></textarea>
-    </div>
-
-    <div class="notification_content">
-      <h5>Email Notification Content </h5>
-      <textarea name="string" class="footnotetext" ng-model="pendingcause.email_content"></textarea>
-    </div>
-
-    <input type="submit" ng-click="addCause()" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Create Cause"></input>
+    <input type="submit" ng-click="volunteer()" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Submit Custom Letter"></input>
 
   </form>
 

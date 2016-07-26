@@ -201,6 +201,7 @@ module.exports = (function(){
             if (req.body.userid != 1) {
                 req.body.admin = false;
             }
+            console.log(req.body);
             if (req.body.password) {
                 req.body.password = models.Pendinguser.generateHash(req.body.password)
             }
@@ -242,6 +243,15 @@ module.exports = (function(){
             })
         },
 
+        getCauseUsers: function (req,res){
+          console.log("made it to model",req.params.id);
+          var id = req.params.id;
+            models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            .then(function(users){
+                res.json(users);
+            })
+        },
+
         delUser: function(req, res){
             var self = this;
             // console.log(self);
@@ -251,17 +261,15 @@ module.exports = (function(){
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(supports){
-                    models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
-                    .then(function(pendingcauses){
-                        user.destroy()
-                        .then(function(){
-                        // Send back all remaining users
-                            self.getAllUsers(req, res)
-                        })
+                    user.destroy()
+                    .then(function(){
+                    // Send back all remaining users
+                        self.getAllUsers(req, res)
                     })
                 })
             })
         },
+
         sendText: function(req,res){
 
             models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})

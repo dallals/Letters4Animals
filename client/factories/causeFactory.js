@@ -4,11 +4,17 @@ AnimalApp.factory('CauseFactory', function($http) {
 
 
     factory.createCause = function(cause, callback) {
-        //Throw to cause
-        $http.post('/addCause', {cause}).success(function(data) {
-            if (callback && typeof callback == 'function') {
-                callback(data);
-            }
+      console.log("made it to factory",cause);
+        $http.post('/addCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
+        })
+    }
+
+    factory.createPendCause = function(cause, callback) {
+        $http.post('/volunteerCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
         })
     };
 
@@ -19,11 +25,30 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     };
 
+    factory.getSupporters = function(id, callback) {
+        $http.get('/getSupporters/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+
+    factory.getGuests = function(id, callback) {
+        $http.get('/getGuests/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+    factory.getCauseUsers = function(id, callback) {
+        $http.get('/getCauseUsers/'+id).success(function(data) {
+          console.log("in get cause factory",data);
+            callback(data);
+        })
+    };
+
     factory.getAllCauses = function(callback) {
         $http.get('/getAllCauses').success(function(causes){
             callback(causes);
         })
     };
+
 
     factory.getEnabledCauses = function(callback) {
         $http.get('/getEnabledCauses').success(function(causes) {
@@ -92,6 +117,19 @@ AnimalApp.factory('CauseFactory', function($http) {
        $http.post('/sendText', causeInfo).success(function(twilio){
            console.log(twilio);
        })
+    }
+
+    factory.delCause = function(cause, callback){
+        $http.post('/delCause', cause).success(function(causes){
+            console.log("getting to call back")
+            callback(causes);
+        })
+    }
+
+    factory.update = function(info, callback){
+        $http.post('/updateCause', info).success(function(output){
+            callback(output);
+        })
     }
     return factory;
 })
