@@ -32,7 +32,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.loggedUser = user;
             $scope.loggedIn = true;
             // Steps for Logged In users
-            $scope.steps = ['Select Cause', 'View Representatives', 'Preview Letter', 'Print/Save'];
+            //$scope.steps = ['Select Cause', 'View Representatives', 'Preview Letter', 'Print/Save'];
           //
         }
     });
@@ -268,6 +268,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.showGuestFields = true;
         }else{
             $scope.select_recipients = true;
+            $scope.showDetails = true;
             $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
         }
     }

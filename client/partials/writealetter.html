@@ -133,11 +133,22 @@
                     </label>
             </div>
             <div ng-if='!reps' class='col-sm-12 repbox2'>
-                <label for='{{rep.letterName}}'>
-                    <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187><br>
-                    <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
-                    {{ fixed.name }}<br>
-                    {{ fixed.pos }}
+                <label for='{{selCause.id}}'> <!-- For fixed causes, the selection by label is on the id instead of lettername -->
+                    <div class="media">
+                        <div class="media-left media-bottom">
+                            <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187>
+                        </div>
+                        <div class="media-body">
+                            <p class="media-heading">
+                                <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)'>
+                                {{ fixed.name }}
+                            </p>
+                            <p class="no_bold">
+                                {{ fixed.pos }}
+                            </p>
+
+                        </div>
+                    </div>
                 </label>
             </div>
         </div>
@@ -145,8 +156,7 @@
 
     <!--- Letters --->
     <div class="preview_letter">
-        <!-- <h2>{{chosenRep[1]}}</h2> -->
-        <h3 class="h3_bottom_margin" ng-if="chosenRep[0] || chosenRep[1]">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
+        <h3 class="h3_bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]==null ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
         <div id='printDiv' ng-show=true>
             <div class='page-break' ng-repeat='rep in chosenRep'>
                 <div class="printletter letter_background">
