@@ -23,5 +23,19 @@ AnimalApp.controller('singleCauseController', function($scope, $location, $route
 			$scope.causeusers = data;
 		});
 
+		$scope.updateCause = function(cause){
+			CauseFactory.updateCause(cause, function(data){
+				$scope.cause = data
+			})
+		};
+
+		$scope.addCause = function(cause){
+			CauseFactory.addCause(cause, function(data){
+				$scope.cause = data
+			})
+		};
+
+
+
 
 });

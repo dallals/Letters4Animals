@@ -4,7 +4,7 @@
     <h2>Add & Edit a Cause</h2>
   </header>
 
-  <form name="causeadmin" ng-controller="adminController" ng-model="cause">
+  <form name="causeadmin" ng-controller="singleCauseController" ng-model="cause">
 
 
     <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
@@ -55,8 +55,8 @@
       <textarea name="string" class="footnotetext" ng-model="cause.email_content"></textarea>
     </div>
 
-    <input type="submit" ng-click="updateCause()" class="btn btn-success analytics" id="update_cause" name="update_cause" value="Update Cause"></input>
-    <input type="submit" ng-click="addCause()" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Add Cause"></input>
+    <input type="submit" ng-click="updateCause(cause)" class="btn btn-success analytics" id="update_cause" name="update_cause" value="Update Cause"></input>
+    <input type="submit" ng-click="addCause(cause)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Add Cause"></input>
 
   </form>
 

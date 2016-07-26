@@ -40,7 +40,7 @@
                             <td>{{cause.supports}}</td>
                             <td>{{cause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</span></td>
                             <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
-                            <td><button id="editcause" class="admin_panel" ng-click='editCause(cause)'>Edit</button></td>
+                            <td><a href="#/causeadmin/{{cause.id}}"><button id="editCause" class="admin_panel" >Edit </button></a></td></td>
                             <td><button id="deletecause" class="admin_panel" ng-click='deleteCause(cause)'>Delete</button></td>
                             <td><button id="sendText" class="admin_panel" ng-click='sendText(cause)'>Send Text</button></td>
                             <td><button id="sendEmail" class="admin_panel" ng-click='sendEmail(cause)'>Send Email</button></td>
