@@ -263,12 +263,13 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     // to hide or show the Cause Details
     $scope.update = function(){
-        $scope.showDetails = true;
-        $scope.showGuestFields = true;
-        // $scope.causeSelected = $scope.selCause;
-        //
-        // console.log('cause selected: ', $scope.causeSelected);
-
+        if(!$scope.loggedIn){
+            $scope.showDetails = true;
+            $scope.showGuestFields = true;
+        }else{
+            $scope.select_recipients = true;
+            $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+        }
     }
 
     // to hide or show the Print letter and show Representatives section
