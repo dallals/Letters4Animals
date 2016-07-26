@@ -42,6 +42,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     CauseFactory.getAllCauses(function(causes){
         for(var ind in causes){
             causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
+            // Check if cause should be pre-selected from a link/URL
+            if(causes[ind].id == $routeParams.causeId){
+                $scope.selCause = causes[ind];
+            }
         }
         $scope.causes = causes;
     })
@@ -62,8 +66,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
         else{
             var payload             = {};
-                // payload.rep_level   = level;
-                payload.rep_level = 'Lieutenant Governor';
+                payload.rep_level   = level;
+                // payload.rep_level = 'Lieutenant Governor';
 
             // Format address to send to civics API
             if($scope.loggedIn){
@@ -82,9 +86,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     var posArr = rep.position.split(' ');
                     for(var i=0; i< posArr.length; i++){
                         switch(posArr[i]){
-                            case 'Senate'           : rep.letterPos = 'Senator'; break;
                             case 'President'        : rep.letterPos = 'President'; break;
                             case 'Vice-President'   : rep.letterPos = 'Vice-President'; break;
+                            case 'Senate'           : rep.letterPos = 'Senator'; break;
                             case 'Representatives'  : rep.letterPos = 'Representative'; break;
                             case 'Governor'         : rep.letterPos = 'Governor'; break;
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
@@ -140,7 +144,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         var alreadyPicked = false;
         for(var i=0; i < $scope.chosenRep.length; i++){
             if($scope.chosenRep[i] == rep){
-                $scope.chosenRep.splice($scope.chosenRep[i], 1);
+                $scope.chosenRep.splice(i, 1);
                 alreadyPicked = true;
             }
         }
