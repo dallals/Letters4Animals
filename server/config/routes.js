@@ -122,10 +122,17 @@ module.exports = function(app){
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
     })
+    app.post('/volunteerCause', function(req, res) {
+        pendingcauses.addPendingCause(req, res);
+    })
+
     app.post('/deleteCause', function(req, res) {
         console.log('Server Route Delete');
         console.log(req.body);
         causes.deleteCause(req, res);
+    })
+    app.post('/deletePendCause', function(req,res){
+        pendingcauses.deletePendCause(req, res);
     })
     app.get('/getAllPendingcauses', function(req, res) {
         pendingcauses.getAllPendingcauses(req, res);

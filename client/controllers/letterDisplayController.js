@@ -1,7 +1,18 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
 
-    // Check for Safari, will need to use later to tell people to download a real broswer
+    // Browser checks, to be used later maybe
+    // Opera 8.0+
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    // Firefox 1.0+
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    // At least Safari 3+: "[object HTMLElementConstructor]"
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    // Internet Explorer 6-11
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    // Edge 20+
+    var isEdge = !isIE && !!window.StyleMedia;
+    // Chrome 1+
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
 
 
     $scope.gotCause     = false;
@@ -29,6 +40,13 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     });
 
     CauseFactory.getAllCauses(function(causes){
+        for(var ind in causes){
+            causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
+            // Check if cause should be pre-selected from a link/URL
+            if(causes[ind].id == $routeParams.causeId){
+                $scope.selCause = causes[ind];
+            }
+        }
         $scope.causes = causes;
     })
 
@@ -49,6 +67,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         else{
             var payload             = {};
                 payload.rep_level   = level;
+                // payload.rep_level = 'Lieutenant Governor';
 
             // Format address to send to civics API
             if($scope.loggedIn){
@@ -60,36 +79,21 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
             // Grab proper representatives
             $http.post('/representatives', payload).success(function(reps){
-                for(var rep of reps){
-                    // Grab the representative position for the letter salutation
-                    // var posArr = rep.position.split(' ');
-                    // if(posArr.includes('Senate')){
-                    //     rep.letterPos = 'Senator';
-                    // }
-                    // if(posArr.includes('President')){
-                    //     rep.letterPos = 'President';
-                    // }
-                    // if(posArr.includes('Vice-President')){
-                    //     rep.letterPos = 'Vice-President';
-                    // }
-                    // if(posArr.includes('Representatives')){
-                    //     rep.letterPos = 'Representative';
-                    // }
-                    // if(posArr.includes('Governor')){
-                    //     rep.letterPos = 'Governor';
-                    // }
-                    // if(posArr.includes('Lieutenant')){
-                    //     rep.letterPos = 'Lieutenant Governor';
-                    // }
+
+                for(var ind in reps){
+                    var rep = reps[ind];
+
                     var posArr = rep.position.split(' ');
                     for(var i=0; i< posArr.length; i++){
                         switch(posArr[i]){
-                            case 'Senate'           : rep.letterPos = 'Senator'; break;
                             case 'President'        : rep.letterPos = 'President'; break;
                             case 'Vice-President'   : rep.letterPos = 'Vice-President'; break;
+                            case 'Senate'           : rep.letterPos = 'Senator'; break;
                             case 'Representatives'  : rep.letterPos = 'Representative'; break;
                             case 'Governor'         : rep.letterPos = 'Governor'; break;
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
+                            case 'Senator'          : rep.letterPos = 'Senator'; break;
+                            case 'Representative'   : rep.letterPos = 'Representative'; break;
                         }
                     }
 
@@ -109,18 +113,24 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     }
 
                     // Format the address to upper-case for letter
-                    var formAdd   = rep.rep.address[0].line1.split(' ').map(function(word){
+                    var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
                                         var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                         return upWord;
                                     }).join(' ');
+                    if(rep.rep.address[0].line2){
+                        var newLine2 = rep.rep.address[0].line2.split(' ').map(function(word){
+                                            var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                                            return upWord;
+                                        }).join(' ');
+                    }
 
-                    // .map(function(word){ word = word[0].toUpperCase() + word.slice(1)}).join(' ');
                     var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
                                         var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                         return upWord;
                                     }).join(' ');
 
-                    rep.rep.address[0].line1 = formAdd;
+                    rep.rep.address[0].line1 = newLine1;
+                    rep.rep.address[0].line2 = newLine2;
                     rep.rep.address[0].city = formCity;
                 }
                 $scope.reps = reps;
@@ -134,20 +144,13 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         var alreadyPicked = false;
         for(var i=0; i < $scope.chosenRep.length; i++){
             if($scope.chosenRep[i] == rep){
-                $scope.chosenRep.splice($scope.chosenRep[i], 1);
+                $scope.chosenRep.splice(i, 1);
                 alreadyPicked = true;
             }
         }
         if(!alreadyPicked){
             $scope.chosenRep.push(rep);
         }
-
-        // if($scope.chosenRep.includes(rep)){
-        //     $scope.chosenRep.splice($scope.chosenRep.indexOf(rep), 1);
-        // }
-        // else{
-        //     $scope.chosenRep.push(rep);
-        // }
     }
 
     $scope.printLetter = function(elem) {
@@ -190,8 +193,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             // 'Click' the generated link to force file download
             link.setAttribute('download', letterName);
             link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
-            // Check if browser is Firefox
-            if(typeof InstallTrigger !== 'undefined'){
+            if(isFirefox){
                 document.body.appendChild(link);
             }
             link.click();
@@ -204,8 +206,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             var link = document.createElement('a');
             link.setAttribute('download', 'L4Alogo.png');
             link.setAttribute('href', './assets/L4A-logo-cattle2-7-2016.png');
-            // Check if browser is Firefox
-            if(typeof InstallTrigger !== 'undefined'){
+            if(isFirefox){
                 document.body.appendChild(link);
             }
             link.click();
@@ -219,7 +220,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 cause_id: $scope.selCause.id,
                 user_id: $scope.loggedUser.id
             }
-            CauseFactory.addSupport({support});
+            CauseFactory.addSupport({support: support});
             $scope.supported = true;
         } else if(!$scope.loggedIn && !$scope.supported){
             $scope.addGuest();
@@ -236,13 +237,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             state: $scope.state,
             zipcode: $scope.zip
         }
-        CauseFactory.addGuest({guest});
+        CauseFactory.addGuest({guest: guest});
         $scope.supported = true;
     }
 
-
-
-
-
 });
-$scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;

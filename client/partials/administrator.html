@@ -6,7 +6,6 @@
 
   <a href="https://accounts.google.com/servicelogin?service=analytics"><button class="btn btn-primary analytics"> To Google Analytics</button></a>
 
-  <!-- {{users}} -->
     <div class="row">
             <div>
                 <!-- Nav tabs -->
@@ -16,6 +15,7 @@
                     <li role="presentation"><a showtab="" href="#guests" aria-controls="messages" role="tab" data-toggle="tab">GUEST USERS</a></li>
                     <li role="presentation"><a showtab="" href="#pendingcauses" aria-controls="messages" role="tab" data-toggle="tab">PENDING CAUSES</a></li>
                 </ul>
+
 
                 <!-- Tab panes -->
                 <div class="tab-content">
@@ -36,6 +36,7 @@
                         </thead>
                         <tbody>
                           <tr ng-repeat="cause in causes">
+
                             <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
                             <td>{{cause.supports}}</td>
                             <td>{{cause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</span></td>
@@ -110,6 +111,7 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
+
                           <tr ng-repeat="pendingcause in pendingcauses">
                             <td>{{pendingcause.name}}</td>
                             <td>{{pendingcause.first_name}} {{pendingcause.last_name}}</td>
@@ -117,7 +119,7 @@
                             <td>{{pendingcause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                             <!-- <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td> -->
                             <td><a href="#/pendingcauseadmin/{{pendingcause.id}}"><button id="editPendingCause" class="admin_panel" >Edit & Add</button></a></td>
-                            <td><button id="deletePendingCause" class="admin_panel">Delete</button></td>
+                            <td><button id="deletependingcause" class="admin_panel" ng-click='deletePendCause(cause)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>

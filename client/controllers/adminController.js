@@ -51,7 +51,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 				// console.log(guests)
 				console.log("Deleting Guests")
 				$scope.guests = guests;
-				// });	
+				// });
 				})
 	        }
 		};
@@ -65,6 +65,22 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 					$scope.causes = causes;
 				})
 	        }
+		};
+
+		$scope.deletePendCause = function(cause){
+			var confPrompt = confirm("About to delete pending cause: "+cause.name+". Proceed?");
+			if (confPrompt) {
+				CauseFactory.delPendCause(cause, function(causes){
+					$scope.causes = causes;
+				})
+			}
+		};
+
+		$scope.addCause = function(){
+				CauseFactory.createCause($scope.cause, function(causes){
+					$scope.causes = causes;
+					$location.url('/administrator');
+				})
 		}
 
 	    $scope.toggleCause = function(cause) {
@@ -88,8 +104,8 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 	    }
 
 		$scope.enableAllCauses = function() {
-			for (cause of $scope.causes) {
-				CauseFactory.enableCause(cause, function() {
+			for (cause in $scope.causes) {
+				CauseFactory.enableCause($scope.causes[cause], function() {
 					CauseFactory.getAllCauses(function(causes) {
 						$scope.causes = causes;
 					})
@@ -97,8 +113,8 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		}
 		$scope.disableAllCauses = function() {
-			for (cause of $scope.causes) {
-				CauseFactory.disableCause(cause, function() {
+			for (cause in $scope.causes) {
+				CauseFactory.disableCause($scope.causes[cause], function() {
 					CauseFactory.getAllCauses(function(causes) {
 						$scope.causes = causes;
 					})

@@ -4,11 +4,18 @@ AnimalApp.factory('CauseFactory', function($http) {
 
 
     factory.createCause = function(cause, callback) {
-        //Throw to cause
-        $http.post('/addCause', {cause}).success(function(data) {
-            if (callback && typeof callback == 'function') {
-                callback(data);
-            }
+      console.log("made it to factory",cause);
+        $http.post('/addCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
+        })
+    }
+
+    factory.createPendCause = function(cause, callback) {
+      console.log("in caue factory", cause)
+        $http.post('/volunteerCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
         })
     };
 
@@ -81,6 +88,14 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
 
+    factory.delPendCause = function(cause, callback) {
+        console.log('Deleted Pend Cause');
+        $http.post('/deletePendCause', cause).success(function(causes) {
+            if (callback && typeof callback == 'function') {
+                callback(causes);
+            }
+        })
+    }
 
     factory.addSupport = function(support) {
         $http.post('/addSupport', support).success(function(){
@@ -117,7 +132,7 @@ AnimalApp.factory('CauseFactory', function($http) {
     factory.delCause = function(cause, callback){
         $http.post('/delCause', cause).success(function(causes){
             console.log("getting to call back")
-            callback(causes);   
+            callback(causes);
         })
     }
 

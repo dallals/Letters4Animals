@@ -39,7 +39,7 @@ module.exports = {
     },
     {
       name: 'fixed address Pendingcause',
-      user_id: 4,
+      user_id: 2,
       description: 'Test Pendingcauses Description',
       letter_body: 'letter_body letter_body letter_body',
       rep_level: 'Congressman',

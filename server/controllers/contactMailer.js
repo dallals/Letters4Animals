@@ -21,9 +21,6 @@ module.exports = (function(){
         // User registration email confirmation
         confEmail: function(req, res) {
 
-            console.log('=========confEmail req.body=========');
-            console.log(req.body);
-            console.log('=========confEmail req.body=========');
             var confURL = "http://localhost:8000/confirmEmail/" + req.body.rand_url;
 
             transporter.sendMail({

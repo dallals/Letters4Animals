@@ -4,20 +4,25 @@
     <h2>Add & Edit a Cause</h2>
   </header>
 
+<<<<<<< HEAD
   <form name="causeadmin" ng-controller="singleCauseController" ng-model="cause">
 
+=======
+  <form name="causeadmin" method="post" ng-controller="adminController" ng-model="cause">
+>>>>>>> 489125a5427418c4c9dceacd1ea3705b4b3e7378
 
     <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
     <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
     <div class="halfsection">
       <h4>Recipients</h4>
-      <!-- //look at this with vadim to see what levels to pull in here and change to a selection drop down -->
-        <input type="radio" name="rep_level"><label> President</label><br>
-        <input type="radio" name="rep_level"><label> Senators</label><br>
-        <input type="radio" name="rep_level"><label> House of Representatives</label><br>
-        <input type="radio" name="rep_level"><label> Special Purpose</label><br>
-        <input type="radio" name="rep_level"><label> Govenor</label><br>
-        <input type="radio" name="rep_level"><label> School Board</label><br><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="President of the United States"><label>  President of the United States</label><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="Vice-President of the United States"><label>  Vice-President of the United States</label><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States Senate"><label>  United States Senate</label><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States House of Representatives"><label>  United States House of Representatives</label><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="Governor"><label>  Governor</label><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="Lieutenant Governor"><label>  Lieutenant Governor</label><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Senate"><label>  State Senate</label><br>
+        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Assembly"><label>  State Assembly (House of Representatives)</label><br>
 
         <h4>Enable Cause?</h4>
         <label> Yes: </label><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}">
@@ -25,7 +30,7 @@
 
     <div class="halfsection">
       <h4>Fixed Recipients?</h4>
-        <label>Yes:</label> <input type="checkbox" ng-click='toggleFixed(recipient)' ng-checked="{{recipient.fixed}}"></td><br>
+        <label>Yes:</label> <input type="checkbox" ng-click='toggleFixed(recipient)' ng-checked="{{cause.fixed}}"></td><br>
         <label>Name of Recipient</label><input type="text" name="fixed_name" ng-model="cause.fixed_name">
         <label>Street Address</label><input type="text" name="fixed_address" ng-model="caused.fixed_address">
         <label>City</label><input type="text" name="fixed_city" ng-model="cause.fixed_city">
@@ -57,6 +62,8 @@
 
     <input type="submit" ng-click="updateCause(cause)" class="btn btn-success analytics" id="update_cause" name="update_cause" value="Update Cause"></input>
     <input type="submit" ng-click="addCause(cause)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Add Cause"></input>
+
+    <!-- <input type="submit" ng-click="updateCause()" class="btn btn-success analytics" id="update_cause" name="update_cause" value="Update Cause"></input> -->
 
   </form>
 
