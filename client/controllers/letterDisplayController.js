@@ -389,4 +389,3 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
     }
 });
-// $scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;
