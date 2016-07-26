@@ -99,7 +99,11 @@ AnimalApp.factory('UserFactory', function($http) {
     // Delete Guest Users
     factory.delGuest = function(guest, callback){
         $http.post('/delGuest', guest).success(function(guests){
+            console.log("getting to call back")
             callback(guests);
+            // $http.get('getAllGuests').success(function(guests){
+            //     callback(guests);
+            // })    
         })
     }
     return factory;

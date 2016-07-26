@@ -93,6 +93,20 @@ module.exports = function(app){
     app.get('/getAllCauses', function(req, res){
         causes.getAllCauses(req, res);
     })
+    app.get('/getSingleCause/:id', function(req, res) {
+        causes.showCauseInfo(req, res);
+    })
+    app.get('/getSupporters/:id', function(req, res) {
+        causes.showCauseUsers(req, res);
+    })
+    app.get('/getGuests/:id', function(req, res) {
+        causes.showCauseGuests(req, res);
+    })
+
+    app.get('/getCauseUsers/:id', function(req, res) {
+        users.getCauseUsers(req, res);
+    })
+
     app.get('/getEnabledCauses', function(req, res) {
         causes.getEnabledCauses(req, res);
     })
@@ -108,11 +122,22 @@ module.exports = function(app){
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
     })
+    app.post('/volunteerCause', function(req, res) {
+        pendingcauses.addPendingCause(req, res);
+    })
+
     app.post('/deleteCause', function(req, res) {
         console.log('Server Route Delete');
         console.log(req.body);
         causes.deleteCause(req, res);
     })
+    app.get('/getAllPendingcauses', function(req, res) {
+        pendingcauses.getAllPendingcauses(req, res);
+    })
+    app.get('/pendingCause/:id', function(req, res) {
+        pendingcauses.getPendingCause(req, res);
+    })
+
     //Supports
 
     app.post('/addSupport', function(req, res) {
@@ -130,14 +155,16 @@ module.exports = function(app){
     app.post('/delGuest', function(req, res) {
         guests.delGuest(req, res);
     })
-    app.get('/getAllPendingcauses', function(req, res) {
-        pendingcauses.getAllPendingcauses(req, res);
-    })
-    app.get('/pendingCause/:id', function(req, res) {
-  		  pendingcauses.getPendingCause(req, res);
-	  })
     app.post('/sendText', function(req,res){
         users.sendText(req,res);
+    })
+
+    app.post('/delCause', function(req,res){
+        causes.delCause(req, res);
+    })
+
+    app.post('/updateCause', function(req, res){
+        causes.update(req, res);
     })
 
 };

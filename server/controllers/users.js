@@ -56,12 +56,14 @@ var checkExistingUrl = function(email, user) {
             sendResetEmail(url, email);
             console.log('Sent reset Url to',email,'url is',url);
 
-            user.update({reset_pw_url: url}).catch(function(err) {
+            var today = new Date();
+            user.update({reset_pw_url: url, reset_pw_url_created_at: today}).catch(function(err) {
                 console.log(err);
             });
         }
     })
 }
+
 
 module.exports = (function(){
   return {
@@ -125,7 +127,28 @@ module.exports = (function(){
             })
         },
 
-        //Grabbing a single user's info by ID
+        //for /users/show/:id type route
+        showUserInfo: function (req, res) {
+            models.User.find({where: ["id = ?", req.params.id]}).then(function(data){
+                if(data){
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
+
+        //for /users/show/:id type route
+        //show all the causes a single user supported, and how many times they supported it
+        showUserCauses: function (req, res){
+            models.sequelize.query('SELECT "Causes".id, "Causes".name, COUNT("Supports".cause_id) as "supports" FROM "Supports" LEFT JOIN "Causes" ON "cause_id" = "Causes".id WHERE "Supports".user_id = ? GROUP BY "Causes".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            .then(function(causesSupported){
+                res.json(causesSupported);
+            })
+        },
+
+        //Grabbing a single user's info by SESSION ID
         getUserInfo: function(req, res) {
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
                 if(data){
@@ -216,6 +239,15 @@ module.exports = (function(){
             })
         },
 
+        getCauseUsers: function (req,res){
+          console.log("made it to model",req.params.id);
+          var id = req.params.id;
+            models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            .then(function(users){
+                res.json(users);
+            })
+        },
+
         delUser: function(req, res){
             var self = this;
             // console.log(self);
@@ -225,17 +257,15 @@ module.exports = (function(){
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(supports){
-                    models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
-                    .then(function(pendingcauses){
-                        user.destroy()
-                        .then(function(){
-                        // Send back all remaining users
-                            self.getAllUsers(req, res)
-                        })
-                    })
+                    user.destroy()
+                    .then(function(){
+                    // Send back all remaining users
+                        self.getAllUsers(req, res)
+                    })       
                 })
             })
         },
+
         sendText: function(req,res){
 
             models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})

@@ -45,19 +45,32 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			var confPrompt = confirm("About to delete "+guest.first_name+". Proceed?");
 	        if (confPrompt) {
 				UserFactory.delGuest(guest, function(guests){
-					$scope.guests = guests;
+					// $scope.guests = guests;
+				// UserFactory.getAllGuests(function(guests){
+				// console.log(guests)
+				console.log("Deleting Guests")
+				$scope.guests = guests;
+				// });
 				})
 	        }
 		};
 
-		$scope.delCause = function(cause){
+		$scope.deleteCause = function(cause){
 			// Prompt the admin to confirm user deletion to avoid accidents
 			var confPrompt = confirm("About to delete "+cause.name+". Proceed?");
 	        if (confPrompt) {
+	        	console.log("getting to if")
 				CauseFactory.delCause(cause, function(causes){
 					$scope.causes = causes;
 				})
 	        }
+		}
+
+		$scope.addCause = function(){
+				CauseFactory.createCause($scope.cause, function(causes){
+					$scope.causes = causes;
+					$location.url('/administrator');
+				})
 		}
 
 	    $scope.toggleCause = function(cause) {
@@ -99,12 +112,9 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		}
 
-		$scope.deleteCause = function(cause) {
-			console.log('Angular Controller Delete');
-			CauseFactory.deleteCause(cause, function() {
-				CauseFactory.getAllCauses(function(causes) {
-					$scope.causes = causes;
-				})
+		$scope.editCause = function(cause){
+			CauseFactory.update(cause, function(cause){
+				$scope.cause = cause
 			})
 		}
 
@@ -128,6 +138,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 
 			//  }
 	 }
+
 
 
 
