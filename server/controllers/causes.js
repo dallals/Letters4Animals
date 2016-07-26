@@ -188,11 +188,12 @@ module.exports = (function(){
       // },
 
         update: function(req, res) {
-            if (req.body.cause) {
-                var cause = req.body.cause;
+            console.log('getting to updated causes backend')
+            if (req.body) {
+                var cause = req.body;
                 models.Cause.find({where: ['id = ?', req.body.id]})
-                .then(function(cause){
-                models.Cause.update({
+                .then(function(foundcause){
+                foundcause.update({
                     name: cause.name,
                     description: cause.description,
                     rep_level: cause.rep_level,
@@ -205,14 +206,13 @@ module.exports = (function(){
                     fixed_city: cause.fixed_city,
                     fixed_state: cause.fixed_state,
                     fixed_zipcode: cause.fixed_zipcode
-                }).then(function(cause) {
+                }).then(function(updatedcause) {
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
             })    
 
-                res.json(); //needed?
             } else {
                 console.log('Missing Cause');
             }
