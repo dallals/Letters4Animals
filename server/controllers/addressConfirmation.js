@@ -47,7 +47,7 @@ module.exports = (function(){
                                 for(choice of dataJson.results){
                                     choiceArr = choice.formatted_address.split(',');
                                     if (choiceArr[choiceArr.length-1].includes('USA')) {
-                                        choices.push(choice.formatted_address);
+                                        choices.push(choice);
                                     }
                                 }
                                 //Send the choices back to client
