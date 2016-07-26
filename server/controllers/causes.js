@@ -4,9 +4,9 @@ module.exports = (function(){
     return {
 
         getAllCauses: function(req, res) {
-            // models.Cause.findAll({})
-            // models.sequelize.query('SELECT "Causes".id, "Causes".name, "Causes".description, "Causes".letter_body, "Causes".fixed, "Causes".enabled, "Causes".rep_level, "Causes"."createdAt", "Causes"."updatedAt", COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id WHERE "Causes".enabled = true GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
-            models.sequelize.query('SELECT "Causes".*, COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
+            // SELECT "Causes".*, "Guests".cause_id as "guests_causes", COUNT("Supports".cause_id) as "supports", COUNT("Guests".cause_id) as "guests" FROM "Causes" LEFT JOIN "Supports" ON "Supports"."cause_id" = "Causes".id LEFT JOIN "Guests" ON "Guests"."cause_id" = "Causes".id GROUP BY "Causes".id, "Guests".cause_id;
+            // models.sequelize.query('SELECT "Causes".*, "Guests".cause_id as "guests_causes", COUNT("Supports".cause_id) as "supports", COUNT("Guests".guests_causes) as "guests" FROM "Causes" LEFT JOIN "Supports" ON "Supports"."cause_id" = "Causes".id LEFT JOIN "Guests" ON "Guests"."cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Causes".*, "Guests".cause_id as "guests_causes", COUNT("Supports".cause_id) as "supports", COUNT("Guests".cause_id) as "guests" FROM "Causes" LEFT JOIN "Supports" ON "Supports"."cause_id" = "Causes".id LEFT JOIN "Guests" ON "Guests"."cause_id" = "Causes".id GROUP BY "Causes".id, "Guests".cause_id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(causes){
                 res.json(causes);
             })
