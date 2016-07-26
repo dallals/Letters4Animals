@@ -38,7 +38,7 @@ AnimalApp.factory('UserFactory', function($http) {
 
     // Grab user by ID, send back user data
     factory.getUser = function(userid, callback) {
-        $http.post('/getUserInfo', {userid}).success(function(data) {
+        $http.post('/getUserInfo', {userid:userid}).success(function(data) {
             callback(data);
         })
     };
