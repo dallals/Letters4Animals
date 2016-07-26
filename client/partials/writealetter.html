@@ -116,22 +116,28 @@
         <div class="printletter letter_background">
             <div ng-show=gotCause>
                 <div class='col-sm-2 repbox' ng-repeat='rep in reps'>
+                    <label for='{{rep.letterName}}'>
                     <img ng-src='{{rep.rep.photoUrl }}' alt=Rep width=150 height=187><br>
-                    <input type="checkbox" ng-click='repPicked(rep)'>
+                    <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
                     {{ rep.rep.name }}<br>
                     {{ rep.position }}
+                    </label>
                 </div>
                 <div ng-if='!reps' class='col-sm-12 repbox2'>
+                    <label for='{{rep.letterName}}'>
                     <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187><br>
-                    <input type="checkbox" ng-click='repPicked(rep)'>
+                    <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
                     {{ fixed.name }}<br>
                     {{ fixed.pos }}
+                    </label>
                 </div>
             </div>
         </div>
 
         <!--- Letters --->
         <div class="preview_letter" >
+            <h2>{{chosenRep}}</h2>
+            <!-- <h2>{{chosenRep[1]}}</h2> -->
             <h3 id="preview_print_h3" ng-if="chosenRep[0] || chosenRep[1]">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()'  class="btn btn-primary print_save">SAVE</button></span></h3>
             <div id='printDiv' ng-show=true>
                 <div class='page-break' ng-repeat='rep in chosenRep'>

@@ -143,7 +143,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         var alreadyPicked = false;
         for(var i=0; i < $scope.chosenRep.length; i++){
             if($scope.chosenRep[i] == rep){
-                $scope.chosenRep.splice($scope.chosenRep[i], 1);
+                $scope.chosenRep.splice(i, 1);
                 alreadyPicked = true;
             }
         }
