@@ -201,6 +201,9 @@ module.exports = (function(){
             if (req.body.userid != 1) {
                 req.body.admin = false;
             }
+            if (req.body.password) {
+                req.body.password = models.Pendinguser.generateHash(req.body.password)
+            }
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 

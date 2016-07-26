@@ -170,7 +170,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
             UserFactory.registerUser(user, function(data) {
                 if (data.errors && data.errors.errors) {
-                    for (err of data.errors.errors) {
+                    for (var errIndex in data.errors.errors) {
+                        var err = data.errors.errors[errIndex];
+                        
                         if (err.path == 'first_name') { bevalid = false;
                             $scope.regErrors.firstName += err.message; }
                         if (err.path == 'last_name') { bevalid = false;

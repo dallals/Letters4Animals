@@ -51,42 +51,42 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="volunteer" class="col-sm-2 control-label">Opt-In</label>
+            <div class="col-sm-10">
+              <label><input type="checkbox" id="volunteer" ng-model="loggedUser.volunteer" ng-click="updateInfo('volunteer')"> Would you like to volunteer a custom letter?</label><br>
+              <label><input type="checkbox" id="email_notification" ng-model="loggedUser.email_notification" ng-click="updateInfo('email_notification')"> Would you like to receive text alerts for new causes?</label><br>
+              <label><input type="checkbox" id="phone_notification" ng-model="loggedUser.phone_notification" ng-click="updateInfo('phone_notification')"> Would you like to receive email alerts for new causes?</label><br>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-8 col-sm-2 text-right">
+                <button type="submit" id="update_button" ng-click="updateProfile()">Update</button>
+            </div>
+        </div>
+
+        <br><br>
+        <h2>Change Password</h2>
+        <!-- <div class="col-sm-12" ng-bind="errors.password"></div> -->
+        <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Password</label>
             <div class="col-sm-8">
-                <input type="password" class="form-control" id="user_password" ng-model="loggedUser.password" ng-change="updateInfo('password')">
+                <input type="password" class="form-control" id="user_password" ng-model="pass.newPassword">
             </div>
             <div class="col-sm-2 text-right">
                 <button type="button" id="password_button" ng-click="showPassword()">{{ showpass }}</button>
             </div>
         </div>
-        <!-- <div class="form-group">
-            <label for="phone_notification" class="col-sm-2 control-label">Phone Notification</label>
-            <div class="col-sm-10">
-                <input type="checkbox" class="form-control" id="phone_notification"  ng-model="user.phone_notification">
-            </div>
-        </div> -->
-        <!-- <div class="form-group">
-            <label for="email_notification" class="col-sm-2 control-label">Email Notification</label>
-            <div class="col-sm-10">
-                <input type="checkbox" class="form-control" id="email_notification" ng-model="user.email_notification">
-            </div>
-        </div> -->
         <div class="form-group">
-            <label for="volunteer" class="col-sm-2 control-label">Opt-In</label>
+            <label for="confirmpassword" class="col-sm-2 control-label">Confirm Password</label>
             <div class="col-sm-10">
-              <label><input type="checkbox" id="volunteer" ng-model="loggedUser.volunteer"> Would you like to volunteer a custom letter?</label><br>
-              <!-- <p ng-if="loggedUser.volunteer">
-                  <a href="#template_addition">LINK TO TEMPLATE PAGE</a>
-              </p> -->
-              <label><input type="checkbox" ng-model="user.email_notification"> Would you like to receive text alerts for new causes?</label><br>
-              <label><input type="checkbox" ng-model="user.phone_notification"> Would you like to receive email alerts for new causes?</label><br>
+                <input type="password" class="form-control" id="user_confPassword" ng-model="pass.confPassword">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-8 col-sm-4 text-right">
+                <button type="submit" id="update_button" ng-click="updatePassword()">Update</button>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-8 col-sm-4 text-right">
-                <button type="submit" id="update_button" ng-click="updateProfile()" ng-disabled='isUpdated(updatedUser)'>Update</button>
-            </div>
-        </div>
     </form>
 </div>
