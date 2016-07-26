@@ -9,6 +9,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/aboutus',{
         templateUrl: 'partials/aboutus.html'
     })
+    .when('/writealetter/cause/:causeId',{
+        templateUrl: 'partials/writealetter.html'
+    })
     .when('/writealetter',{
         templateUrl: 'partials/writealetter.html'
     })
