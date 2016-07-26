@@ -126,11 +126,15 @@ models.User.findAll().then(function(data) {
         if (user.dataValues.reset_pw_url_created_at) {
             var urlCreatedAt = user.dataValues.reset_pw_url_created_at;
             // console.log(now.getTime()-user.dataValues.reset_pw_url_created_at.getTime());
-            if (now.getTime()-urlCreatedAt.getTime() >= 86400000) {
+            if (now.getTime()-urlCreatedAt.getTime() >= 86400000 || !urlCreatedAt) {
                 console.log('User:',user.name+"'s",'reset password url is expired. Deleting it.');
                 user.update({reset_pw_url: null, reset_pw_url_created_at: null});
             }
-        }
+        } else if(!user.dataValues.reset_pw_url || !user.dataValues.reset_pw_url_created_at){
+            user.update({reset_pw_url: null, reset_pw_url_created_at: null});
+        } else {
+            user.update({reset_pw_url: null, reset_pw_url_created_at: null});
+        };
     }
 }).catch(function(err) {
     console.log(err);
