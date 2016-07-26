@@ -1,4 +1,4 @@
-AnimalApp.controller('letterDisplayController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
+AnimalApp.controller('letterDisplayController', function ($scope, $location, $route, $routeParams, $http, UserFactory, CauseFactory) {
 
     // Check for Safari, will need to use later to tell people to download a real broswer
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
@@ -277,6 +277,11 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.select_recipients = true;
         $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
 
+    }
+
+    // Restart Letter
+    $scope.start_over = function(){
+        $route.reload();
     }
 
 

@@ -144,6 +144,10 @@ h3{
     margin: .5em;
 }
 
-#preview_print_h3{
+.h3_bottom_margin{
     margin-bottom: 1em;
+}
+
+.no_bold{
+    font-weight: normal;
 }

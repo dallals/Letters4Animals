@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <h3>Choose your cause</h3>
+    <h3 class="h3_bottom_margin">Choose your cause <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span></h3>
     <div class="causeinfo letter_background" >
         <form class="form-horizontal">
             <div class="form-group">
@@ -110,67 +110,75 @@
     <br>
 
     <div ng-show="select_recipients">
-        <!-- <h3>Wrap Up: Preview and print your letter </h3><br> -->
         <h3>Select recipient(s)</h3>
-        <!-- <button class="btn btn-primary" ng-click='getReps(selCause.rep_level)'>Print Letter and Review Recipients</button> -->
         <div class="printletter letter_background">
             <div ng-show=gotCause>
-                <div class='col-sm-2 repbox' ng-repeat='rep in reps'>
+                <div class='col-sm-6 repbox' ng-repeat='rep in reps'>
                     <label for='{{rep.letterName}}'>
-                    <img ng-src='{{rep.rep.photoUrl }}' alt=Rep width=150 height=187><br>
-                    <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
-                    {{ rep.rep.name }}<br>
-                    {{ rep.position }}
+                        <div class="media">
+                            <div class="media-left media-bottom">
+                                <img class="media-object"  ng-src='{{rep.rep.photoUrl }}' alt=Rep width=150 height=187>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-heading">
+                                    <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
+                                    {{ rep.rep.name }}
+                                </p>
+                                <p class="no_bold">
+                                    {{ rep.position }}
+                                </p>
+
+                            </div>
+                        </div>
                     </label>
-                </div>
-                <div ng-if='!reps' class='col-sm-12 repbox2'>
-                    <label for='{{rep.letterName}}'>
+            </div>
+            <div ng-if='!reps' class='col-sm-12 repbox2'>
+                <label for='{{rep.letterName}}'>
                     <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187><br>
                     <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
                     {{ fixed.name }}<br>
                     {{ fixed.pos }}
-                    </label>
-                </div>
+                </label>
             </div>
         </div>
-
-        <!--- Letters --->
-        <div class="preview_letter" >
-            <h2>{{chosenRep}}</h2>
-            <!-- <h2>{{chosenRep[1]}}</h2> -->
-            <h3 id="preview_print_h3" ng-if="chosenRep[0] || chosenRep[1]">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()'  class="btn btn-primary print_save">SAVE</button></span></h3>
-            <div id='printDiv' ng-show=true>
-                <div class='page-break' ng-repeat='rep in chosenRep'>
-                    <div class="printletter letter_background">
-                        <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
-                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
-                        {{ addr || loggedUser.street_address }}<br>
-                        {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
-                        <br><br>
-                        {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
-                        {{ rep.position || fixed.pos }}<br>
-                        {{ rep.rep.address[0].line1 || fixed.addr }}<br>
-                        {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
-
-                        Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-                        {{ selCause.letter_body }}<br><br>
-                        Sincerely, <br><br><br>
-                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-                        <br><br><br><br>
-                        {{ selCause.letter_footnote }}
-                    </div>
-                </div>
-                <!--- End of letters --->
-
-            </div> <!--- End of printLetter --->
-        </div>
-
-        <!-- <div class="col-sm-12" ng-show="print_save"> -->
-        <!-- <div class="col-sm-12">
-            <br>
-            <button ng-click="printLetter('#printDiv')">PRINT</button>
-            <br>
-            <button ng-click='saveLetter()'>SAVE</button>
-        </div> -->
-
     </div>
+
+    <!--- Letters --->
+    <div class="preview_letter">
+        <!-- <h2>{{chosenRep[1]}}</h2> -->
+        <h3 class="h3_bottom_margin" ng-if="chosenRep[0] || chosenRep[1]">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
+        <div id='printDiv' ng-show=true>
+            <div class='page-break' ng-repeat='rep in chosenRep'>
+                <div class="printletter letter_background">
+                    <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+                    {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
+                    {{ addr || loggedUser.street_address }}<br>
+                    {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
+                    <br><br>
+                    {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
+                    {{ rep.position || fixed.pos }}<br>
+                    {{ rep.rep.address[0].line1 || fixed.addr }}<br>
+                    {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
+
+                    Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
+                    {{ selCause.letter_body }}<br><br>
+                    Sincerely, <br><br><br>
+                    {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
+                    <br><br><br><br>
+                    {{ selCause.letter_footnote }}
+                </div>
+            </div>
+            <!--- End of letters --->
+
+        </div> <!--- End of printLetter --->
+    </div>
+
+    <!-- <div class="col-sm-12" ng-show="print_save"> -->
+    <!-- <div class="col-sm-12">
+    <br>
+    <button ng-click="printLetter('#printDiv')">PRINT</button>
+    <br>
+    <button ng-click='saveLetter()'>SAVE</button>
+</div> -->
+
+</div>
