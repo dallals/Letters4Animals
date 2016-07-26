@@ -64,7 +64,17 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 					$scope.causes = causes;
 				})
 	        }
-		}
+		};
+
+		$scope.deletePendCause = function(pendingcause){
+			var confPrompt = confirm("About to delete pending cause: "+pendingcause.name+". Proceed?");
+			if (confPrompt) {
+				CauseFactory.delPendCause(pendingcause, function(pendingcauses){
+					console.log("back with remaining pending causes",pendingcauses);
+					$scope.pendingcauses = pendingcauses;
+				})
+			}
+		};
 
 		$scope.addCause = function(){
 				CauseFactory.createCause($scope.cause, function(causes){
