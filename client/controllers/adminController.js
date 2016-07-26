@@ -21,8 +21,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 		});
 		CauseFactory.getAllCauses(function(causes){
 			$scope.causes = causes;
-		})		
-		 
+		})
 		CauseFactory.getAllPendingcauses(function(pendingcauses){
 			console.log(pendingcauses, "Getting to pendingcauses")
 			$scope.pendingcauses = pendingcauses;
@@ -80,11 +79,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 		$scope.addCause = function(){
 				CauseFactory.createCause($scope.cause, function(causes){
 					$scope.causes = causes;
-					console.log("showing pending cause-abotu to run delete",$scope.pendingcause);
-					CauseFactory.delPendCause($scope.pendingcause, function(pendingcauses){
-						console.log("back with remaining pending causes",pendingcauses);
-						$scope.pendingcauses = pendingcauses;
-					})
 					$location.url('/administrator');
 				})
 		}
@@ -137,11 +131,11 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 	} // End of logged in check
 
 	//send twilio msg
-	   $scope.sendText = function(cause){
-		   CauseFactory.sendText(cause, function(data){
-			   console.log(data);
-		   })
-	   }
+   $scope.sendText = function(cause){
+	   CauseFactory.sendText(cause, function(data){
+		   console.log(data);
+	   })
+   }
 
 	 //Set a fixed/non-fixed recipient on the normal Add Cause Page
 	 $scope.toggleFixed = function(recipient) {
