@@ -1,4 +1,4 @@
-AnimalApp.factory('CauseFactory', function($http) {
+AnimalApp.factory('CauseFactory', function($http, $location) {
     var factory = {};
     var thisCause = null;
 
@@ -139,7 +139,7 @@ AnimalApp.factory('CauseFactory', function($http) {
     factory.updateCause = function(info, callback){
         $http.post('/updateCause', info).success(function(output){
             callback(output);
-            $location.path('/causeadmin/' + cause._id)
+            $location.path('/administrator')
         })
     }
     return factory;
