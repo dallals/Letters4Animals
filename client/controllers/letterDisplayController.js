@@ -42,6 +42,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     CauseFactory.getAllCauses(function(causes){
         for(var ind in causes){
             causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
+            // Check if cause should be pre-selected from a link/URL
+            if(causes[ind].id == $routeParams.causeId){
+                $scope.selCause = causes[ind];
+            }
         }
         $scope.causes = causes;
     })

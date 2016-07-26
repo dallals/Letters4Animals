@@ -64,6 +64,7 @@ module.exports = (function() {
 
                         //Check if user is from Nebraska  /////////////////////////////////
                         if(false){      // Replace this with actual code once Sharol is done
+                                        // Should be something like UserAddr.state == 'ne'
                             selRep = dataJson[0];
                             finalRep.position = 'State Senator';
                         }
