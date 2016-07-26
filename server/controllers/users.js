@@ -277,19 +277,18 @@ module.exports = (function(){
             	if(data){
             		var phoneArray = []
             		for (var i = 0; i < data.length; i++) {
-            			console.log(i+" index of data array", data[i].dataValues);
             			if (data[i].dataValues.phone_number.length === 10) {
             				phoneArray.push(data[i].dataValues.phone_number);
             			}
             		}
                     for (var phone of phoneArray){
-                        console.log("+"+1+phone);
                         twilio.sendMessage({
                         to:   "+1"+phone,
                         from: +13232388340,
-                        body: req.body.rep_level+ "\n"+
+                        body: "Hello " + req.body + "\n"+
                               req.body.fixed_name+ " should know "+ req.body.description + "\n"+
-                              "Mail a letter and your voice will be heard."+ "\n"+ " http://letters4animals.org/#/writealetter "
+                              "Mail a letter and your voice will be heard."+ "\n"+
+                              "http://letters4animals.org/#/writealetter/cause/" + req.body.id
 
                     }, function(err,data){
                         if(err){
@@ -299,9 +298,6 @@ module.exports = (function(){
                         }
                     });
                     }
-            		console.log(phoneArray);
-                    console.log(req.body);
-            		// console.log(data.dataValues);
             	}
             	else{
             		console.log("error finding all users with phone notification enabled");

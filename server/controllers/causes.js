@@ -156,14 +156,47 @@ module.exports = (function(){
 
       },
 
-      update: function(req, res){
-        models.Cause.find({where: ['id = ?', req.body.id]})
-            .then(function(cause){
-                res.json(cause);
-            }).catch(function(err){
-                console.log(err)
-            })
-      }
+      // update: function(req, res){
+      //   models.Cause.find({where: ['id = ?', req.body.id]})
+      //       .then(function(cause){
+      //           res.json(cause);
+      //       }).catch(function(err){
+      //           console.log(err)
+      //       })
+      // },
+
+        update: function(req, res) {
+            if (req.body.cause) {
+                var cause = req.body.cause;
+                models.Cause.find({where: ['id = ?', req.body.id]})
+                .then(function(cause){
+                models.Cause.update({
+                    name: cause.name,
+                    description: cause.description,
+                    rep_level: cause.rep_level,
+                    letter_body: cause.letter_body,
+                    letter_footnote: cause.letter_footnote,
+                    enabled: cause.enabled,
+                    fixed: cause.fixed,
+                    fixed_name: cause.fixed_name,
+                    fixed_address: cause.fixed_address,
+                    fixed_city: cause.fixed_city,
+                    fixed_state: cause.fixed_state,
+                    fixed_zipcode: cause.fixed_zipcode
+                }).then(function(cause) {
+                    res.json({success: true, data: cause})
+                }).catch(function(err) {
+                    res.json({success: false, errors: err})
+                })
+            })    
+
+                res.json(); //needed?
+            } else {
+                console.log('Missing Cause');
+            }
+        },
+
+
 
     }//closes return
 })();

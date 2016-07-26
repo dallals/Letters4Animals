@@ -21,6 +21,7 @@ AnimalApp.factory('CauseFactory', function($http) {
 
     // Grab Cause by ID, send back Cause data
     factory.getCause = function(id, callback) {
+        console.log("getting to factory Sammy", id)
         $http.get('/getSingleCause/'+id).success(function(data) {
             callback(data);
         })
@@ -135,9 +136,10 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
 
-    factory.update = function(info, callback){
+    factory.updateCause = function(info, callback){
         $http.post('/updateCause', info).success(function(output){
             callback(output);
+            $location.path('/causeadmin/' + cause._id)
         })
     }
     return factory;
