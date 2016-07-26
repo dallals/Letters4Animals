@@ -40,6 +40,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     });
 
     CauseFactory.getAllCauses(function(causes){
+        for(var ind in causes){
+            causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
+        }
         $scope.causes = causes;
     })
 

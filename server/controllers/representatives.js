@@ -17,10 +17,12 @@ module.exports = (function() {
                     dataJson   = {},
                     results    = [],
 
+                // Change this once user coords are packaged into req.body /////////////////////
                 userCoords     = {
                     lat :   '37.281379',
                     lon :   '-122.0093907'
                 },
+                ////////////////////////////////////////////////////////////////////////////////
 
                 civics         = {
                     //Host: website that serves it.
@@ -61,12 +63,12 @@ module.exports = (function() {
                             };
 
                         //Check if user is from Nebraska  /////////////////////////////////
-                        if(false){
+                        if(false){      // Replace this with actual code once Sharol is done
                             selRep = dataJson[0];
                             finalRep.position = 'State Senator';
                         }
                         //////////////////////////////////////////////////////////////////
-                        
+
                         // Find the rep for the right cause level
                         else {
                             for(var rep of dataJson){
