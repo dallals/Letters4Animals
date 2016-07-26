@@ -51,6 +51,9 @@ module.exports = function(app){
     app.post('/resetPassword', function(req, res) {
         users.resetPassword(req, res);
     })
+    app.post('/changePassword', function(req, res) {
+        users.changePassword(req, res);
+    })
     //Updating user in DB
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);

@@ -20,6 +20,8 @@ module.exports = {
       rep_level: 'United States Senate',
       enabled: true,
       fixed: false,
+      text_blurb: 'text blurb for cause1',
+      email_blurb: 'email blurb for cause1',
       fixed_address: '717 South Leaf Dr.',
       createdAt: new Date(),
       updatedAt: new Date()
@@ -31,6 +33,8 @@ module.exports = {
       rep_level: 'President of the United States',
       enabled: true,
       fixed: false,
+      text_blurb: 'text blurb for cause2',
+      email_blurb: 'email blurb for cause2',
       fixed_address: '1600 Pennsylvania Ave., Washington, D.C.',
       createdAt: new Date(),
       updatedAt: new Date()
@@ -43,6 +47,8 @@ module.exports = {
       rep_level: 'CEO of Company X',
       enabled: true,
       fixed: true,
+      text_blurb: 'text blurb for cause3',
+      email_blurb: 'email blurb for cause3',
       fixed_name: 'Bob Loblaw',
       fixed_address: '1600 Pennsylvania Ave',
       fixed_city: 'Seattle',

@@ -210,11 +210,13 @@ module.exports = (function(){
 
         changePassword: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
+            console.log("changePassword req.body")
+            console.log(req.body)
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){
                 console.log('in changePassword');
                 if(user){
-                    if (user.validPassword(req.body.password)){
-                        if (req.body.newPassword === req.body.newPasswordConfirm) {
+                    if (user.validPassword(req.body.oldPassword)){
+                        if (req.body.newPassword === req.body.confPassword) {
                             newPass = models.User.generateHash(req.body.newPassword);
                             user.update({password: newPass});
                             res.send('Password Changed');
@@ -260,6 +262,7 @@ module.exports = (function(){
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
+                models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(supports){
                     user.destroy()
                     .then(function(){

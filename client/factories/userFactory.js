@@ -75,6 +75,12 @@ AnimalApp.factory('UserFactory', function($http) {
             console.log('updated user succesfully');
         })
     };
+    factory.changePassword = function(pass) {
+        console.log(pass);
+        $http.post('/changePassword', pass).success(function(){
+            console.log('changed password succesfully');
+        })
+    };
 
     // Get all users for admin panel
     factory.getAllUsers = function(callback) {

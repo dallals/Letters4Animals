@@ -155,7 +155,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         //address, city state zip
         if ( $scope.address.choice && $scope.user && valid ){
 
-            var addrArr = $scope.address.choice.split(','),
+            var addrArr = $scope.address.choice.formatted_address.split(','),
                 last    = addrArr.length,
                 address = addrArr[last-4],
                 city    = addrArr[last-3].substr(1),

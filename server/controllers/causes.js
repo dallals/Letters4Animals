@@ -93,6 +93,8 @@ module.exports = (function(){
                     rep_level: cause.rep_level,
                     enabled: cause.enabled,
                     fixed: cause.fixed,
+                    text_blurb: cause.text_blurb,
+                    email_blurb: cause.email_blurb,
                     fixed_name: cause.fixed_name,
                     fixed_address: cause.fixed_address,
                     fixed_city: cause.fixed_city,
@@ -101,6 +103,9 @@ module.exports = (function(){
                     letter_body: cause.letter_body,
                     letter_footnote: cause.letter_footnote
                 }).then(function(cause) {
+                    // sendTextAlerts(cause);
+                    // sendEmailAlerts(cause);
+
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
@@ -144,17 +149,34 @@ module.exports = (function(){
         },
 
       delCause: function(req, res){
-        models.Cause.destroy({where: ['id = ?', req.body.id]})
-          .then(function(cause){
-            models.sequelize.query('SELECT "Causes".*, COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
-            .then(function(causes){
-                res.json(causes);
-            }).catch(function(err){
-              console.log(err)
+         var self = this;
+            // console.log(self);
+            console.log('in delCause');
+            // Find user, find and delete user's supports, then delete user
+            models.Cause.find({where: ['id = ?', req.body.id]})
+            .then(function(cause){
+                models.Support.destroy({where: ['cause_id = ?', req.body.id]})
+                models.Guest.destroy({where: ['cause_id = ?', req.body.id]})
+                .then(function(supports){
+                    cause.destroy()
+                    .then(function(){
+                    // Send back all remaining users
+                        self.getAllCauses(req, res)
+                    })
+                })
             })
-          })
+        },
+      //   models.Cause.destroy({where: ['id = ?', req.body.id]})
+      //     .then(function(cause){
+      //       models.sequelize.query('SELECT "Causes".*, COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
+      //       .then(function(causes){
+      //           res.json(causes);
+      //       }).catch(function(err){
+      //         console.log(err)
+      //       })
+      //     })
 
-      },
+      // },
 
       update: function(req, res){
         models.Cause.find({where: ['id = ?', req.body.id]})

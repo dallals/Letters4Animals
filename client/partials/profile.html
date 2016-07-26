@@ -68,7 +68,13 @@
         <h2>Change Password</h2>
         <div class="col-sm-12" ng-bind="errors.password" class="errors"></div>
         <div class="form-group">
-            <label for="password" class="col-sm-2 control-label">Password</label>
+            <label for="oldpassword" class="col-sm-2 control-label">Old Password</label>
+            <div class="col-sm-8">
+                <input type="password" class="form-control" id="user_oldpassword" ng-model="pass.oldPassword">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-sm-2 control-label">New Password</label>
             <div class="col-sm-8">
                 <input type="password" class="form-control" id="user_password" ng-model="pass.newPassword">
             </div>
@@ -77,14 +83,14 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="confirmpassword" class="col-sm-2 control-label">Confirm Password</label>
+            <label for="confirmpassword" class="col-sm-2 control-label">Confirm New Password</label>
             <div class="col-sm-10">
                 <input type="password" class="form-control" id="user_confPassword" ng-model="pass.confPassword">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-8 col-sm-4 text-right">
-                <button type="submit" id="update_button" ng-click="updatePassword()">Update</button>
+                <button type="submit" id="update_button" ng-click="changePassword()">Update</button>
             </div>
         </div>
 
