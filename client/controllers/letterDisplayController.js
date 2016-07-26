@@ -190,13 +190,22 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var letter of letters){
             // Change logo src to local and set new css style
-            letter.children[1].src = 'L4Alogo.png';
-            letter.children[1].style = 'float: right; margin-right: 45px; margin-top: 25px';
+            console.log('letter children: ', letter.children);
+            // letter.children[1].src = 'L4Alogo.png';
+            // letter.children[1].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            var letterName  = 'Letter_to_' + letter.children[12].innerHTML + '.doc',
+            letter.children[0].src = 'L4Alogo.png';
+            letter.children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
+
+            console.log('innerHTML is: ', letter.children[0].innerHTML);
+            console.log('innerText is: ', letter.children[0].innerText);
+            // var letterName  = 'Letter_to_' + letter.children[10].innerHTML + '.doc',
+
+            var letterName  = 'Letter_to_' + letter.children[0].innerText + '.txt',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
-            mimeType    = 'application/msword',
+            // mimeType    = 'application/msword',
+            mimeType    = 'text/plain',
             elHtml      = letter.innerHTML;
 
             // 'Click' the generated link to force file download
@@ -209,7 +218,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             link.click();
 
             // Reset logo src so printing doesn't break
-            letter.children[1].src = './assets/L4A-logo-cattle2-7-2016.png';
+            letter.children[0].src = './assets/L4A-logo-cattle2-7-2016.png';
         }
         // Download the logo once
         if(!$scope.logoDown){

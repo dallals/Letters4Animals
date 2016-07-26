@@ -121,7 +121,7 @@
                     {{ rep.rep.name }}<br>
                     {{ rep.position }}
                 </div>
-                <div ng-if='!reps' class='col-sm-12'>
+                <div ng-if='!reps' class='col-sm-12 repbox2'>
                     <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187><br>
                     <input type="checkbox" ng-click='repPicked(rep)'>
                     {{ fixed.name }}<br>

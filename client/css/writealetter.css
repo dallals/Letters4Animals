@@ -135,6 +135,11 @@ h3{
     display: inline-block;
 }
 
+.repbox2{
+    float: none !important;
+    display: inline-block;
+}
+
 .print_save{
     margin: .5em;
 }
