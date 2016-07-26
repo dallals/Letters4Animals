@@ -87,11 +87,11 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
 
-    factory.delPendCause = function(cause, callback) {
-        console.log('Deleted Pend Cause');
-        $http.post('/deletePendCause', cause).success(function(causes) {
+    factory.delPendCause = function(pendingcause, callback) {
+        console.log('Deleted Pend Cause',pendingcause);
+        $http.post('/deletePendCause', pendingcause).success(function(pendingcauses) {
             if (callback && typeof callback == 'function') {
-                callback(causes);
+                callback(pendingcauses);
             }
         })
     }

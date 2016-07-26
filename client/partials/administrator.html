@@ -119,7 +119,7 @@
                             <td>{{pendingcause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                             <!-- <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td> -->
                             <td><a href="#/pendingcauseadmin/{{pendingcause.id}}"><button id="editPendingCause" class="admin_panel" >Edit & Add</button></a></td>
-                            <td><button id="deletependingcause" class="admin_panel" ng-click='deletePendCause(cause)'>Delete</button></td>
+                            <td><button id="deletependingcause" class="admin_panel" ng-click='deletePendCause(pendingcause)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>

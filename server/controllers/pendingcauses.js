@@ -50,16 +50,16 @@ module.exports = (function(){
 		},
 
 		deletePendCause: function(req,res){
-        models.Pendingcause.destroy({where: ['id = ?', req.body.id]})
-          .then(function(cause){
-            models.sequelize.query('SELECT "Pendingcauses".*;', { type: models.sequelize.QueryTypes.SELECT})
-            .then(function(causes){
-                res.json(causes);
-            }).catch(function(err){
-              console.log(err)
-            })
-          })
-    }
+			models.Pendingcause.destroy({where: ['id = ?', req.body.id]})
+				.then(function(pendingcauses){
+					models.sequelize.query('SELECT "Pendingcauses".* FROM "Pendingcauses";', { type: models.sequelize.QueryTypes.SELECT})
+					.then(function(pendingcauses){
+							res.json(pendingcauses);
+					}).catch(function(err){
+						console.log(err)
+					})
+				})
+		}
 
 	} // closes return
 
