@@ -201,7 +201,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             console.log('innerText is: ', letter.children[0].innerText);
             // var letterName  = 'Letter_to_' + letter.children[10].innerHTML + '.doc',
 
-            var letterName  = 'Letter_to_' + letter.children[0].innerText + '.txt',
+            var letterName  = 'Letter_to_' + letter.children[0].innerHTML + '.txt',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
             // mimeType    = 'application/msword',
