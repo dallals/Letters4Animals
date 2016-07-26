@@ -81,8 +81,8 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 	    }
 
 		$scope.enableAllCauses = function() {
-			for (cause of $scope.causes) {
-				CauseFactory.enableCause(cause, function() {
+			for (cause in $scope.causes) {
+				CauseFactory.enableCause($scope.causes[cause], function() {
 					CauseFactory.getAllCauses(function(causes) {
 						$scope.causes = causes;
 					})
@@ -90,8 +90,8 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		}
 		$scope.disableAllCauses = function() {
-			for (cause of $scope.causes) {
-				CauseFactory.disableCause(cause, function() {
+			for (cause in $scope.causes) {
+				CauseFactory.disableCause($scope.causes[cause], function() {
 					CauseFactory.getAllCauses(function(causes) {
 						$scope.causes = causes;
 					})
