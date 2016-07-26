@@ -9,12 +9,14 @@
 
     <div class="halfsection">
       <h4>Recipients</h4>
-        <input type="radio" name="rep_level"><label> President</label><br>
-        <input type="radio" name="rep_level"><label> Senators</label><br>
-        <input type="radio" name="rep_level"><label> House of Representatives</label><br>
-        <input type="radio" name="rep_level"><label> Special Purpose</label><br>
-        <input type="radio" name="rep_level"><label> Govenor</label><br>
-        <input type="radio" name="rep_level"><label> School Board</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="President of the United States"><label>  President of the United States</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="Vice-President of the United States"><label>  Vice-President of the United States</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="United States Senate"><label>  United States Senate</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="United States House of Representatives"><label>  United States House of Representatives</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="Governor"><label>  Governor</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="Lieutenant Governor"><label>  Lieutenant Governor</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="State Senate"><label>  State Senate</label><br>
+      <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="State Assembly"><label>  State Assembly (House of Representatives)</label><br>
     </div>
 
     <div class="halfsection">
@@ -37,7 +39,7 @@
       <textarea name="string" class="footnotetext" ng-model="pendingcause.letter_footnote"></textarea>
     </div>
 
-    <input type="submit" ng-click="volunteer()" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Submit Custom Letter"></input>
+    <input type="submit" ng-click="volunteer(loggedUser.id)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Submit Custom Letter"></input>
 
   </form>
 
