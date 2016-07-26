@@ -20,7 +20,7 @@ AnimalApp.controller('testController', function ($scope, $location, $routeParams
 
     $scope.getReps = function(level){
         var payload             = {};
-            payload.rep_level   = level;
+            payload.rep_level   = 'State Assembly';
 
         // Format address to send to civics API
         if($scope.loggedIn){

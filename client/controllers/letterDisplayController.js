@@ -48,7 +48,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
         else{
             var payload             = {};
-                payload.rep_level   = level;
+                payload.rep_level   = 'State Senate';
 
             // Format address to send to civics API
             if($scope.loggedIn){
@@ -61,26 +61,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             // Grab proper representatives
             $http.post('/representatives', payload).success(function(reps){
                 for(var rep of reps){
-                    // Grab the representative position for the letter salutation
-                    // var posArr = rep.position.split(' ');
-                    // if(posArr.includes('Senate')){
-                    //     rep.letterPos = 'Senator';
-                    // }
-                    // if(posArr.includes('President')){
-                    //     rep.letterPos = 'President';
-                    // }
-                    // if(posArr.includes('Vice-President')){
-                    //     rep.letterPos = 'Vice-President';
-                    // }
-                    // if(posArr.includes('Representatives')){
-                    //     rep.letterPos = 'Representative';
-                    // }
-                    // if(posArr.includes('Governor')){
-                    //     rep.letterPos = 'Governor';
-                    // }
-                    // if(posArr.includes('Lieutenant')){
-                    //     rep.letterPos = 'Lieutenant Governor';
-                    // }
                     var posArr = rep.position.split(' ');
                     for(var i=0; i< posArr.length; i++){
                         switch(posArr[i]){
@@ -90,6 +70,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                             case 'Representatives'  : rep.letterPos = 'Representative'; break;
                             case 'Governor'         : rep.letterPos = 'Governor'; break;
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
+                            case 'State Senate'     : rep.letterPos = 'Senator'; break;
+                            case 'Representative'   : rep.letterPos = 'Representative'; break;
                         }
                     }
 
@@ -109,10 +91,16 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     }
 
                     // Format the address to upper-case for letter
-                    var formAdd   = rep.rep.address[0].line1.split(' ').map(function(word){
+                    var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
                                         var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                         return upWord;
                                     }).join(' ');
+                    if(rep.rep.address[0].line2){
+                        var newLine2 = rep.rep.address[0].line2.split(' ').map(function(word){
+                                            var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                                            return upWord;
+                                        }).join(' ');
+                    }
 
                     // .map(function(word){ word = word[0].toUpperCase() + word.slice(1)}).join(' ');
                     var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
@@ -120,7 +108,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                                         return upWord;
                                     }).join(' ');
 
-                    rep.rep.address[0].line1 = formAdd;
+                    rep.rep.address[0].line1 = newLine1;
+                    rep.rep.address[0].line2 = newLine2;
                     rep.rep.address[0].city = formCity;
                 }
                 $scope.reps = reps;
@@ -245,4 +234,3 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
 
 });
-$scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;

@@ -159,7 +159,7 @@
                               <div class="col-md-12">
                                   <div id="choices">
                                       <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice }}
+                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice.formatted_address }}
                                       </label>
                                       <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                                   </div>
