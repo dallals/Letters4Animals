@@ -265,19 +265,26 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.update = function(){
         if(!$scope.loggedIn){
             $scope.showDetails = true;
-            $scope.showGuestFields = true;
+            // $scope.showGuestFields = true;
+            $scope.showGuestPrint = true;
+
         }else{
-            $scope.select_recipients = true;
+            // $scope.select_recipients = true;
             $scope.showDetails = true;
-            $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+            $scope.showReviewUser = true;
+            // $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
         }
     }
 
+    // on Print as Guest
+    $scope.print_as_guest = function(){
+        $scope.showGuestFields = true;
+    }
+
     // to hide or show the Print letter and show Representatives section
-    $scope.address_selection = function(){
+    $scope.review_letter = function(){
         $scope.select_recipients = true;
         $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
-
     }
 
     // Restart Letter
@@ -285,9 +292,17 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $route.reload();
     }
 
+    // show Guest fields
+    $scope.print_as_guest = function(){
+        $scope.showGuestFields = true;
+    }
+
+    // on address Selection, show review
+    $scope.address_selection = function(){
+        $scope.showReviewStep = true;
+    }
 
 
-    //
     // STYLE STUFF
   //   $scope.steps = ['Select Cause', 'Enter Guest Inforamtion', 'View Representatives', 'Preview Letter', 'Print/Save'];
   // //

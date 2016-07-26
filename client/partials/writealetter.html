@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <h3 class="h3_bottom_margin">Choose your cause <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span></h3>
+    <h3 class="bottom_margin">Choose your cause <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span></h3>
     <div class="causeinfo letter_background" >
         <form class="form-horizontal">
             <div class="form-group">
@@ -44,6 +44,12 @@
                 </div>
             </form>
         </div>
+
+        <span class="text-center">
+            <button ng-if="!loggedIn && showGuestPrint" ng-click="print_as_guest()" class="btn btn-primary print_save">Print as Guest</button>
+            <button ng-if="!loggedIn && showGuestPrint" ng-click='login_the_User()' class="btn btn-primary print_save">Log In</button>
+            <button ng-if="loggedIn && showReviewUser" ng-click='review_letter()' class="btn btn-primary print_save">Review</button>
+        </span>
     </div>
 
     <div ng-show='!loggedIn && showGuestFields'>
@@ -96,13 +102,15 @@
                     <div class="col-md-12">
                         <div id="choices">
                             <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required ng-change="address_selection()"> {{ choice }}
+                                <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" ng-change="address_selection()" required> {{ choice }}
                             </label>
                             <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                         </div>
                     </div>
                 </div>
             </form>
+
+            <button ng-if="showReviewStep" ng-click="review_letter()" class="btn btn-primary print_save pull-right bottom_margin">Review</button>
         </div>
     </div>
     <!-- end guest info -->
@@ -156,7 +164,7 @@
 
     <!--- Letters --->
     <div class="preview_letter">
-        <h3 class="h3_bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]==null ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
+        <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]=='null' ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
         <div id='printDiv' ng-show=true>
             <div class='page-break' ng-repeat='rep in chosenRep'>
                 <div class="printletter letter_background">
