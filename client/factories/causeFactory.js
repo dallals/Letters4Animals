@@ -11,6 +11,13 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
 
+    factory.createPendCause = function(cause, callback) {
+        $http.post('/volunteerCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
+        })
+    };
+
     // Grab Cause by ID, send back Cause data
     factory.getCause = function(id, callback) {
         $http.get('/getSingleCause/'+id).success(function(data) {

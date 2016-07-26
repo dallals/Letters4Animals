@@ -12,12 +12,13 @@ module.exports = (function(){
             })
         },
         addPendingCause: function(req, res) {
-            if (req.body.pendingcause) {
-                var pendingcause = req.body.pendingcause;
+					console.log("first pend cause",req.body);
+            if (req.body) {
+                var pendingcause = req.body;
                 models.Pendingcause.create({
                     name: pendingcause.name,
                     description: pendingcause.description,
-                    user_id: pendingcause.user_id,
+                    // user_id: pendingcause.user_id,
                     rep_level: pendingcause.rep_level,
                     letter_body: pendingcause.letter_body,
                     letter_footnote: pendingcause.letter_footnote,
@@ -33,7 +34,6 @@ module.exports = (function(){
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
-
                 res.json(); //needed?
             } else {
                 console.log('Missing Pendingcause');
