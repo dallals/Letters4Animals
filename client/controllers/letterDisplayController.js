@@ -216,7 +216,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 cause_id: $scope.selCause.id,
                 user_id: $scope.loggedUser.id
             }
-            CauseFactory.addSupport({support});
+            CauseFactory.addSupport({support: support});
             $scope.supported = true;
         } else if(!$scope.loggedIn && !$scope.supported){
             $scope.addGuest();
@@ -233,7 +233,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             state: $scope.state,
             zipcode: $scope.zip
         }
-        CauseFactory.addGuest({guest});
+        CauseFactory.addGuest({guest: guest});
         $scope.supported = true;
     }
 
