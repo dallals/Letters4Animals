@@ -41,6 +41,10 @@ AnimalApp.config(function ($routeProvider) {
     .when('/causeadmin',{
         templateUrl: 'partials/causeadmin.html'
     })
+
+    .when('/causeAddadmin',{
+        templateUrl: 'partials/causeAddAdmin.html'
+    })
     .when('/causeadmin/:id', {
         templateUrl: 'partials/causeadmin.html'
     })

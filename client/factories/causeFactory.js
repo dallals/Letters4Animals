@@ -8,6 +8,7 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         $http.post('/addCause', cause).success(function(data) {
           console.log("made it back from post");
             callback(data);
+            $location.path('/administrator')
         })
     }
 
