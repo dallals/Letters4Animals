@@ -5,13 +5,13 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "Users", // Can be both a string representing the table name, or a reference to the model
-        key:   "id"
-      }
-    },
+    // user_id: {
+    //   type: DataTypes.INTEGER,
+    //   references: {
+    //     model: "Users", // Can be both a string representing the table name, or a reference to the model
+    //     key:   "id"
+    //   }
+    // },
     description: {
       type: DataTypes.TEXT
     },

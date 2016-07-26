@@ -131,6 +131,9 @@ module.exports = function(app){
         console.log(req.body);
         causes.deleteCause(req, res);
     })
+    app.post('/deletePendCause', function(req,res){
+        pendingcauses.deletePendCause(req, res);
+    })
     app.get('/getAllPendingcauses', function(req, res) {
         pendingcauses.getAllPendingcauses(req, res);
     })
