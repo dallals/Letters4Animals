@@ -29,7 +29,8 @@ AnimalApp.controller('singleCauseController', function($scope, $location, $route
 		};
 
 		$scope.addCause = function(cause){
-			CauseFactory.addCause(cause, function(data){
+			console.log('getting controller frontend')
+			CauseFactory.createCause(cause, function(data){
 				$scope.cause = data
 			})
 		};
