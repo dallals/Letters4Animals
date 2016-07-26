@@ -1,7 +1,18 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
 
-    // Check for Safari, will need to use later to tell people to download a real broswer
+    // Browser checks, to be used later maybe
+    // Opera 8.0+
+    var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+    // Firefox 1.0+
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    // At least Safari 3+: "[object HTMLElementConstructor]"
     var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    // Internet Explorer 6-11
+    var isIE = /*@cc_on!@*/false || !!document.documentMode;
+    // Edge 20+
+    var isEdge = !isIE && !!window.StyleMedia;
+    // Chrome 1+
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
 
 
     $scope.gotCause     = false;
@@ -70,7 +81,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                             case 'Representatives'  : rep.letterPos = 'Representative'; break;
                             case 'Governor'         : rep.letterPos = 'Governor'; break;
                             case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
-                            case 'State Senate'     : rep.letterPos = 'Senator'; break;
+                            case 'Senator'          : rep.letterPos = 'Senator'; break;
                             case 'Representative'   : rep.letterPos = 'Representative'; break;
                         }
                     }
@@ -102,7 +113,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                                         }).join(' ');
                     }
 
-                    // .map(function(word){ word = word[0].toUpperCase() + word.slice(1)}).join(' ');
                     var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
                                         var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                         return upWord;
@@ -130,13 +140,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         if(!alreadyPicked){
             $scope.chosenRep.push(rep);
         }
-
-        // if($scope.chosenRep.includes(rep)){
-        //     $scope.chosenRep.splice($scope.chosenRep.indexOf(rep), 1);
-        // }
-        // else{
-        //     $scope.chosenRep.push(rep);
-        // }
     }
 
     $scope.printLetter = function(elem) {
@@ -179,8 +182,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             // 'Click' the generated link to force file download
             link.setAttribute('download', letterName);
             link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
-            // Check if browser is Firefox
-            if(typeof InstallTrigger !== 'undefined'){
+            if(isFirefox){
                 document.body.appendChild(link);
             }
             link.click();
@@ -193,8 +195,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             var link = document.createElement('a');
             link.setAttribute('download', 'L4Alogo.png');
             link.setAttribute('href', './assets/L4A-logo-cattle2-7-2016.png');
-            // Check if browser is Firefox
-            if(typeof InstallTrigger !== 'undefined'){
+            if(isFirefox){
                 document.body.appendChild(link);
             }
             link.click();
@@ -228,9 +229,5 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         CauseFactory.addGuest({guest});
         $scope.supported = true;
     }
-
-
-
-
 
 });
