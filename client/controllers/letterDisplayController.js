@@ -222,7 +222,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             letters[i].children[0].src = 'L4Alogo.png';
             letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            var letterName  = 'Letter_to_' + letters[i].children[11].innerHTML + '.doc',
+            console.log('this iss:', letters[i].children);
+
+
+            var letterName  = 'Letter_to_' + letters[i].children[0].innerHTML + '.doc',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
             mimeType    = 'application/msword',
