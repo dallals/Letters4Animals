@@ -1,5 +1,4 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $route, $routeParams, $http, UserFactory, CauseFactory) {
-    ////
     // Browser checks, to be used later maybe
     // Opera 8.0+
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
@@ -214,8 +213,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
 
-
-        console.log('letters: ', letters);
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var i=0; i < letters.length; i++){
             // Change logo src to local and set new css style
@@ -265,7 +262,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
     }
     $scope.addGuest = function(){
-        console.log("in sdfjdsfjl")
         var guest = {
             cause_id: $scope.selCause.id,
             first_name: $scope.user.firstName,
