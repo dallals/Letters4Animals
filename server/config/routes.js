@@ -51,6 +51,9 @@ module.exports = function(app){
     app.post('/resetPassword', function(req, res) {
         users.resetPassword(req, res);
     })
+    app.post('/changePassword', function(req, res) {
+        users.changePassword(req, res);
+    })
     //Updating user in DB
     app.post('/updateUser', function(req, res) {
         users.updateUser(req, res);
@@ -130,6 +133,9 @@ module.exports = function(app){
         console.log('Server Route Delete');
         console.log(req.body);
         causes.deleteCause(req, res);
+    })
+    app.post('/deletePendCause', function(req,res){
+        pendingcauses.deletePendCause(req, res);
     })
     app.get('/getAllPendingcauses', function(req, res) {
         pendingcauses.getAllPendingcauses(req, res);

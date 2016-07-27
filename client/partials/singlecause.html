@@ -16,12 +16,14 @@
       <h4>Users Who Supported the Cause</h4>
       <thead>
         <th>Name</th>
+        <th># of Prints</th>
         <th>Email</th>
         <th>State</th>
       </thead>
       <tbody>
         <tr ng-repeat="user in supporters | orderBy: id">
           <td>{{user.first_name }} {{ user.last_name }}</td>
+          <td>{{user.supports}}</td>
           <td>{{user.email}}</td>
           <td>{{user.state}}</td>
         </tr>
@@ -36,7 +38,7 @@
         <th>State</th>
       </thead>
       <tbody>
-        <tr ng-repeat="guest in guests | orderBy: id">
+        <tr ng-repeat="guest in guests | orderBy: 'id'">
           <td>{{guest.first_name }} {{ guest.last_name }}</td>
           <td>{{guest.email}}</td>
           <td>{{guest.state}}</td>

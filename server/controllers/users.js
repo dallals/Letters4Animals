@@ -210,11 +210,13 @@ module.exports = (function(){
 
         changePassword: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
+            console.log("changePassword req.body")
+            console.log(req.body)
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){
                 console.log('in changePassword');
                 if(user){
-                    if (user.validPassword(req.body.password)){
-                        if (req.body.newPassword === req.body.newPasswordConfirm) {
+                    if (user.validPassword(req.body.oldPassword)){
+                        if (req.body.newPassword === req.body.confPassword) {
                             newPass = models.User.generateHash(req.body.newPassword);
                             user.update({password: newPass});
                             res.json({success: true, statusMessage:'Password Changed'});
@@ -259,6 +261,7 @@ module.exports = (function(){
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
+                models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(supports){
                     user.destroy()
                     .then(function(){
@@ -276,19 +279,18 @@ module.exports = (function(){
             	if(data){
             		var phoneArray = []
             		for (var i = 0; i < data.length; i++) {
-            			console.log(i+" index of data array", data[i].dataValues);
             			if (data[i].dataValues.phone_number.length === 10) {
             				phoneArray.push(data[i].dataValues.phone_number);
             			}
             		}
                     for (var phone of phoneArray){
-                        console.log("+"+1+phone);
                         twilio.sendMessage({
                         to:   "+1"+phone,
                         from: +13232388340,
-                        body: req.body.rep_level+ "\n"+
+                        body: "Hello " + req.body + "\n"+
                               req.body.fixed_name+ " should know "+ req.body.description + "\n"+
-                              "Mail a letter and your voice will be heard."+ "\n"+ " http://letters4animals.org/#/writealetter "
+                              "Mail a letter and your voice will be heard."+ "\n"+
+                              "http://letters4animals.org/#/writealetter/cause/" + req.body.id
 
                     }, function(err,data){
                         if(err){
@@ -298,9 +300,6 @@ module.exports = (function(){
                         }
                     });
                     }
-            		console.log(phoneArray);
-                    console.log(req.body);
-            		// console.log(data.dataValues);
             	}
             	else{
             		console.log("error finding all users with phone notification enabled");

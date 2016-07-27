@@ -2,7 +2,7 @@
     padding-left: 0px !important;
 }
 
-.letter_form_address{
+.letter_background{
     /*border: 1px solid grey;*/
     background: #fff;
     color: #555 !important;
@@ -128,6 +128,28 @@ p.congress_example{
 }
 h3{
   font-weight:bold;
+}
+
+.repbox{
+    float: none !important;
+    display: inline-block;
+}
+
+.repbox2{
+    float: none !important;
+    display: inline-block;
+}
+
+.print_save{
+    margin: .5em;
+}
+
+.bottom_margin{
+    margin-bottom: 1em;
+}
+
+.no_bold{
+    font-weight: normal;
 }
 
 #volcause{

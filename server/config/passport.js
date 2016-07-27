@@ -43,16 +43,6 @@ module.exports = function(passport) {
         // we are checking to see if the user trying to login already exists
         models.User.find({where: ["email = ?", email]}).then(function(user){
 
-            //////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////
-            // FOR DEV/TESTING PURPOSES ONLY. DELETE BEFORE DEPLOYMENT////
-            if(email == 'test@test.com'){                             ////
-                return done(null, user.dataValues);                   ////
-            }                                                         ////
-            //////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////
-            //////////////////////////////////////////////////////////////
-
             // if no user is found, return the message
             if (!user){
                 console.log('in user errors');

@@ -9,6 +9,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/aboutus',{
         templateUrl: 'partials/aboutus.html'
     })
+    .when('/writealetter/cause/:causeId',{
+        templateUrl: 'partials/writealetter.html'
+    })
     .when('/writealetter',{
         templateUrl: 'partials/writealetter.html'
     })
@@ -37,6 +40,10 @@ AnimalApp.config(function ($routeProvider) {
     // CAUSES
     .when('/causeadmin',{
         templateUrl: 'partials/causeadmin.html'
+    })
+
+    .when('/causeAddadmin',{
+        templateUrl: 'partials/causeAddAdmin.html'
     })
     .when('/causeadmin/:id', {
         templateUrl: 'partials/causeadmin.html'

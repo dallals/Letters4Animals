@@ -33,6 +33,12 @@ module.exports = {
         defaultValue: false,
         allowNull: false
       },
+      text_blurb:{
+        type: Sequelize.STRING
+      },
+      email_blurb:{
+        type: Sequelize.TEXT
+      },
       fixed_name:{
         type: Sequelize.STRING
       },

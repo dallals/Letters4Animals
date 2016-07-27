@@ -1,4 +1,4 @@
-AnimalApp.controller('headerController', function ($scope, $routeParams, $location,$route, $http, UserFactory) {
+AnimalApp.controller('headerController', function ($scope, $routeParams, $location, $route, $http, UserFactory) {
     $scope.user = {};
     $scope.loggedUser = {};
     $scope.loggedIn = false;
@@ -84,6 +84,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
                     $('#Login').modal('toggle');
                     $scope.loginUser = {};
+
                 } else {
                     //Bad Password.
                     $scope.loginErrors = 'Failed login, please check your email and password.';
@@ -155,7 +156,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         //address, city state zip
         if ( $scope.address.choice && $scope.user && valid ){
 
-            var addrArr = $scope.address.choice.split(','),
+            var addrArr = $scope.address.choice.formatted_address.split(','),
                 last    = addrArr.length,
                 address = addrArr[last-4],
                 city    = addrArr[last-3].substr(1),

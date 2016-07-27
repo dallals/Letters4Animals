@@ -115,6 +115,13 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
                 $scope.errors.password = 'Bad password(s). Please check the two password fields.';
             }
         }
+        $scope.changePassword = function() {
+            $scope.errors.password = '';
+            $scope.pass.userid = $scope.loggedUser.id
+            UserFactory.changePassword($scope.pass, function(data){
+                console.log("back into controller/change password", data);
+            })
+        }
 
     } // End of logged in check
 });

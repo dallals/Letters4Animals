@@ -1,4 +1,4 @@
-AnimalApp.factory('CauseFactory', function($http) {
+AnimalApp.factory('CauseFactory', function($http, $location) {
     var factory = {};
     var thisCause = null;
 
@@ -8,10 +8,12 @@ AnimalApp.factory('CauseFactory', function($http) {
         $http.post('/addCause', cause).success(function(data) {
           console.log("made it back from post");
             callback(data);
+            $location.path('/administrator')
         })
     }
 
     factory.createPendCause = function(cause, callback) {
+      console.log("in caue factory", cause)
         $http.post('/volunteerCause', cause).success(function(data) {
           console.log("made it back from post");
             callback(data);
@@ -20,6 +22,7 @@ AnimalApp.factory('CauseFactory', function($http) {
 
     // Grab Cause by ID, send back Cause data
     factory.getCause = function(id, callback) {
+        console.log("getting to factory Sammy", id)
         $http.get('/getSingleCause/'+id).success(function(data) {
             callback(data);
         })
@@ -86,6 +89,14 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
 
+    factory.delPendCause = function(pendingcause, callback) {
+        console.log('Deleted Pend Cause',pendingcause);
+        $http.post('/deletePendCause', pendingcause).success(function(pendingcauses) {
+            if (callback && typeof callback == 'function') {
+                callback(pendingcauses);
+            }
+        })
+    }
 
     factory.addSupport = function(support) {
         $http.post('/addSupport', support).success(function(){
@@ -126,9 +137,10 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
 
-    factory.update = function(info, callback){
+    factory.updateCause = function(info, callback){
         $http.post('/updateCause', info).success(function(output){
             callback(output);
+            $location.path('/administrator')
         })
     }
     return factory;
