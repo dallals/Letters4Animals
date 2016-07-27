@@ -23,8 +23,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
 
     // Make sure controller doesn't do anything until someone's actually logged in
     if($scope.loggedIn){
-        //$2a$08$GO7plzX1IHDSUvc3dv81t.MKlOKxmpvfA4xKarajFH31DHufSKw3u
-        //$2a$08$VwuV4Cj2blxk7twyEw5qdORknlCGGMTJVeFy568LgqJ6Byv29An1C
         // The following is if the user wants to update their password, they can show/hide their password
         $scope.showpass = 'show';
         $scope.showPassword = function(){
@@ -65,8 +63,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
             }
             return true;
         }
-
-// ng-disabled='isUpdated(updatedUser)'
 
         // Update user profile info
         $scope.updateProfile = function(){
