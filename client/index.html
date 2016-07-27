@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 
-<html ng-app = "AnimalApp">
+<html>
 <head>
     <meta charset="utf-8">
     <meta content="Divi v.2.7.3" name="generator">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="keywords" content='ag-gag laws,animal agriculture cruelty,animal agriculture global warming,animal agriculture impact on climate,animal agriculture impact on global warming,animal agriculture legislation,animal agriculture policy,animal agriculture subsidies,animal cruelty congress,animal cruelty laws factory farming,animal rights laws,animal rights laws and regulations,animal welfare act enforcement,ban animal testing,factory farming and animal cruelty,farm subsidies animal cruelty,federal subsidies animal agriculture,how to change animal cruelty laws,humane slaughter act enforcement,laws animal agriculture cruelty,laws protecting animals,laws protecting animals,legislation protecting animals,letters 4 animals,letters for animals,letters to congress about animal,letters to senator about animal,Letters4Animals,lobby elected officials on animal rights,lobby lawmakers on animal,lobbying for animal rights,outlaw factory farming,slaughterhouse laws,slaughterhouse laws and regulations,social change animal rights,state subsidies for animal agriculture,subsidies for animal agriculture'>
     <meta property="og:url"                content="http://letters4animals.org" />
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="Letters4Animals" />
@@ -17,8 +18,8 @@
     <link rel="stylesheet" id="divi-fonts-css" href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;subset=latin,latin-ext" type="text/css" media="all">
     <link rel="stylesheet" href="/css/bootstrap.min.css" >
 
-    <link rel="stylesheet" href="/css/sweetalert.css" >
-    <link rel="stylesheet" href="/css/headandfooter.css" >
+    <link rel="stylesheet" href="/css/sweetalert.css" > <!-- Pretty popups -->
+    <link rel="stylesheet" href="/css/headandfooter.css" > <!-- Header and footer css. -->
     <link rel="stylesheet" href="/css/contact.css">  <!-- for the contact page -->
     <link rel="stylesheet" href="/css/profile.css">  <!-- for the profile page -->
     <link rel="stylesheet" href="/css/writealetter.css">  <!-- for the letter page -->
@@ -41,31 +42,25 @@
     <script src="/js/ng-sweet-alert.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-    <!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.5.0/textAngular.min.js"></script>
-    <script src='http://textangular.com/dist/textAngular-rangy.min.js'></script>
-    <script src='http://textangular.com/dist/textAngular-sanitize.min.js'></script>
-    <script src='http://textangular.com/dist/textAngular.min.js'></script> -->
 
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
-<!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script> -->
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script> -->
 
 </head>
 
-<body>
+<body ng-app = "AnimalApp">
 
   <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-      </script>
-  </div>
+  <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  </script>
 <!-- Site Header -->
-<div ng-app="AnimalApp" scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
+<div scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
     <div id="main-header">
       <div id="container">
         <div class="left-header">
@@ -276,8 +271,7 @@
     <!-- Site Header Ends & Partials Begin-->
 
 
-    <div ng-view="">
-    </div>
+    <div ng-view=""></div>
 
       <div id="top-footer">
             <div class="column-footer">
@@ -303,11 +297,9 @@
                 <a href="mailto:info@letters4change.com">info AT letters4change.com</a>
               </p>
             </div>
-
       </div>
 
-      <div id="bottom-footer">
-      </div>
+      <div id="bottom-footer"></div>
       <!-- end of footer -->
 
 </div> <!-- End of Main div -->
@@ -315,7 +307,6 @@
     <script src="/js/animalApp.js"></script>
     <script src="/js/routers.js"></script>
     <script src="/js/jquery-2.2.4.min.js"></script>
-
     <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/materialize.min.js"></script>
@@ -331,11 +322,7 @@
     <script src="/controllers/resetPW/ResettingController.js"></script>
     <script src="/controllers/singleCauseController.js"></script>
     <script src="/controllers/donateCauseController.js"></script>
-
-
     <script src="/controllers/pendingCauseController.js"></script>
-    <script src="/controllers/testController.js"></script>
-    <script src="/controllers/causeTest.js"></script>
     <!-- Factories -->
     <script src="/factories/userFactory.js"></script>
     <script src="/factories/causeFactory.js"></script>
