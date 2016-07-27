@@ -47,8 +47,8 @@
 
         <span class="text-center">
             <button ng-if="!loggedIn && showGuestPrint" ng-click="print_as_guest()" class="btn btn-primary print_save">Print as Guest</button>
-            <button ng-if="!loggedIn && showGuestPrint" ng-click='login_the_User()' class="btn btn-primary print_save">Log In</button>
-            <button ng-if="loggedIn && showReviewUser" ng-click='review_letter()' class="btn btn-primary print_save">Review</button>
+            <a data-toggle="modal" data-target="#Login" ng-if="!loggedIn && showGuestPrint" ng-click='login_the_User()' class="btn btn-primary print_save">Login</a>
+            <button ng-if="loggedIn && selCause" ng-click='review_letter()' class="btn btn-primary print_save">Review</button>
         </span>
     </div>
 
@@ -135,7 +135,6 @@
                                 <p class="no_bold">
                                     {{ rep.position }}
                                 </p>
-
                             </div>
                         </div>
                     </label>
