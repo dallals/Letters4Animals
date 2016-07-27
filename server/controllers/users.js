@@ -193,23 +193,15 @@ module.exports = (function(){
         //Update user info
         updateUser: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            console.log(req.body);
             if (req.body.userid != 1) {
                 req.body.admin = false;
-            }
-            console.log(req.body);
-            if (req.body.password) {
-                req.body.password = models.Pendinguser.generateHash(req.body.password)
             }
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
         changePassword: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            console.log("changePassword req.body")
-            console.log(req.body)
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){
-                console.log('in changePassword');
                 if(user){
                     if (user.validPassword(req.body.oldPassword)){
                         if (req.body.newPassword === req.body.confPassword) {
@@ -232,7 +224,6 @@ module.exports = (function(){
         },
 
         getAllUsers: function(req, res){
-            console.log("in getAllUsers");
             // models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
