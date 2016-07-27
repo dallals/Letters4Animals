@@ -296,11 +296,29 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.showReviewStep = true;
     }
 
-    // // active rep
-    // $scope.isActive = false;
-    // $scope.activeButton = function() {
-    //     $scope.isActive = !$scope.isActive;
-    // }
+
+
+    $scope.select= function(item) {
+   	       $scope.selected = item;
+   	};
+   $scope.isActive = function(item) {
+
+       for(var i=0; i < $scope.chosenRep.length; i++){
+           if($scope.chosenRep[i] == item){
+               return true;
+           }
+       }
+    //
+    //    console.log('item is: ', item);
+    //    console.log('chosenRep is: ', $scope.chosenRep);
+   	 //       return $scope.selected === item;
+    //  return true;
+   	};
+
+
+
+
+
 
     // Guest address section
     $scope.address = {choice: undefined};
@@ -339,15 +357,15 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 state  : $scope.state,
                 zip    : $scope.zip };
 
-                $http.post('/addressConfirmation', address).success(function(data) {
-                    if (data == 'Not Found') {
-                        $scope.regErrors.addrNotFound = 'Address is not found, Please double check your address fields';
-                    } else {
-                        if (typeof(data) == 'object') {
-                            // Present all the choices and wait for them to pick
-                            $scope.choices = data; }
-                        }
-                    })
+            $http.post('/addressConfirmation', address).success(function(data) {
+                if (data == 'Not Found') {
+                    $scope.regErrors.addrNotFound = 'Address is not found, Please double check your address fields';
+                } else {
+                    if (typeof(data) == 'object') {
+                        // Present all the choices and wait for them to pick
+                        $scope.choices = data; }
                 }
-            }
-        });
+            })
+        }
+    }
+});

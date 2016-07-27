@@ -121,9 +121,10 @@
 
         <div ng-show="select_recipients">
             <h3>Select recipient(s)</h3>
+            <h1>{{isActive}}</h1>
             <div class="printletter letter_background">
                 <div ng-show=gotCause>
-                    <div class='col-sm-6 repbox' ng-repeat='rep in reps'>
+                    <div class='col-sm-6 repbox' ng-repeat='rep in reps' ng-click="select(rep)" ng-class="{rep_active: isActive(rep)}">
                         <label for='{{rep.letterName}}'>
                             <div class="media">
                                 <div class="media-left media-bottom">
