@@ -7,7 +7,7 @@
     </div>
 
     <div class="col-md-12">
-        <div class="col-md-8">
+        <!-- <div class="col-md-8"> -->
 
             <h3 class="bottom_margin">Choose your cause <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span></h3>
             <div class="causeinfo letter_background" >
@@ -166,7 +166,7 @@
 
                 <!--- Letters --->
                 <div class="preview_letter">
-                    <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]=='null' ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
+                    <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]=='null' || chosenRep[0]==null ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
                     <div id='printDiv' ng-show=true>
                         <div class='page-break' ng-repeat='rep in chosenRep'>
                             <div class="printletter letter_background">
@@ -191,10 +191,10 @@
                     </div>
                 </div> <!--- End of letters --->
             </div>
-        </div>
-        <div ng-show="!loggedIn" class="col-md-4"></div>
+        <!-- </div> -->
+        <!-- <div ng-show="!loggedIn" class="col-md-4"></div> -->
 
-        <div ng-show='loggedIn' id="homevolcause" class="col-md-4">
+        <div ng-show='loggedIn' id="homevolcause" class="col-md-12">
             <h3>Do You Use Your Voice For The Animals?</h3>
             <p> Want to share a letter you have sent?<br>
                 Want to share an idea for a new letter?<br>

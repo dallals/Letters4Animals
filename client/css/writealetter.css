@@ -149,10 +149,9 @@ h3{
 }
 
 #homevolcause{
-    /*width:100%;*/
+    width:100%;
     text-align: center;
     border:solid 1px silver;
     border-radius:15px;
     padding:2%;
-    margin-top: 70px;
 }
