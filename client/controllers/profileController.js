@@ -54,7 +54,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
             else if (field == 'phone_number') { $scope.errors[field] = 'greenerr' }
 
             $scope.updatedUser[field] = $scope.loggedUser[field];
-            console.log('in the else, upUser: ', $scope.updatedUser);
         }
         // Checks if an object is empty so user can't submit updates without actually updating something
         $scope.isUpdated = function(user) {
@@ -62,7 +61,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
             for(var key in user) {
                 if (user.hasOwnProperty(key)) {
                     return false;
-                    console.log('updating');
                 }
             }
             return true;
@@ -95,27 +93,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
                 // after success show alert
                 swal("Profile Updated!", "Your profile has been successfully updated!", "success");
                 $scope.updatedUser = null;
-            }
-        }
-
-        $scope.updatePassword = function() {
-            $scope.errors.password = '';
-            //If they equal, if they exist, if not empty
-            if ($scope.pass.newPassword === $scope.pass.confPassword && $scope.pass.newPassword && $scope.pass.confPassword && $scope.pass.newPassword.trim() != '') {
-                var newPass = {
-                    userid: $scope.loggedUser.id,
-                    password: $scope.pass.newPassword
-                };
-                UserFactory.updateUser(newPass, function(data) {
-                    console.log('ok');
-                    console.log(data);
-                });
-                swal("Password Updated!", "Your password has been successfully updated!", "success");
-                $scope.newPass = {
-                    userid: $scope.loggedUser.id
-                };
-            } else {
-                $scope.errors.password = 'Bad password(s). Please check the two password fields.';
             }
         }
         $scope.changePassword = function() {
