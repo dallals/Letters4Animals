@@ -44,7 +44,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.loggedIn = true;
             // Steps for Logged In users
             //$scope.steps = ['Select Cause', 'View Representatives', 'Preview Letter', 'Print/Save'];
-          //
+            //
         }
     });
 
@@ -75,8 +75,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
         else{
             var payload             = {};
-                payload.rep_level   = level;
-                // payload.rep_level = 'Lieutenant Governor';
+            payload.rep_level   = level;
+            // payload.rep_level = 'Lieutenant Governor';
 
             // Format address to send to civics API
             if($scope.loggedIn){
@@ -124,14 +124,14 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     // Format the address to upper-case for letter
 
                     var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
-                                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
-                                        return upWord;
-                                    }).join(' ');
+                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                        return upWord;
+                    }).join(' ');
                     if(rep.rep.address[0].line2){
                         var newLine2 = rep.rep.address[0].line2.split(' ').map(function(word){
-                                            var upWord = word.charAt(0).toUpperCase() + word.slice(1);
-                                            return upWord;
-                                        }).join(' ');
+                            var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                            return upWord;
+                        }).join(' ');
                     }
 
                     var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
@@ -198,10 +198,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
             var letterName  = 'Letter_to_' + letters[i].children[11].innerHTML + '.doc',
-                letterName  = letterName.split(' ').join('_'),
-                link        = document.createElement('a'),
-                mimeType    = 'application/msword',
-                elHtml      = letters[i].innerHTML;
+            letterName  = letterName.split(' ').join('_'),
+            link        = document.createElement('a'),
+            mimeType    = 'application/msword',
+            elHtml      = letters[i].innerHTML;
 
             // 'Click' the generated link to force file download
             link.setAttribute('download', letterName);
@@ -294,14 +294,12 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.address_selection = function(){
         $scope.showReviewStep = true;
     }
-    //ON letter page, add below function to Login
 
-    //letter_user_logged
-
-    // Login from letter page
-    $scope.letter_user_logged = function(){
-
-    }
+    // // active rep
+    // $scope.isActive = false;
+    // $scope.activeButton = function() {
+    //     $scope.isActive = !$scope.isActive;
+    // }
 
     // Guest address section
     $scope.address = {choice: undefined};
@@ -312,10 +310,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         password        : '',
         confirmPassword : '',
         addrNotFound    : '',
-          address       : '',
-          city          : '',
-          state         : '',
-          zip           : ''
+        address       : '',
+        city          : '',
+        state         : '',
+        zip           : ''
     };
     var errorMessages = {
         firstName           : 'First name field is required',
@@ -340,15 +338,15 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 state  : $scope.state,
                 zip    : $scope.zip };
 
-            $http.post('/addressConfirmation', address).success(function(data) {
-                if (data == 'Not Found') {
-                    $scope.regErrors.addrNotFound = 'Address is not found, Please double check your address fields';
-                } else {
-                    if (typeof(data) == 'object') {
-                        // Present all the choices and wait for them to pick
-                        $scope.choices = data; }
+                $http.post('/addressConfirmation', address).success(function(data) {
+                    if (data == 'Not Found') {
+                        $scope.regErrors.addrNotFound = 'Address is not found, Please double check your address fields';
+                    } else {
+                        if (typeof(data) == 'object') {
+                            // Present all the choices and wait for them to pick
+                            $scope.choices = data; }
+                        }
+                    })
                 }
-            })
-        }
-    }
-});
+            }
+        });
