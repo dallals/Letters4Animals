@@ -134,3 +134,14 @@ h3{
   background-color: white;
 
 }
+
+#loadtxt{
+    text-align: center;
+}
+
+#loadgif{
+    display: block;
+    margin: 0 auto;
+    height: 75px;
+    width: 75px;
+}
