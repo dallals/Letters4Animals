@@ -99,6 +99,9 @@ module.exports = function(app){
     app.get('/getSingleCause/:id', function(req, res) {
         causes.showCauseInfo(req, res);
     })
+    app.get('/getSingleViewCause/:id', function(req, res) {
+        causes.getSingleCause(req, res);
+    })
     app.get('/getSupporters/:id', function(req, res) {
         causes.showCauseUsers(req, res);
     })

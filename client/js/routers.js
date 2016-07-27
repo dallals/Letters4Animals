@@ -44,7 +44,6 @@ AnimalApp.config(function ($routeProvider) {
     .when('/causeadmin',{
         templateUrl: 'partials/causeadmin.html'
     })
-
     .when('/causeAddadmin',{
         templateUrl: 'partials/causeAddAdmin.html'
     })
@@ -53,6 +52,9 @@ AnimalApp.config(function ($routeProvider) {
     })
     .when('/getSingleCause/:id', {
       templateUrl: 'partials/singlecause.html'
+    })
+    .when('getSinglePendCause/:id', {
+      templateUrl: 'partials/singlependcause.html'
     })
     .when('/pendingcauseadmin/:id', {
         templateUrl: 'partials/pendingcauseadmin.html'

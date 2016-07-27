@@ -211,7 +211,7 @@ module.exports = (function(){
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
-            })    
+            })
 
             } else {
                 console.log('Missing Cause');
