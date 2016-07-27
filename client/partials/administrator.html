@@ -36,7 +36,8 @@
                           <th>Email</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="cause in causes | orderBy:'id'">
+                          <input type="text" ng-model="filter_causes" placeholder="Search..">
+                          <tr ng-repeat="cause in causes | filter: filter_causes | orderBy:'id'">
 
                             <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
                             <td>{{cause.supports - cause.guests_causes}}</td>
@@ -66,7 +67,8 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="user in users | orderBy:'id'">
+                         <input type="text" ng-model="filter_users" placeholder="Search..">
+                          <tr ng-repeat="user in users | filter: filter_users | orderBy:'id'">
                             <td>{{user.id}}</td>
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
@@ -91,7 +93,8 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <tr ng-repeat="guest in guests | orderBy: 'id'">
+                          <input type="text" ng-model="filter_guests" placeholder="Search..">
+                          <tr ng-repeat="guest in guests | filter: filter_guests | orderBy:'id'">
                             <td>{{guest.first_name}}</td>
                             <td>{{guest.last_name}}</td>
                             <td>{{guest.cause_id}}</td>
@@ -115,8 +118,8 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-
-                          <tr ng-repeat="pendingcause in pendingcauses | orderBy: 'id'">
+                          <input type="text" ng-model="filter_pendingcauses" placeholder="Search..">
+                          <tr ng-repeat="pendingcause in pendingcauses | filter: filter_pendingcauses | orderBy:'id'">
                             <td>{{pendingcause.name}}</td>
                             <td>{{pendingcause.first_name}} {{pendingcause.last_name}}</td>
                             <td>{{pendingcause.email}}</td>
