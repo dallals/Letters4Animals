@@ -1,4 +1,4 @@
-AnimalApp.controller('letterDisplayController', function ($scope, $location, $routeParams, $http, UserFactory, CauseFactory) {
+AnimalApp.controller('letterDisplayController', function ($scope, $location, $route, $routeParams, $http, UserFactory, CauseFactory) {
 
     // Browser checks, to be used later maybe
     // Opera 8.0+
@@ -22,20 +22,29 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.logoDown     = false;
     $scope.supported    = false;
     $scope.fixed        = {
-                name    : '',
-                pos     : '',
-                addr    : '',
-                city    : '',
-                state   : '',
-                zip     : '',
-                pic     : ''
+        name    : '',
+        pos     : '',
+        addr    : '',
+        city    : '',
+        state   : '',
+        zip     : '',
+        pic     : ''
     }
+    $scope.showDetails = false;
+    $scope.showGuestFields = false;
+    $scope.select_recipients = false;
+
+    // Steps for Guest-Users
+    $scope.steps = ['Select Cause', 'Enter Guest Inforamtion', 'View Representatives', 'Preview Letter', 'Print/Save'];
 
     UserFactory.isLoggedIn(function(user){
         if(user.id){
             // If logged in, populate form with user info
             $scope.loggedUser = user;
             $scope.loggedIn = true;
+            // Steps for Logged In users
+            //$scope.steps = ['Select Cause', 'View Representatives', 'Preview Letter', 'Print/Save'];
+          //
         }
     });
 
@@ -113,6 +122,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     }
 
                     // Format the address to upper-case for letter
+
                     var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
                                         var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                         return upWord;
@@ -125,9 +135,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                     }
 
                     var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
-                                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
-                                        return upWord;
-                                    }).join(' ');
+                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                        return upWord;
+                    }).join(' ');
 
                     rep.rep.address[0].line1 = newLine1;
                     rep.rep.address[0].line2 = newLine2;
@@ -178,6 +188,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.addSupport();
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
+
+
+        console.log('letters: ', letters);
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var i=0; i < letters.length; i++){
             // Change logo src to local and set new css style
@@ -241,4 +254,101 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.supported = true;
     }
 
+    // to hide or show the Cause Details
+    $scope.update = function(){
+        if(!$scope.loggedIn){
+            $scope.showDetails = true;
+            // $scope.showGuestFields = true;
+            $scope.showGuestPrint = true;
+
+        }else{
+            // $scope.select_recipients = true;
+            $scope.showDetails = true;
+            $scope.showReviewUser = true;
+            // $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+        }
+    }
+
+    // on Print as Guest
+    $scope.print_as_guest = function(){
+        $scope.showGuestFields = true;
+    }
+
+    // to hide or show the Print letter and show Representatives section
+    $scope.review_letter = function(){
+        $scope.select_recipients = true;
+        $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+    }
+
+    // Restart Letter
+    $scope.start_over = function(){
+        $route.reload();
+    }
+
+    // show Guest fields
+    $scope.print_as_guest = function(){
+        $scope.showGuestFields = true;
+    }
+
+    // on address Selection, show review
+    $scope.address_selection = function(){
+        $scope.showReviewStep = true;
+    }
+    //ON letter page, add below function to Login
+
+    //letter_user_logged
+
+    // Login from letter page
+    $scope.letter_user_logged = function(){
+
+    }
+
+    // Guest address section
+    $scope.address = {choice: undefined};
+    $scope.loginErrors = '';
+    $scope.regErrors = {
+        firstName       : '',
+        lastName        : '',
+        password        : '',
+        confirmPassword : '',
+        addrNotFound    : '',
+          address       : '',
+          city          : '',
+          state         : '',
+          zip           : ''
+    };
+    var errorMessages = {
+        firstName           : 'First name field is required',
+        lastName            : 'Last name field is required',
+        email               : 'Last name field is required',
+        password            : 'Password is required',
+        confirmPassword     : 'Passwords must match',
+        address             : 'Address field is required',
+        city                : 'City field is required',
+        state               : 'State field is required',
+        zip                 : 'Zip field is required'
+    }
+
+
+    $scope.registerAddress = function() {
+        $scope.regErrors.addrNotFound = '';
+
+        if ($scope.addr && $scope.city && $scope.state && $scope.zip) {
+            var address = {
+                address: $scope.addr,
+                city   : $scope.city,
+                state  : $scope.state,
+                zip    : $scope.zip };
+
+            $http.post('/addressConfirmation', address).success(function(data) {
+                if (data == 'Not Found') {
+                    $scope.regErrors.addrNotFound = 'Address is not found, Please double check your address fields';
+                } else {
+                    if (typeof(data) == 'object') {
+                        // Present all the choices and wait for them to pick
+                        $scope.choices = data; }
+                }
+            })
+        }
+    }
 });

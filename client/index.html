@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta content="Divi v.2.7.3" name="generator">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta property="og:url"                content="http://letters4animals.org" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="Letters4Animals" />
+    <meta property="og:description"        content="Link to Site" />
+    <meta property="og:image"              content="/assets/L4A-logo-cattle2-7-2016.png" />
 
     <title>Letters 4 Animals | Creating a Cruelty-Free World Through Political Activism</title>
     <link rel="alternate" type="application/rss+xml" title="Letters 4 Animals » Feed" href="https://www.letters4animals.org/feed/">
@@ -42,15 +47,29 @@
     <script src='http://textangular.com/dist/textAngular.min.js'></script> -->
 
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script> -->
+
 </head>
 
 <body>
+
+  <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+      </script>
+  </div>
 <!-- Site Header -->
 <div ng-app="AnimalApp" scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
     <div id="main-header">
       <div id="container">
         <div class="left-header">
-          <a href="https:/www.letters4animals.org/"><img id="logo" src="/assets/L4A-logo-cattle2-7-2016.png" width=240px  alt="logo.png"></a>
+          <a href="https://www.letters4animals.org/"><img id="logo" src="/assets/L4A-logo-cattle2-7-2016.png" width=240  alt="logo.png"></a>
         </div>
 
         <div id="menu">
@@ -70,6 +89,8 @@
                     <a data-toggle="modal" data-target="#Login" ng-if='!loggedIn'>Login</a>
                     <a href="" ng-click='logout()' ng-if='loggedIn'>Logout</a>
                 </li>
+                <li class="social" ng-cloak><div ng-cloak class="fb-share-button " data-href="https://www.letters4animals.org/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" ng-cloak href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.letters4animals.org%2F&amp;src=sdkpreparse">Share</a></div></li>
+                <li class="social"><a href="https://twitter.com/share?url=https://letters4animals.org"><img src="/assets/twitter.png"></a></li>
               </ul>
           </div>
         </div>
@@ -100,6 +121,8 @@
                     <a data-toggle="modal" data-target="#Login" ng-if='!loggedIn'>Login</a>
                     <a href="" ng-click='logout()' ng-if='loggedIn'>Logout</a>
                 </li>
+                <li class="social social-resp"><div ng-cloak class="fb-share-button " data-href="https://www.letters4animals.org/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" ng-cloak href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.letters4animals.org%2F&amp;src=sdkpreparse">Share</a></div></li>
+                <li class="social"><a href="https://twitter.com/share?url=https://letters4animals.org"><img src="/assets/twitter.png"></a></li>
               </ul>
            </div>
           </div>
@@ -231,7 +254,7 @@
                           </div>
                           <div class="form-group">
                               <div class="col-sm-3">
-                                  <button type="button" type="submit" class="btn btn-primary" ng-click="login()">Login</button>
+                                  <button type="button" class="btn btn-primary" ng-click="login()">Login</button>
                               </div>
                               <div class="col-sm-7">
                                   <span class="loginErrors" ng-bind="loginErrors"></span>

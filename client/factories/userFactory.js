@@ -75,10 +75,11 @@ AnimalApp.factory('UserFactory', function($http) {
             console.log('updated user succesfully');
         })
     };
-    factory.changePassword = function(pass) {
+    factory.changePassword = function(pass, callback) {
         console.log(pass);
-        $http.post('/changePassword', pass).success(function(){
+        $http.post('/changePassword', pass).success(function(data){
             console.log('changed password succesfully');
+            callback(data);
         })
     };
 

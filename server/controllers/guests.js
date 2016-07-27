@@ -13,7 +13,7 @@ module.exports = (function(){
       //   },
       getAllGuests: function(req, res){
                console.log("in getAllGuests");
-           models.sequelize.query('SELECT "Guests".id, "Guests".first_name, "Guests".last_name, "Guests".cause_id, "Guests".zipcode, "Guests".state, "Guests".city, "Guests".street_address, "Causes".name as "cause_name" FROM "Guests" LEFT JOIN "Causes" ON "cause_id" = "Causes".id', { type: models.sequelize.QueryTypes.SELECT})
+           models.sequelize.query('SELECT "Guests".*, "Causes".name as "cause_name" FROM "Guests" LEFT JOIN "Causes" ON "cause_id" = "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
              .then(function(guests){
              console.log(guests);
              res.json(guests);
@@ -34,7 +34,7 @@ module.exports = (function(){
           var self = this;
         models.Guest.destroy({where: ['id = ?', req.body.id]})
           .then(function(guest){
-            models.sequelize.query('SELECT "Guests".id, "Guests".first_name, "Guests".last_name, "Guests".cause_id, "Guests".zipcode, "Guests".state, "Guests".city, "Guests".street_address, "Causes".name as "cause_name" FROM "Guests" LEFT JOIN "Causes" ON "cause_id" = "Causes".id', { type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Guests".*, "Causes".name as "cause_name" FROM "Guests" LEFT JOIN "Causes" ON "cause_id" = "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
              .then(function(guests){
              console.log(guests);
              res.json(guests);

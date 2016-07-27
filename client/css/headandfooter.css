@@ -68,7 +68,13 @@ body{
 #mobile-nav{
   display:none;
 }
+#navbar > li:nth-child(10) > a > img{
+  vertical-align: bottom;
+}
 
+#navbar > li.social{
+  padding-right:0px;
+}
 /*HEADER Animations & Fixed Toolbar resizing on scroll*/
 #navbar > li > a:hover{
   color: rgba(68, 68, 68, 0.60);

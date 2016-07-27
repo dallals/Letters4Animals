@@ -106,7 +106,10 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
                     userid: $scope.loggedUser.id,
                     password: $scope.pass.newPassword
                 };
-                UserFactory.updateUser(newPass);
+                UserFactory.updateUser(newPass, function(data) {
+                    console.log('ok');
+                    console.log(data);
+                });
                 swal("Password Updated!", "Your password has been successfully updated!", "success");
                 $scope.newPass = {
                     userid: $scope.loggedUser.id
@@ -117,9 +120,15 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
         }
         $scope.changePassword = function() {
             $scope.errors.password = '';
-            $scope.pass.userid = $scope.loggedUser.id
+            $scope.pass.userid = $scope.loggedUser.id;
             UserFactory.changePassword($scope.pass, function(data){
                 console.log("back into controller/change password", data);
+                if (data.success) {
+                    swal("Password Updated!", "Your password has been successfully updated!", "success");
+                    $scope.pass = {};
+                } else {
+                    $scope.errors.password = data.statusMessage;
+                }
             })
         }
 

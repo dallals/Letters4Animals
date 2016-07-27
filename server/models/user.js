@@ -69,7 +69,8 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING
     },
     reset_pw_url_created_at: {
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
+      allowNull: true
     }
   }, {
     classMethods: {

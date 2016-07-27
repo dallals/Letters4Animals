@@ -2,7 +2,7 @@
     padding-left: 0px !important;
 }
 
-.letter_form_address{
+.letter_background{
     /*border: 1px solid grey;*/
     background: #fff;
     color: #555 !important;
@@ -130,16 +130,37 @@ h3{
   font-weight:bold;
 }
 
-#volcause{
-  float: right;
-  text-align: center;
-  margin-top: 2%;
-  border:solid 1px silver;
-  padding:2%;
+.repbox{
+    float: none !important;
+    display: inline-block;
+}
+
+.repbox2{
+    float: none !important;
+    display: inline-block;
+}
+
+.print_save{
+    margin: .5em;
+}
+
+.bottom_margin{
+    margin-bottom: 1em;
+}
+
+.no_bold{
+    font-weight: normal;
 }
 
 #homevolcause{
-  width:100%;
+  text-align: center;
+  border:solid 1px silver;
+  border-radius:15px;
+  padding:2%;
+  margin-right: 3%;
+}
+
+#homedonate{
   text-align: center;
   border:solid 1px silver;
   border-radius:15px;

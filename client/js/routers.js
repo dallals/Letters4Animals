@@ -21,6 +21,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/links',{
         templateUrl: 'partials/links.html'
     })
+    .when('/donate',{
+        templateUrl: 'partials/donate.html'
+    })
     .when('/issues',{
         templateUrl: 'partials/issues.html'
     })
@@ -41,7 +44,6 @@ AnimalApp.config(function ($routeProvider) {
     .when('/causeadmin',{
         templateUrl: 'partials/causeadmin.html'
     })
-
     .when('/causeAddadmin',{
         templateUrl: 'partials/causeAddAdmin.html'
     })
@@ -50,6 +52,9 @@ AnimalApp.config(function ($routeProvider) {
     })
     .when('/getSingleCause/:id', {
       templateUrl: 'partials/singlecause.html'
+    })
+    .when('getSinglePendCause/:id', {
+      templateUrl: 'partials/singlependcause.html'
     })
     .when('/pendingcauseadmin/:id', {
         templateUrl: 'partials/pendingcauseadmin.html'

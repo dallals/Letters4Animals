@@ -20,13 +20,21 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         })
     };
 
-    // Grab Cause by ID, send back Cause data
+    // Grab Cause by ID, send back Cause data- for edit/update functionality
     factory.getCause = function(id, callback) {
         console.log("getting to factory Sammy", id)
         $http.get('/getSingleCause/'+id).success(function(data) {
             callback(data);
         })
     };
+
+    // for single view page
+    factory.getSingleViewCause = function(id, callback) {
+        $http.get('/getSingleViewCause/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+
 
     factory.getSupporters = function(id, callback) {
         $http.get('/getSupporters/'+id).success(function(data) {
