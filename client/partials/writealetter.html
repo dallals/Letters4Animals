@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span>
 
-        <div class="cause_step" ng-hide="showGuestFields || select_recipients">
+        <div class="cause_step" ng-hide="select_recipients">
 
             <h3 class="bottom_margin">Choose your cause </h3>
             <div class="causeinfo letter_background" >
@@ -122,6 +122,10 @@
         <div ng-show="select_recipients">
             <h3>Select recipient(s)</h3>
             <div class="printletter letter_background">
+                <div ng-show='!gotCause'>
+                    <h5 id=loadtxt>Fetching Representatives...</h5>
+                    <img id=loadgif src="./assets/circles.gif" alt="Loading..." />
+                </div>
                 <div ng-show=gotCause>
                     <div class='col-sm-6 repbox' ng-repeat='rep in reps' ng-click="select(rep)" ng-class="{rep_active: isActive(rep)}">
                         <label for='{{rep.letterName}}'>
@@ -178,13 +182,13 @@
                             {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
                             {{ rep.position || fixed.pos }}<br>
                             {{ rep.rep.address[0].line1 || fixed.addr }}<br>
-                            {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
+                            {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
 
                             Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-                            {{ selCause.letter_body }}<br><br>
+                            <span ng-repeat='paragraph in selCause.letter'>{{ paragraph }}<br><br></span>
                             Sincerely, <br><br><br>
                             {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-                            <br><br><br><br>
+                            <br><br><br>
                             {{ selCause.letter_footnote }}
                         </div>
                     </div>

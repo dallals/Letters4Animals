@@ -70,8 +70,9 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.gotCause      = true;
         }
         else{
-            $scope.payload.rep_level   = level;
-            // $scope.payload.rep_level = 'State Assembly';
+            // $scope.payload.rep_level   = level;
+            $scope.payload.rep_level = 'State Assembly';
+            $scope.selCause.rep_level = 'State Senate';
 
             // Check to see if the cause is state-level
             if($scope.selCause.rep_level == 'State Senate' || $scope.selCause.rep_level == 'State Assembly'){
@@ -288,13 +289,18 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.showDetails = true;
     }
 
-    // on Print as Guest
-    $scope.print_as_guest = function(){
-        $scope.showGuestFields = true;
-    }
-
     // to hide or show the Print letter and show Representatives section
     $scope.review_letter = function(){
+        if($scope.loggedIn){
+            // Reset any info entered into form before logging in
+            $scope.user.firstName = null;
+            $scope.user.lastName = null;
+            $scope.addr = null;
+            $scope.city = null;
+            $scope.state = null;
+            $scope.zip = null;
+            $scope.choice = null;
+        }
         $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
 
         $scope.showGuestFields = false;
