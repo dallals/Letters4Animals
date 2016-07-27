@@ -5,14 +5,13 @@ var transporter = require('nodemailer').createTransport();
 var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
 
 
-var emailConfLinks = [],
-    genLength      = 50;
+var genLength      = 50;
 
 var emailConfGen = function(i, gen) {
     var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     if (i===undefined)   {i = 0;}   else {i++;}
     if (gen===undefined) {gen = ''} else {gen += valid[Math.floor(Math.random()*valid.length)]}
-    if (i<genLength)     {return emailConfGen(i, gen)} else {emailConfLinks.push(gen); return gen;}
+    if (i<genLength)     {return emailConfGen(i, gen)} else { return gen; }
 }
 var resetPassGen = function() {
     var valid = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
@@ -37,10 +36,7 @@ var sendResetEmail = function(url, email) {
     }, function(error, response) {
         if (error) {
             console.log(error);
-        } else {
-            console.log(response);
         }
-
     });
     transporter.close();
 }
@@ -49,9 +45,7 @@ var checkExistingUrl = function(email, user) {
     var url = resetPassGen();
     models.User.find({where: ["reset_pw_url = ?", url]}).then(function(data) {
         if (data) {
-            url = resetPassGen();
-
-            checkExistingUrl(url);
+            checkExistingUrl(email, user);
         } else {
             sendResetEmail(url, email);
             console.log('Sent reset Url to',email,'url is',url);
@@ -61,7 +55,9 @@ var checkExistingUrl = function(email, user) {
                 console.log(err);
             });
         }
-    })
+    }).catch(function(err) {
+        console.log(err);
+    });
 }
 
 
