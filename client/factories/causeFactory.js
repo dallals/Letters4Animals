@@ -93,10 +93,5 @@ AnimalApp.factory('CauseFactory', function($http) {
            console.log(twilio);
        })
     }
-
-    // For letter user login Change
-    factory.userLoggedIn = function(causeInfo, callback){
-        callback(causeInfo);
-    }
     return factory;
 })
