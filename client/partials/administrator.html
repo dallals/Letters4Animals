@@ -1,3 +1,5 @@
+
+<script src="dirPagination.js"></script>
 <div id="adminheader"><h3>Administrative Panel</h3></div>
 <div id="admin_container" ng-controller='adminController' ng-show='loggedIn'>
 
@@ -36,8 +38,9 @@
                           <th>Email</th>
                         </thead>
                         <tbody>
-                          <input type="text" ng-model="filter_causes" placeholder="Search..">
-                          <tr ng-repeat="cause in causes | filter: filter_causes | orderBy:'id'">
+                          <input type="text" ng-model="filter_causes" placeholder="Search Causes">
+            
+                          <tr dir-paginate="cause in causes |orderBy:'id'| filter: filter_causes | itemsPerPage:20">
 
                             <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
                             <td>{{cause.supports - cause.guests_causes}}</td>
@@ -51,6 +54,7 @@
                           </tr>
                         </tbody>
                       </table>
+                      <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" ></dir-pagination-controls>
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="users">
@@ -67,8 +71,8 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                         <input type="text" ng-model="filter_users" placeholder="Search..">
-                          <tr ng-repeat="user in users | filter: filter_users | orderBy:'id'">
+                         <input type="text" ng-model="filter_users" placeholder="Search Users">
+                          <tr dir-paginate="user in users |orderBy:'id'| filter: filter_causes | itemsPerPage:20">
                             <td>{{user.id}}</td>
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
@@ -95,8 +99,8 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <input type="text" ng-model="filter_guests" placeholder="Search..">
-                          <tr ng-repeat="guest in guests | filter: filter_guests | orderBy:'id'">
+                          <input type="text" ng-model="filter_guests" placeholder="Search Guest Users">
+                          <tr dir-paginate="guest in guests |orderBy:'id'| filter: filter_causes | itemsPerPage:20">
                             <td>{{guest.id}}</td>
                             <td>{{guest.first_name}}</td>
                             <td>{{guest.last_name}}</td>
@@ -122,8 +126,8 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <input type="text" ng-model="filter_pendingcauses" placeholder="Search..">
-                          <tr ng-repeat="pendingcause in pendingcauses | filter: filter_pendingcauses | orderBy:'id'">
+                          <input type="text" ng-model="filter_pendingcauses" placeholder="Search Pending">
+                          <tr dir-paginate="pendingcause in pendingcauses |orderBy:'id'| filter: filter_causes | itemsPerPage:20">
                             <td>{{pendingcause.name}}</td>
                             <td>{{pendingcause.first_name}} {{pendingcause.last_name}}</td>
                             <td>{{pendingcause.email}}</td>
