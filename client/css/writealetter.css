@@ -107,27 +107,15 @@ p.congress_example{
     padding-left: 15px;
 }
 
-.causeinfo{
-  margin-left:5%;
-}
-
-.guestinfo{
-  margin-left:5%;
-}
-
-.printletter{
-  margin-left:5%;
-}
-
 .indent{
-  margin-left:2%;
+    margin-left:2%;
 }
 
 .titles{
-  font-weight:bold;
+    font-weight:bold;
 }
 h3{
-  font-weight:bold;
+    font-weight:bold;
 }
 
 .repbox{
@@ -153,17 +141,18 @@ h3{
 }
 
 #volcause{
-  float: right;
-  text-align: center;
-  margin-top: 2%;
-  border:solid 1px silver;
-  padding:2%;
+    float: right;
+    text-align: center;
+    margin-top: 2%;
+    border:solid 1px silver;
+    padding:2%;
 }
 
 #homevolcause{
-  width:100%;
-  text-align: center;
-  border:solid 1px silver;
-  border-radius:15px;
-  padding:2%;
+    /*width:100%;*/
+    text-align: center;
+    border:solid 1px silver;
+    border-radius:15px;
+    padding:2%;
+    margin-top: 70px;
 }
