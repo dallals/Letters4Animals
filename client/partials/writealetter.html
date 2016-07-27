@@ -22,31 +22,23 @@
                     </div>
                 </form>
 
-                <!-- <div id="letter_form_address" > -->
-                <div ng-if="showDetails" >
-                    <h4 class="text-center"><b>Cause Details</b></h4>
 
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label for="cause_description" class="col-sm-2 control-label">Cause Description:</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="3"id="cause_description" readonly >{{ selCause.description }}</textarea>
-                            </div>
+
+                <form ng-if="showDetails" class="form-horizontal">
+                    <h4 class="text-center"><b>Cause Details</b></h4>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no_top_padding">Name:</label>
+                        <div class="col-sm-10">
+                            {{ selCause.name }}
                         </div>
-                        <div class="form-group">
-                            <label for="cause_letter_body" class="col-sm-2 control-label">Cause Letter Body:</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="3"id="cause_letter_body" readonly >{{ selCause.letter_body }}</textarea>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no_top_padding">Description:</label>
+                        <div class="col-sm-10">
+                            {{ selCause.description }}
                         </div>
-                        <div class="form-group">
-                            <label for="cause_rep_level" class="col-sm-2 control-label">Cause Rep. Level:</label>
-                            <div class="col-sm-10">
-                                <textarea class="form-control" rows="3"id="cause_rep_level" readonly >{{ selCause.rep_level }}</textarea>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
 
                 <span class="text-center">
                     <button ng-if="!loggedIn && showGuestPrint" ng-click="print_as_guest()" class="btn btn-primary print_save">Print as Guest</button>
@@ -63,11 +55,11 @@
                         <!-- First & Last Name Input Fields -->
                         <div class="form-group">
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName">
+                                <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName" required>
                                 <span class="regErrors" ng-bind="regErrors.firstName"></span>
                             </div>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName">
+                                <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName" required>
                                 <span class="regErrors" ng-bind="regErrors.lastName"></span>
                             </div>
                         </div>
@@ -75,7 +67,7 @@
                         <!-- Address -->
                         <div class="form-group">
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="registerAddress()">
+                                <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="registerAddress()" required>
                                 <span class="regErrors" ng-bind="regErrors.address"></span>
                             </div>
                         </div>
@@ -83,17 +75,17 @@
                         <div class="form-group">
                             <div class="col-sm-5">
                                 <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="registerAddress()">
-                                <span class="regErrors" ng-bind="regErrors.city"></span>
+                                <span class="regErrors" ng-bind="regErrors.city" required></span>
                             </div>
                             <div class="col-sm-5">
-                                <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()">
+                                <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()" required>
                                 <span class="regErrors" ng-bind="regErrors.state"></span>
                             </div>
                         </div>
                         <!-- Zip -->
                         <div class="form-group">
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="registerAddress()">
+                                <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="registerAddress()" required>
                                 <span class="regErrors" ng-bind="regErrors.zip"></span>
                             </div>
                         </div>
@@ -113,7 +105,7 @@
                         </div>
                     </form>
 
-                    <button ng-if="showReviewStep" ng-click="review_letter()" class="btn btn-primary print_save pull-right bottom_margin">Review</button>
+                    <button ng-if="showReviewStep" ng-click="review_letter()" class="btn btn-primary print_save  bottom_margin">Review</button>
                 </div>
             </div>
             <!-- end guest info -->
@@ -166,11 +158,11 @@
 
                 <!--- Letters --->
                 <div class="preview_letter">
-                    <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]=='null' || chosenRep[0]==null ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
+                    <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || fixed.name ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
                     <div id='printDiv' ng-show=true>
                         <div class='page-break' ng-repeat='rep in chosenRep'>
                             <div class="printletter letter_background">
-                                <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+                                <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo class="pull-right"><br>
                                 {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
                                 {{ addr || loggedUser.street_address }}<br>
                                 {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}

@@ -155,3 +155,7 @@ h3{
     border-radius:15px;
     padding:2%;
 }
+
+.no_top_padding{
+    padding-top: 0px !important;
+}
