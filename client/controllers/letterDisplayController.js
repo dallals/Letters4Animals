@@ -278,6 +278,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.review_letter = function(){
         $scope.select_recipients = true;
         $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+        $scope.showGuestFields = false;
     }
 
     // Restart Letter
