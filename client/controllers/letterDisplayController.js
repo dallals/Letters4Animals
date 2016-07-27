@@ -33,6 +33,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.showDetails = false;
     $scope.showGuestFields = false;
     $scope.select_recipients = false;
+    // $scope.showFixedLetter = true;
+
 
     // Steps for Guest-Users
     $scope.steps = ['Select Cause', 'Enter Guest Inforamtion', 'View Representatives', 'Preview Letter', 'Print/Save'];
@@ -72,6 +74,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.fixed.pos     = $scope.selCause.rep_level;
             $scope.fixed.pic     = './assets/blank.jpg';
             $scope.gotCause     = true;
+            // $scope.showFixedLetter = true;
         }
         else{
             var payload             = {};
@@ -258,14 +261,11 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.update = function(){
         if(!$scope.loggedIn){
             $scope.showDetails = true;
-            // $scope.showGuestFields = true;
             $scope.showGuestPrint = true;
 
         }else{
-            // $scope.select_recipients = true;
             $scope.showDetails = true;
             $scope.showReviewUser = true;
-            // $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
         }
     }
 
@@ -297,28 +297,23 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
 
 
-
+    // For selected rep background
     $scope.select= function(item) {
    	       $scope.selected = item;
    	};
-   $scope.isActive = function(item) {
 
-       for(var i=0; i < $scope.chosenRep.length; i++){
-           if($scope.chosenRep[i] == item){
-               return true;
+    $scope.isActive = function(item) {
+
+       if($scope.fixed.name){
+
+       }else{
+           for(var i=0; i < $scope.chosenRep.length; i++){
+               if($scope.chosenRep[i] == item){
+                   return true;
+               }
            }
        }
-    //
-    //    console.log('item is: ', item);
-    //    console.log('chosenRep is: ', $scope.chosenRep);
-   	 //       return $scope.selected === item;
-    //  return true;
    	};
-
-
-
-
-
 
     // Guest address section
     $scope.address = {choice: undefined};

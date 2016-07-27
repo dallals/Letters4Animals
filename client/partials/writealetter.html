@@ -121,7 +121,6 @@
 
         <div ng-show="select_recipients">
             <h3>Select recipient(s)</h3>
-            <h1>{{isActive}}</h1>
             <div class="printletter letter_background">
                 <div ng-show=gotCause>
                     <div class='col-sm-6 repbox' ng-repeat='rep in reps' ng-click="select(rep)" ng-class="{rep_active: isActive(rep)}">
@@ -142,7 +141,7 @@
                             </div>
                         </label>
                     </div>
-                    <div ng-if='!reps' class='col-sm-12 repbox2'>
+                    <div ng-if='!reps' class='col-sm-12 repbox2' ng-click="select(rep)" ng-class="{rep_active: isActive(rep)}">
                         <label for='{{selCause.id}}'> <!-- For fixed causes, the selection by label is on the id instead of lettername -->
                             <div class="media">
                                 <div class="media-left media-bottom">
@@ -150,7 +149,7 @@
                                 </div>
                                 <div class="media-body">
                                     <p class="media-heading">
-                                        <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)'>
+                                        <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)' checked>
                                         {{ fixed.name }}
                                     </p>
                                     <p class="no_bold">
