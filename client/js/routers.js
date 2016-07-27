@@ -21,6 +21,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/links',{
         templateUrl: 'partials/links.html'
     })
+    .when('/donate',{
+        templateUrl: 'partials/donate.html'
+    })
     .when('/issues',{
         templateUrl: 'partials/issues.html'
     })
