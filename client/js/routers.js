@@ -9,6 +9,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/aboutus',{
         templateUrl: 'partials/aboutus.html'
     })
+    .when('/writealetter/cause/:causeId',{
+        templateUrl: 'partials/writealetter.html'
+    })
     .when('/writealetter',{
         templateUrl: 'partials/writealetter.html'
     })
@@ -33,11 +36,29 @@ AnimalApp.config(function ($routeProvider) {
     .when('/administrator',{
         templateUrl: 'partials/administrator.html'
     })
+
+    // CAUSES
     .when('/causeadmin',{
         templateUrl: 'partials/causeadmin.html'
     })
+
+    .when('/causeAddadmin',{
+        templateUrl: 'partials/causeAddAdmin.html'
+    })
+    .when('/causeadmin/:id', {
+        templateUrl: 'partials/causeadmin.html'
+    })
+    .when('/getSingleCause/:id', {
+      templateUrl: 'partials/singlecause.html'
+    })
+    .when('/pendingcauseadmin/:id', {
+        templateUrl: 'partials/pendingcauseadmin.html'
+    })
     .when('/letteradmin',{
         templateUrl: 'partials/letteradmin.html'
+    })
+    .when('/volunteer', {
+        templateUrl: 'partials/volunteercause.html'
     })
     .when('/templatesubmission',{
         templateUrl: 'partials/templatesubmission.html'
@@ -72,12 +93,6 @@ AnimalApp.config(function ($routeProvider) {
     })                      //TESTING USE
     .when('/causetest',{
         templateUrl: 'partials/causetest.html'
-    })
-    .when('/causeadmin/:id', {
-        templateUrl: 'partials/causeadmin.html'
-    })
-    .when('/pendingcauseadmin/:id', {
-        templateUrl: 'partials/pendingcauseadmin.html'
     })
     .otherwise({
       redirectTo: '/'

@@ -1,20 +1,47 @@
-AnimalApp.factory('CauseFactory', function($http) {
+AnimalApp.factory('CauseFactory', function($http, $location) {
     var factory = {};
     var thisCause = null;
 
 
     factory.createCause = function(cause, callback) {
-        //Throw to cause
-        $http.post('/addCause', {cause}).success(function(data) {
-            if (callback && typeof callback == 'function') {
-                callback(data);
-            }
+      console.log("made it to factory",cause);
+        $http.post('/addCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
+            $location.path('/administrator')
+        })
+    }
+
+    factory.createPendCause = function(cause, callback) {
+      console.log("in caue factory", cause)
+        $http.post('/volunteerCause', cause).success(function(data) {
+          console.log("made it back from post");
+            callback(data);
         })
     };
 
     // Grab Cause by ID, send back Cause data
-    factory.getCause = function(causeid, callback) {
-        $http.post('/getCauseInfo', {causeid}).success(function(data) {
+    factory.getCause = function(id, callback) {
+        console.log("getting to factory Sammy", id)
+        $http.get('/getSingleCause/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+
+    factory.getSupporters = function(id, callback) {
+        $http.get('/getSupporters/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+
+    factory.getGuests = function(id, callback) {
+        $http.get('/getGuests/'+id).success(function(data) {
+            callback(data);
+        })
+    };
+    factory.getCauseUsers = function(id, callback) {
+        $http.get('/getCauseUsers/'+id).success(function(data) {
+          console.log("in get cause factory",data);
             callback(data);
         })
     };
@@ -24,6 +51,7 @@ AnimalApp.factory('CauseFactory', function($http) {
             callback(causes);
         })
     };
+
 
     factory.getEnabledCauses = function(callback) {
         $http.get('/getEnabledCauses').success(function(causes) {
@@ -61,6 +89,14 @@ AnimalApp.factory('CauseFactory', function($http) {
         })
     }
 
+    factory.delPendCause = function(pendingcause, callback) {
+        console.log('Deleted Pend Cause',pendingcause);
+        $http.post('/deletePendCause', pendingcause).success(function(pendingcauses) {
+            if (callback && typeof callback == 'function') {
+                callback(pendingcauses);
+            }
+        })
+    }
 
     factory.addSupport = function(support) {
         $http.post('/addSupport', support).success(function(){
@@ -92,6 +128,20 @@ AnimalApp.factory('CauseFactory', function($http) {
        $http.post('/sendText', causeInfo).success(function(twilio){
            console.log(twilio);
        })
+    }
+
+    factory.delCause = function(cause, callback){
+        $http.post('/delCause', cause).success(function(causes){
+            console.log("getting to call back")
+            callback(causes);
+        })
+    }
+
+    factory.updateCause = function(info, callback){
+        $http.post('/updateCause', info).success(function(output){
+            callback(output);
+            $location.path('/administrator')
+        })
     }
     return factory;
 })

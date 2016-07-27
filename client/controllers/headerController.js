@@ -156,7 +156,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         //address, city state zip
         if ( $scope.address.choice && $scope.user && valid ){
 
-            var addrArr = $scope.address.choice.split(','),
+            var addrArr = $scope.address.choice.formatted_address.split(','),
                 last    = addrArr.length,
                 address = addrArr[last-4],
                 city    = addrArr[last-3].substr(1),
@@ -171,7 +171,9 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
 
             UserFactory.registerUser(user, function(data) {
                 if (data.errors && data.errors.errors) {
-                    for (err of data.errors.errors) {
+                    for (var errIndex in data.errors.errors) {
+                        var err = data.errors.errors[errIndex];
+                        
                         if (err.path == 'first_name') { bevalid = false;
                             $scope.regErrors.firstName += err.message; }
                         if (err.path == 'last_name') { bevalid = false;

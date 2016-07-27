@@ -25,6 +25,14 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    text_blurb: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    email_blurb: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
     fixed_name: {
       type: DataTypes.STRING,
       allowNull: true

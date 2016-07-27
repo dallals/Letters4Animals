@@ -4,23 +4,24 @@
     <h2>Add & Edit a Donated Cause</h2>
   </header>
 
-  <form name="causeadmin" ng-controller="pendingCauseController" ng-model="cause">
+  <form name="causeadmin" method="post" ng-controller="pendingCauseController" ng-model="cause">
     <label>Cause Name</label><br><input type="text" name="causename" ng-model="pendingcause.name"></input><br><br>
     <label>Description</label><br><textarea name="description" class="admintext" ng-model="pendingcause.description"></textarea><br>
-
     <div class="halfsection">
       <h4>Recipients</h4>
-        <input type="radio" name="rep_level"><label> President</label><br>
-        <input type="radio" name="rep_level"><label> Senators</label><br>
-        <input type="radio" name="rep_level"><label> House of Representatives</label><br>
-        <input type="radio" name="rep_level"><label> Special Purpose</label><br>
-        <input type="radio" name="rep_level"><label> Govenor</label><br>
-        <input type="radio" name="rep_level"><label> School Board</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="President of the United States"><label>  President of the United States</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="Vice-President of the United States"><label>  Vice-President of the United States</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="United States Senate"><label>  United States Senate</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="United States House of Representatives"> <label>  United States House of Representatives</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="Governor"><label>  Governor</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="Lieutenant Governor"><label>  Lieutenant Governor</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="State Senate"><label>  State Senate</label><br>
+        <input type="radio" name="rep_level" ng-model="pendingcause.rep_level" value="State Assembly"><label>  State Assembly (House of Representatives)</label><br>
     </div>
 
     <div class="halfsection">
       <h4>Fixed Recipients?</h4>
-        <label>Yes:</label> <input type="checkbox" ng-click='toggleFixed(recipient)' ng-checked="{{pendingcause.fixed}}"></td><br>
+        <label>Yes:</label> <input type="checkbox" ng-click='toggleFixed(recipient)' ng-model="pendingcause.fixed" ng-checked="{{pendingcause.fixed}}"></td><br>
         <label>Name of Recipient</label><input type="text" name="fixed_name" ng-model="pendingcause.fixed_name">
         <label>Street Address</label><input type="text" name="fixed_address" ng-model="pendingcause.fixed_address">
         <label>City</label><input type="text" name="fixed_city" ng-model="pendingcause.fixed_city">
@@ -42,12 +43,12 @@
     <h4>Notification Settings</h4>
     <div class="notification_content">
       <h5>Text Blurb</h5>
-      <textarea name="string" class="footnotetext" ng-model="cause.text_content"></textarea>
+      <textarea name="string" class="footnotetext" ng-model="pendingcause.text_content"></textarea>
     </div>
 
     <div class="notification_content">
       <h5>Email Notification Content </h5>
-      <textarea name="string" class="footnotetext" ng-model="cause.email_content"></textarea>
+      <textarea name="string" class="footnotetext" ng-model="pendingcause.email_content"></textarea>
     </div>
 
     <input type="submit" ng-click="addCause()" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Create Cause"></input>

@@ -48,8 +48,8 @@
 </head>
 
 <body>
-  <!-- Site Header -->
-  <div ng-app="AnimalApp" scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
+<!-- Site Header -->
+<div ng-app="AnimalApp" scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
     <div id="main-header">
       <div id="container">
         <div class="left-header">
@@ -108,9 +108,9 @@
           </div>
 
         </div>
-      </div>
+    </div>
       <!-- Registration Modal -->
-      <div class="modal fade" id="Register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="Register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
@@ -162,7 +162,7 @@
                               <div class="col-md-12">
                                   <div id="choices">
                                       <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice }}
+                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice.formatted_address }}
                                       </label>
                                       <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                                   </div>
@@ -210,9 +210,9 @@
                   </div>
               </div>
           </div><!-- /.modal-content -->
-      </div>
+    </div>
       <!-- Login Modal -->
-      <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="Login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog">
               <div class="modal-content">
                   <div class="modal-header">
@@ -234,7 +234,7 @@
                           </div>
                           <div class="form-group">
                               <div class="col-sm-3">
-                                  <button type="button" class="btn btn-primary" ng-click="login()" id="log_in_button">Login</button>
+                                  <button type="button" type="submit" class="btn btn-primary" ng-click="login()">Login</button>
                               </div>
                               <div class="col-sm-7">
                                   <span class="loginErrors" ng-bind="loginErrors"></span>
@@ -249,7 +249,9 @@
                   </div>
               </div>
           </div><!-- /.modal-content -->
-      </div>
+    </div>
+
+
 
     <!-- Site Header Ends & Partials Begin-->
 
@@ -288,6 +290,8 @@
       </div>
       <!-- end of footer -->
 
+</div> <!-- End of Main div -->
+
     <script src="/js/animalApp.js"></script>
     <script src="/js/routers.js"></script>
     <script src="/js/jquery-2.2.4.min.js"></script>
@@ -305,6 +309,9 @@
     <script src="/controllers/resetPW/passController.js"></script>
     <script src="/controllers/resetPW/ResetController.js"></script>
     <script src="/controllers/resetPW/ResettingController.js"></script>
+    <script src="/controllers/singleCauseController.js"></script>
+    <script src="/controllers/donateCauseController.js"></script>
+
 
     <script src="/controllers/pendingCauseController.js"></script>
     <script src="/controllers/testController.js"></script>

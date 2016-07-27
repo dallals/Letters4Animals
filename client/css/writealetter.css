@@ -151,3 +151,19 @@ h3{
 .no_bold{
     font-weight: normal;
 }
+
+#volcause{
+  float: right;
+  text-align: center;
+  margin-top: 2%;
+  border:solid 1px silver;
+  padding:2%;
+}
+
+#homevolcause{
+  width:100%;
+  text-align: center;
+  border:solid 1px silver;
+  border-radius:15px;
+  padding:2%;
+}

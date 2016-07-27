@@ -38,7 +38,7 @@ AnimalApp.factory('UserFactory', function($http) {
 
     // Grab user by ID, send back user data
     factory.getUser = function(userid, callback) {
-        $http.post('/getUserInfo', {userid}).success(function(data) {
+        $http.post('/getUserInfo', {userid:userid}).success(function(data) {
             callback(data);
         })
     };
@@ -70,8 +70,15 @@ AnimalApp.factory('UserFactory', function($http) {
     }
 
     factory.updateUser = function(userinfo) {
+        console.log(userinfo);
         $http.post('/updateUser', userinfo).success(function(){
             console.log('updated user succesfully');
+        })
+    };
+    factory.changePassword = function(pass) {
+        console.log(pass);
+        $http.post('/changePassword', pass).success(function(){
+            console.log('changed password succesfully');
         })
     };
 
@@ -99,7 +106,11 @@ AnimalApp.factory('UserFactory', function($http) {
     // Delete Guest Users
     factory.delGuest = function(guest, callback){
         $http.post('/delGuest', guest).success(function(guests){
+            console.log("getting to call back")
             callback(guests);
+            // $http.get('getAllGuests').success(function(guests){
+            //     callback(guests);
+            // })
         })
     }
     return factory;

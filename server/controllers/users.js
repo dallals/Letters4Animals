@@ -56,12 +56,14 @@ var checkExistingUrl = function(email, user) {
             sendResetEmail(url, email);
             console.log('Sent reset Url to',email,'url is',url);
 
-            user.update({reset_pw_url: url}).catch(function(err) {
+            var today = new Date();
+            user.update({reset_pw_url: url, reset_pw_url_created_at: today}).catch(function(err) {
                 console.log(err);
             });
         }
     })
 }
+
 
 module.exports = (function(){
   return {
@@ -125,7 +127,28 @@ module.exports = (function(){
             })
         },
 
-        //Grabbing a single user's info by ID
+        //for /users/show/:id type route
+        showUserInfo: function (req, res) {
+            models.User.find({where: ["id = ?", req.params.id]}).then(function(data){
+                if(data){
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
+
+        //for /users/show/:id type route
+        //show all the causes a single user supported, and how many times they supported it
+        showUserCauses: function (req, res){
+            models.sequelize.query('SELECT "Causes".id, "Causes".name, COUNT("Supports".cause_id) as "supports" FROM "Supports" LEFT JOIN "Causes" ON "cause_id" = "Causes".id WHERE "Supports".user_id = ? GROUP BY "Causes".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            .then(function(causesSupported){
+                res.json(causesSupported);
+            })
+        },
+
+        //Grabbing a single user's info by SESSION ID
         getUserInfo: function(req, res) {
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
                 if(data){
@@ -178,16 +201,22 @@ module.exports = (function(){
             if (req.body.userid != 1) {
                 req.body.admin = false;
             }
+            console.log(req.body);
+            if (req.body.password) {
+                req.body.password = models.Pendinguser.generateHash(req.body.password)
+            }
             models.User.update(req.body, { where: { id: req.body.userid } })
         },
 
         changePassword: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
+            console.log("changePassword req.body")
+            console.log(req.body)
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){
                 console.log('in changePassword');
                 if(user){
-                    if (user.validPassword(req.body.password)){
-                        if (req.body.newPassword === req.body.newPasswordConfirm) {
+                    if (user.validPassword(req.body.oldPassword)){
+                        if (req.body.newPassword === req.body.confPassword) {
                             newPass = models.User.generateHash(req.body.newPassword);
                             user.update({password: newPass});
                             res.send('Password Changed');
@@ -216,6 +245,15 @@ module.exports = (function(){
             })
         },
 
+        getCauseUsers: function (req,res){
+          console.log("made it to model",req.params.id);
+          var id = req.params.id;
+            models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            .then(function(users){
+                res.json(users);
+            })
+        },
+
         delUser: function(req, res){
             var self = this;
             // console.log(self);
@@ -224,18 +262,17 @@ module.exports = (function(){
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
                 models.Support.destroy({where: ['user_id = ?', req.body.id]})
+                models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
                 .then(function(supports){
-                    models.Pendingcause.destroy({where: ['user_id = ?', req.body.id]})
-                    .then(function(pendingcauses){
-                        user.destroy()
-                        .then(function(){
-                        // Send back all remaining users
-                            self.getAllUsers(req, res)
-                        })
+                    user.destroy()
+                    .then(function(){
+                    // Send back all remaining users
+                        self.getAllUsers(req, res)
                     })
                 })
             })
         },
+
         sendText: function(req,res){
 
             models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})
@@ -243,19 +280,18 @@ module.exports = (function(){
             	if(data){
             		var phoneArray = []
             		for (var i = 0; i < data.length; i++) {
-            			console.log(i+" index of data array", data[i].dataValues);
             			if (data[i].dataValues.phone_number.length === 10) {
             				phoneArray.push(data[i].dataValues.phone_number);
             			}
             		}
                     for (var phone of phoneArray){
-                        console.log("+"+1+phone);
                         twilio.sendMessage({
                         to:   "+1"+phone,
                         from: +13232388340,
-                        body: req.body.rep_level+ "\n"+
+                        body: "Hello " + req.body + "\n"+
                               req.body.fixed_name+ " should know "+ req.body.description + "\n"+
-                              "Mail a letter and your voice will be heard."+ "\n"+ " http://letters4animals.org/#/writealetter "
+                              "Mail a letter and your voice will be heard."+ "\n"+
+                              "http://letters4animals.org/#/writealetter/cause/" + req.body.id
 
                     }, function(err,data){
                         if(err){
@@ -265,9 +301,6 @@ module.exports = (function(){
                         }
                     });
                     }
-            		console.log(phoneArray);
-                    console.log(req.body);
-            		// console.log(data.dataValues);
             	}
             	else{
             		console.log("error finding all users with phone notification enabled");

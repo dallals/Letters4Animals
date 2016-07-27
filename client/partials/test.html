@@ -114,7 +114,7 @@
             <br><br>
             Senator {{ chosenRep[0].rep.name }}<br>
             {{ chosenRep[0].position }}<br>
-            {{ chosenRep[0].rep.address[0].line1 }}<br>
+            {{ chosenRep[0].rep.address[0].line1 }}{{ ', ' + chosenRep[0].rep.address[0].line2 }}<br>
             {{ chosenRep[0].rep.address[0].city + ', ' + chosenRep[0].rep.address[0].state + ' ' + chosenRep[0].rep.address[0].zip }}<br><br>
 
             Dear Senator {{ chosenRep[0].rep.name }},<br><br>

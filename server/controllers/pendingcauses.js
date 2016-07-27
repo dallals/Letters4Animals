@@ -6,14 +6,15 @@ module.exports = (function(){
 
 		getAllPendingcauses: function(req, res) {
             // models.Cause.findAll({})
-            models.sequelize.query('SELECT "Pendingcauses".*, "Users".first_name, "Users".last_name, "Users".city, "Users".state, "Users".zipcode, "Users".email FROM "Pendingcauses" LEFT JOIN "Users" ON "Users".id = "Pendingcauses".user_id GROUP BY "Pendingcauses".id;', { type: models.sequelize.QueryTypes.SELECT})
+						models.sequelize.query('SELECT "Pendingcauses".*, "Users".first_name, "Users".last_name,"Users".email FROM "Pendingcauses" LEFT JOIN "Users" ON "Users".id = "Pendingcauses".user_id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(pendingcauses){
                 res.json(pendingcauses);
             })
         },
         addPendingCause: function(req, res) {
-            if (req.body.pendingcause) {
-                var pendingcause = req.body.pendingcause;
+					console.log("first pend cause",req.body);
+            if (req.body) {
+                var pendingcause = req.body;
                 models.Pendingcause.create({
                     name: pendingcause.name,
                     description: pendingcause.description,
@@ -33,8 +34,7 @@ module.exports = (function(){
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
-
-                res.json(); //needed?
+                // res.json(); //needed?
             } else {
                 console.log('Missing Pendingcause');
             }
@@ -43,9 +43,21 @@ module.exports = (function(){
 		getPendingCause: function(req,res){
 				console.log("made it to model",req.params.id);
 				var id = req.params.id;
-				models.sequelize.query('SELECT "Pendingcauses".id, "Pendingcauses".name, "Pendingcauses".description, "Pendingcauses".letter_body, "Pendingcauses".fixed, "Pendingcauses".enabled, "Pendingcauses".rep_level, "Pendingcauses"."createdAt", "Pendingcauses"."updatedAt" FROM "Pendingcauses" WHERE "Pendingcauses".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+				models.sequelize.query('SELECT "Pendingcauses".* FROM "Pendingcauses" WHERE "Pendingcauses".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
 				.then(function(pendingcauses){
 						res.json(pendingcauses);
+				})
+		},
+
+		deletePendCause: function(req,res){
+			models.Pendingcause.destroy({where: ['id = ?', req.body.id]})
+				.then(function(pendingcauses){
+					models.sequelize.query('SELECT "Pendingcauses".* FROM "Pendingcauses";', { type: models.sequelize.QueryTypes.SELECT})
+					.then(function(pendingcauses){
+							res.json(pendingcauses);
+					}).catch(function(err){
+						console.log(err)
+					})
 				})
 		}
 

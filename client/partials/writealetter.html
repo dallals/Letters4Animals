@@ -6,6 +6,19 @@
         </div>
     </div>
 
+
+
+
+    <div ng-show='loggedIn' class="col-md-12">
+      <div id="homevolcause" class="col-md-4">
+        <h3>Do You Use Your Voice For The Animals?</h3>
+        <p> Want to share a letter you have sent?<br>
+            Want to share an idea for a new letter?<br>
+            Submit your letter below and we might feature it on Letters4Animals.</p><br>
+        <a href="#volunteer"><button id="volunteer" class="btn btn-primary">Volunteer A Custom Letter</button></a>
+      </div>
+    </div><br><br>
+
     <h3 class="bottom_margin">Choose your cause <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span></h3>
     <div class="causeinfo letter_background" >
         <form class="form-horizontal">
@@ -102,7 +115,7 @@
                     <div class="col-md-12">
                         <div id="choices">
                             <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" ng-change="address_selection()" required> {{ choice }}
+                                <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" ng-change="address_selection()" required> {{ choice.formatted_address }}
                             </label>
                             <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                         </div>
@@ -138,64 +151,56 @@
                             </div>
                         </div>
                     </label>
-            </div>
-            <div ng-if='!reps' class='col-sm-12 repbox2'>
-                <label for='{{selCause.id}}'> <!-- For fixed causes, the selection by label is on the id instead of lettername -->
-                    <div class="media">
-                        <div class="media-left media-bottom">
-                            <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187>
+                </div>
+                <div ng-if='!reps' class='col-sm-12 repbox2'>
+                    <label for='{{selCause.id}}'> <!-- For fixed causes, the selection by label is on the id instead of lettername -->
+                        <div class="media">
+                            <div class="media-left media-bottom">
+                                <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187>
+                            </div>
+                            <div class="media-body">
+                                <p class="media-heading">
+                                    <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)'>
+                                    {{ fixed.name }}
+                                </p>
+                                <p class="no_bold">
+                                    {{ fixed.pos }}
+                                </p>
+
+                            </div>
                         </div>
-                        <div class="media-body">
-                            <p class="media-heading">
-                                <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)'>
-                                {{ fixed.name }}
-                            </p>
-                            <p class="no_bold">
-                                {{ fixed.pos }}
-                            </p>
-
-                        </div>
-                    </div>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <!--- Letters --->
-    <div class="preview_letter">
-        <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]=='null' ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
-        <div id='printDiv' ng-show=true>
-            <div class='page-break' ng-repeat='rep in chosenRep'>
-                <div class="printletter letter_background">
-                    <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
-                    {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
-                    {{ addr || loggedUser.street_address }}<br>
-                    {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
-                    <br><br>
-                    {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
-                    {{ rep.position || fixed.pos }}<br>
-                    {{ rep.rep.address[0].line1 || fixed.addr }}<br>
-                    {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
-
-                    Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-                    {{ selCause.letter_body }}<br><br>
-                    Sincerely, <br><br><br>
-                    {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-                    <br><br><br><br>
-                    {{ selCause.letter_footnote }}
+                    </label>
                 </div>
             </div>
-            <!--- End of letters --->
+        </div>
 
-        </div> <!--- End of printLetter --->
+        <!--- Letters --->
+
+        <div class="preview_letter">
+            <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]=='null' ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
+            <div id='printDiv' ng-show=true>
+                <div class='page-break' ng-repeat='rep in chosenRep'>
+                    <div class="printletter letter_background">
+                        <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
+                        {{ addr || loggedUser.street_address }}<br>
+                        {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
+                        <br><br>
+                        {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
+                        {{ rep.position || fixed.pos }}<br>
+                        {{ rep.rep.address[0].line1 || fixed.addr }}<br>
+                        {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
+
+                        Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
+                        {{ selCause.letter_body }}<br><br>
+                        Sincerely, <br><br><br>
+                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
+                        <br><br><br><br>
+                        {{ selCause.letter_footnote }}
+                    </div>
+                </div>
+
+            </div>
+        </div> <!--- End of letters --->
     </div>
-
-    <!-- <div class="col-sm-12" ng-show="print_save"> -->
-    <!-- <div class="col-sm-12">
-    <br>
-    <button ng-click="printLetter('#printDiv')">PRINT</button>
-    <br>
-    <button ng-click='saveLetter()'>SAVE</button>
-</div> -->
-
 </div>
