@@ -172,27 +172,24 @@
             <div class="preview_letter">
                 <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || fixed.name ">Preview and Print your letter(s)</h3>
                 <div id='printDiv' ng-show=true>
-                    <div class='page-break' ng-repeat='rep in chosenRep'>
-                        <div class="printletter letter_background">
-                            <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo class="pull-right"><br>
-                            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
-                            {{ addr || loggedUser.street_address }}<br>
-                            {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
-                            <br><br>
-                            {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
-                            {{ rep.position || fixed.pos }}<br>
-                            {{ rep.rep.address[0].line1 || fixed.addr }}<br>
-                            {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
+                    <div class="page-break printletter letter_background" ng-repeat='rep in chosenRep'>
+                        <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo class="pull-right"><br>
+                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
+                        {{ addr || loggedUser.street_address }}<br>
+                        {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
+                        <br><br>
+                        {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
+                        {{ rep.position || fixed.pos }}<br>
+                        {{ rep.rep.address[0].line1 || fixed.addr }}<span ng-show='rep.rep.address[0].line2'>{{', ' + rep.rep.address[0].line2 }}</span><br>
+                        {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
 
-                            Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-                            <span ng-repeat='paragraph in selCause.letter'>{{ paragraph }}<br><br></span>
-                            Sincerely, <br><br><br>
-                            {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-                            <br><br><br>
-                            {{ selCause.letter_footnote }}
-                        </div>
+                        Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
+                        <span ng-repeat='paragraph in selCause.letter'>{{ paragraph }}<br><br></span>
+                        Sincerely, <br><br><br>
+                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
+                        <br><br><br>
+                        {{ selCause.letter_footnote }}
                     </div>
-
                 </div>
             </div> <!--- End of letters --->
 

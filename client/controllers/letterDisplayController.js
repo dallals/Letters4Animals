@@ -217,13 +217,20 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
 
+        console.log('=========letters=========');
+        console.log(letters);
+        console.log('=========letters=========');
+
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var i=0; i < letters.length; i++){
+            console.log('=========letters[i].children=========');
+            console.log(letters[i].children);
+            console.log('=========letters[i].children=========');
             // Change logo src to local and set new css style
             letters[i].children[0].src = 'L4Alogo.png';
             letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            var letterName  = 'Letter_to_' + letters[i].children[11].innerHTML + '.doc',
+            var letterName  = 'Letter_to_' + letters[i].children[12].innerHTML + '.doc',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
             mimeType    = 'application/msword',
