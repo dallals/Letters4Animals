@@ -295,7 +295,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     // to hide or show the Print letter and show Representatives section
     $scope.review_letter = function(){
-        $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+        $scope.getReps($scope.selCause.rep_level); // select recipient(s)
 
         $scope.showGuestFields = false;
         $scope.select_recipients = true;
