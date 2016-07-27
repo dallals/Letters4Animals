@@ -49,6 +49,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             // Check if cause should be pre-selected from a link/URL
             if(causes[ind].id == $routeParams.causeId){
                 $scope.selCause = causes[ind];
+                $scope.update();
             }
         }
         $scope.causes = causes;
@@ -70,13 +71,12 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.gotCause      = true;
         }
         else{
-            // $scope.payload.rep_level   = level;
-            $scope.payload.rep_level = 'State Assembly';
-            $scope.selCause.rep_level = 'State Senate';
+            $scope.payload.rep_level   = level;
+            // $scope.payload.rep_level = 'State Assembly';
+            // $scope.selCause.rep_level = 'State Assembly';
 
             // Check to see if the cause is state-level
             if($scope.selCause.rep_level == 'State Senate' || $scope.selCause.rep_level == 'State Assembly'){
-            // if(true){    // For testing
                 // Package address for Geocoder
                 var geoAddr = {};
                 if($scope.loggedIn){
