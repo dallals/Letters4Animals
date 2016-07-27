@@ -54,8 +54,8 @@
             <label for="volunteer" class="col-sm-2 control-label">Opt-In</label>
             <div class="col-sm-10">
               <label><input type="checkbox" id="volunteer" ng-model="loggedUser.volunteer" ng-click="updateInfo('volunteer')"> Would you like to volunteer a custom letter?</label><br>
-              <label><input type="checkbox" id="email_notification" ng-model="loggedUser.email_notification" ng-click="updateInfo('email_notification')"> Would you like to receive text alerts for new causes?</label><br>
-              <label><input type="checkbox" id="phone_notification" ng-model="loggedUser.phone_notification" ng-click="updateInfo('phone_notification')"> Would you like to receive email alerts for new causes?</label><br>
+              <label><input type="checkbox" id="email_notification" ng-model="loggedUser.email_notification" ng-click="updateInfo('email_notification')"> Would you like to receive email alerts for new causes?</label><br>
+              <label><input type="checkbox" id="phone_notification" ng-model="loggedUser.phone_notification" ng-click="updateInfo('phone_notification')"> Would you like to receive text alerts for new causes?</label><br>
             </div>
         </div>
         <div class="form-group">
@@ -66,7 +66,7 @@
 
         <br><br>
         <h2>Change Password</h2>
-        <div class="col-sm-12" ng-bind="errors.password" class="errors"></div>
+        <div class="col-sm-12" ng-bind="errors.password" class="errors" style="color: red"></div>
         <div class="form-group">
             <label for="oldpassword" class="col-sm-2 control-label">Old Password</label>
             <div class="col-sm-8">
@@ -84,7 +84,7 @@
         </div>
         <div class="form-group">
             <label for="confirmpassword" class="col-sm-2 control-label">Confirm New Password</label>
-            <div class="col-sm-10">
+            <div class="col-sm-8">
                 <input type="password" class="form-control" id="user_confPassword" ng-model="pass.confPassword">
             </div>
         </div>

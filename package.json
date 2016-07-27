@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "angular-utils-pagination": "^0.11.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "connect-flash": "^0.1.1",
@@ -21,5 +22,24 @@
     "sequelize-cli": "^2.4.0",
     "string_decoder": "^0.10.31",
     "twilio": "^2.9.1"
-  }
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "Letters4Animals",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dallals/Letters4Animals.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dallals/Letters4Animals/issues"
+  },
+  "homepage": "https://github.com/dallals/Letters4Animals#readme",
+  "description": ""
 }

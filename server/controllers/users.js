@@ -184,7 +184,7 @@ module.exports = (function(){
             models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
                 var password = models.Pendinguser.generateHash(req.body.password);
                 if (data) {
-                    data.update({password: password});
+                    data.update({password: password, reset_pw_url: null, reset_pw_url_created_at: null});
                     data.update({reset_pw_url: null});
                     res.json({success: true, statusMessage: 'Password successfully updated'});
                     //update the user
@@ -219,19 +219,18 @@ module.exports = (function(){
                         if (req.body.newPassword === req.body.confPassword) {
                             newPass = models.User.generateHash(req.body.newPassword);
                             user.update({password: newPass});
-                            res.send('Password Changed');
-
+                            res.json({success: true, statusMessage:'Password Changed'});
                         }
                         else {
-                        res.send('Passwords Do Not Match');
+                        res.json({success: false, statusMessage:'Passwords Do Not Match'});
                         }
                     }
                     else {
-                        res.send('Bad Password');
+                        res.json({success: false, statusMessage:'Bad Password'});
                     }
                 }
                 else {
-                    res.send('User Not Found');
+                    res.json({success: false, statusMessage:'User Not Found'});
                 }
             })
         },
