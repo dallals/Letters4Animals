@@ -17,23 +17,16 @@ module.exports = (function() {
                     dataJson   = {},
                     results    = [],
 
-                // Change this once user coords are packaged into req.body /////////////////////
-                userCoords     = {
-                    lat :   '37.281379',
-                    lon :   '-122.0093907'
-                },
-                ////////////////////////////////////////////////////////////////////////////////
-
                 civics         = {
                     //Host: website that serves it.
                     host    : 'openstates.org',
                     //Path: proceeding the host. The rest of the URL.
-                    path    : '/api/v1/legislators/geo/?lat='+userCoords.lat+'&long='+userCoords.lon+'&apikey=9db9f174815a449cb94ff480f2fbe482&fields=full_name,offices,photo_url'
+                    path    : '/api/v1/legislators/geo/?lat='+req.body.userCoords.lat+'&long='+req.body.userCoords.lng+'&apikey=9db9f174815a449cb94ff480f2fbe482&fields=full_name,offices,photo_url'
                 }
 
                 //Request for the get to the above options.
                 request = https.get(civics, function(res) {
-                //     //Think of it as a loop. Every data get that happens runs the res.on
+                    //Think of it as a loop. Every data get that happens runs the res.on
                     res.on('data', function(d) {
                         data.push(decoder.write(d));
                     })
@@ -62,13 +55,11 @@ module.exports = (function() {
                                 position: ''
                             };
 
-                        //Check if user is from Nebraska  /////////////////////////////////
-                        if(false){      // Replace this with actual code once Sharol is done
-                                        // Should be something like UserAddr.state == 'ne'
+                        // Nebraska check
+                        if(req.body.userCoords.state == 'NE'){
                             selRep = dataJson[0];
                             finalRep.position = 'State Senator';
                         }
-                        //////////////////////////////////////////////////////////////////
 
                         // Find the rep for the right cause level
                         else {
@@ -169,10 +160,6 @@ module.exports = (function() {
                                 dataString+=x;
                             }
                             dataJson = JSON.parse(dataString);
-
-                            console.log('=========dataJson.offices=========');
-                            console.log(dataJson.offices);
-                            console.log('=========dataJson.offices=========');
 
                             for (things of dataJson.offices) {
                                 if (things.name.includes(position)) {

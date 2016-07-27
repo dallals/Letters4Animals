@@ -1,5 +1,5 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $route, $routeParams, $http, UserFactory, CauseFactory) {
-
+    ////
     // Browser checks, to be used later maybe
     // Opera 8.0+
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
@@ -19,6 +19,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.printing     = false;
     $scope.selDiv       = '';
     $scope.chosenRep    = [];
+    $scope.payload      = {};
     $scope.logoDown     = false;
     $scope.supported    = false;
     $scope.fixed        = {
@@ -34,17 +35,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.showGuestFields = false;
     $scope.select_recipients = false;
 
-    // Steps for Guest-Users
-    $scope.steps = ['Select Cause', 'Enter Guest Inforamtion', 'View Representatives', 'Preview Letter', 'Print/Save'];
-
     UserFactory.isLoggedIn(function(user){
         if(user.id){
-            // If logged in, populate form with user info
             $scope.loggedUser = user;
             $scope.loggedIn = true;
-            // Steps for Logged In users
-            //$scope.steps = ['Select Cause', 'View Representatives', 'Preview Letter', 'Print/Save'];
-          //
         }
     });
 
@@ -71,82 +65,113 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.fixed.zip     = $scope.selCause.fixed_zipcode;
             $scope.fixed.pos     = $scope.selCause.rep_level;
             $scope.fixed.pic     = './assets/blank.jpg';
-            $scope.gotCause     = true;
+            $scope.gotCause      = true;
         }
         else{
-            var payload             = {};
-                payload.rep_level   = level;
-                // payload.rep_level = 'Lieutenant Governor';
+            $scope.payload.rep_level   = level;
+            // $scope.payload.rep_level = 'State Assembly';
 
-            // Format address to send to civics API
-            if($scope.loggedIn){
-                payload.userAddr = $scope.loggedUser.street_address + ', ' + $scope.loggedUser.city + ' ' + $scope.loggedUser.state + ', ' + $scope.loggedUser.zipcode;
+            // Check to see if the cause is state-level
+            if($scope.selCause.rep_level == 'State Senate' || $scope.selCause.rep_level == 'State Assembly'){
+            // if(true){    // For testing
+                // Package address for Geocoder
+                var geoAddr = {};
+                if($scope.loggedIn){
+                    geoAddr = {
+                        address: $scope.loggedUser.street_address,
+                        city   : $scope.loggedUser.city,
+                        state  : $scope.loggedUser.state,
+                        zip    : $scope.loggedUser.zipcode
+                    };
+                    // Call the Google Geocoder API to get user lat/long to pass to OpenStates API
+                    $http.post('/addressConfirmation', geoAddr).success(function(geoRes){
+                        $scope.payload.userCoords = geoRes[0].geometry.location;
+                        $scope.payload.userCoords.state = $scope.loggedUser.state;
+                        $scope.repPost();
+                    })
+                }
+                else {
+                    $scope.payload.userCoords = $scope.address.choice.geometry.location;
+                    $scope.payload.userCoords.state = $scope.state;
+                    $scope.repPost();
+                }
+            }   // End of state-level check
+            else {
+                $scope.repPost();
             }
-            else{
-                payload.userAddr = $scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;
-            }
+        }   // End of static address check
+    }
 
-            // Grab proper representatives
-            $http.post('/representatives', payload).success(function(reps){
+    $scope.repPost = function() {
 
-                for(var ind in reps){
-                    var rep = reps[ind];
+        // Format the user address to send to APIs
+        if($scope.loggedIn){
+            $scope.payload.userAddr = $scope.loggedUser.street_address + ', ' + $scope.loggedUser.city + ' ' + $scope.loggedUser.state + ', ' + $scope.loggedUser.zipcode;
+        }
+        else{
+            $scope.payload.userAddr = $scope.addr + ', ' + $scope.city + ' ' + $scope.state + ', ' + $scope.zip;
+        }
 
-                    var posArr = rep.position.split(' ');
-                    for(var i=0; i< posArr.length; i++){
-                        switch(posArr[i]){
-                            case 'President'        : rep.letterPos = 'President'; break;
-                            case 'Vice-President'   : rep.letterPos = 'Vice-President'; break;
-                            case 'Senate'           : rep.letterPos = 'Senator'; break;
-                            case 'Representatives'  : rep.letterPos = 'Representative'; break;
-                            case 'Governor'         : rep.letterPos = 'Governor'; break;
-                            case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
-                            case 'Senator'          : rep.letterPos = 'Senator'; break;
-                            case 'Representative'   : rep.letterPos = 'Representative'; break;
-                        }
+        // Grab proper representatives
+        $http.post('/representatives', $scope.payload).success(function(reps){
+
+            for(var ind in reps){
+                var rep = reps[ind];
+
+                var posArr = rep.position.split(' ');
+                for(var i=0; i< posArr.length; i++){
+                    switch(posArr[i]){
+                        case 'President'        : rep.letterPos = 'President'; break;
+                        case 'Vice-President'   : rep.letterPos = 'Vice-President'; break;
+                        case 'Senate'           : rep.letterPos = 'Senator'; break;
+                        case 'Representatives'  : rep.letterPos = 'Representative'; break;
+                        case 'Governor'         : rep.letterPos = 'Governor'; break;
+                        case 'Lieutenant'       : rep.letterPos = 'Lieutenant Governor'; break;
+                        case 'Senator'          : rep.letterPos = 'Senator'; break;
+                        case 'Representative'   : rep.letterPos = 'Representative'; break;
                     }
+                }
 
-                    // Grab the representative's last name for letter salutation
-                    var nameSplit = rep.rep.name.split(' ');
-                    // Check if representative has a 'Jr.', 'Sr.', or other title at the end
-                    if(nameSplit[nameSplit.length-1][nameSplit[nameSplit.length-1].length-1] == '.'){
-                        rep.letterName = nameSplit[nameSplit.length-2];
-                    }
-                    else{
-                        rep.letterName = nameSplit[nameSplit.length-1];
-                    }
+                // Grab the representative's last name for letter salutation
+                var nameSplit = rep.rep.name.split(' ');
+                // Check if representative has a 'Jr.', 'Sr.', or other title at the end
+                if(nameSplit[nameSplit.length-1][nameSplit[nameSplit.length-1].length-1] == '.'){
+                    rep.letterName = nameSplit[nameSplit.length-2];
+                }
+                else{
+                    rep.letterName = nameSplit[nameSplit.length-1];
+                }
 
-                    // Check representative photo
-                    if(!rep.rep.photoUrl){
-                        rep.rep.photoUrl = './assets/blank.jpg';
-                    }
+                // Check representative photo
+                if(!rep.rep.photoUrl){
+                    rep.rep.photoUrl = './assets/blank.jpg';
+                }
 
-                    // Format the address to upper-case for letter
+                // Format the address to upper-case for letter
 
-                    var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
+                var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
+                                    var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                                    return upWord;
+                                }).join(' ');
+                if(rep.rep.address[0].line2){
+                    var newLine2 = rep.rep.address[0].line2.split(' ').map(function(word){
                                         var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                         return upWord;
                                     }).join(' ');
-                    if(rep.rep.address[0].line2){
-                        var newLine2 = rep.rep.address[0].line2.split(' ').map(function(word){
-                                            var upWord = word.charAt(0).toUpperCase() + word.slice(1);
-                                            return upWord;
-                                        }).join(' ');
-                    }
-
-                    var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
-                        var upWord = word.charAt(0).toUpperCase() + word.slice(1);
-                        return upWord;
-                    }).join(' ');
-
-                    rep.rep.address[0].line1 = newLine1;
-                    rep.rep.address[0].line2 = newLine2;
-                    rep.rep.address[0].city = formCity;
                 }
-                $scope.reps = reps;
-                $scope.gotCause = true;
-            })
-        }   // End of static address check
+
+                var formCity  = rep.rep.address[0].city.split(' ').map(function(word){
+                    var upWord = word.charAt(0).toUpperCase() + word.slice(1);
+                    return upWord;
+                }).join(' ');
+
+                rep.rep.address[0].line1 = newLine1;
+                rep.rep.address[0].line2 = newLine2;
+                rep.rep.address[0].city = formCity;
+            }
+            $scope.reps = reps;
+            $scope.gotCause = true;
+        })  // End of POST
     }
 
     $scope.repPicked = function(rep) {
@@ -257,16 +282,11 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     // to hide or show the Cause Details
     $scope.update = function(){
         if(!$scope.loggedIn){
-            $scope.showDetails = true;
-            // $scope.showGuestFields = true;
             $scope.showGuestPrint = true;
-
         }else{
-            // $scope.select_recipients = true;
-            $scope.showDetails = true;
             $scope.showReviewUser = true;
-            // $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
         }
+        $scope.showDetails = true;
     }
 
     // on Print as Guest
@@ -276,8 +296,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     // to hide or show the Print letter and show Representatives section
     $scope.review_letter = function(){
-        $scope.select_recipients = true;
         $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+        $scope.select_recipients = true;
     }
 
     // Restart Letter
@@ -294,14 +314,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.address_selection = function(){
         $scope.showReviewStep = true;
     }
-    //ON letter page, add below function to Login
 
-    //letter_user_logged
-
-    // Login from letter page
-    $scope.letter_user_logged = function(){
-
-    }
 
     // Guest address section
     $scope.address = {choice: undefined};
