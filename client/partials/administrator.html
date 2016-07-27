@@ -31,6 +31,7 @@
                           <th># of User Prints</th>
                           <th># of Guest Prints</th>
                           <th>Created</th>
+                          <th>Updated</th>
                           <th>Enabled</th>
                           <th>Edit</th>
                           <th>Delete</th>
@@ -38,7 +39,7 @@
                           <th>Email</th>
                         </thead>
                         <tbody>
-                          <input type="text" ng-model="filter_causes" placeholder="Search Causes"><br>
+                          <input type="text" ng-model="filter_causes" placeholder=" Search Causes"><br>
                           <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" ></dir-pagination-controls>
             
                           <tr dir-paginate="cause in causes |orderBy:'name'| filter: filter_causes | itemsPerPage:20">
@@ -46,7 +47,8 @@
                             <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
                             <td>{{cause.supports - cause.guests_causes}}</td>
                             <td>{{cause.guests_causes}}</td>
-                            <td>{{cause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</span></td>
+                            <td>{{cause.createdAt | date:"h:mm a '-' MM/dd/yyyy"}}</span></td>
+                            <td>{{cause.updatedAt | date:"h:mm a '-' MM/dd/yyyy"}}</span></td>
                             <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td>
                             <td><a href="#/causeadmin/{{cause.id}}"><button id="editCause" class="admin_panel" >Edit </button></a></td></td>
                             <td><button id="deletecause" class="admin_panel" ng-click='deleteCause(cause)'>Delete</button></td>
@@ -64,23 +66,29 @@
                           <th>Name</th>
                           <th>Email</th>
                           <th># Causes</th>
+                          <th>City</th>
                           <th>State</th>
+                          <th>Phone #</th>
                           <th>Text?</th>
                           <th>Email?</th>
+                          <th>Admin?</th>
                           <th># Logins</th>
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                         <input type="text" ng-model="filter_users" placeholder="Search Users"><br>
+                         <input type="text" ng-model="filter_users" placeholder=" Search Users"><br>
                          <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" ></dir-pagination-controls>
                           <tr dir-paginate="user in users |orderBy:'last_name'| filter: filter_causes | itemsPerPage:20">
                             <td>{{user.id}}</td>
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{user.email}}</td>
                             <td>{{user.supports}}</td>
+                            <td>{{user.city}}</td>
                             <td>{{user.state}}</td>
+                            <td>{{user.phone_number}}</td>
                             <td>{{user.phone_notification}}</td>
                             <td>{{user.email_notification}}</td>
+                            <td>{{user.admin}}</td>
                             <td>{{user.login_count}}</td>
                             <td><button id="deletecause" class="admin_panel" ng-click='delUser(user)'>Delete</button></td>
                           </tr>
@@ -96,11 +104,12 @@
                           <th>Last Name</th>
                           <th>Cause ID#</th>
                           <th>Cause Name</th>
+                          <th>City</th>
                           <th>State</th>
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <input type="text" ng-model="filter_guests" placeholder="Search Guest Users"><br>
+                          <input type="text" ng-model="filter_guests" placeholder=" Search Guest Users"><br>
                           <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" ></dir-pagination-controls>
                           <tr dir-paginate="guest in guests |orderBy:'last_name'| filter: filter_causes | itemsPerPage:20">
                             <td>{{guest.id}}</td>
@@ -108,6 +117,7 @@
                             <td>{{guest.last_name}}</td>
                             <td>{{guest.cause_id}}</td>
                             <td>{{guest.cause_name}}</td>
+                            <td>{{guest.city}}</td>
                             <td>{{guest.state}}</td>
                             <td><button id="deletecause" class="admin_panel" ng-click='delGuest(guest)'>Delete</button></td>
                           </tr>
@@ -128,7 +138,7 @@
                           <th>Delete</th>
                         </thead>
                         <tbody>
-                          <input type="text" ng-model="filter_pendingcauses" placeholder="Search Pending"><br>
+                          <input type="text" ng-model="filter_pendingcauses" placeholder=" Search Pending"><br>
                           <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" ></dir-pagination-controls>
                           <tr dir-paginate="pendingcause in pendingcauses |orderBy:'name'| filter: filter_causes | itemsPerPage:20">
                             <td>{{pendingcause.name}}</td>
