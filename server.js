@@ -120,14 +120,14 @@ function onListening() {
 
 //RESET PASSWORD URL CHECKING IF THAT
 var now = new Date();
-models.User.findAll().then(function(data) {
+models.User.findAll({attributes: ['id','first_name','last_name','reset_pw_url_created_at', 'reset_pw_url']}).then(function(data) {
     console.log('Checking All reset_pw_created_at');
     for (user of data) {
         if (user.dataValues.reset_pw_url_created_at) {
             var urlCreatedAt = user.dataValues.reset_pw_url_created_at;
             // console.log(now.getTime()-user.dataValues.reset_pw_url_created_at.getTime());
             if (now.getTime()-urlCreatedAt.getTime() >= 86400000 || !urlCreatedAt) {
-                console.log('User:',user.name+"'s",'reset password url is expired. Deleting it.');
+                console.log('User:',user.dataValues.first_name+' '+user.dataValues.last_name+"'s",'reset password url is expired. Deleting it.');
                 user.update({reset_pw_url: null, reset_pw_url_created_at: null});
             }
         } else if(!user.dataValues.reset_pw_url || !user.dataValues.reset_pw_url_created_at){
@@ -139,7 +139,7 @@ models.User.findAll().then(function(data) {
 }).catch(function(err) {
     console.log(err);
 })
-models.Pendinguser.findAll().then(function(data) {
+models.Pendinguser.findAll({attributes: ['id','first_name','last_name','createdAt']}).then(function(data) {
     console.log('Checking All Pending Users');
     for (user of data) {
         if (user.dataValues) {
@@ -154,7 +154,7 @@ models.Pendinguser.findAll().then(function(data) {
 })
 setInterval(function () {
     var now = new Date();
-    models.User.findAll().then(function(data) {
+    models.User.findAll({attributes: ['id','first_name','last_name','reset_pw_url_created_at', 'reset_pw_url']}).then(function(data) {
         console.log('Checking All reset_pw_created_at');
         for (user of data) {
             if (user.dataValues.reset_pw_url_created_at) {
@@ -169,7 +169,7 @@ setInterval(function () {
         console.log(err);
     })
     //Deleting expired pendingusers
-    models.Pendinguser.findAll().then(function(data) {
+    models.Pendinguser.findAll({attributes: ['id','first_name','last_name','createdAt']}).then(function(data) {
         console.log('Checking All Pending Users');
         for (user of data) {
             if (user.dataValues) {
