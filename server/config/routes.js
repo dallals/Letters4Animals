@@ -175,6 +175,9 @@ module.exports = function(app){
     app.post('/sendText', function(req,res){
         users.sendText(req,res);
     })
+    app.post('/sendEmail', function(req, res){
+        users.sendEmail(req, res);
+    })
 
 };
 
