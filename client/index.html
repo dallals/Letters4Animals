@@ -157,8 +157,11 @@
                                   <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="registerAddress()">
                                   <span class="regErrors" ng-bind="regErrors.city"></span>
                               </div>
+                              <!-- State -->
                               <div class="col-sm-5">
-                                  <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()">
+                                  <select id="statereg" class="form-control" ng-options='state for state in states' ng-model='state' ng-change="registerAddress()">
+                                      <option value='' selected disabled>Choose a State</option>
+                                  </select>
                                   <span class="regErrors" ng-bind="regErrors.state"></span>
                               </div>
                           </div>
@@ -206,7 +209,7 @@
                           <div class="form-group">
                               <div class="col-sm-10">
                                   <div class="checkbox">
-                                      <label><input type="checkbox" ng-model="user.volunteer"> Volunteer</label><br>
+                                      <label><input type="checkbox" ng-model="user.volunteer"> Would you like to volunteer a custom letter?</label><br>
                                       <label><input type="checkbox" ng-model="user.textalert"> Would you like to receive text alerts for new causes?</label><br>
                                       <label><input type="checkbox" ng-model="user.emailalert"> Would you like to receive email alerts for new causes?</label><br>
                                   </div>
