@@ -1,65 +1,66 @@
 <div id="main">
-  <header id="addcauseheader">
-    <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
-    <h2>Add & Edit a Cause</h2>
-  </header>
+    <header id="addcauseheader">
+        <a href="#administrator">
+            <button class="btn btn-primary analytics">Back to Admin Panel</button>
+        </a>
+        <h2 class="not_centered">Create A New Cause</h2>
+    </header>
 
+    <!-- Add New Cause Page from the Admin Panel- Uses the singleCauseController -->
+    <form name="causeadmin" class="letter_background" method="post" ng-controller="singleCauseController" ng-model="cause">
 
-  <form name="causeadmin" method="post" ng-controller="singleCauseController" ng-model="cause">
+        <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
+        <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
+        <div class="halfsection">
+            <h4>Recipients</h4><input type="radio" name="rep_level" ng-model="cause.rep_level" value="President of the United States">
+            <label> President of the United States</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Vice-President of the United States">
+            <label> Vice-President of the United States</label><br>
+            <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States Senate"><label> United States Senate</label><br>
+            <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States House of Representatives">
+            <label> United States House of Representatives</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Governor">
+            <label> Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Lieutenant Governor">
+            <label> Lieutenant Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Senate">
+            <label> State Senate</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Assembly">
+            <label> State Assembly (House of Representatives)</label><br>
 
-    <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
-    <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
-    <div class="halfsection">
-      <h4>Recipients</h4>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="President of the United States"><label>  President of the United States</label><br>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="Vice-President of the United States"><label>  Vice-President of the United States</label><br>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States Senate"><label>  United States Senate</label><br>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States House of Representatives"><label>  United States House of Representatives</label><br>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="Governor"><label>  Governor</label><br>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="Lieutenant Governor"><label>  Lieutenant Governor</label><br>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Senate"><label>  State Senate</label><br>
-        <input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Assembly"><label>  State Assembly (House of Representatives)</label><br>
+            <h4>Enable Cause?</h4>
+            <label> Yes: </label>
+            <input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}">
+        </div>
 
-        <h4>Enable Cause?</h4>
-        <label> Yes: </label><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}">
-    </div>
+        <div class="halfsection">
+            <h4>Fixed Recipients?</h4>
+            <label>Yes:</label><input type="checkbox" ng-click='toggleFixed(recipient)' ng-checked="{{cause.fixed}}"></td><br>
+            <label>Name of Recipient</label><input type="text" name="fixed_name" ng-model="cause.fixed_name">
+            <label>Street Address</label><input type="text" name="fixed_address" ng-model="caused.fixed_address">
+            <label>City</label><input type="text" name="fixed_city" ng-model="cause.fixed_city">
+            <label>State</label><input type="text" name="fixed_state" ng-model="cause.fixed_state">
+            <label>Zipcode</label><input type="text" name="fixed_zipcode" ng-model="cause.fixed_zipcode">
+        </div>
 
-    <div class="halfsection">
-      <h4>Fixed Recipients?</h4>
-        <label>Yes:</label> <input type="checkbox" ng-click='toggleFixed(recipient)' ng-checked="{{cause.fixed}}"></td><br>
-        <label>Name of Recipient</label><input type="text" name="fixed_name" ng-model="cause.fixed_name">
-        <label>Street Address</label><input type="text" name="fixed_address" ng-model="caused.fixed_address">
-        <label>City</label><input type="text" name="fixed_city" ng-model="cause.fixed_city">
-        <!-- for state do we have any data formatting for the DB? potentially change to a select of state abbreviations or names -->
-        <label>State</label><input type="text" name="fixed_state" ng-model="cause.fixed_state">
-        <label>Zipcode</label><input type="text" name="fixed_zipcode" ng-model="cause.fixed_zipcode">
-    </div>
+        <div class="letter content">
+            <h4>Letter Content</h4>
+            <!-- TinyMce is the RichText Editor -->
+            <textarea ui-tinymce="tinymceOptions" name="string" class="lettertext" ng-model="cause.letter_body" required></textarea>
+        </div>
 
-    <div class="letter content">
-      <h4>Letter Content</h4>
-      <textarea name="string" class="lettertext" ng-model="cause.letter_body" required></textarea>
-    </div>
+        <div class="letter content">
+            <h4>Footnotes</h4>
+            <textarea name="string" class="footnotetext" ng-model="cause.letter_footnote"></textarea>
+        </div>
 
-    <div class="letter content">
-      <h4>Footnotes</h4>
-      <textarea name="string" class="footnotetext" ng-model="cause.letter_footnote"></textarea>
-    </div>
+        <h4>Notification Settings</h4>
+        <div class="notification_content">
+            <h5>Text Blurb</h5>
+            <textarea name="string" class="footnotetext" ng-model="cause.text_content"></textarea>
+        </div>
 
-    <h4>Notification Settings</h4>
-    <div class="notification_content">
-      <h5>Text Blurb</h5>
-      <textarea name="string" class="footnotetext" ng-model="cause.text_content"></textarea>
-    </div>
+        <div class="notification_content">
+            <h5>Email Notification Content </h5>
+            <textarea name="string" class="footnotetext" ng-model="cause.email_content"></textarea>
+        </div><br><br>
 
-    <div class="notification_content">
-      <h5>Email Notification Content </h5>
-      <textarea name="string" class="footnotetext" ng-model="cause.email_content"></textarea>
-    </div>
-
-    <input type="submit" ng-click="addCause(cause)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Add Cause"></input>
-
-    <!-- <input type="submit" ng-click="updateCause()" class="btn btn-success analytics" id="update_cause" name="update_cause" value="Update Cause"></input> -->
-
-  </form>
+        <input type="submit" ng-click="addCause(cause)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Create New Cause"></input><br><br><br>
+    </form>
 
 </div>

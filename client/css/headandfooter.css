@@ -1,5 +1,4 @@
 /*HEADER- Basic CSS*/
-
 body{
   font-family:"Open Sans", Arial, sans-serif;
   -webkit-font-smoothing:antialiased;
@@ -17,11 +16,13 @@ body{
   border-bottom: solid 1.5px rgba(180, 179, 182, 0.5);
   transition:background-color 0.4s, color 0.4s, transform 0s, opacity 0s ease-in-out;
   font-weight: 600;
+  overflow:visible !important;
 }
 
 .right-header #navbar li a{
     cursor: pointer;
 }
+
 #container{
   width:90%;
   margin: 0px auto;
@@ -30,22 +31,19 @@ body{
 .left-header{
   display: inline-block;
   padding:3%;
+  padding-right:0px;
 }
 
 #menu{
   padding:2%;
   width:30%;
   display:inline-block;
-  transition:all 0s ease-in-out;
   margin-top:3%;
-}
-
-#menu{
-  display:inline-block;
-  width:63%;
-  padding:2%;
-  vertical-align: top;
+  width:68%;
   float:right;
+  vertical-align: top;
+  padding-left:0px;
+  transition:all 0s ease-in-out;
 }
 
 .right-header > ul >li{
@@ -54,30 +52,24 @@ body{
   font-size: 1.1em;
 }
 
-#menu{
-  display:inline-block;
-}
-
 #navbar > li > a{
     text-decoration: none;
     line-height:100%;
     color:rgba(68, 68, 68, 0.89);
 }
-
-
 #mobile-nav{
-  display:none;
+    display:none;
 }
 #navbar > li:nth-child(10) > a > img{
-  vertical-align: bottom;
+    vertical-align: bottom;
 }
 
 #navbar > li.social{
-  padding-right:0px;
+    padding-right:0px;
 }
 /*HEADER Animations & Fixed Toolbar resizing on scroll*/
 #navbar > li > a:hover{
-  color: rgba(68, 68, 68, 0.60);
+    color: rgba(68, 68, 68, 0.60);
 }
 
 .activemenu {
@@ -88,65 +80,85 @@ body{
 .fixed {
     position:fixed !important;
     top:0;
-		width:100%;
+	width:100%;
     height: 70px !important;
-		z-index: 99;
+	z-index: 99;
     padding-bottom: 0px;
     margin-top:0px;
     border-bottom: none;
+    overflow:visible !important;
 }
 
 .reduce{
-  padding-top:1% !important;
-  margin:0px !important;
-  padding-bottom:1% !important;
-  z-index: 1015;
+    padding-top:1% !important;
+    margin:0px !important;
+    padding-bottom:1% !important;
+    z-index: 1015;
+    overflow:visible !important;
 }
 
 .reducemenu{
-  padding-top:1% !important;
-  margin:1% !important;
-  padding-bottom:1% !important;
-  z-index: 1015;
+    padding-top:1% !important;
+    margin-top:1% !important;
+    padding-bottom:1% !important;
+    z-index: 1015;
+    overflow:visible !important;
 }
 
 #buttonnav{
-  margin-top: 20px;
-  height:30px;
-  border:none;
-  background:white;
+    margin-top: 20px;
+    height:30px;
+    border:none;
+    background:white;
 }
 
-
 /* HEADER Responsive Design*/
-@media (max-width: 1167px) {
-  #navbar > li > a{
-    padding-left:0px;
-    font-size:.90em;
-  }
 
-  #menu{
-    padding-left:0px;
-    padding-right:0px;
-    width: 60%;
-    float:right;
-  }
+@media (max-width: 1285px) {
+    #navbar > li > a{
+        padding-left:0px;
+        font-size:.89em;
+        margin-left:0px;
+        margin-right:0px;
+        padding-right:0px;
+    }
+
+    .left-header{
+        margin-top:1% !important;
+        width:200px;
+    }
+@media (max-width: 1191px) {
+    #menu{
+        padding-left:0px;
+        padding-right:0px;
+        font-size:.85em;
+        margin-right;
+        width: 70%;
+        float:right;
+        margin-top:4%
+    }
+
+    .left-header{
+      margin-top:1% !important;
+    }
+
+    #logo{
+      width:150px;
+    }
 }
 
 @media (max-width: 1060px) {
   #menu{
-    padding-left:2%;
-    margin-top:4.5%;
+    padding-left:0px;
+    margin-top:4%;
     padding-right:0px;
-    width: 65%;
     font-weight:500;
-    font-size: 1em;
+    font-size: .90em;
+    width:75%;
   }
 
-  .left-header{
-    margin-top:1% !important;
-    width: 300px;
-    padding-right:5%;
+  #img.logo{
+      width:150px;
   }
 
   #navbar{
@@ -160,7 +172,7 @@ body{
   }
 
   #logo{
-    width:150px;
+      width: 80% !important;
   }
 
   #navbar > li > a{
@@ -169,23 +181,23 @@ body{
   }
 
   #container > div.left-header{
-    width: 150px !important;
+    width: 120px !important;
     padding-right: 0px;
     padding-top:5px !important;
+    margin-top:2% !important;
   }
 
   #container > div.left-header.reduce{
-    width: 200px !important;
     padding-right: 0px;
+    padding-left:0px;
     padding-top:5px !important;
   }
 
   #menu{
-    padding-left:1%;
     padding-right:0px;
     padding-bottom:0px;
-    width:70%;
-    margin-top:.5%;
+    width:81%;
+    margin-top:1%;
     float:right;
   }
 
@@ -199,7 +211,7 @@ body{
 
 }
 
-@media (max-width: 760px){
+@media (max-width: 767px){
 
   #main-header{
     height: 70px !important;
@@ -237,8 +249,12 @@ body{
       display: block;
       padding:2%;
       width:150px;
-    }
+  }
 
+  #mobile-nav > div > ul > li.social.social-resp > div{
+      width:150px;
+      margin:0px auto;
+  }
 
   #mobile-nav a {
       text-shadow:0px 1px 0px rgba(0,0,0,0.5);

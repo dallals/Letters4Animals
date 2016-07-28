@@ -1,206 +1,208 @@
 <div class="container" ng-controller='letterDisplayController'>
-
     <div class="row banner">
         <div class="col-md-12">
             <img src="/assets/pigsbanner.jpg" alt="pigs banner" />
         </div>
     </div>
 
+    <div class="col-md-12">
+        <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span>
+
+        <div class="cause_step" ng-hide="select_recipients">
+
+            <h3 class="bottom_margin">Choose your cause </h3>
+            <div class="causeinfo letter_background" >
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="causeSelect" class="col-sm-2 control-label">Cause:</label>
+                        <div class="col-sm-10">
+                            <select id="causeSelect" class="form-control" ng-options='cause.name for cause in causes' ng-model='selCause' ng-change="update()">
+                                <option value='' selected disabled>Choose a Cause</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
 
 
 
-    <div ng-show='loggedIn' class="col-md-12">
-      <div id="homevolcause" class="col-md-4">
-        <h3>Do You Use Your Voice For The Animals?</h3>
-        <p> Want to share a letter you have sent?<br>
-            Want to share an idea for a new letter?<br>
-            Submit your letter below and we might feature it on Letters4Animals.</p><br>
-        <a href="#volunteer"><button id="volunteer" class="btn btn-primary">Volunteer A Custom Letter</button></a>
-      </div>
-    </div><br><br>
+                <form ng-if="showDetails" class="form-horizontal">
+                    <h4 class="text-center"><b>Cause Details</b></h4>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no_top_padding">Name:</label>
+                        <div class="col-sm-10">
+                            {{ selCause.name }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label no_top_padding">Description:</label>
+                        <div class="col-sm-10">
+                            {{ selCause.description }}
+                        </div>
+                    </div>
+                </form>
 
-    <h3 class="bottom_margin">Choose your cause <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span></h3>
-    <div class="causeinfo letter_background" >
-        <form class="form-horizontal">
-            <div class="form-group">
-                <label for="causeSelect" class="col-sm-2 control-label">Cause:</label>
-                <div class="col-sm-10">
-                    <select id="causeSelect" class="form-control" ng-options='cause.name for cause in causes' ng-model='selCause' ng-change="update()">
-                        <option value='' selected disabled>Choose a Cause</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-
-        <!-- <div id="letter_form_address" > -->
-        <div ng-if="showDetails" >
-            <h4 class="text-center"><b>Cause Details</b></h4>
-
-            <form class="form-horizontal">
-                <div class="form-group">
-                    <label for="cause_description" class="col-sm-2 control-label">Cause Description:</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="3"id="cause_description" readonly >{{ selCause.description }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="cause_letter_body" class="col-sm-2 control-label">Cause Letter Body:</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="3"id="cause_letter_body" readonly >{{ selCause.letter_body }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="cause_rep_level" class="col-sm-2 control-label">Cause Rep. Level:</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" rows="3"id="cause_rep_level" readonly >{{ selCause.rep_level }}</textarea>
-                    </div>
-                </div>
-            </form>
-        </div>
-
-        <span class="text-center">
-            <button ng-if="!loggedIn && showGuestPrint" ng-click="print_as_guest()" class="btn btn-primary print_save">Print as Guest</button>
-            <a data-toggle="modal" data-target="#Login" ng-if="!loggedIn && showGuestPrint" ng-click='login_the_User()' class="btn btn-primary print_save">Login</a>
-            <button ng-if="loggedIn && selCause" ng-click='review_letter()' class="btn btn-primary print_save">Review</button>
-        </span>
-    </div>
-
-    <div ng-show='!loggedIn && showGuestFields'>
-        <h3>Enter your information </h3>
-        <div class="guestinfo letter_background">
-            <b>Guest Info:</b>
-            <form class="form-horizontal">
-                <!-- First & Last Name Input Fields -->
-                <div class="form-group">
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName">
-                        <span class="regErrors" ng-bind="regErrors.firstName"></span>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName">
-                        <span class="regErrors" ng-bind="regErrors.lastName"></span>
-                    </div>
-                </div>
-
-                <!-- Address -->
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="registerAddress()">
-                        <span class="regErrors" ng-bind="regErrors.address"></span>
-                    </div>
-                </div>
-                <!-- City && State-->
-                <div class="form-group">
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="registerAddress()">
-                        <span class="regErrors" ng-bind="regErrors.city"></span>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()">
-                        <span class="regErrors" ng-bind="regErrors.state"></span>
-                    </div>
-                </div>
-                <!-- Zip -->
-                <div class="form-group">
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="registerAddress()">
-                        <span class="regErrors" ng-bind="regErrors.zip"></span>
-                    </div>
-                </div>
-                <!-- For Selecting Correct Location -->
-                <p>
-                    Select Address below:
+                <p class="text-center">
+                    <button ng-show="!loggedIn && showGuestPrint" ng-click="showGuestFields=true" class="btn btn-primary print_save">Print as Guest</button>
+                    <a data-toggle="modal" data-target="#Login" ng-show="!loggedIn && showGuestPrint" class="btn btn-primary print_save">Login</a>
+                    <button ng-show="loggedIn && selCause" ng-click='review_letter()' class="btn btn-primary print_save">Next</button>
                 </p>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div id="choices">
-                            <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" ng-change="address_selection()" required> {{ choice.formatted_address }}
-                            </label>
-                            <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            <button ng-if="showReviewStep" ng-click="review_letter()" class="btn btn-primary print_save pull-right bottom_margin">Review</button>
-        </div>
-    </div>
-    <!-- end guest info -->
-
-    <br>
-
-    <div ng-show="select_recipients">
-        <h3>Select recipient(s)</h3>
-        <div class="printletter letter_background">
-            <div ng-show=gotCause>
-                <div class='col-sm-6 repbox' ng-repeat='rep in reps'>
-                    <label for='{{rep.letterName}}'>
-                        <div class="media">
-                            <div class="media-left media-bottom">
-                                <img class="media-object"  ng-src='{{rep.rep.photoUrl }}' alt=Rep width=150 height=187>
-                            </div>
-                            <div class="media-body">
-                                <p class="media-heading">
-                                    <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
-                                    {{ rep.rep.name }}
-                                </p>
-                                <p class="no_bold">
-                                    {{ rep.position }}
-                                </p>
-                            </div>
-                        </div>
-                    </label>
-                </div>
-                <div ng-if='!reps' class='col-sm-12 repbox2'>
-                    <label for='{{selCause.id}}'> <!-- For fixed causes, the selection by label is on the id instead of lettername -->
-                        <div class="media">
-                            <div class="media-left media-bottom">
-                                <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187>
-                            </div>
-                            <div class="media-body">
-                                <p class="media-heading">
-                                    <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)'>
-                                    {{ fixed.name }}
-                                </p>
-                                <p class="no_bold">
-                                    {{ fixed.pos }}
-                                </p>
-
-                            </div>
-                        </div>
-                    </label>
-                </div>
             </div>
         </div>
 
-        <!--- Letters --->
 
-        <div class="preview_letter">
-            <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || chosenRep[0]=='null' ">Preview and Print your letter(s) <span class="pull-right"><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></span></h3>
-            <div id='printDiv' ng-show=true>
-                <div class='page-break' ng-repeat='rep in chosenRep'>
-                    <div class="printletter letter_background">
-                        <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo><br>
+        <div ng-show='!loggedIn && showGuestFields'>
+            <h3>Enter your information </h3>
+            <div class="guestinfo letter_background">
+                <b>Guest Info:</b>
+                <form class="form-horizontal">
+                    <!-- First & Last Name Input Fields -->
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName" required>
+                            <span class="regErrors" ng-bind="regErrors.firstName"></span>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName" required>
+                            <span class="regErrors" ng-bind="regErrors.lastName"></span>
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="registerAddress()" required>
+                            <span class="regErrors" ng-bind="regErrors.address"></span>
+                        </div>
+                    </div>
+                    <!-- City && State-->
+                    <div class="form-group">
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="registerAddress()">
+                            <span class="regErrors" ng-bind="regErrors.city" required></span>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()" required>
+                            <span class="regErrors" ng-bind="regErrors.state"></span>
+                        </div>
+                    </div>
+                    <!-- Zip -->
+                    <div class="form-group">
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="registerAddress()" required>
+                            <span class="regErrors" ng-bind="regErrors.zip"></span>
+                        </div>
+                    </div>
+                    <!-- For Selecting Correct Location -->
+                    <p>
+                        Confirm Address Below:
+                    </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="choices">
+                                <label style='display: block;' ng-repeat='choice in choices track by $index'>
+                                    <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-change="address_selection()" required> {{ choice.formatted_address }}
+                                </label>
+                                <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <p class="text-center">
+                    <button ng-if="showReviewStep" ng-click="review_letter()" class="btn btn-primary print_save  bottom_margin">Next</button>
+                </p>
+
+            </div>
+        </div>
+        <!-- end guest info -->
+
+        <br>
+
+        <div ng-show="select_recipients">
+            <h3>Select recipient(s)</h3>
+            <div class="printletter letter_background">
+                <div ng-show='!gotCause'>
+                    <h5 id=loadtxt>Fetching Representatives...</h5>
+                    <img id=loadgif src="./assets/circles.gif" alt="Loading..." />
+                </div>
+                <div ng-show=gotCause>
+                    <div class='col-sm-6 repbox' ng-repeat='rep in reps' ng-class="{rep_active: isActive(rep)}">
+                        <label for='{{rep.letterName}}'>
+                            <div class="media">
+                                <div class="media-left media-bottom">
+                                    <img class="media-object"  ng-src='{{rep.rep.photoUrl }}' alt=Rep width=150 height=187>
+                                </div>
+                                <div class="media-body">
+                                    <p class="media-heading">
+                                        <input id='{{rep.letterName}}' type="checkbox" ng-click='repPicked(rep)'>
+                                        {{ rep.rep.name }}
+                                    </p>
+                                    <p class="no_bold">
+                                        {{ rep.position }}
+                                    </p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div ng-if='!reps' class='col-sm-6 repbox2' ng-class="{rep_active: isActive(rep)}">
+                        <label for='{{selCause.id}}'> <!-- For fixed causes, the selection by label is on the id instead of lettername -->
+                            <div class="media">
+                                <div class="media-left media-bottom">
+                                    <img ng-src='{{rep.rep.photoUrl || fixed.pic }}' alt=Rep width=150 height=187>
+                                </div>
+                                <div class="media-body">
+                                    <p class="media-heading">
+                                        <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)'>
+                                        {{ fixed.name }}
+                                    </p>
+                                    <p class="no_bold">
+                                        {{ fixed.pos }}
+                                    </p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>    <!--- End of selecting reps div --->
+
+
+            <!--- Letters --->
+            <div class="preview_letter">
+                <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || fixed.name ">Preview and Print your letter(s)</h3>
+                <div id='printDiv' ng-show=true>
+                    <div class="page-break printletter letter_background" ng-repeat='rep in chosenRep'>
+                        <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo class="pull-right"><br>
                         {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
                         {{ addr || loggedUser.street_address }}<br>
                         {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
                         <br><br>
                         {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
                         {{ rep.position || fixed.pos }}<br>
-                        {{ rep.rep.address[0].line1 || fixed.addr }}{{ ', ' + rep.rep.address[0].line2 }}<br>
-                        {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br>
+                        {{ rep.rep.address[0].line1 || fixed.addr }}<span ng-show='rep.rep.address[0].line2'>{{', ' + rep.rep.address[0].line2 }}</span><br>
+                        {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
 
                         Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-                        {{ selCause.letter_body }}<br><br>
-                        Sincerely, <br><br><br>
+                        <p id="letterrichtext" name='richLetter'></p>
+                        <br><br>
+                        Sincerely, <br><br>
                         {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
-                        <br><br><br><br>
+                        <br><br><br>
                         {{ selCause.letter_footnote }}
                     </div>
                 </div>
+            </div> <!--- End of letters --->
 
-            </div>
-        </div> <!--- End of letters --->
+            <p class="text-center" ng-if="chosenRep[0] || chosenRep[1] || fixed.name "><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></p>
+        </div> <!--- End of Reps+letter main div --->
+
+        <div ng-show='loggedIn' id="homevolcause" class="col-md-12">
+            <h3>Do You Use Your Voice For The Animals?</h3>
+            <p> Want to share a letter you have sent?<br>
+                Want to share an idea for a new letter?<br>
+                Submit your letter below and we might feature it on Letters4Animals.
+            </p><br>
+            <a href="#volunteer"><button id="volunteer" class="btn btn-primary">Volunteer A Custom Letter</button></a>
+        </div>
     </div>
+
 </div>

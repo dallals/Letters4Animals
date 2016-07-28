@@ -173,7 +173,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
                 if (data.errors && data.errors.errors) {
                     for (var errIndex in data.errors.errors) {
                         var err = data.errors.errors[errIndex];
-                        
+
                         if (err.path == 'first_name') { bevalid = false;
                             $scope.regErrors.firstName += err.message; }
                         if (err.path == 'last_name') { bevalid = false;
@@ -231,5 +231,13 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
             }); // End of UserFactory.registerUser
         }
     }   // End of $scope.registerUser
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
 
 });

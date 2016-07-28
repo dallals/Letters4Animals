@@ -1,15 +1,20 @@
-<div id="adminheader"><h3>Administrative Panel</h3></div>
+<!-- Uses the singleCauseController -->
+
+<div id="adminheader">
+    <h3>Administrative Panel</h3></div>
 <div id="admin_container" ng-controller='singleCauseController' ng-show='loggedIn'>
 
-<!-- Left Admin panel -->
-<div class="col-sm-12 admin_container">
-  {{pendcauseview}}
-  <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
+    <!-- Left Admin panel -->
+    <div class="col-sm-12 admin_container">
+        {{pendcauseview}}
+        <a href="#administrator">
+            <button class="btn btn-primary analytics">Back to Admin Panel</button>
+        </a>
 
-  <h3>{{pendcauseview.name}}</h3><br><br>
-  <label>Pending Cause Description:</label><br>
-  {{pendcauseview.description}}<br><br><br>
-  <label>Letter:</label><br>
-  {{pendcauseview.letter_body}}<br><br>
+        <h3>{{pendcauseview.name}}</h3><br><br>
+        <label>Pending Cause Description:</label>
+        <br> {{pendcauseview.description}}<br><br><br>
+        <label>Letter:</label><br>
+        <p id="pendletter"></p><br><br>
 
-</div>
+    </div>

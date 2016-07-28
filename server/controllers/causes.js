@@ -4,8 +4,6 @@ module.exports = (function(){
     return {
 
         getAllCauses: function(req, res) {
-            // SELECT "Causes".*, "Guests".cause_id as "guests_causes", COUNT("Supports".cause_id) as "supports", COUNT("Guests".cause_id) as "guests" FROM "Causes" LEFT JOIN "Supports" ON "Supports"."cause_id" = "Causes".id LEFT JOIN "Guests" ON "Guests"."cause_id" = "Causes".id GROUP BY "Causes".id, "Guests".cause_id;
-            // models.sequelize.query('SELECT "Causes".*, "Guests".cause_id as "guests_causes", COUNT("Supports".cause_id) as "supports", COUNT("Guests".guests_causes) as "guests" FROM "Causes" LEFT JOIN "Supports" ON "Supports"."cause_id" = "Causes".id LEFT JOIN "Guests" ON "Guests"."cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
             models.sequelize.query('SELECT "Causes".*, "Guests".cause_id as "guests_causes", COUNT("Supports".cause_id) as "supports", COUNT("Guests".cause_id) as "guests" FROM "Causes" LEFT JOIN "Supports" ON "Supports"."cause_id" = "Causes".id LEFT JOIN "Guests" ON "Guests"."cause_id" = "Causes".id GROUP BY "Causes".id, "Guests".cause_id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(causes){
                 res.json(causes);
@@ -15,8 +13,6 @@ module.exports = (function(){
         showCauseInfo: function (req, res) {
             models.Cause.find({where: ["id = ?", req.params.id]}).then(function(data){
                 if(data){
-                    console.log("data.dataValues");
-                    console.log(data.dataValues);
                     res.json(data.dataValues);
                 }
                 else {
@@ -39,20 +35,8 @@ module.exports = (function(){
                 res.json(guests);
             })
         },
-        //     models.Guest.findAll({where: ["cause_id = ?", req.params.id]}).then(function(data){
-        //         if(data){
-        //             console.log("data.dataValues");
-        //             console.log(data.dataValues);
-        //             res.json(data.dataValues);
-        //         }
-        //         else {
-        //             res.send('Cause Not Found');
-        //         }
-        //     })
-        // },
 
         getSingleCause: function(req,res){
-            console.log("made it to model",req.params.id);
             var id = req.params.id;
             models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(cause){
@@ -84,7 +68,6 @@ module.exports = (function(){
         },
 
         addCause: function(req, res) {
-          console.log("made it to backend controller",req.body);
             if (req.body) {
                 var cause = req.body;
                 models.Cause.create({
@@ -148,10 +131,8 @@ module.exports = (function(){
             }
         },
 
-      delCause: function(req, res){
-         var self = this;
-            // console.log(self);
-            console.log('in delCause');
+        delCause: function(req, res){
+            var self = this;
             // Find user, find and delete user's supports, then delete user
             models.Cause.find({where: ['id = ?', req.body.id]})
             .then(function(cause){
@@ -166,26 +147,6 @@ module.exports = (function(){
                 })
             })
         },
-      //   models.Cause.destroy({where: ['id = ?', req.body.id]})
-      //     .then(function(cause){
-      //       models.sequelize.query('SELECT "Causes".*, COUNT("Supports".cause_id) as "supports" FROM "Causes" LEFT JOIN "Supports" ON "cause_id" = "Causes".id GROUP BY "Causes".id;', { type: models.sequelize.QueryTypes.SELECT})
-      //       .then(function(causes){
-      //           res.json(causes);
-      //       }).catch(function(err){
-      //         console.log(err)
-      //       })
-      //     })
-
-      // },
-
-      // update: function(req, res){
-      //   models.Cause.find({where: ['id = ?', req.body.id]})
-      //       .then(function(cause){
-      //           res.json(cause);
-      //       }).catch(function(err){
-      //           console.log(err)
-      //       })
-      // },
 
         update: function(req, res) {
             console.log('getting to updated causes backend')
@@ -217,8 +178,6 @@ module.exports = (function(){
                 console.log('Missing Cause');
             }
         },
-
-
 
     }//closes return
 })();

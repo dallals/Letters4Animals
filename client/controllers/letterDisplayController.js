@@ -1,5 +1,4 @@
 AnimalApp.controller('letterDisplayController', function ($scope, $location, $route, $routeParams, $http, UserFactory, CauseFactory) {
-    ////
     // Browser checks, to be used later maybe
     // Opera 8.0+
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
@@ -22,6 +21,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.payload      = {};
     $scope.logoDown     = false;
     $scope.supported    = false;
+    $scope.letterFormat = false;
     $scope.fixed        = {
         name    : '',
         pos     : '',
@@ -35,6 +35,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.showGuestFields = false;
     $scope.select_recipients = false;
 
+
     UserFactory.isLoggedIn(function(user){
         if(user.id){
             $scope.loggedUser = user;
@@ -44,10 +45,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     CauseFactory.getAllCauses(function(causes){
         for(var ind in causes){
-            causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
             // Check if cause should be pre-selected from a link/URL
             if(causes[ind].id == $routeParams.causeId){
                 $scope.selCause = causes[ind];
+                $scope.update();
             }
         }
         $scope.causes = causes;
@@ -65,15 +66,16 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $scope.fixed.zip     = $scope.selCause.fixed_zipcode;
             $scope.fixed.pos     = $scope.selCause.rep_level;
             $scope.fixed.pic     = './assets/blank.jpg';
+
             $scope.gotCause      = true;
         }
         else{
             $scope.payload.rep_level   = level;
             // $scope.payload.rep_level = 'State Assembly';
+            // $scope.selCause.rep_level = 'State Assembly';
 
             // Check to see if the cause is state-level
             if($scope.selCause.rep_level == 'State Senate' || $scope.selCause.rep_level == 'State Assembly'){
-            // if(true){    // For testing
                 // Package address for Geocoder
                 var geoAddr = {};
                 if($scope.loggedIn){
@@ -148,7 +150,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 }
 
                 // Format the address to upper-case for letter
-
                 var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
                                     var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                     return upWord;
@@ -181,11 +182,26 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             if($scope.chosenRep[i] == rep){
                 $scope.chosenRep.splice(i, 1);
                 alreadyPicked = true;
+                if($scope.chosenRep.length == 0){
+                    $scope.letterFormat = false;
+                }
             }
         }
         if(!alreadyPicked){
+            $scope.letterFormat = true;
             $scope.chosenRep.push(rep);
+            $scope.formatLetter();
         }
+    }
+
+    $scope.formatLetter = function() {
+        // Wait for angular to populate letter then convert the body into rich text
+        setTimeout(function(){
+            var richLetters = document.getElementsByName('richLetter');
+            for(var i=0; i < richLetters.length; i++){
+                richLetters[i].innerHTML = $scope.selCause.letter_body;
+            }
+        }, 500);
     }
 
     $scope.printLetter = function(elem) {
@@ -214,19 +230,18 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
 
-
-        console.log('letters: ', letters);
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var i=0; i < letters.length; i++){
             // Change logo src to local and set new css style
             letters[i].children[0].src = 'L4Alogo.png';
             letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            var letterName  = 'Letter_to_' + letters[i].children[11].innerHTML + '.doc',
-                letterName  = letterName.split(' ').join('_'),
-                link        = document.createElement('a'),
-                mimeType    = 'application/msword',
-                elHtml      = letters[i].innerHTML;
+            var letterName  = 'Letter_to_' + letters[i].children[13].innerHTML + '.docx',
+            letterName  = letterName.split(' ').join('_'),
+            link        = document.createElement('a'),
+            // mimeType    = 'application/msword',
+            mimeType    = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            elHtml      = letters[i].innerHTML;
 
             // 'Click' the generated link to force file download
             link.setAttribute('download', letterName);
@@ -265,7 +280,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
     }
     $scope.addGuest = function(){
-        console.log("in sdfjdsfjl")
         var guest = {
             cause_id: $scope.selCause.id,
             first_name: $scope.user.firstName,
@@ -289,14 +303,21 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.showDetails = true;
     }
 
-    // on Print as Guest
-    $scope.print_as_guest = function(){
-        $scope.showGuestFields = true;
-    }
-
     // to hide or show the Print letter and show Representatives section
     $scope.review_letter = function(){
+        if($scope.loggedIn){
+            // Reset any info entered into form before logging in
+            $scope.user.firstName = null;
+            $scope.user.lastName = null;
+            $scope.addr = null;
+            $scope.city = null;
+            $scope.state = null;
+            $scope.zip = null;
+            $scope.choice = null;
+        }
         $scope.getReps($scope.selCause.rep_level); // Prompt user to select recipient(s)
+
+        $scope.showGuestFields = false;
         $scope.select_recipients = true;
     }
 
@@ -305,16 +326,19 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $route.reload();
     }
 
-    // show Guest fields
-    $scope.print_as_guest = function(){
-        $scope.showGuestFields = true;
-    }
-
     // on address Selection, show review
     $scope.address_selection = function(){
         $scope.showReviewStep = true;
     }
 
+    // For selected rep background
+    $scope.isActive = function(item) {
+       for(var i=0; i < $scope.chosenRep.length; i++){
+           if($scope.chosenRep[i] == item){
+               return true;
+           }
+       }
+   	};
 
     // Guest address section
     $scope.address = {choice: undefined};
@@ -325,10 +349,10 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         password        : '',
         confirmPassword : '',
         addrNotFound    : '',
-          address       : '',
-          city          : '',
-          state         : '',
-          zip           : ''
+        address       : '',
+        city          : '',
+        state         : '',
+        zip           : ''
     };
     var errorMessages = {
         firstName           : 'First name field is required',

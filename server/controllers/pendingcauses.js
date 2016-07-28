@@ -5,14 +5,12 @@ module.exports = (function(){
 	return {
 
 		getAllPendingcauses: function(req, res) {
-            // models.Cause.findAll({})
-						models.sequelize.query('SELECT "Pendingcauses".*, "Users".first_name, "Users".last_name,"Users".email FROM "Pendingcauses" LEFT JOIN "Users" ON "Users".id = "Pendingcauses".user_id;', { type: models.sequelize.QueryTypes.SELECT})
+			models.sequelize.query('SELECT "Pendingcauses".*, "Users".first_name, "Users".last_name,"Users".email FROM "Pendingcauses" LEFT JOIN "Users" ON "Users".id = "Pendingcauses".user_id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(pendingcauses){
                 res.json(pendingcauses);
             })
         },
         addPendingCause: function(req, res) {
-					console.log("first pend cause",req.body);
             if (req.body) {
                 var pendingcause = req.body;
                 models.Pendingcause.create({
@@ -34,14 +32,12 @@ module.exports = (function(){
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
-                // res.json(); //needed?
             } else {
                 console.log('Missing Pendingcause');
             }
         },
 
 		getPendingCause: function(req,res){
-				console.log("made it to model",req.params.id);
 				var id = req.params.id;
 				models.sequelize.query('SELECT "Pendingcauses".* FROM "Pendingcauses" WHERE "Pendingcauses".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
 				.then(function(pendingcauses){

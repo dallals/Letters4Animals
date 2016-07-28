@@ -169,7 +169,19 @@
 }
 
 #addcauseheader h2{
-  margin-bottom: 10%;
-  margin-top:5%;
-  font-weight:lighter;
+  margin-bottom: 5%;
+  margin-top:2%;
+  font-weight:600;
+  text-align: center;
+}
+
+h2.not_centered{
+    margin-left:2%;
+    text-align: left!important;
+}
+
+#new_cause{
+    width: 40%;
+    padding: 2%;
+    border-radius: 10px;
 }

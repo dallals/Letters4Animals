@@ -2,20 +2,17 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
     var factory = {};
     var thisCause = null;
 
-
+    // Creates a Regular Cause from the Admin Panel
     factory.createCause = function(cause, callback) {
-      console.log("made it to factory",cause);
         $http.post('/addCause', cause).success(function(data) {
-          console.log("made it back from post");
             callback(data);
             $location.path('/administrator')
         })
     }
 
+    //Creates a pending cause from the VolunteerCause Page
     factory.createPendCause = function(cause, callback) {
-      console.log("in caue factory", cause)
         $http.post('/volunteerCause', cause).success(function(data) {
-          console.log("made it back from post");
             callback(data);
         })
     };
@@ -28,7 +25,7 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         })
     };
 
-    // for single view page
+    // Grabs a single cause for the single cause view page
     factory.getSingleViewCause = function(id, callback) {
         $http.get('/getSingleViewCause/'+id).success(function(data) {
             callback(data);
@@ -36,37 +33,42 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
     };
 
 
+    // Looks to the supports table to pull user IDs who support a cause id
     factory.getSupporters = function(id, callback) {
         $http.get('/getSupporters/'+id).success(function(data) {
             callback(data);
         })
     };
 
+    // Get guests who support a cause id
     factory.getGuests = function(id, callback) {
         $http.get('/getGuests/'+id).success(function(data) {
             callback(data);
         })
     };
+
+    //Joins with the user table to get user info for those who support a cause
     factory.getCauseUsers = function(id, callback) {
         $http.get('/getCauseUsers/'+id).success(function(data) {
-          console.log("in get cause factory",data);
             callback(data);
         })
     };
 
+    // Gets all Causes for the admin panel
     factory.getAllCauses = function(callback) {
         $http.get('/getAllCauses').success(function(causes){
             callback(causes);
         })
     };
 
-
+    // Gets all Enabled Causes for the admin panel
     factory.getEnabledCauses = function(callback) {
         $http.get('/getEnabledCauses').success(function(causes) {
             callback(causes);
         })
     }
 
+    // Disables cause from the admin panel
     factory.disableCause = function(cause, callback) {
         $http.post('/disableCause', cause).success(function(causes){
             if (callback && typeof callback == 'function') {
@@ -74,6 +76,8 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
             }
         })
     }
+
+    //Enables cause from the admin panel
     factory.enableCause = function(cause, callback) {
         $http.post('/enableCause', cause).success(function(causes){
             if (callback && typeof callback == 'function') {
@@ -82,14 +86,15 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         })
     }
 
+    // Updates cause from the admin Panel Edit button
     factory.updateCause = function(causeinfo) {
         $http.post('/updateCause', causeinfo).success(function(){
             console.log('updated Cause succesfully');
         })
     };
 
+    //Deletes Cause from the Admin Panel
     factory.deleteCause = function(cause, callback) {
-        console.log('Angular Factory Delete');
         $http.post('/deleteCause', cause).success(function(causes) {
             if (callback && typeof callback == 'function') {
                 callback(causes);
@@ -97,6 +102,7 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         })
     }
 
+    //Deletes PendingCause from the Admin Panel
     factory.delPendCause = function(pendingcause, callback) {
         console.log('Deleted Pend Cause',pendingcause);
         $http.post('/deletePendCause', pendingcause).success(function(pendingcauses) {
@@ -118,16 +124,16 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         })
     };
 
-
+    //Select all Pending Causes to populate the Pending Causes tab of the admin panel
     factory.getAllPendingcauses = function(callback) {
         $http.get('/getAllPendingcauses').success(function(pendingcauses){
             callback(pendingcauses);
         })
     };
 
+    //Select a single Pending Cause to populate the Add/Edit Pending Cause page for the admin panel
     factory.getPendingCause = function(id, callback) {
   		$http.get('/pendingCause/'+id).success(function(data) {
-        console.log("coming back from factory",data);
   			callback(data);
   		})
   	};

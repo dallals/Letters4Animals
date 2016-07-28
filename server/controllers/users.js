@@ -27,9 +27,9 @@ var sendResetEmail = function(url, email) {
     transporter.sendMail({
         from: 'info@letters4animals.com',
         to: email,
-        subject: 'Forgotten Password - letters4animals',
-        html:   '<div style="background: black">To reset your password, please click on the button below, or click the following link if the button does not work. '+
-                '<a href="http://localhost:8000/#/resetPassword/'+url+'"><button style="width: 100px; height: 50px; background: white">Reset Password</button></a></div><br>'+
+        subject: 'Forgotten Password - Letters4Animals',
+        html:   '<div style="background: black;width:500px;margin:0px auto;margin-top:10px;margin-bottom:40px;padding:40px;font-style:tahoma"><p style="text-align:center;color:white;font-size:15px">To reset your password, please click on the button below, or click the following link if the button does not work.</p><br><br>'+
+                '<a style="text-decoration:none;margin-left:36%;background:rgb(25, 176, 153);padding:20px;width:200px;border:none;color:white;font-style:bold;font-size:20px" href="http://localhost:8000/#/resetPassword/'+url+'">Reset Password</a></div><br>'+
                 'http://localhost:8000/#/resetPassword/'+
                 url,
         text: 'something'
@@ -69,7 +69,6 @@ module.exports = (function(){
             models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
                 console.log('in confirmEmail');
                 if(user){
-                    console.log(user.dataValues);
                     founduser = user.dataValues
                     deleteid = founduser.id
                     founduser.id = null;
@@ -210,7 +209,7 @@ module.exports = (function(){
                             res.json({success: true, statusMessage:'Password Changed'});
                         }
                         else {
-                        res.json({success: false, statusMessage:'Passwords Do Not Match'});
+                            res.json({success: false, statusMessage:'Passwords Do Not Match'});
                         }
                     }
                     else {
@@ -232,7 +231,6 @@ module.exports = (function(){
         },
 
         getCauseUsers: function (req,res){
-          console.log("made it to model",req.params.id);
           var id = req.params.id;
             models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
@@ -242,8 +240,6 @@ module.exports = (function(){
 
         delUser: function(req, res){
             var self = this;
-            // console.log(self);
-            console.log('in delUser');
             // Find user, find and delete user's supports, then delete user
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
@@ -279,13 +275,13 @@ module.exports = (function(){
                               "Mail a letter and your voice will be heard."+ "\n"+
                               "http://letters4animals.org/#/writealetter/cause/" + req.body.id
 
-                    }, function(err,data){
-                        if(err){
-                            console.log("something went wrong with twilio", err);
-                        } else {
-                            res.json('sent twilio message successfully');
-                        }
-                    });
+                        }, function(err,data){
+                            if(err){
+                                console.log("something went wrong with twilio", err);
+                            } else {
+                                res.json('sent twilio message successfully');
+                            }
+                        });
                     }
             	}
             	else{
