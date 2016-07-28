@@ -32,7 +32,6 @@
                 <label> Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Lieutenant Governor">
                 <label> Lieutenant Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Senate">
                 <label> State Senate</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Assembly">
-                <label> State Assembly (House of Representatives)</label><br>
         </div>
 
         <div ng-if="cause.fixed && !cause.non_fixed" id="fixed_recipient" class="halfsection">
@@ -42,7 +41,6 @@
                 <label>City</label><br><input type="text" name="fixed_city" ng-model="cause.fixed_city"><br>
                 <label>State</label><br><input type="text" name="fixed_state" ng-model="cause.fixed_state"><br>
                 <label>Zipcode</label><br><input type="text" name="fixed_zipcode" ng-model="cause.fixed_zipcode"><br>
-            </div>
         </div><br>
 
         <div class="letter content">
