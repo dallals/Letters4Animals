@@ -1,5 +1,5 @@
-// Controller to update causes on the Admin Panel
-AnimalApp.controller('singleCauseController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
+// Controller view a single cause on the Admin Panel (separated out to avoid innerHTML errors)
+AnimalApp.controller('singleCauseViewController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
 		var id = $routeParams.id;
 
 
@@ -15,6 +15,13 @@ AnimalApp.controller('singleCauseController', function($scope, $location, $route
 		//get cause for edit/update functionality
 		CauseFactory.getCause(id, function(data) {
 			$scope.cause = data;
+		});
+
+		//get single cause for single view functionality
+		CauseFactory.getSingleViewCause(id, function(data) {
+			$scope.causeview = data[0];
+			$scope.causehtml = data[0].letter_body;
+			document.getElementById('letter').innerHTML = $scope.causehtml;
 		});
 
 		//get logged in users who have supported/printed letters for this cause in the past- returns ID
@@ -37,20 +44,6 @@ AnimalApp.controller('singleCauseController', function($scope, $location, $route
 		CauseFactory.getSingleViewCause(id, function(data) {
 			$scope.causeview = data[0];
 		});
-
-		//update cause information from the Causes Admin panel
-		$scope.updateCause = function(cause){
-			CauseFactory.updateCause(cause, function(data){
-				$scope.cause = data
-			})
-		};
-
-		//add new causes from the admin panel
-		$scope.addCause = function(cause){
-			CauseFactory.createCause(cause, function(data){
-				$scope.cause = data
-			})
-		};
 
 		//Configuration for rich text editor
 		$scope.tinymceOptions = {

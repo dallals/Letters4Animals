@@ -5,9 +5,9 @@ var users       = require('../controllers/users.js'),
     reps        = require('../controllers/representatives.js'),
     contact     = require('../controllers/contactMailer.js'),
     addrConf    = require('../controllers/addressConfirmation.js'),
-    passport    = require("passport");
+    passport    = require("passport"),
     guests      = require('../controllers/guests.js'),
-    pendingcauses = require('../controllers/pendingcauses.js'),
+    pendingcauses = require('../controllers/pendingcauses.js');
 //
 module.exports = function(app){
 
