@@ -42,9 +42,9 @@
                 </form>
 
                 <p class="text-center">
-                    <button ng-if="!loggedIn && showGuestPrint" ng-click="print_as_guest()" class="btn btn-primary print_save">Print as Guest</button>
-                    <a data-toggle="modal" data-target="#Login" ng-if="!loggedIn && showGuestPrint" ng-click='login_the_User()' class="btn btn-primary print_save">Login</a>
-                    <button ng-if="loggedIn && selCause" ng-click='review_letter()' class="btn btn-primary print_save">Review</button>
+                    <button ng-show="!loggedIn && showGuestPrint" ng-click="showGuestFields=true" class="btn btn-primary print_save">Print as Guest</button>
+                    <a data-toggle="modal" data-target="#Login" ng-show="!loggedIn && showGuestPrint" class="btn btn-primary print_save">Login</a>
+                    <button ng-show="loggedIn && selCause" ng-click='review_letter()' class="btn btn-primary print_save">Next</button>
                 </p>
             </div>
         </div>
@@ -94,13 +94,13 @@
                     </div>
                     <!-- For Selecting Correct Location -->
                     <p>
-                        Select Address below:
+                        Confirm Address Below:
                     </p>
                     <div class="row">
                         <div class="col-md-12">
                             <div id="choices">
                                 <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                    <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" ng-change="address_selection()" required> {{ choice.formatted_address }}
+                                    <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-change="address_selection()" required> {{ choice.formatted_address }}
                                 </label>
                                 <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                             </div>
@@ -109,7 +109,7 @@
                 </form>
 
                 <p class="text-center">
-                    <button ng-if="showReviewStep" ng-click="review_letter()" class="btn btn-primary print_save  bottom_margin">Review</button>
+                    <button ng-if="showReviewStep" ng-click="review_letter()" class="btn btn-primary print_save  bottom_margin">Next</button>
                 </p>
 
             </div>
@@ -126,7 +126,7 @@
                     <img id=loadgif src="./assets/circles.gif" alt="Loading..." />
                 </div>
                 <div ng-show=gotCause>
-                    <div class='col-sm-6 repbox' ng-repeat='rep in reps' ng-click="select(rep)" ng-class="{rep_active: isActive(rep)}">
+                    <div class='col-sm-6 repbox' ng-repeat='rep in reps' ng-class="{rep_active: isActive(rep)}">
                         <label for='{{rep.letterName}}'>
                             <div class="media">
                                 <div class="media-left media-bottom">
@@ -144,7 +144,7 @@
                             </div>
                         </label>
                     </div>
-                    <div ng-if='!reps' class='col-sm-12 repbox2' ng-click="select(rep)" ng-class="{rep_active: isActive(rep)}">
+                    <div ng-if='!reps' class='col-sm-6 repbox2' ng-class="{rep_active: isActive(rep)}">
                         <label for='{{selCause.id}}'> <!-- For fixed causes, the selection by label is on the id instead of lettername -->
                             <div class="media">
                                 <div class="media-left media-bottom">
@@ -152,19 +152,18 @@
                                 </div>
                                 <div class="media-body">
                                     <p class="media-heading">
-                                        <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)' checked>
+                                        <input id='{{selCause.id}}' type="checkbox" ng-click='repPicked(rep)'>
                                         {{ fixed.name }}
                                     </p>
                                     <p class="no_bold">
                                         {{ fixed.pos }}
                                     </p>
-
                                 </div>
                             </div>
                         </label>
                     </div>
                 </div>
-            </div>
+            </div>    <!--- End of selecting reps div --->
 
 
             <!--- Letters --->
@@ -184,7 +183,8 @@
 
                         Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
                         <p id="letterrichtext" name='richLetter'></p>
-                        Sincerely, <br><br><br>
+                        <br><br>
+                        Sincerely, <br><br>
                         {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
                         <br><br><br>
                         {{ selCause.letter_footnote }}
@@ -193,7 +193,7 @@
             </div> <!--- End of letters --->
 
             <p class="text-center" ng-if="chosenRep[0] || chosenRep[1] || fixed.name "><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></p>
-        </div>
+        </div> <!--- End of Reps+letter main div --->
 
         <div ng-show='loggedIn' id="homevolcause" class="col-md-12">
             <h3>Do You Use Your Voice For The Animals?</h3>
@@ -205,7 +205,4 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('letterrichtext').innerHTML = {{causehtml}};
-    </script>
 </div>

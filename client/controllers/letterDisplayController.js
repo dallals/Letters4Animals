@@ -34,7 +34,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.showDetails = false;
     $scope.showGuestFields = false;
     $scope.select_recipients = false;
-    // $scope.showFixedLetter = true;
 
 
     UserFactory.isLoggedIn(function(user){
@@ -151,7 +150,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
                 }
 
                 // Format the address to upper-case for letter
-
                 var newLine1  = rep.rep.address[0].line1.split(' ').map(function(word){
                                     var upWord = word.charAt(0).toUpperCase() + word.slice(1);
                                     return upWord;
@@ -197,7 +195,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
 
     $scope.formatLetter = function() {
-        // Wait for angular to populate letter then turn the body into rich text
+        // Wait for angular to populate letter then convert the body into rich text
         setTimeout(function(){
             var richLetters = document.getElementsByName('richLetter');
             for(var i=0; i < richLetters.length; i++){
@@ -232,15 +230,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
 
-        console.log('=========letters=========');
-        console.log(letters);
-        console.log('=========letters=========');
-
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var i=0; i < letters.length; i++){
-            console.log('=========letters[i].children=========');
-            console.log(letters[i].children);
-            console.log('=========letters[i].children=========');
             // Change logo src to local and set new css style
             letters[i].children[0].src = 'L4Alogo.png';
             letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
@@ -314,7 +305,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     // to hide or show the Print letter and show Representatives section
     $scope.review_letter = function(){
-
         if($scope.loggedIn){
             // Reset any info entered into form before logging in
             $scope.user.firstName = null;
@@ -336,30 +326,16 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $route.reload();
     }
 
-    // show Guest fields
-    $scope.print_as_guest = function(){
-        $scope.showGuestFields = true;
-    }
-
     // on address Selection, show review
     $scope.address_selection = function(){
         $scope.showReviewStep = true;
     }
 
     // For selected rep background
-    $scope.select= function(item) {
-   	       $scope.selected = item;
-   	};
-
     $scope.isActive = function(item) {
-
-       if($scope.fixed.name){
-
-       }else{
-           for(var i=0; i < $scope.chosenRep.length; i++){
-               if($scope.chosenRep[i] == item){
-                   return true;
-               }
+       for(var i=0; i < $scope.chosenRep.length; i++){
+           if($scope.chosenRep[i] == item){
+               return true;
            }
        }
    	};
