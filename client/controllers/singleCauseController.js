@@ -2,6 +2,16 @@
 AnimalApp.controller('singleCauseController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
 		var id = $routeParams.id;
 
+
+		UserFactory.isLoggedIn(function(user){
+		if(user.admin == true){
+			// If logged in, populate form with user info
+			$scope.loggedUser = user;
+            $scope.loggedIn = true;
+		}
+		else{ $location.url('/'); }
+		});
+
 		//get cause for edit/update functionality
 		CauseFactory.getCause(id, function(data) {
 			$scope.cause = data;
