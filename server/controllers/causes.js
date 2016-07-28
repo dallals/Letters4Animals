@@ -86,9 +86,45 @@ module.exports = (function(){
                     letter_body: cause.letter_body,
                     letter_footnote: cause.letter_footnote
                 }).then(function(cause) {
-                    // sendTextAlerts(cause);
-                    // sendEmailAlerts(cause);
+                    console.log('=========cause=========');
+                    console.log(cause);
+                    console.log('=========cause=========');
+                    // Send text notification
+                    models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})
+                    .then(function(data){
+                    	if(data){
+                    		var phoneArray = []
+                    		for (var i = 0; i < data.length; i++) {
+                    			if (data[i].dataValues.phone_number.length === 10) {
+                    				phoneArray.push(data[i].dataValues.phone_number);
+                    			}
+                    		}
+                            // for (var phone of phoneArray){
+                                // twilio.sendMessage({
+                                // // to:   "+1"+phone,
+                                // to:   "+19492927463",
+                                // from: +13232388340,
+                                // body: "Hey you." + "\n" +
+                                //       req.body.fixed_name+ " should know "+ req.body.description + "\n"+
+                                //       "Mail a letter and your voice will be heard."+ "\n"+
+                                //       "http://letters4animals.org/#/writealetter/cause/"
+                                //
+                                // }, function(err,data){
+                                //     if(err){
+                                //         console.log("something went wrong with twilio", err);
+                                //     } else {
+                                //         res.json('sent twilio message successfully');
+                                //     }
+                                // });
+                            // }
+                    	}
+                    	else{
+                    		console.log("error finding all users with phone notification enabled");
+                    	}
+                    })  // End of text alert
 
+
+                    // sendEmailAlerts(cause);
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
