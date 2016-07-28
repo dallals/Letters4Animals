@@ -119,7 +119,7 @@ module.exports = (function(){
                     fixed_state: cause.fixed_state,
                     fixed_zipcode: cause.fixed_zipcode
                 }).then(function(cause) {
-                //need ti delete pending cause
+                //need to delete pending cause
                     models.Pendingcause.destroy({where: ['id = ?', req.body.pendingcause_id]})
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
