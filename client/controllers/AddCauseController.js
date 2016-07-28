@@ -6,6 +6,7 @@ AnimalApp.controller('AddCauseController', function($scope, $location, $routePar
 				$scope.cause = data
 			})
 		};
+
 		//Configuration for rich text editor
 		$scope.tinymceOptions = {
 			plugins: 'link advlist code spellchecker paste textcolor colorpicker visualchars wordcount contextmenu visualblocks insertdatetime hr searchreplace',

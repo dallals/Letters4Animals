@@ -13,7 +13,7 @@
         <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
         <h4>Enable Cause?</h4>
         <label> Yes: </label>
-        <input type="checkbox" ng-click='toggleCause(cause)' ng-checked="cause.enabled"><br>
+        <input type="checkbox" ng-click='toggleCause(cause)' ng-checked="cause.enabled" ng-model='cause.enabled'><br>
 
         <div id="Recipients">
             <h4>Recipient Information</h4>
