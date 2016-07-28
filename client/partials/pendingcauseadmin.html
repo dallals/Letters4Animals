@@ -36,7 +36,10 @@
                 <label>Position</label><br><input type="text" name="fixed_position" ng-model="pendingcause.rep_level"><br>
                 <label>Street Address</label><br><input type="text" name="fixed_address" ng-model="pendingcause.fixed_address"><br>
                 <label>City</label><br><input type="text" name="fixed_city" ng-model="pendingcause.fixed_city"><br>
-                <label>State</label><br><input type="text" name="fixed_state" ng-model="pendingcause.fixed_state"><br>
+                <label>State</label><br>
+                <select id="statecauseadd" name="fixed_state" class="col-sm-2 control-label" ng-options='state for state in states' ng-model='pendingcause.fixed_state'>
+                    <option value='' selected disabled>Choose a State</option>
+                </select><br>
                 <label>Zipcode</label><br><input type="text" name="fixed_zipcode" ng-model="pendingcause.fixed_zipcode"><br>
             </div>
         </div><br>

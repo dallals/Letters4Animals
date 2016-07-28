@@ -15,7 +15,6 @@
  */
 
 (function() {
-    console.log('Getting to Pagination')
     /**
      * Config
      */
@@ -105,7 +104,7 @@
 
                 // Delegate to the link function returned by the new compilation of the ng-repeat
                 compiled(scope);
-                    
+
                 // When the scope is destroyed, we make sure to remove the reference to it in paginationService
                 // so that it can be properly garbage collected
                 scope.$on('$destroy', function destroyDirPagination() {
@@ -546,7 +545,7 @@
         this.deregisterInstance = function(instanceId) {
             delete instances[instanceId];
         };
-        
+
         this.isRegistered = function(instanceId) {
             return (typeof instances[instanceId] !== 'undefined');
         };

@@ -43,7 +43,7 @@ module.exports = (function(){
 
         getSingleCause: function(req,res){
             var id = req.params.id;
-            models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(cause){
                 res.json(cause);
             })
@@ -172,7 +172,7 @@ module.exports = (function(){
                     fixed_state: cause.fixed_state,
                     fixed_zipcode: cause.fixed_zipcode
                 }).then(function(updatedcause) {
-                    res.json({success: true, data: cause})
+                    res.json({success: true, data: updatedcause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })

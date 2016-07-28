@@ -186,17 +186,3 @@ setInterval(function () {
     })
 }, 43200000);
 //Done with Checking Reset Password Url
-
-
-
-/*
-"What hosting service are you using and how are you connecting to it?
-We need the credentials"
-*/
-
-// var port = normalizePort(process.env.PORT || '8000');
-// app.set('port', port);
-
-// app.listen(8000, function() {
-//   console.log("Listening on Port 8000");
-// })
