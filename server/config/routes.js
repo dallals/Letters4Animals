@@ -99,6 +99,7 @@ module.exports = function(app){
     app.get('/getSingleCause/:id', function(req, res) {
         causes.showCauseInfo(req, res);
     })
+    //Single Cause for Admin Panel View Page
     app.get('/getSingleViewCause/:id', function(req, res) {
         causes.getSingleCause(req, res);
     })
@@ -108,34 +109,31 @@ module.exports = function(app){
     app.get('/getGuests/:id', function(req, res) {
         causes.showCauseGuests(req, res);
     })
-
     app.get('/getCauseUsers/:id', function(req, res) {
         users.getCauseUsers(req, res);
     })
-
     app.get('/getEnabledCauses', function(req, res) {
         causes.getEnabledCauses(req, res);
     })
-
     app.post('/disableCause', function(req, res){
         causes.disableCause(req, res);
     })
-
     app.post('/enableCause', function(req, res) {
         causes.enableCause(req, res);
     })
-
     app.post('/addCause', function(req, res) {
         causes.addCause(req, res);
     })
+    //for a user donating a letter
     app.post('/volunteerCause', function(req, res) {
         pendingcauses.addPendingCause(req, res);
     })
-
     app.post('/deleteCause', function(req, res) {
-        console.log('Server Route Delete');
-        console.log(req.body);
         causes.deleteCause(req, res);
+    })
+    //is this extra? Double check if we need both this and deleteCause above
+    app.post('/delCause', function(req,res){
+        causes.delCause(req, res);
     })
     app.post('/deletePendCause', function(req,res){
         pendingcauses.deletePendCause(req, res);
@@ -145,6 +143,9 @@ module.exports = function(app){
     })
     app.get('/pendingCause/:id', function(req, res) {
         pendingcauses.getPendingCause(req, res);
+    })
+    app.post('/updateCause', function(req, res){
+        causes.update(req, res);
     })
 
     //Supports
@@ -166,14 +167,6 @@ module.exports = function(app){
     })
     app.post('/sendText', function(req,res){
         users.sendText(req,res);
-    })
-
-    app.post('/delCause', function(req,res){
-        causes.delCause(req, res);
-    })
-
-    app.post('/updateCause', function(req, res){
-        causes.update(req, res);
     })
 
 };

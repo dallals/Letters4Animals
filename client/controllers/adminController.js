@@ -1,3 +1,4 @@
+// Main Controller for the Admin Panel Home Page
 AnimalApp.controller('adminController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
 
 	$scope.checkboxModel = {
@@ -30,6 +31,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			$scope.guests = guests;
 		});
 
+		//delete user from the admin panel
 		$scope.delUser = function(user){
 			// Prompt the admin to confirm user deletion to avoid accidents
 			var confPrompt = confirm("About to delete "+user.first_name+". Proceed?");
@@ -39,6 +41,8 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 				})
 	        }
 		};
+
+		//delete guest from the admin panel
 		$scope.delGuest = function(guest){
 			// Prompt the admin to confirm user deletion to avoid accidents
 			var confPrompt = confirm("About to delete "+guest.first_name+". Proceed?");
@@ -49,6 +53,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 	        }
 		};
 
+		//delete cause from the admin panel
 		$scope.deleteCause = function(cause){
 			// Prompt the admin to confirm user deletion to avoid accidents
 			var confPrompt = confirm("About to delete "+cause.name+". Proceed?");
@@ -59,6 +64,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 	        }
 		};
 
+		//delete pending causes from the admin panel
 		$scope.deletePendCause = function(pendingcause){
 			var confPrompt = confirm("About to delete pending cause: "+pendingcause.name+". Proceed?");
 			if (confPrompt) {
@@ -68,13 +74,16 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		};
 
+		//add a new cause from the admin panel
 		$scope.addCause = function(){
 				CauseFactory.createCause($scope.cause, function(causes){
 					$scope.causes = causes;
+					//redirect back to the admin page after submitting a new cause
 					$location.url('/administrator');
 				})
 		}
 
+		//enable/disable causes from the admin panel
 	    $scope.toggleCause = function(cause) {
 	        if (!cause) {
 	            return;
@@ -95,6 +104,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 	        // var confirmCause = confirm()
 	    }
 
+		//enable all causes from the admin panel enable all button
 		$scope.enableAllCauses = function() {
 			for (cause in $scope.causes) {
 				CauseFactory.enableCause($scope.causes[cause], function() {
@@ -104,6 +114,8 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 				})
 			}
 		}
+
+		//disable all causes from the admin panel enable all button
 		$scope.disableAllCauses = function() {
 			for (cause in $scope.causes) {
 				CauseFactory.disableCause($scope.causes[cause], function() {
@@ -114,6 +126,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			}
 		}
 
+		//controls Edit button from Causes tab of Admin panel
 		$scope.editCause = function(cause){
 			CauseFactory.update(cause, function(cause){
 				$scope.cause = cause
@@ -128,7 +141,5 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 		   console.log(data);
 	   })
    }
-
-
 
 });

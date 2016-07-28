@@ -1,51 +1,56 @@
-<div id="adminheader"><h3>Administrative Panel</h3></div>
+<!-- Uses the singleCauseController -->
+
+<div id="adminheader">
+    <h3>Administrative Panel</h3></div>
 <div id="admin_container" ng-controller='singleCauseController' ng-show='loggedIn'>
 
-<!-- Left Admin panel -->
-<div class="col-sm-12 admin_container letter_background">
-  <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
+    <!-- Left Admin panel -->
+    <div class="col-sm-12 admin_container letter_background">
+        <a href="#administrator">
+            <button class="btn btn-primary analytics">Back to Admin Panel</button>
+        </a>
 
-  <h1>{{causeview.name}}</h1><br><br>
-  <label>Cause Description:</label><br>
-  {{causeview.description}}<br><br><br>
-  <label>Letter:</label><br>
-  <p id="letter"></p><br><br>
+        <h1>{{causeview.name}}</h1><br><br>
+        <label>Cause Description:</label>
+        <br> {{causeview.description}}<br><br><br>
+        <label>Letter:</label><br>
+        <p id="letter"></p><br><br>
 
+        <div role="tabpanel" class="tab-pane" id="users">
 
-  <div role="tabpanel" class="tab-pane" id="users">
+            <table class="table admintable">
+                <h4>Users Who Supported the Cause</h4>
+                <thead>
+                    <th>Name</th>
+                    <th># of Prints</th>
+                    <th>Email</th>
+                    <th>State</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in supporters | orderBy: id">
+                        <td>{{user.first_name }} {{ user.last_name }}</td>
+                        <td>{{user.supports}}</td>
+                        <td>{{user.email}}</td>
+                        <td>{{user.state}}</td>
+                    </tr>
+                </tbody>
+            </table><br><br>
 
-    <table class="table admintable">
-      <h4>Users Who Supported the Cause</h4>
-      <thead>
-        <th>Name</th>
-        <th># of Prints</th>
-        <th>Email</th>
-        <th>State</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="user in supporters | orderBy: id">
-          <td>{{user.first_name }} {{ user.last_name }}</td>
-          <td>{{user.supports}}</td>
-          <td>{{user.email}}</td>
-          <td>{{user.state}}</td>
-        </tr>
-      </tbody>
-    </table><br><br>
+            <table class="table admintable">
+                <h4>Guests Who Supported the Cause</h4>
+                <thead>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>State</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="guest in guests | orderBy: 'id'">
+                        <td>{{guest.first_name }} {{ guest.last_name }}</td>
+                        <td>{{guest.email}}</td>
+                        <td>{{guest.state}}</td>
+                    </tr>
+                </tbody>
+            </table>
 
-    <table class="table admintable">
-          <h4>Guests Who Supported the Cause</h4>
-      <thead>
-        <th>Name</th>
-        <th>Email</th>
-        <th>State</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="guest in guests | orderBy: 'id'">
-          <td>{{guest.first_name }} {{ guest.last_name }}</td>
-          <td>{{guest.email}}</td>
-          <td>{{guest.state}}</td>
-        </tr>
-      </tbody>
-    </table>
-
-</div>
+        </div>
+    </div>

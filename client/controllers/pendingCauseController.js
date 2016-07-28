@@ -1,5 +1,5 @@
+// Controller for the Pending Cause Edit/Add HTML on the admin panel- pendingcauseadmin.html
 AnimalApp.controller('pendingCauseController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
-		console.log("made it to pending cause controller",$routeParams.id);
 		var id = $routeParams.id;
 
 		//get single pending cause info
@@ -19,12 +19,13 @@ AnimalApp.controller('pendingCauseController', function($scope, $location, $rout
 				})
 		}
 
+		//Configuration for rich text editor
 		$scope.tinymceOptions = {
 			plugins: 'link advlist code spellchecker paste textcolor colorpicker visualchars wordcount contextmenu visualblocks insertdatetime hr searchreplace',
-			advlist_bullet_styles: "default,circle, disc, square",
+			advlist_bullet_styles: "default circle disc square",
 			menubar: "edit view insert",
 			toolbar: 'undo redo |  bold italic | bullist numlist | styleselect | alignleft aligncenter alignright | code | spellchecker | paste | forecolor backcolor | visualchars | link | visualblocks | insertdatetime | searchreplace | fontselect |  fontsizeselect',
-			fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt"
+			fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
 		};
 
 

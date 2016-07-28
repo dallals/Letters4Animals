@@ -39,20 +39,8 @@ module.exports = (function(){
                 res.json(guests);
             })
         },
-        //     models.Guest.findAll({where: ["cause_id = ?", req.params.id]}).then(function(data){
-        //         if(data){
-        //             console.log("data.dataValues");
-        //             console.log(data.dataValues);
-        //             res.json(data.dataValues);
-        //         }
-        //         else {
-        //             res.send('Cause Not Found');
-        //         }
-        //     })
-        // },
 
         getSingleCause: function(req,res){
-            console.log("made it to model",req.params.id);
             var id = req.params.id;
             models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(cause){
@@ -84,7 +72,6 @@ module.exports = (function(){
         },
 
         addCause: function(req, res) {
-          console.log("made it to backend controller",req.body);
             if (req.body) {
                 var cause = req.body;
                 models.Cause.create({
@@ -217,8 +204,6 @@ module.exports = (function(){
                 console.log('Missing Cause');
             }
         },
-
-
 
     }//closes return
 })();

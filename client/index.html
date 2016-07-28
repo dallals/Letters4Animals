@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta content="Divi v.2.7.3" name="generator">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- for FB integration -->
     <meta property="og:url"                content="http://letters4animals.org" />
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="Letters4Animals" />
@@ -39,6 +40,8 @@
     <script src="/js/angular-messages.js"></script>
     <script src="/js/sweetalert.min.js"></script>
     <script src="/js/ng-sweet-alert.js"></script>
+
+    <!-- RichText Editor -->
     <script src="/js/tinymce/tinymce.min.js"></script>
     <script src="/js/tinymce/angular-tinymce.min.js"></script>
 
@@ -82,16 +85,19 @@
           </div>
         </div>
 
+        <!-- Hamburger Menu for Responsive Design -->
           <div id="mobile-nav">
-           <button id="buttonnav" ng-click="toggle()" height="100px"><div class="menu-btn" id="menu-btn">
-             <div></div>
-             <span></span>
-             <span></span>
-             <span></span>
-           </div>
-          </button>
+              <button id="buttonnav" ng-click="toggle()" height="100px">
+                  <div class="menu-btn" id="menu-btn">
+                     <div></div>
+                     <span></span>
+                     <span></span>
+                     <span></span>
+                  </div>
+              </button>
 
 
+        <!-- Responsive Menu Dropdown -->
            <div class="responsive-menu" ng-show="mobile_drop">
               <ul>
                 <li><a href="/">Home</a></li><br>
@@ -111,11 +117,11 @@
                 <li class="social social-resp"><div ng-cloak class="fb-share-button " data-href="https://www.letters4animals.org/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" ng-cloak href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.letters4animals.org%2F&amp;src=sdkpreparse">Share</a></div></li>
                 <li class="social"><a href="https://twitter.com/share?url=https://letters4animals.org"><img src="/assets/twitter.png"></a></li>
               </ul>
-           </div>
-          </div>
-
-        </div>
+            </div>
+          </div> <!-- end responsive menus -->
+      </div> <!--end of header -->
     </div>
+
       <!-- Registration Modal -->
     <div class="modal fade" id="Register" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
           <div class="modal-dialog">
@@ -293,10 +299,8 @@
 
       </div>
 
-      <div id="bottom-footer">
-      </div>
+      <div id="bottom-footer"></div>
       <!-- end of footer -->
-
 </div> <!-- End of Main div -->
 
     <script src="/js/animalApp.js"></script>
@@ -320,8 +324,6 @@
     <script src="/controllers/singleCauseController.js"></script>
     <script src="/controllers/donateCauseController.js"></script>
     <script src="/partials/dirPagination.js"></script>
-
-
     <script src="/controllers/pendingCauseController.js"></script>
     <script src="/controllers/testController.js"></script>
     <script src="/controllers/causeTest.js"></script>
