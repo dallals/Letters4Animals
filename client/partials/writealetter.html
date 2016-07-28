@@ -79,7 +79,9 @@
                             <span class="guestInfoErrors" ng-bind="guestInfoErrors.city" ></span>
                         </div>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="guestAddress()" >
+                            <select id="statecauseadd" name="fixed_state" class="form-control" ng-options='state for state in states' ng-model='state' ng-change="guestAddress()">
+                                <option value='' selected disabled>Choose a State</option>
+                            </select><br><br>
                             <span class="guestInfoErrors" ng-bind="guestInfoErrors.state"></span>
                         </div>
                     </div>
