@@ -1,4 +1,4 @@
-<div id="main">
+<div id="main" ng-controller="AddCauseController">
     <header id="addcauseheader">
         <a href="#administrator">
             <button class="btn btn-primary analytics">Back to Admin Panel</button>
@@ -7,36 +7,41 @@
     </header>
 
     <!-- Add New Cause Page from the Admin Panel- Uses the singleCauseController -->
-    <form name="causeadmin" class="letter_background" method="post" ng-controller="AddCauseController" ng-model="cause">
+    <form name="causeadmin" class="letter_background" method="post"  ng-model="cause">
 
         <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
         <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
-        <div class="halfsection">
-            <h4>Recipients</h4><input type="radio" name="rep_level" ng-model="cause.rep_level" value="President of the United States">
-            <label> President of the United States</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Vice-President of the United States">
-            <label> Vice-President of the United States</label><br>
-            <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States Senate"><label> United States Senate</label><br>
-            <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States House of Representatives">
-            <label> United States House of Representatives</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Governor">
-            <label> Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Lieutenant Governor">
-            <label> Lieutenant Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Senate">
-            <label> State Senate</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Assembly">
-            <label> State Assembly (House of Representatives)</label><br>
+        <h4>Enable Cause?</h4>
+        <label> Yes: </label>
+        <input type="checkbox" ng-click='toggleCause(cause)' ng-checked="cause.enabled"><br>
 
-            <h4>Enable Cause?</h4>
-            <label> Yes: </label>
-            <input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}">
+        <div id="Recipients">
+            <h4>Recipient Information</h4>
+            <p>Please select either a generic position OR a fixed recipient below</p><br>
+            <label>Generic Position:</label><input type="checkbox" ng-click='toggleNonFixed()' ng-model="cause.non_fixed" ng-checked="cause.non_fixed"></td>
+            <label>Specific Person:</label><input type="checkbox" ng-click='toggleFixed(recipient)' ng-model="cause.fixed" ng-checked="cause.fixed"></td><br>
+
+        <div ng-if="cause.non_fixed && !cause.fixed" class="halfsection">
+                <input type="radio" name="rep_level" ng-model="cause.rep_level" value="President of the United States">
+                <label> President of the United States</label><br>
+                <input type="radio" name="rep_level" ng-model="cause.rep_level" value="Vice-President of the United States">
+                <label> Vice-President of the United States</label><br>
+                <input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States Senate">
+                <label> United States Senate</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="United States House of Representatives">
+                <label> United States House of Representatives</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Governor">
+                <label> Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="Lieutenant Governor">
+                <label> Lieutenant Governor</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Senate">
+                <label> State Senate</label><br><input type="radio" name="rep_level" ng-model="cause.rep_level" value="State Assembly">
         </div>
 
-        <div class="halfsection">
-            <h4>Fixed Recipients?</h4>
-            <label>Yes: </label><input type="checkbox" ng-click='toggleFixed(recipient)' ng-checked="{{cause.fixed}}"></td><br>
-            <label>Name of Recipient</label><input type="text" name="fixed_name" ng-model="cause.fixed_name">
-            <label>Street Address</label><input type="text" name="fixed_address" ng-model="caused.fixed_address">
-            <label>City</label><input type="text" name="fixed_city" ng-model="cause.fixed_city">
-            <label>State</label><input type="text" name="fixed_state" ng-model="cause.fixed_state">
-            <label>Zipcode</label><input type="text" name="fixed_zipcode" ng-model="cause.fixed_zipcode">
-        </div>
+        <div ng-if="cause.fixed && !cause.non_fixed" id="fixed_recipient" class="halfsection">
+                <label>Name of Recipient</label><br><input type="text" name="fixed_name" ng-model="cause.fixed_name"><br>
+                <label>Position</label><br><input type="text" name="fixed_position" ng-model="cause.rep_level"><br>
+                <label>Street Address</label><br><input type="text" name="fixed_address" ng-model="cause.fixed_address"><br>
+                <label>City</label><br><input type="text" name="fixed_city" ng-model="cause.fixed_city"><br>
+                <label>State</label><br><input type="text" name="fixed_state" ng-model="cause.fixed_state"><br>
+                <label>Zipcode</label><br><input type="text" name="fixed_zipcode" ng-model="cause.fixed_zipcode"><br>
+        </div><br>
 
         <div class="letter content">
             <h4>Letter Content</h4>

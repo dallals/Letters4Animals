@@ -53,14 +53,6 @@
 
 <body ng-app = "AnimalApp">
   <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
 <!-- Site Header -->
 <div scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
     <div id="main-header">
@@ -86,7 +78,7 @@
                     <a data-toggle="modal" data-target="#Login" ng-if='!loggedIn'>Login</a>
                     <a href="" ng-click='logout()' ng-if='loggedIn'>Logout</a>
                 </li>
-                <li class="social" ng-cloak><div id="fb-root"> </div> <div ng-cloak class="fb-share-button " data-href="https://www.letters4animals.org/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" ng-cloak href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.letters4animals.org%2F&amp;src=sdkpreparse">Share</a></div></li>
+                <li class="social" ng-cloak><div id="fb-root"> </div> <div ng-cloak class="fb-share-button " data-href="https://www.letters4animals.org/" data-layout="button" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" ng-cloak href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.letters4animals.org%2F&amp;src=sdkpreparse">Share</a></div></li>
                 <li class="social"><a href="https://twitter.com/share?url=https://letters4animals.org"><img src="/assets/twitter.png"></a></li>
               </ul>
           </div>
@@ -182,7 +174,7 @@
                               <div class="col-md-12">
                                   <div id="choices">
                                       <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice.formatted_address }}
+                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" > {{ choice.formatted_address }}
                                       </label>
                                       <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                                   </div>
@@ -326,6 +318,7 @@
     <script src="/controllers/resetPW/ResetController.js"></script>
     <script src="/controllers/resetPW/ResettingController.js"></script>
     <script src="/controllers/singleCauseController.js"></script>
+    <script src="/controllers/singleCauseViewController.js"></script>
     <script src="/controllers/AddCauseController.js"></script>
     <script src="/controllers/donateCauseController.js"></script>
     <script src="/partials/dirPagination.js"></script>

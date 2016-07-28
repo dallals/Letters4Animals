@@ -1,3 +1,12 @@
+(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+
 AnimalApp.controller('headerController', function ($scope, $routeParams, $location, $route, $http, UserFactory) {
     $scope.user = {};
     $scope.loggedUser = {};
@@ -106,6 +115,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     }
 
     $scope.registerUser = function() {
+        console.log('jweiafoaefj');
         $scope.regErrors = {
             firstName       : '',
             lastName        : '',
@@ -152,6 +162,7 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         if ( !$scope.zip || $scope.zip.trim().length < 1 ) {
             valid = false;
             $scope.regErrors.zip = errorMessages.zip; }
+            console.log('In a freaking function');
 
         //address, city state zip
         if ( $scope.address.choice && $scope.user && valid ){
@@ -232,12 +243,5 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         }
     }   // End of $scope.registerUser
 
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
 
 });
