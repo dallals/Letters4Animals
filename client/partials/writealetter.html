@@ -6,8 +6,6 @@
     </div>
 
     <div class="col-md-12">
-        <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span>
-
         <div class="cause_step" ng-hide="select_recipients">
 
             <h3 class="bottom_margin">Choose your cause </h3>
@@ -192,8 +190,10 @@
                 </div>
             </div> <!--- End of letters --->
 
-            <p class="text-center" ng-if="chosenRep[0] || chosenRep[1] || fixed.name "><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></p>
+            <p class="text-center" ng-if="chosenRep[0] || chosenRep[1] || fixed.name "><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">Print</button><button ng-click='saveLetter()' class="btn btn-primary print_save">Save</button></p>
         </div> <!--- End of Reps+letter main div --->
+
+        <p class="text-center"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">Start Over</a></p>
 
         <div ng-show='loggedIn' id="homevolcause" class="col-md-12">
             <h3>Do You Use Your Voice For The Animals?</h3>
