@@ -1,7 +1,7 @@
 #forgottenPassword span.forgotErrors {
     color: red; }
 
-#forgottenPassword form.forgot_form{
+#forgottenPassword form.forgot_form, #resetting_password form.reset_form{
     background: #fff;
     color: #555 !important;
     font-family: sans-serif;
