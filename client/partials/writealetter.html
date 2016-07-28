@@ -178,7 +178,7 @@
                         <br><br>
                         {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
                         {{ rep.position || fixed.pos }}<br>
-                        {{ rep.rep.address[0].line1 || fixed.addr }}<span ng-show='rep.rep.address[0].line2'>{{', ' + rep.rep.address[0].line2 }}</span><br>
+                        {{ rep.rep.address[0].line1 || fixed.addr }}<span ng-if='rep.rep.address[0].line2'>{{', ' + rep.rep.address[0].line2 }}</span><br>
                         {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
 
                         Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
