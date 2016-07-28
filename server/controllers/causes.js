@@ -1,4 +1,5 @@
 var models = require('../models');
+var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
 
 module.exports = (function(){
     return {
@@ -9,6 +10,7 @@ module.exports = (function(){
                 res.json(causes);
             })
         },
+
         //for /users/show/:id type route
         showCauseInfo: function (req, res) {
             models.Cause.find({where: ["id = ?", req.params.id]}).then(function(data){
@@ -20,10 +22,11 @@ module.exports = (function(){
                 }
             })
         },
+
         //for /causes/show/:id type route
         //show all the users that have supported a single, and how many times they supported it
         showCauseUsers: function (req, res){
-            models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Supports" LEFT JOIN "Users" ON "user_id" = "Users".id WHERE "Supports".cause_id = ? GROUP BY "Users".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Users".id, "Users".first_name, "Users".email, "Users".last_name, "Users".city, "Users".state, COUNT("Supports".user_id) as "supports" FROM "Supports" LEFT JOIN "Users" ON "user_id" = "Users".id WHERE "Supports".cause_id = ? GROUP BY "Users".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
             .then(function(supporters){
                 res.json(supporters);
             })
@@ -76,8 +79,8 @@ module.exports = (function(){
                     rep_level: cause.rep_level,
                     enabled: cause.enabled,
                     fixed: cause.fixed,
-                    text_blurb: cause.text_blurb,
-                    email_blurb: cause.email_blurb,
+                    text_blurb: cause.text_content,
+                    email_blurb: cause.email_content,
                     fixed_name: cause.fixed_name,
                     fixed_address: cause.fixed_address,
                     fixed_city: cause.fixed_city,
@@ -86,7 +89,45 @@ module.exports = (function(){
                     letter_body: cause.letter_body,
                     letter_footnote: cause.letter_footnote
                 }).then(function(cause) {
-                    // sendTextAlerts(cause);
+
+                    // Send text notification
+                    models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})
+                    .then(function(data){
+                    	if(data){
+                            console.log('=========cause inside texting=========');
+                            console.log(cause);
+                            console.log('=========cause inside texting=========');
+                    		var phoneArray = []
+                    		for (var i = 0; i < data.length; i++) {
+                    			if (data[i].dataValues.phone_number.length === 10) {
+                    				phoneArray.push(data[i].dataValues.phone_number);
+                    			}
+                    		}
+                            for (var phone of phoneArray){
+                                twilio.sendMessage({
+                                // to:   "+1"+phone,
+                                to:   "+19492927463",
+                                from: +13232388340,
+                                body: "Hey you." + "\n" +
+                                      cause.text_blurb + "\n"+
+                                      "Mail a letter and your voice will be heard."+ "\n"+
+                                      "http://letters4animals.org/#/writealetter/cause/" + cause.dataValues.id
+
+                                }, function(err,data){
+                                    if(err){
+                                        console.log("something went wrong with twilio", err);
+                                        // res.json(err);
+                                    } else {
+                                        // res.send('sent twilio message successfully');
+                                    }
+                                });
+                            }
+                    	}
+                    	else{
+                    		console.log("error finding all users with phone notification enabled");
+                    	}
+                    })  // End of text alert
+
                     // sendEmailAlerts(cause);
 
                     res.json({success: true, data: cause})
@@ -94,7 +135,6 @@ module.exports = (function(){
                     res.json({success: false, errors: err})
                 })
 
-                res.json(); //needed?
             } else {
                 console.log('Missing Cause');
             }
@@ -177,7 +217,7 @@ module.exports = (function(){
             } else {
                 console.log('Missing Cause');
             }
-        },
+        }
 
     }//closes return
 })();

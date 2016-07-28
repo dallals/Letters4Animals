@@ -19,7 +19,6 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
 
     // Grab Cause by ID, send back Cause data- for edit/update functionality
     factory.getCause = function(id, callback) {
-        console.log("getting to factory Sammy", id)
         $http.get('/getSingleCause/'+id).success(function(data) {
             callback(data);
         })
@@ -104,7 +103,6 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
 
     //Deletes PendingCause from the Admin Panel
     factory.delPendCause = function(pendingcause, callback) {
-        console.log('Deleted Pend Cause',pendingcause);
         $http.post('/deletePendCause', pendingcause).success(function(pendingcauses) {
             if (callback && typeof callback == 'function') {
                 callback(pendingcauses);
@@ -146,7 +144,6 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
 
     factory.delCause = function(cause, callback){
         $http.post('/delCause', cause).success(function(causes){
-            console.log("getting to call back")
             callback(causes);
         })
     }

@@ -39,16 +39,18 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
         $scope.updateInfo = function(field){
             if(!$scope.updatedUser){ $scope.updatedUser = {}; }
             // Update property of temp user based on what changes
-            if (!$scope.loggedUser[field] || $scope.loggedUser[field].trim() == '') {
-                $scope.errors[field] = 'red';
-            } else {
-                $scope.errors[field] = 'greenerr';
+            if (field != 'phone_notification' && field != 'email_notification' && field != 'volunteer'){
+                if (!$scope.loggedUser[field] || $scope.loggedUser[field].trim() == '') {
+                    $scope.errors[field] = 'red';
+                } else {
+                    $scope.errors[field] = 'greenerr';
+                }
             }
 
-            if (field == 'zipcode' && $scope.loggedUser[field].trim().length < 5) { $scope.errors[field] = 'red'}
+            if (field == 'zipcode' && field != 'phone_notification' && field != 'email_notification' && field != 'volunteer' && $scope.loggedUser[field].trim().length < 5) { $scope.errors[field] = 'red'}
             else if (field == 'zipcode') { $scope.errors[field] = 'greenerr' }
 
-            if (field == 'phone_number' && $scope.loggedUser[field].trim().length != 10) { $scope.errors[field] = 'red' }
+            if (field == 'phone_number' && field != 'phone_notification' && field != 'email_notification' && field != 'volunteer' && $scope.loggedUser[field].trim().length != 10) { $scope.errors[field] = 'red' }
             else if (field == 'phone_number') { $scope.errors[field] = 'greenerr' }
 
             $scope.updatedUser[field] = $scope.loggedUser[field];
