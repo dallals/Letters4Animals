@@ -27,7 +27,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			$scope.pendingcauses = pendingcauses;
 		})
 		UserFactory.getAllGuests(function(guests){
-			console.log(guests)
 			$scope.guests = guests;
 		});
 
@@ -137,9 +136,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 
 	//send twilio msg
    $scope.sendText = function(cause){
-	   CauseFactory.sendText(cause, function(data){
-		   console.log(data);
-	   })
+	   CauseFactory.sendText(cause);
    }
 
 });

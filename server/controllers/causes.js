@@ -71,6 +71,7 @@ module.exports = (function(){
         },
 
         addCause: function(req, res) {
+            var self = this;
             if (req.body) {
                 var cause = req.body;
                 models.Cause.create({
@@ -89,47 +90,10 @@ module.exports = (function(){
                     letter_body: cause.letter_body,
                     letter_footnote: cause.letter_footnote
                 }).then(function(cause) {
-
-                    // Send text notification
-                    models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})
-                    .then(function(data){
-                    	if(data){
-                            console.log('=========cause inside texting=========');
-                            console.log(cause);
-                            console.log('=========cause inside texting=========');
-                    		var phoneArray = []
-                    		for (var i = 0; i < data.length; i++) {
-                    			if (data[i].dataValues.phone_number.length === 10) {
-                    				phoneArray.push(data[i].dataValues.phone_number);
-                    			}
-                    		}
-                            for (var phone of phoneArray){
-                                twilio.sendMessage({
-                                // to:   "+1"+phone,
-                                to:   "+19492927463",
-                                from: +13232388340,
-                                body: "Hey you." + "\n" +
-                                      cause.text_blurb + "\n"+
-                                      "Mail a letter and your voice will be heard."+ "\n"+
-                                      "http://letters4animals.org/#/writealetter/cause/" + cause.dataValues.id
-
-                                }, function(err,data){
-                                    if(err){
-                                        console.log("something went wrong with twilio", err);
-                                        // res.json(err);
-                                    } else {
-                                        // res.send('sent twilio message successfully');
-                                    }
-                                });
-                            }
-                    	}
-                    	else{
-                    		console.log("error finding all users with phone notification enabled");
-                    	}
-                    })  // End of text alert
-
-                    // sendEmailAlerts(cause);
-
+                    // If cause is enabled, send out notifications
+                    if(cause.enabled){
+                        self.sendNotifications(cause);
+                    }
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
@@ -141,7 +105,6 @@ module.exports = (function(){
         },
 
         convertPendingCause: function(req, res) {
-
             if (req.body.cause) {
                 var cause = req.body.cause;
                 models.Cause.create({
@@ -158,14 +121,12 @@ module.exports = (function(){
                     fixed_state: cause.fixed_state,
                     fixed_zipcode: cause.fixed_zipcode
                 }).then(function(cause) {
-                //need to delete pending cause
+                    //need to delete pending cause
                     models.Pendingcause.destroy({where: ['id = ?', req.body.pendingcause_id]})
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
-
-                res.json(); //needed?
             } else {
                 console.log('Missing Cause');
             }
@@ -181,7 +142,7 @@ module.exports = (function(){
                 .then(function(supports){
                     cause.destroy()
                     .then(function(){
-                    // Send back all remaining users
+                        // Send back all remaining users
                         self.getAllCauses(req, res)
                     })
                 })
@@ -200,6 +161,8 @@ module.exports = (function(){
                     rep_level: cause.rep_level,
                     letter_body: cause.letter_body,
                     letter_footnote: cause.letter_footnote,
+                    text_blurb: cause.text_content,
+                    email_blurb: cause.email_content,
                     enabled: cause.enabled,
                     fixed: cause.fixed,
                     fixed_name: cause.fixed_name,
@@ -217,7 +180,37 @@ module.exports = (function(){
             } else {
                 console.log('Missing Cause');
             }
-        }
+        },
+
+        sendNotifications: function(cause) {
+            // Send text notification
+            models.User.findAll({attributes: ['phone_number', 'first_name'], where: ["phone_notification = ?", true]})
+            .then(function(data){
+                if(data){
+                    for(var user of data){
+                        if(user.dataValues.phone_number){
+                            twilio.sendMessage({
+                            to:   "+1"+user.dataValues.phone_number,
+                            from: +13232388340,
+                            body: "Hello " + user.dataValues.first_name + "." + "\n" +
+                                  cause.text_blurb + "\n"+
+                                  "http://letters4animals.org/#/writealetter/cause/" + cause.dataValues.id
+
+                            }, function(err,data){
+                                if(err){
+                                    console.log("Something went wrong with twilio.", err);
+                                } else {
+                                    console.log('Text notification sent.');
+                                }
+                            });
+                        }
+                    }
+                }
+                else{
+                    console.log("Error finding all users for phone notifications.");
+                }
+            })  // End of text alert
+        }   // End of sendNotifs
 
     }//closes return
 })();
