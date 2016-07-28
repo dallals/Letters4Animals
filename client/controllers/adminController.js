@@ -7,7 +7,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 	};
 
 	UserFactory.isLoggedIn(function(user){
-		if(user.id){
+		if(user.admin == true){
 			// If logged in, populate form with user info
 			$scope.loggedUser = user;
             $scope.loggedIn = true;

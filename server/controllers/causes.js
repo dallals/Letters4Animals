@@ -95,7 +95,6 @@ module.exports = (function(){
                     res.json({success: false, errors: err})
                 })
 
-                res.json(); //needed?
             } else {
                 console.log('Missing Cause');
             }
