@@ -23,7 +23,7 @@ module.exports = (function(){
         //for /causes/show/:id type route
         //show all the users that have supported a single, and how many times they supported it
         showCauseUsers: function (req, res){
-            models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Supports" LEFT JOIN "Users" ON "user_id" = "Users".id WHERE "Supports".cause_id = ? GROUP BY "Users".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Users".id, "Users".first_name, "Users".email, "Users".last_name, "Users".city, "Users".state, COUNT("Supports".user_id) as "supports" FROM "Supports" LEFT JOIN "Users" ON "user_id" = "Users".id WHERE "Supports".cause_id = ? GROUP BY "Users".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
             .then(function(supporters){
                 res.json(supporters);
             })
@@ -86,6 +86,7 @@ module.exports = (function(){
                     letter_body: cause.letter_body,
                     letter_footnote: cause.letter_footnote
                 }).then(function(cause) {
+
                     console.log('=========cause=========');
                     console.log(cause);
                     console.log('=========cause=========');
@@ -123,14 +124,13 @@ module.exports = (function(){
                     	}
                     })  // End of text alert
 
-
                     // sendEmailAlerts(cause);
+
                     res.json({success: true, data: cause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
 
-                res.json(); //needed?
             } else {
                 console.log('Missing Cause');
             }
