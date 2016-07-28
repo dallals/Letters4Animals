@@ -21,6 +21,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.payload      = {};
     $scope.logoDown     = false;
     $scope.supported    = false;
+    $scope.letterFormat = false;
     $scope.fixed        = {
         name    : '',
         pos     : '',
@@ -45,7 +46,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     CauseFactory.getAllCauses(function(causes){
         for(var ind in causes){
-            causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
             // Check if cause should be pre-selected from a link/URL
             if(causes[ind].id == $routeParams.causeId){
                 $scope.selCause = causes[ind];
@@ -184,11 +184,24 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             if($scope.chosenRep[i] == rep){
                 $scope.chosenRep.splice(i, 1);
                 alreadyPicked = true;
+                if($scope.chosenRep.length == 0){
+                    $scope.letterFormat = false;
+                }
             }
         }
         if(!alreadyPicked){
+            $scope.letterFormat = true;
             $scope.chosenRep.push(rep);
+            $scope.formatLetter();
         }
+    }
+
+    $scope.formatLetter = function() {
+        setTimeout(function(){
+
+            document.getElementById('letterrichtext').innerHTML = $scope.selCause.letter_body;
+
+        }, 500);
     }
 
     $scope.printLetter = function(elem) {

@@ -1,4 +1,4 @@
-var AnimalApp = angular.module('AnimalApp', ['ngRoute', 'ngMessages', 'ng-sweet-alert', 'ui.bootstrap', 'angularUtils.directives.dirPagination']);
+var AnimalApp = angular.module('AnimalApp', ['ngRoute', 'ngMessages', 'ng-sweet-alert', 'ui.bootstrap', 'angularUtils.directives.dirPagination','ui.tinymce']);
 
 // Scrolling animation for header
 AnimalApp.directive("scroll", function ($window) {

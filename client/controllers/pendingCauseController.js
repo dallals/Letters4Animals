@@ -19,4 +19,11 @@ AnimalApp.controller('pendingCauseController', function($scope, $location, $rout
 				})
 		}
 
+		$scope.tinymceOptions = {
+			plugins: 'link advlist code spellchecker paste textcolor colorpicker visualchars wordcount contextmenu visualblocks insertdatetime charmap hr searchreplace',
+			advlist_bullet_styles: "square",
+			menubar: "edit view insert",
+			toolbar: 'undo redo |  bold italic | styleselect | alignleft aligncenter alignright | code | spellchecker | paste | forecolor backcolor | visualchars | link | visualblocks | insertdatetime | charmap | searchreplace',
+		};
+
 });

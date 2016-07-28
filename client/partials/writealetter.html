@@ -1,5 +1,4 @@
 <div class="container" ng-controller='letterDisplayController'>
-
     <div class="row banner">
         <div class="col-md-12">
             <img src="/assets/pigsbanner.jpg" alt="pigs banner" />
@@ -180,11 +179,11 @@
                         <br><br>
                         {{ rep.letterPos }} {{ rep.rep.name || fixed.name }}<br>
                         {{ rep.position || fixed.pos }}<br>
-                        {{ rep.rep.address[0].line1 || fixed.addr }}<br>
+                        {{ rep.rep.address[0].line1 || fixed.addr }}<span ng-show='rep.rep.address[0].line2'>{{', ' + rep.rep.address[0].line2 }}</span><br>
                         {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
 
                         Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-                        <span ng-repeat='paragraph in selCause.letter'>{{ paragraph }}<br><br></span>
+                        <p id="letterrichtext"></p>
                         Sincerely, <br><br><br>
                         {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
                         <br><br><br>
@@ -205,4 +204,8 @@
             <a href="#volunteer"><button id="volunteer" class="btn btn-primary">Volunteer A Custom Letter</button></a>
         </div>
     </div>
+
+    <script>
+        document.getElementById('letterrichtext').innerHTML = {{causehtml}};
+    </script>
 </div>
