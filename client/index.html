@@ -53,14 +53,6 @@
 
 <body ng-app = "AnimalApp">
   <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
 <!-- Site Header -->
 <div scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
     <div id="main-header">
@@ -182,7 +174,7 @@
                               <div class="col-md-12">
                                   <div id="choices">
                                       <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" required> {{ choice.formatted_address }}
+                                          <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" > {{ choice.formatted_address }}
                                       </label>
                                       <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
                                   </div>

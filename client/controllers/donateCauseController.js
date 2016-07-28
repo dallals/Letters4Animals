@@ -1,7 +1,5 @@
 // Controller for volunteering a letter
 AnimalApp.controller('donateCauseController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
-		// console.log("made it to pending cause controller",$routeParams.id);
-		// var id = $routeParams.id;
 		$scope.sweet = {};
 
 		//Create button for the pending cause

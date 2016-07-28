@@ -42,7 +42,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
     });
 
-    CauseFactory.getAllCauses(function(causes){
+    CauseFactory.getEnabledCauses(function(causes){
         for(var ind in causes){
             // Check if cause should be pre-selected from a link/URL
             if(causes[ind].id == $routeParams.causeId){
