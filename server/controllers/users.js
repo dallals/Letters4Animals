@@ -43,7 +43,8 @@ var sendResetEmail = function(url, email) {
 
 var checkExistingUrl = function(email, user) {
     var url = resetPassGen();
-    models.User.find({where: ["reset_pw_url = ?", url]}).then(function(data) {
+    models.User.find({attributes: ["id", "first_name", "last_name", "email", "street_address", "city", "state", "zipcode", "phone_number", "phone_notification", "email_notification", "volunteer", "admin", "login_count",
+"reset_pw_url", "reset_pw_url_created_at", "createdAt", "updatedAt"], where: ["reset_pw_url = ?", url]}).then(function(data) {
         if (data) {
             checkExistingUrl(email, user);
         } else {
@@ -123,16 +124,17 @@ module.exports = (function(){
         },
 
         //for /users/show/:id type route
-        showUserInfo: function (req, res) {
-            models.User.find({where: ["id = ?", req.params.id]}).then(function(data){
-                if(data){
-                    res.json(data.dataValues);
-                }
-                else {
-                    res.send('User Not Found');
-                }
-            })
-        },
+        // showUserInfo: function (req, res) {
+        //     models.User.find({attributes: ["id", "first_name", "last_name", "email", "street_address", "city", "state", "zipcode", "phone_number", "phone_notification", "email_notification", "volunteer", "admin", "login_count",
+        // "reset_pw_url", "reset_pw_url_created_at", "createdAt", "updatedAt"], where: ["id = ?", req.params.id]}).then(function(data){
+        //         if(data){
+        //             res.json(data.dataValues);
+        //         }
+        //         else {
+        //             res.send('User Not Found');
+        //         }
+        //     })
+        // },
 
         //for /users/show/:id type route
         //show all the causes a single user supported, and how many times they supported it
@@ -145,7 +147,8 @@ module.exports = (function(){
 
         //Grabbing a single user's info by SESSION ID
         getUserInfo: function(req, res) {
-            models.User.find({where: ["id = ?", req.body.userid]}).then(function(data){
+            models.User.find({attributes: ["id", "first_name", "last_name", "email", "street_address", "city", "state", "zipcode", "phone_number", "phone_notification", "email_notification", "volunteer", "admin", "login_count",
+        "reset_pw_url", "reset_pw_url_created_at", "createdAt", "updatedAt"], where: ["id = ?", req.body.userid]}).then(function(data){
                 if(data){
                     res.json(data.dataValues);
                 }
@@ -156,9 +159,10 @@ module.exports = (function(){
         },
         //For Reset
         getUserByEmail: function(req, res) {
-            models.User.find({where: ["email = ?", req.body.email]}).then(function(data) {
+            models.User.find({attributes: ["id", "first_name", "last_name", "email", "street_address", "city", "state", "zipcode", "phone_number", "phone_notification", "email_notification", "volunteer", "admin", "login_count",
+        "reset_pw_url", "reset_pw_url_created_at", "createdAt", "updatedAt"], where: ["email = ?", req.body.email]}).then(function(data) {
                 if (data) {
-                    res.json({data: data.dataValues});
+                    // res.json({data: data.dataValues});
 
                     checkExistingUrl(data.dataValues.email, data);
                 } else {
@@ -167,7 +171,8 @@ module.exports = (function(){
             })
         },
         getUserByResetUrl: function(req, res) {
-            models.User.find({where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
+            models.User.find({attributes: ["id", "first_name", "last_name", "email", "street_address", "city", "state", "zipcode", "phone_number", "phone_notification", "email_notification", "volunteer", "admin", "login_count",
+        "reset_pw_url", "reset_pw_url_created_at", "createdAt", "updatedAt"], where: ["reset_pw_url = ?", req.body.resetUrl]}).then(function(data) {
                 if (data) {
                     res.json({data: data.dataValues});
                 } else {
@@ -229,6 +234,7 @@ module.exports = (function(){
             })
         },
 
+        //Commented out because duplicate. connects to singleCauseController ln31. causeFactory ln 49.
         getCauseUsers: function (req,res){
           var id = req.params.id;
             models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})

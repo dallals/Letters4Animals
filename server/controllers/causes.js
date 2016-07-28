@@ -41,7 +41,7 @@ module.exports = (function(){
 
         getSingleCause: function(req,res){
             var id = req.params.id;
-            models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(cause){
                 res.json(cause);
             })
