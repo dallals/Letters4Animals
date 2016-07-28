@@ -3,7 +3,7 @@
     <h2>Volunteer a Letter</h2>
   </header>
 
-  <form name="volunteercause" method="post" ng-controller="donateCauseController" ng-model="pendingcause">
+  <form name="volunteercause" class="letter_background" method="post" ng-controller="donateCauseController" ng-model="pendingcause">
     <label>Cause Name</label><br><input type="text" name="causename" ng-model="pendingcause.name"></input><br><br>
     <label>Description</label><br><textarea name="description" class="admintext" ng-model="pendingcause.description"></textarea><br>
 
@@ -37,10 +37,10 @@
     <div class="letter content">
       <h4>Footnotes</h4>
       <textarea name="string" class="footnotetext" ng-model="pendingcause.letter_footnote"></textarea>
-    </div>
+  </div><br>
 
     <input type="submit" ng-click="volunteer(loggedUser.id)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Submit Custom Letter"></input>
-
+    <br><br><br>
   </form>
 
 </div>

@@ -1,11 +1,11 @@
 <div id="main">
   <header id="addcauseheader">
     <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
-    <h2>Add & Edit a Cause</h2>
+    <h2 class="not_centered">Create A New Cause</h2>
   </header>
 
 
-  <form name="causeadmin" method="post" ng-controller="singleCauseController" ng-model="cause">
+  <form name="causeadmin" class="letter_background" method="post" ng-controller="singleCauseController" ng-model="cause">
 
     <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
     <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
@@ -54,10 +54,10 @@
     <div class="notification_content">
       <h5>Email Notification Content </h5>
       <textarea name="string" class="footnotetext" ng-model="cause.email_content"></textarea>
-    </div>
+  </div><br><br>
 
-    <input type="submit" ng-click="addCause(cause)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Add Cause"></input>
-
+    <input type="submit" ng-click="addCause(cause)" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Create New Cause"></input>
+    <br><br><br>
     <!-- <input type="submit" ng-click="updateCause()" class="btn btn-success analytics" id="update_cause" name="update_cause" value="Update Cause"></input> -->
 
   </form>

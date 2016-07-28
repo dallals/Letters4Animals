@@ -1,10 +1,10 @@
 <div id="main">
   <header id="addcauseheader">
     <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
-    <h2>Add & Edit a Donated Cause</h2>
+    <h2 class="not_centered">Review & Create a Donated Cause</h2>
   </header>
 
-  <form name="causeadmin" method="post" ng-controller="pendingCauseController" ng-model="cause">
+  <form name="causeadmin" class="letter_background" method="post" ng-controller="pendingCauseController" ng-model="cause">
     <label>Cause Name</label><br><input type="text" name="causename" ng-model="pendingcause.name"></input><br><br>
     <label>Description</label><br><textarea name="description" class="admintext" ng-model="pendingcause.description"></textarea><br>
     <div class="halfsection">
@@ -49,10 +49,10 @@
     <div class="notification_content">
       <h5>Email Notification Content </h5>
       <textarea name="string" class="footnotetext" ng-model="pendingcause.email_content"></textarea>
-    </div>
+    </div><br>
 
     <input type="submit" ng-click="addCause()" class="btn btn-success analytics" id="new_cause" name="new_cause" value="Create Cause"></input>
-
+    <br><br><br>
   </form>
 
 </div>

@@ -16,6 +16,7 @@ body{
   border-bottom: solid 1.5px rgba(180, 179, 182, 0.5);
   transition:background-color 0.4s, color 0.4s, transform 0s, opacity 0s ease-in-out;
   font-weight: 600;
+  overflow:visible !important;
 }
 
 .right-header #navbar li a{
