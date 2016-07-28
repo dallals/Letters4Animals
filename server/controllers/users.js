@@ -261,37 +261,32 @@ module.exports = (function(){
         },
 
         sendText: function(req,res){
-
-            models.User.findAll({attributes: ['phone_number'], where: ["phone_notification = ?", true]})
+            var cause = req.body;
+            models.User.findAll({attributes: ['phone_number', 'first_name'], where: ["phone_notification = ?", true]})
             .then(function(data){
-            	if(data){
-            		var phoneArray = []
-            		for (var i = 0; i < data.length; i++) {
-            			if (data[i].dataValues.phone_number.length === 10) {
-            				phoneArray.push(data[i].dataValues.phone_number);
-            			}
-            		}
-                    for (var phone of phoneArray){
-                        twilio.sendMessage({
-                        to:   "+1"+phone,
-                        from: +13232388340,
-                        body: "Hello " + req.body + "\n"+
-                              req.body.fixed_name+ " should know "+ req.body.description + "\n"+
-                              "Mail a letter and your voice will be heard."+ "\n"+
-                              "http://letters4animals.org/#/writealetter/cause/" + req.body.id
+                if(data){
+                    for(var user of data){
+                        if(user.dataValues.phone_number){
+                            twilio.sendMessage({
+                            to:   "+1"+user.dataValues.phone_number,
+                            from: +13232388340,
+                            body: "Hello " + user.dataValues.first_name + "." + "\n" +
+                                  cause.text_blurb + "\n"+
+                                  "http://letters4animals.org/#/writealetter/cause/" + cause.id
 
-                        }, function(err,data){
-                            if(err){
-                                console.log("something went wrong with twilio", err);
-                            } else {
-                                res.json('sent twilio message successfully');
-                            }
-                        });
+                            }, function(err,data){
+                                if(err){
+                                    console.log("Something went wrong with twilio.", err);
+                                } else {
+                                    console.log('Text notification sent.');
+                                }
+                            });
+                        }
                     }
-            	}
-            	else{
-            		console.log("error finding all users with phone notification enabled");
-            	}
+                }
+                else{
+                    console.log("Error finding all users for phone notifications.");
+                }
             })
         }
 

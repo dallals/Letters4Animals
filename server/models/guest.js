@@ -1,12 +1,39 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Guest = sequelize.define('Guest', {
-    first_name: DataTypes.STRING,
-    last_name: DataTypes.STRING,
-    street_address: DataTypes.STRING,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    zipcode: DataTypes.INTEGER 
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      isAlpha: true,
+      len:[2,25]
+    },
+    last_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      isAlpha: true,
+      len:[2,25]
+    },
+    street_address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len:[2,50]
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len:[2,50]
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      isAlpha: true,
+      len:[0,2]
+    },
+    zipcode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len:[0,10]
+    }
     //,
     // cause_id: {
     //   type: DataTypes.INTEGER,

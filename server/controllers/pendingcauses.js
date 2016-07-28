@@ -10,6 +10,7 @@ module.exports = (function(){
                 res.json(pendingcauses);
             })
         },
+		
         addPendingCause: function(req, res) {
             if (req.body) {
                 var pendingcause = req.body;
