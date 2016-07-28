@@ -1,4 +1,4 @@
-// Controller for view single cause links and to update causes on the Admin Panel
+// Controller to update causes on the Admin Panel
 AnimalApp.controller('singleCauseController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
 		var id = $routeParams.id;
 
