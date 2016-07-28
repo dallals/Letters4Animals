@@ -73,7 +73,6 @@ module.exports = (function(){
             models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
                 console.log('in confirmEmail');
                 if(user){
-                    console.log(user.dataValues);
                     founduser = user.dataValues
                     deleteid = founduser.id
                     founduser.id = null;
@@ -197,11 +196,9 @@ module.exports = (function(){
         //Update user info
         updateUser: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            console.log(req.body);
             if (req.body.userid != 1) {
                 req.body.admin = false;
             }
-            console.log(req.body);
             if (req.body.password) {
                 req.body.password = models.Pendinguser.generateHash(req.body.password)
             }
@@ -210,10 +207,7 @@ module.exports = (function(){
 
         changePassword: function(req, res) {
             // Pass req.body object to the update function to update appropriate fields
-            console.log("changePassword req.body")
-            console.log(req.body)
             models.User.find({where: ["id = ?", req.body.userid]}).then(function(user){
-                console.log('in changePassword');
                 if(user){
                     if (user.validPassword(req.body.oldPassword)){
                         if (req.body.newPassword === req.body.confPassword) {
@@ -222,7 +216,7 @@ module.exports = (function(){
                             res.json({success: true, statusMessage:'Password Changed'});
                         }
                         else {
-                        res.json({success: false, statusMessage:'Passwords Do Not Match'});
+                            res.json({success: false, statusMessage:'Passwords Do Not Match'});
                         }
                     }
                     else {
@@ -236,8 +230,6 @@ module.exports = (function(){
         },
 
         getAllUsers: function(req, res){
-            console.log("in getAllUsers");
-            // models.sequelize.query('SELECT "Users".id, "Users".email, "Users".login_count, "Users".phone_notification, "Users".email_notification, "Users".first_name, "Users".last_name, "Users".state, "Users".street_address, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             models.sequelize.query('SELECT "Users".*, COUNT("Supports".user_id) as "supports" FROM "Users" LEFT JOIN "Supports" ON "user_id" = "Users".id GROUP BY "Users".id;', { type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
                 res.json(users);
@@ -245,7 +237,6 @@ module.exports = (function(){
         },
 
         getCauseUsers: function (req,res){
-          console.log("made it to model",req.params.id);
           var id = req.params.id;
             models.sequelize.query('SELECT "Users".* FROM "Users" LEFT JOIN "Supports" ON "Supports".user_id = "Users".id WHERE "Supports".cause_id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(users){
@@ -255,8 +246,6 @@ module.exports = (function(){
 
         delUser: function(req, res){
             var self = this;
-            // console.log(self);
-            console.log('in delUser');
             // Find user, find and delete user's supports, then delete user
             models.User.find({where: ['id = ?', req.body.id]})
             .then(function(user){
@@ -292,13 +281,13 @@ module.exports = (function(){
                               "Mail a letter and your voice will be heard."+ "\n"+
                               "http://letters4animals.org/#/writealetter/cause/" + req.body.id
 
-                    }, function(err,data){
-                        if(err){
-                            console.log("something went wrong with twilio", err);
-                        } else {
-                            res.json('sent twilio message successfully');
-                        }
-                    });
+                        }, function(err,data){
+                            if(err){
+                                console.log("something went wrong with twilio", err);
+                            } else {
+                                res.json('sent twilio message successfully');
+                            }
+                        });
                     }
             	}
             	else{
