@@ -197,10 +197,12 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
 
     $scope.formatLetter = function() {
+        // Wait for angular to populate letter then turn the body into rich text
         setTimeout(function(){
-
-            document.getElementById('letterrichtext').innerHTML = $scope.selCause.letter_body;
-
+            var richLetters = document.getElementsByName('richLetter');
+            for(var i=0; i < richLetters.length; i++){
+                richLetters[i].innerHTML = $scope.selCause.letter_body;
+            }
         }, 500);
     }
 

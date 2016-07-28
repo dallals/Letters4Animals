@@ -183,7 +183,7 @@
                         {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
 
                         Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
-                        <p id="letterrichtext"></p>
+                        <p id="letterrichtext" name='richLetter'></p>
                         Sincerely, <br><br><br>
                         {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
                         <br><br><br>
