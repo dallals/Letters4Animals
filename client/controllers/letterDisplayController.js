@@ -245,10 +245,11 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             letters[i].children[0].src = 'L4Alogo.png';
             letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            var letterName  = 'Letter_to_' + letters[i].children[12].innerHTML + '.doc',
+            var letterName  = 'Letter_to_' + letters[i].children[13].innerHTML + '.docx',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
-            mimeType    = 'application/msword',
+            // mimeType    = 'application/msword',
+            mimeType    = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             elHtml      = letters[i].innerHTML;
 
             // 'Click' the generated link to force file download
