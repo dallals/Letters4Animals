@@ -7,7 +7,7 @@
     </header>
 
     <!-- Add New Cause Page from the Admin Panel- Uses the singleCauseController -->
-    <form name="causeadmin" class="letter_background" method="post" ng-controller="singleCauseController" ng-model="cause">
+    <form name="causeadmin" class="letter_background" method="post" ng-controller="AddCauseController" ng-model="cause">
 
         <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
         <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
