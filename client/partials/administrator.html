@@ -41,7 +41,7 @@
                         <tbody>
                           <input type="text" ng-model="filter_causes" placeholder=" Search Causes"><br>
                           <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true" ></dir-pagination-controls>
-            
+
                           <tr dir-paginate="cause in causes |orderBy:'name'| filter: filter_causes | itemsPerPage:20">
 
                             <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
@@ -125,9 +125,6 @@
                       </table>
                     </div>
                     <div role="tabpanel" class="tab-pane " id="pendingcauses">
-
-                      <button class="btn btn-primary analytics" ng-click="enableAllCauses()">Enable All</button>
-                      <button class="btn btn-primary analytics" ng-click="disableAllCauses()">Disable All</button>
                       <table class="table admintable">
                         <thead>
                           <th>Cause</th>
@@ -147,7 +144,7 @@
                             <td>{{pendingcause.createdAt | date:"MM/dd/yyyy 'at' h:mma"}}</td>
                             <!-- <td><input type="checkbox" ng-click='toggleCause(cause)' ng-checked="{{cause.enabled}}"></td> -->
                             <td><a href="#/pendingcauseadmin/{{pendingcause.id}}"><button id="editPendingCause" class="admin_panel" >Edit & Add</button></a></td>
-                           <td><button id="deletependingcause" class="admin_panel" ng-click='deletePendCause(pendingcause)'>Delete</button></td>                            
+                           <td><button id="deletependingcause" class="admin_panel" ng-click='deletePendCause(pendingcause)'>Delete</button></td>
                           </tr>
                         </tbody>
                       </table>

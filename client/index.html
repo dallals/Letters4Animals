@@ -39,30 +39,18 @@
     <script src="/js/angular-messages.js"></script>
     <script src="/js/sweetalert.min.js"></script>
     <script src="/js/ng-sweet-alert.js"></script>
+    <script src="/js/tinymce/tinymce.min.js"></script>
+    <script src="/js/tinymce/angular-tinymce.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.4.0/tinymce.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.7/angular.js"></script>
-    <script type="text/javascript" src="http://hellophello.net/hi/editor/js/lib/angular-tinymce.min.js"></script>
-
-
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
-<!-- <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script> -->
 
 </head>
 
 <body>
 
-  <div id="fb-root"></div>
-      <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-      </script>
-  </div>
+
 <!-- Site Header -->
 <div ng-app="AnimalApp" scroll id="page" ng-class="{min:boolChangeClass}" ng-controller="headerController">
     <div id="main-header">
@@ -88,7 +76,7 @@
                     <a data-toggle="modal" data-target="#Login" ng-if='!loggedIn'>Login</a>
                     <a href="" ng-click='logout()' ng-if='loggedIn'>Logout</a>
                 </li>
-                <li class="social" ng-cloak><div ng-cloak class="fb-share-button " data-href="https://www.letters4animals.org/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" ng-cloak href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.letters4animals.org%2F&amp;src=sdkpreparse">Share</a></div></li>
+                <li class="social" ng-cloak><div id="fb-root"> </div> <div ng-cloak class="fb-share-button " data-href="https://www.letters4animals.org/" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" ng-cloak href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.letters4animals.org%2F&amp;src=sdkpreparse">Share</a></div></li>
                 <li class="social"><a href="https://twitter.com/share?url=https://letters4animals.org"><img src="/assets/twitter.png"></a></li>
               </ul>
           </div>

@@ -314,6 +314,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     // to hide or show the Print letter and show Representatives section
     $scope.review_letter = function(){
+
         if($scope.loggedIn){
             // Reset any info entered into form before logging in
             $scope.user.firstName = null;

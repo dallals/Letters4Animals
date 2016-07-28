@@ -23,7 +23,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			$scope.causes = causes;
 		})
 		CauseFactory.getAllPendingcauses(function(pendingcauses){
-			console.log(pendingcauses, "Getting to pendingcauses")
 			$scope.pendingcauses = pendingcauses;
 		})
 		UserFactory.getAllGuests(function(guests){
@@ -45,12 +44,7 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			var confPrompt = confirm("About to delete "+guest.first_name+". Proceed?");
 	        if (confPrompt) {
 				UserFactory.delGuest(guest, function(guests){
-					// $scope.guests = guests;
-				// UserFactory.getAllGuests(function(guests){
-				// console.log(guests)
-				console.log("Deleting Guests")
-				$scope.guests = guests;
-				// });
+					$scope.guests = guests;
 				})
 	        }
 		};
@@ -59,7 +53,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			// Prompt the admin to confirm user deletion to avoid accidents
 			var confPrompt = confirm("About to delete "+cause.name+". Proceed?");
 	        if (confPrompt) {
-	        	console.log("getting to if")
 				CauseFactory.delCause(cause, function(causes){
 					$scope.causes = causes;
 				})
@@ -70,7 +63,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			var confPrompt = confirm("About to delete pending cause: "+pendingcause.name+". Proceed?");
 			if (confPrompt) {
 				CauseFactory.delPendCause(pendingcause, function(pendingcauses){
-					console.log("back with remaining pending causes",pendingcauses);
 					$scope.pendingcauses = pendingcauses;
 				})
 			}
@@ -136,19 +128,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 		   console.log(data);
 	   })
    }
-
-	 //Set a fixed/non-fixed recipient on the normal Add Cause Page
-	 $scope.toggleFixed = function(recipient) {
-			//  if (!recipient) {
-			// 		 return;
-			//  }
-			//  if (recipient.fixed) {
-			// logic to set a fixed recipient for letter/cause goes here
-			//  } else {
-
-			//  }
-	 }
-
 
 
 
