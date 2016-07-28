@@ -11,9 +11,8 @@
 
         <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
         <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
-        <h4>Enable Cause?</h4>
-        <label> Yes: </label>
-        <input type="checkbox" ng-click='toggleCause(cause)' ng-checked="cause.enabled"><br>
+        <label><input type="checkbox" ng-model="cause.enabled"> Cause Enabled </label>
+        <br>
 
         <div id="Recipients">
             <h4>Recipient Information</h4>
