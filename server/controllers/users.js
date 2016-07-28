@@ -288,6 +288,29 @@ module.exports = (function(){
                     console.log("Error finding all users for phone notifications.");
                 }
             })
+        },
+
+        sendEmail: function(req, res){
+            var cause = req.body;
+            models.User.findAll({attributes: ['email', 'first_name'], where: ["phone_notification = ?", true]})
+            .then(function(data){
+                if(data){
+                    for(var user of data){
+                        transporter.sendMail({
+                            from: 'info@letters4animals.org',
+                            to: user.dataValues.email,
+                            to: 'vkutuyev@gmail.com',
+                            subject: 'Letters4Animals.org - New cause has been created!',
+                            html: cause.email_blurb,
+                            text: cause.email_blurb
+                        });
+                        transporter.close();
+                    }
+                }
+                else{
+                    console.log("Error finding all users for email notifications.");
+                }
+            })
         }
 
   }//closes return
