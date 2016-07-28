@@ -56,11 +56,11 @@
                     <!-- First & Last Name Input Fields -->
                     <div class="form-group">
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName" ng-change="guestName()">
+                            <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="guest.firstName" ng-change="guestName()">
                             <span class="guestInfoErrors" ng-bind="guestInfoErrors.firstName"></span>
                         </div>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName" ng-change="guestName()" >
+                            <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="guest.lastName" ng-change="guestName()" >
                             <span class="guestInfoErrors" ng-bind="guestInfoErrors.lastName"></span>
                         </div>
                     </div>
@@ -170,7 +170,7 @@
                 <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || fixed.name ">Preview and Print your letter(s)</h3>
                 <div id='printDiv' ng-show=true>
                     <div class="page-break printletter letter_background" ng-repeat='rep in chosenRep'>
-                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
+                        {{ guest.firstName || loggedUser.first_name }} {{ guest.lastName || loggedUser.last_name }}<br>
                         {{ addr || loggedUser.street_address }}<br>
                         {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
                         <br><br>
@@ -183,7 +183,7 @@
                         <p id="letterrichtext" name='richLetter'></p>
                         <br><br>
                         Sincerely, <br><br>
-                        {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
+                        {{ guest.firstName || loggedUser.first_name }} {{ guest.lastName || loggedUser.last_name }}
                         <br><br><br>
                         {{ selCause.letter_footnote }}
                     </div>
