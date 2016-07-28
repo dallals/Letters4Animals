@@ -42,7 +42,7 @@ module.exports = function(app){
     app.post('/getUserInfo', function(req, res) {
         users.getUserInfo(req, res);
     })
-    app.get('/users/:id', function(req, res) {
+    app.get('/users/:id',needsAdmin(), function(req, res) {
         users.showUserCauses(req, res);
     })
 
