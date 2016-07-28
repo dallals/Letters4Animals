@@ -6,8 +6,6 @@
     </div>
 
     <div class="col-md-12">
-        <span class="pull-right"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">START OVER</a></span>
-
         <div class="cause_step" ng-hide="select_recipients">
 
             <h3 class="bottom_margin">Choose your cause </h3>
@@ -58,38 +56,38 @@
                     <!-- First & Last Name Input Fields -->
                     <div class="form-group">
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName" required>
-                            <span class="regErrors" ng-bind="regErrors.firstName"></span>
+                            <input type="text" class="form-control" id="first-name" placeholder="First Name" ng-model="user.firstName" ng-change="guestName()">
+                            <span class="guestInfoErrors" ng-bind="guestInfoErrors.firstName"></span>
                         </div>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName" required>
-                            <span class="regErrors" ng-bind="regErrors.lastName"></span>
+                            <input type="text" class="form-control" id="last-name" placeholder="Last Name" ng-model="user.lastName" ng-change="guestName()" >
+                            <span class="guestInfoErrors" ng-bind="guestInfoErrors.lastName"></span>
                         </div>
                     </div>
 
                     <!-- Address -->
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="registerAddress()" required>
-                            <span class="regErrors" ng-bind="regErrors.address"></span>
+                            <input type="text" class="form-control" id="street-address" placeholder="Street Address" ng-model="addr" ng-change="guestAddress()" >
+                            <span class="guestInfoErrors" ng-bind="guestInfoErrors.address"></span>
                         </div>
                     </div>
                     <!-- City && State-->
                     <div class="form-group">
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="registerAddress()">
-                            <span class="regErrors" ng-bind="regErrors.city" required></span>
+                            <input type="text" class="form-control" id="city" placeholder="City" ng-model="city" ng-change="guestAddress()">
+                            <span class="guestInfoErrors" ng-bind="guestInfoErrors.city" ></span>
                         </div>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="registerAddress()" required>
-                            <span class="regErrors" ng-bind="regErrors.state"></span>
+                            <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="guestAddress()" >
+                            <span class="guestInfoErrors" ng-bind="guestInfoErrors.state"></span>
                         </div>
                     </div>
                     <!-- Zip -->
                     <div class="form-group">
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="registerAddress()" required>
-                            <span class="regErrors" ng-bind="regErrors.zip"></span>
+                            <input type="text" class="form-control" id="zip-code" placeholder="Zip Code" ng-model="zip" ng-change="guestAddress()" >
+                            <span class="guestInfoErrors" ng-bind="guestInfoErrors.zip"></span>
                         </div>
                     </div>
                     <!-- For Selecting Correct Location -->
@@ -100,9 +98,10 @@
                         <div class="col-md-12">
                             <div id="choices">
                                 <label style='display: block;' ng-repeat='choice in choices track by $index'>
-                                    <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-change="address_selection()" required> {{ choice.formatted_address }}
+                                    <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-change="address_selection()" > {{ choice.formatted_address }}
                                 </label>
-                                <span class="regErrors" ng-bind="regErrors.confirmAddr"></span>
+                                <span class="guestInfoErrors" ng-bind="guestInfoErrors.confirmAddr"></span>
+                                <span class="guestInfoErrors" ng-bind="guestInfoErrors.addrNotFound"></span>
                             </div>
                         </div>
                     </div>
@@ -191,8 +190,10 @@
                 </div>
             </div> <!--- End of letters --->
 
-            <p class="text-center" ng-if="chosenRep[0] || chosenRep[1] || fixed.name "><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">PRINT</button><button ng-click='saveLetter()' class="btn btn-primary print_save">SAVE</button></p>
+            <p class="text-center" ng-if="chosenRep[0] || chosenRep[1] || fixed.name "><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">Print</button><button ng-click='saveLetter()' class="btn btn-primary print_save">Save</button></p>
         </div> <!--- End of Reps+letter main div --->
+
+        <p class="text-center"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">Start Over</a></p>
 
         <div ng-show='loggedIn' id="homevolcause" class="col-md-12">
             <h3>Do You Use Your Voice For The Animals?</h3>
