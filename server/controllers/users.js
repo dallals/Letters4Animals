@@ -29,8 +29,8 @@ var sendResetEmail = function(url, email) {
         from: 'info@letters4animals.com',
         to: email,
         subject: 'Forgotten Password - letters4animals',
-        html:   '<div style="background: black">To reset your password, please click on the button below, or click the following link if the button does not work. '+
-                '<a href="http://localhost:8000/#/resetPassword/'+url+'"><button style="width: 100px; height: 50px; background: white">Reset Password</button></a></div><br>'+
+        html:   '<div style="background: black;width:500px;margin:0px auto;margin-top:10px;margin-bottom:40px;padding:40px;font-style:tahoma"><p style="text-align:center;color:white;font-size:15px">To reset your password, please click on the button below, or click the following link if the button does not work.</p><br><br>'+
+                '<a style="text-decoration:none;margin-left:36%;background:rgb(25, 176, 153);padding:20px;width:200px;border:none;color:white;font-style:bold;font-size:20px" href="http://localhost:8000/#/resetPassword/'+url+'">Reset Password</a></div><br>'+
                 'http://localhost:8000/#/resetPassword/'+
                 url,
         text: 'something'
