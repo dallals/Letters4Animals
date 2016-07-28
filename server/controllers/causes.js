@@ -208,7 +208,7 @@ module.exports = (function(){
                     fixed_state: cause.fixed_state,
                     fixed_zipcode: cause.fixed_zipcode
                 }).then(function(updatedcause) {
-                    res.json({success: true, data: cause})
+                    res.json({success: true, data: updatedcause})
                 }).catch(function(err) {
                     res.json({success: false, errors: err})
                 })
