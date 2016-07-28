@@ -12,6 +12,8 @@ AnimalApp.controller('singleCauseController', function($scope, $location, $route
 		//get single cause for single view functionality
 		CauseFactory.getSingleViewCause(id, function(data) {
 			$scope.causeview = data[0];
+			$scope.causehtml = data[0].letter_body;
+			document.getElementById('letter').innerHTML = $scope.causehtml;
 		});
 
 		CauseFactory.getSupporters(id, function(data) {

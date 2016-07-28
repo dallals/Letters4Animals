@@ -21,6 +21,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.payload      = {};
     $scope.logoDown     = false;
     $scope.supported    = false;
+    $scope.letterFormat = false;
     $scope.fixed        = {
         name    : '',
         pos     : '',
@@ -45,7 +46,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     CauseFactory.getAllCauses(function(causes){
         for(var ind in causes){
-            causes[ind].letter = causes[ind].letter_body.split('<NEWPAR>');
             // Check if cause should be pre-selected from a link/URL
             if(causes[ind].id == $routeParams.causeId){
                 $scope.selCause = causes[ind];
@@ -184,11 +184,26 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             if($scope.chosenRep[i] == rep){
                 $scope.chosenRep.splice(i, 1);
                 alreadyPicked = true;
+                if($scope.chosenRep.length == 0){
+                    $scope.letterFormat = false;
+                }
             }
         }
         if(!alreadyPicked){
+            $scope.letterFormat = true;
             $scope.chosenRep.push(rep);
+            $scope.formatLetter();
         }
+    }
+
+    $scope.formatLetter = function() {
+        // Wait for angular to populate letter then turn the body into rich text
+        setTimeout(function(){
+            var richLetters = document.getElementsByName('richLetter');
+            for(var i=0; i < richLetters.length; i++){
+                richLetters[i].innerHTML = $scope.selCause.letter_body;
+            }
+        }, 500);
     }
 
     $scope.printLetter = function(elem) {
@@ -217,16 +232,21 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
 
+        console.log('=========letters=========');
+        console.log(letters);
+        console.log('=========letters=========');
+
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var i=0; i < letters.length; i++){
+            console.log('=========letters[i].children=========');
+            console.log(letters[i].children);
+            console.log('=========letters[i].children=========');
             // Change logo src to local and set new css style
             letters[i].children[0].src = 'L4Alogo.png';
             letters[i].children[0].style = 'float: right; margin-right: 45px; margin-top: 25px';
 
-            console.log('this iss:', letters[i].children);
+            var letterName  = 'Letter_to_' + letters[i].children[12].innerHTML + '.doc',
 
-
-            var letterName  = 'Letter_to_' + letters[i].children[0].innerHTML + '.doc',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
             mimeType    = 'application/msword',
