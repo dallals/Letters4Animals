@@ -325,24 +325,19 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     // Guest address section
     $scope.address = {choice: undefined};
-    $scope.loginErrors = '';
-    $scope.regErrors = {
+
+    $scope.guestInfoErrors = {
         firstName       : '',
         lastName        : '',
-        password        : '',
-        confirmPassword : '',
-        addrNotFound    : '',
         address       : '',
         city          : '',
         state         : '',
         zip           : ''
     };
-    var errorMessages = {
+
+    var guesterrorMessages = {
         firstName           : 'First name field is required',
         lastName            : 'Last name field is required',
-        email               : 'Last name field is required',
-        password            : 'Password is required',
-        confirmPassword     : 'Passwords must match',
         address             : 'Address field is required',
         city                : 'City field is required',
         state               : 'State field is required',
@@ -350,8 +345,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }
 
 
-    $scope.registerAddress = function() {
-        $scope.regErrors.addrNotFound = '';
+    $scope.guestAddress = function() {
+        $scope.guestInfoErrors.addrNotFound = '';
 
         if ($scope.addr && $scope.city && $scope.state && $scope.zip) {
             var address = {
@@ -362,13 +357,62 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
             $http.post('/addressConfirmation', address).success(function(data) {
                 if (data == 'Not Found') {
-                    $scope.regErrors.addrNotFound = 'Address is not found, Please double check your address fields';
+                    $scope.guestInfoErrors.addrNotFound = 'Address is not found, Please double check your address fields';
                 } else {
                     if (typeof(data) == 'object') {
                         // Present all the choices and wait for them to pick
                         $scope.choices = data; }
                 }
             })
+
+            $scope.guestInfoErrors = {
+                firstName       : '',
+                lastName        : '',
+                address       : '',
+                city          : '',
+                state         : '',
+                zip           : ''
+            };
+
+
+            var valid   = true,
+                bevalid = true;
+            //Front-end Validations
+                //USER
+            if ( !$scope.user.firstName || $scope.user.firstName.trim().length < 1 ) {
+                valid = false;
+                $scope.guestInfoErrors.firstName = guesterrorMessages.firstName; }
+            if ( !$scope.user.lastName || $scope.user.lastName.trim().length < 1 ) {
+                valid = false;
+                $scope.guestInfoErrors.lastName = guesterrorMessages.lastName; }
+                //ADDRESS
+            if ( !$scope.addr || $scope.addr.trim().length < 1 ) {
+                valid = false;
+                $scope.guestInfoErrors.address = guesterrorMessages.address; }
+            if ( !$scope.city || $scope.city.trim().length < 1 ) {
+                valid = false;
+                $scope.guestInfoErrors.city = guesterrorMessages.city; }
+            if ( !$scope.state || $scope.state.trim().length < 1 ) {
+                valid = false;
+                $scope.guestInfoErrors.state = guesterrorMessages.state; }
+            if ( !$scope.zip || $scope.zip.trim().length < 1 ) {
+                valid = false;
+                $scope.guestInfoErrors.zip = guesterrorMessages.zip; }
+
         }
+    }
+
+    // Guest Name required
+    $scope.guestName = function() {
+        $scope.guestInfoErrors = {
+            firstName       : '',
+            lastName        : ''
+        }
+        if ( !$scope.user.firstName || $scope.user.firstName.trim().length < 1 ) {
+            valid = false;
+            $scope.guestInfoErrors.firstName = guesterrorMessages.firstName; }
+        if ( !$scope.user.lastName || $scope.user.lastName.trim().length < 1 ) {
+            valid = false;
+            $scope.guestInfoErrors.lastName = guesterrorMessages.lastName; }
     }
 });
