@@ -124,19 +124,19 @@ module.exports = (function(){
         },
 
         //for /users/show/:id type route
-        // showUserInfo: function (req, res) {
-        //     models.User.find({attributes: ["id", "first_name", "last_name", "email", "street_address", "city", "state", "zipcode", "phone_number", "phone_notification", "email_notification", "volunteer", "admin", "login_count",
-        // "reset_pw_url", "reset_pw_url_created_at", "createdAt", "updatedAt"], where: ["id = ?", req.params.id]}).then(function(data){
-        //         if(data){
-        //             res.json(data.dataValues);
-        //         }
-        //         else {
-        //             res.send('User Not Found');
-        //         }
-        //     })
-        // },
+        showUserInfo: function (req, res) {
+            models.User.find({attributes: ["id", "first_name", "last_name", "email", "street_address", "city", "state", "zipcode", "phone_number", "phone_notification", "email_notification", "volunteer", "admin", "login_count",
+        "reset_pw_url", "reset_pw_url_created_at", "createdAt", "updatedAt"], where: ["id = ?", req.params.id]}).then(function(data){
+                if(data){
+                    res.json(data.dataValues);
+                }
+                else {
+                    res.send('User Not Found');
+                }
+            })
+        },
 
-        //for /users/show/:id type route
+        //for /users/:id type route
         //show all the causes a single user supported, and how many times they supported it
         showUserCauses: function (req, res){
             models.sequelize.query('SELECT "Causes".id, "Causes".name, COUNT("Supports".cause_id) as "supports" FROM "Supports" LEFT JOIN "Causes" ON "cause_id" = "Causes".id WHERE "Supports".user_id = ? GROUP BY "Causes".id;', { replacements: [req.params.id], type: models.sequelize.QueryTypes.SELECT})
