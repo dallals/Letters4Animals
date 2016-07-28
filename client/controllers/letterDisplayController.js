@@ -232,7 +232,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
         for(var i=0; i < letters.length; i++){
 
-            var letterName  = 'Letter_to_' + letters[i].children[12].innerHTML + '.docx',
+            var letterName  = 'Letter_to_' + letters[i].children[10].innerHTML + '.docx',
             letterName  = letterName.split(' ').join('_'),
             link        = document.createElement('a'),
             // mimeType    = 'application/msword',
