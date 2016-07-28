@@ -1,12 +1,11 @@
 <div id="main">
     <header id="addcauseheader">
         <a href="#administrator"><button class="btn btn-primary analytics">Back to Admin Panel</button></a>
-        <h2 class="not_centered">Add & Edit a Cause</h2>
+        <h2 class="not_centered">Edit a Cause</h2>
     </header>
 
     <!--Edit Cause Page from Admin Panel Uses the singleCause Controller -->
     <form name="causeadmin" class="letter_background" method="post" ng-controller="singleCauseController" ng-model="cause">
-
         <label>Cause Name</label><br>
         <input type="text" name="causename" ng-model="cause.name"><br><br>
         <label>Description</label><br>
@@ -14,7 +13,7 @@
 
         <h4>Enable Cause?</h4>
         <label> Yes: </label>
-        <input type="checkbox" ng-click='toggleCause(cause)' ng-checked="cause.enabled"><br>
+        <input type="checkbox" name="enabled" ng-click='toggleCause(cause)' ng-checked="cause.enabled"><br>
 
         <div id="Recipients">
             <h4>Recipient Information</h4>
@@ -49,7 +48,7 @@
         <div class="letter content">
             <h4>Letter Content</h4>
             <!-- TinyMCE is the Richtext Editor -->
-            <textarea ui-tinymce="tinymceOptions" name="string" class="lettertext" ng-model="cause.letter_body" required></textarea>
+            <textarea name="letter" ui-tinymce="tinymceOptions" name="letter" class="lettertext" ng-model="cause.letter_body"></textarea>
         </div>
 
         <div class="letter content">

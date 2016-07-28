@@ -27,7 +27,6 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			$scope.pendingcauses = pendingcauses;
 		})
 		UserFactory.getAllGuests(function(guests){
-			console.log(guests)
 			$scope.guests = guests;
 		});
 
