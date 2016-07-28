@@ -13,6 +13,28 @@ models.sequelize.sync()
 // 	}
 // })
 
+
+        // $scope.updatePassword = function() {
+        //     console.log('Howard update passf');
+        //     $scope.errors.password = '';
+        //     //If they equal, if they exist, if not empty
+        //     if ($scope.pass.newPassword === $scope.pass.confPassword && $scope.pass.newPassword && $scope.pass.confPassword && $scope.pass.newPassword.trim() != '') {
+        //         var newPass = {
+        //             userid: $scope.loggedUser.id,
+        //             password: $scope.pass.newPassword
+        //         };
+        //         UserFactory.updateUser(newPass, function(data) {
+        //         });
+        //         swal("Password Updated!", "Your password has been successfully updated!", "success");
+        //         $scope.newPass = {
+        //             userid: $scope.loggedUser.id
+        //         };
+        //     } else {
+        //         $scope.errors.password = 'Bad password(s). Please check the two password fields.';
+        //     }
+        // }
+
+		
 //Get all emails where email notification is enabled
 models.User.findAll({attributes: ['email'], where: ["email_notification = ?", true]})
 .then(function(data){
@@ -38,7 +60,7 @@ models.User.findAll({attributes: ['phone_number'], where: ["phone_notification =
 		for (var i = 0; i < data.length; i++) {
 			console.log(i+" index of data array", data[i].dataValues);
 			if (data[i].dataValues.phone_number.length === 10) {
-				phoneArray.push(data[i].dataValues.phone_number);			
+				phoneArray.push(data[i].dataValues.phone_number);
 			}
 		}
 		console.log(phoneArray);

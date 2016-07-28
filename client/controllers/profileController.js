@@ -23,8 +23,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
 
     // Make sure controller doesn't do anything until someone's actually logged in
     if($scope.loggedIn){
-        //$2a$08$GO7plzX1IHDSUvc3dv81t.MKlOKxmpvfA4xKarajFH31DHufSKw3u
-        //$2a$08$VwuV4Cj2blxk7twyEw5qdORknlCGGMTJVeFy568LgqJ6Byv29An1C
         // The following is if the user wants to update their password, they can show/hide their password
         $scope.showpass = 'show';
         $scope.showPassword = function(){
@@ -54,7 +52,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
             else if (field == 'phone_number') { $scope.errors[field] = 'greenerr' }
 
             $scope.updatedUser[field] = $scope.loggedUser[field];
-            console.log('in the else, upUser: ', $scope.updatedUser);
         }
         // Checks if an object is empty so user can't submit updates without actually updating something
         $scope.isUpdated = function(user) {
@@ -62,13 +59,10 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
             for(var key in user) {
                 if (user.hasOwnProperty(key)) {
                     return false;
-                    console.log('updating');
                 }
             }
             return true;
         }
-
-// ng-disabled='isUpdated(updatedUser)'
 
         // Update user profile info
         $scope.updateProfile = function(){
@@ -97,32 +91,10 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
                 $scope.updatedUser = null;
             }
         }
-
-        $scope.updatePassword = function() {
-            $scope.errors.password = '';
-            //If they equal, if they exist, if not empty
-            if ($scope.pass.newPassword === $scope.pass.confPassword && $scope.pass.newPassword && $scope.pass.confPassword && $scope.pass.newPassword.trim() != '') {
-                var newPass = {
-                    userid: $scope.loggedUser.id,
-                    password: $scope.pass.newPassword
-                };
-                UserFactory.updateUser(newPass, function(data) {
-                    console.log('ok');
-                    console.log(data);
-                });
-                swal("Password Updated!", "Your password has been successfully updated!", "success");
-                $scope.newPass = {
-                    userid: $scope.loggedUser.id
-                };
-            } else {
-                $scope.errors.password = 'Bad password(s). Please check the two password fields.';
-            }
-        }
         $scope.changePassword = function() {
             $scope.errors.password = '';
             $scope.pass.userid = $scope.loggedUser.id;
             UserFactory.changePassword($scope.pass, function(data){
-                console.log("back into controller/change password", data);
                 if (data.success) {
                     swal("Password Updated!", "Your password has been successfully updated!", "success");
                     $scope.pass = {};

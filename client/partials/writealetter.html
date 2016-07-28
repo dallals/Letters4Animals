@@ -171,7 +171,6 @@
                 <h3 class="bottom_margin" ng-if="chosenRep[0] || chosenRep[1] || fixed.name ">Preview and Print your letter(s)</h3>
                 <div id='printDiv' ng-show=true>
                     <div class="page-break printletter letter_background" ng-repeat='rep in chosenRep'>
-                        <img src="./assets/L4A-logo-cattle2-7-2016.png" alt="Logo" id=letterlogo class="pull-right"><br>
                         {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}<br>
                         {{ addr || loggedUser.street_address }}<br>
                         {{ city || loggedUser.city }}, {{ state || loggedUser.state }} {{ zip || loggedUser.zipcode }}
