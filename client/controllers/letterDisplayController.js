@@ -33,7 +33,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     $scope.showDetails = false;
     $scope.showGuestFields = false;
     $scope.select_recipients = false;
-
+    $scope.sweet = {};
 
     UserFactory.isLoggedIn(function(user){
         if(user.id){
@@ -229,6 +229,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             alert('Must select one Representative at a time in order to save a letter.');
         }
         else{
+            swal("Your letter is generating", "Please allow a few seconds for your PDF to download", "success");
             $scope.addSupport();
             // Grab the letter(s) in the printDiv and store them in letters
             var letters = document.getElementById('printDiv').getElementsByTagName('div');
