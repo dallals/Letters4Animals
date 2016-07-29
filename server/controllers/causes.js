@@ -237,37 +237,14 @@ module.exports = (function(){
         },   // End of sendNotifs
 
         saveLetters: function(req, res){
-            console.log('=========req.body=========');
-            console.log(req.body);
-            console.log('=========req.body=========');
-            for(var name in req.body){
 
-                var html = req.body[name];
-                var options = { format: 'Letter' };
+            var html = req.body.letter;
+            var options = { format: 'Letter' };
 
-                // pdf.create(html, options).toFile('./client/letters/Letter_to_'+name+'.pdf', function(err, result) {
-                //     if (err){
-                //         return console.log(err);
-                //     }
-                //     console.log(result); // { filename: '/app/businesscard.pdf' }
-                //     res.json(result);
-                // });
-
-                // pdf.create(html).toStream(function(err, stream){
-                //     console.log('=========stream=========');
-                //     console.log(stream);
-                //     console.log('=========stream=========');
-                //     stream.pipe(fs.createWriteStream('./foo.pdf'));
-                //     res.json(stream);
-                // });
-
-                pdf.create(html).toBuffer(function(err, buffer){
-                    // console.log('This is a buffer:', Buffer.isBuffer(buffer));
-                    var test = buffer.toString('utf-8');
-                    res.json(test);
-                });
-
-            }
+            pdf.create(html).toBuffer(function(err, buffer){
+                var baseBuff = buffer.toString('base64');
+                res.json(baseBuff);
+            });
         }
 
     }//closes return
