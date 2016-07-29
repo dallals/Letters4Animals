@@ -24,6 +24,12 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         })
     };
 
+    factory.getUserCauses = function(id, callback){
+        $http.get('/users/'+id).success(function(data){
+            callback(data);
+        })
+    };
+
     // Grabs a single cause for the single cause view page
     factory.getSingleViewCause = function(id, callback) {
         $http.get('/getSingleViewCause/'+id).success(function(data) {

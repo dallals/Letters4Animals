@@ -180,16 +180,15 @@ h2.not_centered{
     text-align: left!important;
 }
 
-#new_cause{
-    width: 40%;
-    padding: 2%;
-    border-radius: 10px;
-}
-
 #statecauseadd{
     width:150px;
 }
 
 #statereg{
     margin:0px;
+}
+
+.adminsearch{
+    width:30%;
+    margin-bottom:3%;
 }

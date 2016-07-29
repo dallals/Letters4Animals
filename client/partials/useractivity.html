@@ -1,0 +1,54 @@
+<!-- Uses the useractivityController -->
+<div id="adminheader">
+    <h3>Administrative Panel</h3></div>
+<div id="admin_container" ng-controller='userActivityController' ng-show='loggedIn'>
+
+    <!-- Left Admin panel -->
+    <div class="col-sm-12 admin_container letter_background">
+        <a href="#administrator">
+            <button class="btn btn-primary analytics">Back to Admin Panel</button>
+        </a>
+        <div id="singlecontainer">
+            <h1 id="singlename">{{user.first_name}} {{user.last_name}}</h1>
+            <h3 id="singlecity">{{user.city}} , {{user.state}}</h3>
+            <h4>(Member Since {{user.createdAt | date:"MM/dd/yyyy"}})</h4><br>
+
+            <h4 id="singlecausetable">Member Statistics</h4>
+            <div role="tabpanel" class="tab-pane singlecauses" id="user_causes">
+                <table class="table admintable darkgrey">
+                    <thead>
+                        <th>Total Logins</th>
+                        <th>Volunteer?</th>
+                        <th>Text Notification?</th>
+                        <th>Email Notification?</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{user.login_count}}</td>
+                            <td>{{user.volunteer}}</td>
+                            <td>{{user.phone_notification}}</td>
+                            <td>{{user.email_notification}}</td>
+                        </tr>
+                    </tbody>
+                </table><br><br>
+            </div>
+
+            <h4 id="singlecausetable">User's Causes</h4>
+            <div role="tabpanel" class="tab-pane singlecauses" id="user_causes">
+                <table class="table admintable ">
+                    <thead>
+                        <th>Cause ID</th>
+                        <th>Cause Name</th>
+                        <th># of Prints</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="cause in causes | orderBy: id">
+                            <td>{{cause.id}}</td>
+                            <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
+                            <td>{{cause.supports}}</td>
+                        </tr>
+                    </tbody>
+                </table><br><br>
+            </div>
+        </div>
+    </div>

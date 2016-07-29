@@ -1,7 +1,7 @@
 // Controller for add cause links
 AnimalApp.controller('AddCauseController', function($scope, $location, $routeParams, UserFactory, CauseFactory) {
 		//add new causes from the admin panel
-		
+
 		UserFactory.isLoggedIn(function(user){
 			if(user.admin == true){
 				// If logged in, populate form with user info
@@ -10,12 +10,15 @@ AnimalApp.controller('AddCauseController', function($scope, $location, $routePar
 			}
 			else{ $location.url('/'); }
 		});
-		
+
 		$scope.addCause = function(cause){
 			CauseFactory.createCause(cause, function(data){
 				$scope.cause = data
 			})
 		};
+
+		// initially set fixed cause selection to be false
+		// $scope.cause.fixed = false;
 
 		//Configuration for rich text editor
 		$scope.tinymceOptions = {

@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="/css/about.css">  <!-- for about & links page -->
     <link rel="stylesheet" href="/css/issues.css">  <!-- for issue page -->
     <link rel="stylesheet" href="/css/forgotpass.css">  <!-- for password reset -->
+    <link rel="stylesheet" href="/css/useractivity.css"><!-- for user activity page -->
 
     <link rel="stylesheet" href="/css/animate.min.css">
     <link rel="stylesheet" href="/css/administrator.css">
@@ -46,6 +47,18 @@
     <!-- RichText Editor -->
     <script src="/js/tinymce/tinymce.min.js"></script>
     <script src="/js/tinymce/angular-tinymce.min.js"></script>
+    <!--Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-81406185-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+    <!--End of Google Analytics -->
 
 </head>
 
@@ -274,7 +287,7 @@
       <div id="top-footer">
             <div class="column-footer">
               <h2>About Us</h2><br>
-              <p> Letters4Change is nascetur suscipit aliquam aliquam,
+              <p> Letters4Animals is nascetur suscipit aliquam aliquam,
                 venenatis neque felis id lacus. Massa quam mauris luctus felis,
                 ante vestibulum, nec lobortis erat in donec, aliquet suspendisse.<br><br>
                 Massa quam mauris luctus felis, ante vestibulum.</p>
@@ -292,7 +305,7 @@
             <div class="column-footer">
               <h2>Contact</h2><br>
               <p>You can reach us for further information by dropping us a line at
-                <a href="mailto:info@letters4change.com">info AT letters4change.com</a>
+                <a href="mailto:info@letters4animals.org">info AT letters4animals.org</a>
               </p>
             </div>
       </div>
@@ -313,6 +326,7 @@
     <script src="/controllers/contactController.js"></script>
     <script src="/controllers/headerController.js"></script>
     <script src="/controllers/profileController.js"></script>
+    <script src="/controllers/userActivityController.js"></script>
     <script src="/controllers/adminController.js"></script>
     <script src="/controllers/letterDisplayController.js"></script>
     <script src="/controllers/resetPW/passController.js"></script>
