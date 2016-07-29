@@ -3,11 +3,7 @@
 }
 
 body{
-    padding: 0px 45px;
-}
-
-#letterlogo{
-    float: right;
+    padding: 0px 50px;
 }
 
 @media all {
@@ -20,6 +16,6 @@ body{
 	.page-break	{
         display: block;
         page-break-before: always;
-        margin-top: 25px;
+        margin-top: 75px;
     }
 }
