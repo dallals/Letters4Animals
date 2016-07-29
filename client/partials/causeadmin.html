@@ -62,6 +62,7 @@
         <h4>Notification Settings</h4>
         <div class="notification_content">
             <h5>Text Blurb</h5>
+            <span ng-show='80 - cause.text_blurb.length >= 0'>({{ 80 - cause.text_blurb.length }} Characters Remaining)</span><span ng-show='80 - cause.text_blurb.length < 0' style='color:red'>Too many characters!</span>
             <textarea name="string" class="footnotetext" ng-model="cause.text_blurb"></textarea>
         </div>
 
