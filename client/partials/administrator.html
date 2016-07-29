@@ -83,8 +83,8 @@
                                 <dir-pagination-controls max-size="10" direction-links="true" boundary-links="true"></dir-pagination-controls>
                                 <tr dir-paginate="user in users |orderBy:userSort:userSortReverse| filter: filter_users | itemsPerPage:15">
                                     <td>{{user.id}}</td>
-                                    <td>{{ user.first_name }} </td>
-                                    <td>{{ user.last_name }}</td>
+                                    <td><a href="#/useractivity/{{user.id}}">{{user.first_name}}</a></td>
+                                    <td><a href="#/useractivity/{{user.id}}">{{user.last_name}}</a></td>
                                     <td>{{user.email}}</td>
                                     <td>{{user.supports}}</td>
                                     <td>{{user.city}}</td>
