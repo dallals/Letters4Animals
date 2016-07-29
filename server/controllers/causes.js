@@ -2,6 +2,8 @@ var models = require('../models');
 var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
+var pdf = require('html-pdf');
+var fs = require('fs');
 
 module.exports = (function(){
     return {
@@ -196,7 +198,7 @@ module.exports = (function(){
                             body: "Hello " + user.dataValues.first_name + "." + "\n" +
                                   cause.text_blurb + "\n"+
                                   "http://letters4animals.org/#/writealetter/cause/" + cause.dataValues.id
-            
+
                             }, function(err,data){
                                 if(err){
                                     console.log("Something went wrong with twilio.", err);
@@ -232,7 +234,41 @@ module.exports = (function(){
                 }
             })  // End of email notif.
 
-        }   // End of sendNotifs
+        },   // End of sendNotifs
+
+        saveLetters: function(req, res){
+            console.log('=========req.body=========');
+            console.log(req.body);
+            console.log('=========req.body=========');
+            for(var name in req.body){
+
+                var html = req.body[name];
+                var options = { format: 'Letter' };
+
+                // pdf.create(html, options).toFile('./client/letters/Letter_to_'+name+'.pdf', function(err, result) {
+                //     if (err){
+                //         return console.log(err);
+                //     }
+                //     console.log(result); // { filename: '/app/businesscard.pdf' }
+                //     res.json(result);
+                // });
+
+                // pdf.create(html).toStream(function(err, stream){
+                //     console.log('=========stream=========');
+                //     console.log(stream);
+                //     console.log('=========stream=========');
+                //     stream.pipe(fs.createWriteStream('./foo.pdf'));
+                //     res.json(stream);
+                // });
+
+                pdf.create(html).toBuffer(function(err, buffer){
+                    // console.log('This is a buffer:', Buffer.isBuffer(buffer));
+                    var test = buffer.toString('utf-8');
+                    res.json(test);
+                });
+
+            }
+        }
 
     }//closes return
 })();

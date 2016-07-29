@@ -228,26 +228,115 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         $scope.addSupport();
         // Grab the letter(s) in the printDiv and store them in letters
         var letters = document.getElementById('printDiv').getElementsByTagName('div');
+        var letObj = {};
+
+        for(var i=0; i<letters.length;i++){
+            var test = letters[i].children[10].innerHTML.split(' ').join('_');
+            letObj[test] = letters[i].innerHTML;
+            // console.log('=========test=========');
+            // console.log(letters[i].children[10].innerHTML.split(' ').join('_'));
+            // console.log('=========test=========');
+        }
+
+        $http.post('/saveLetters', letObj).success(function(res){
+
+            // console.log('=========res=========');
+            // console.log(res);
+            // console.log('=========res=========');
+
+            var mywindow = window.open('', '', 'fullscreen=yes');
+            mywindow.document.write('<html><head><title>Letter To Representative</title>');
+            mywindow.document.write('<link rel="stylesheet" href="./css/letterStyle.css" type="text/css" />');
+            mywindow.document.write('</head><body >');
+            mywindow.document.write(res);
+            mywindow.document.write('</body></html>');
+
+            // var test = res.toString('utf-8')
+
+            // setTimeout(function(){
+            //     var letterName  = 'Letter.pdf',
+            //     // letterName  = letterName.split(' ').join('_'),
+            //     link        = document.createElement('a'),
+            //     // mimeType    = 'application/msword',
+            //     // mimeType    = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            //     mimeType    = 'application/pdf';
+            //     // elHtml      = letters[i].innerHTML;
+            //
+            //     // 'Click' the generated link to force file download
+            //     link.setAttribute('download', letterName);
+            //     link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + res);
+            //     if(isFirefox){
+            //         document.body.appendChild(link);
+            //     }
+            //     link.click();
+            // }, 5000);
+
+            // console.log('=========res.toJson=========');
+            // console.log(res.data.toString('hex'));
+            // console.log('=========res.toJson=========');
+
+            // console.log('=========client res=========');
+            // console.log(res.filename);
+            // console.log('=========client res=========');
+            //
+            // $scope.gotLink = true;
+            //
+            // var link = document.createElement('a');
+            //
+            // var test = res.filename.split('/');
+            //
+            // var test2 = test.slice(test.indexOf('client')).join('/');
+            //
+            // $scope.link = './'+test2;
+            //
+            // console.log('=========test=========');
+            // console.log(test2);
+            // console.log('=========test=========');
+
+            // link.setAttribute('download', 'Letter.pdf');
+            // link.setAttribute('href', "./"+test2);
+            // console.log('=========link=========');
+            // console.log(link);
+            // console.log('=========link=========');
+            // if(isFirefox){
+            //     document.body.appendChild(link);
+            // }
+            // link.click();
+
+        })
 
         // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
-        for(var i=0; i < letters.length; i++){
+        // for(var i=0; i < letters.length; i++){
+        //
+        //     var html = letters[i].innerHTML;
+        //     var options = { format: 'Letter' };
+        //
+        //     pdf.create(html, options).toFile('./businesscard.pdf', function(err, res) {
+        //         if (err) {
+        //             return console.log(err);
+        //         }
+        //         // console.log(res); // { filename: '/app/businesscard.pdf' }
+        //         console.log('=========res=========');
+        //         console.log(res);
+        //         console.log('=========res=========');
+        //     });
 
-            var letterName  = 'Letter_to_' + letters[i].children[10].innerHTML + '.docx',
-            letterName  = letterName.split(' ').join('_'),
-            link        = document.createElement('a'),
-            // mimeType    = 'application/msword',
-            mimeType    = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            elHtml      = letters[i].innerHTML;
+            // var letterName  = 'Letter_to_' + letters[i].children[10].innerHTML + '.docx',
+            // letterName  = letterName.split(' ').join('_'),
+            // link        = document.createElement('a'),
+            // // mimeType    = 'application/msword',
+            // mimeType    = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            // elHtml      = letters[i].innerHTML;
+            //
+            // // 'Click' the generated link to force file download
+            // link.setAttribute('download', letterName);
+            // link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
+            // if(isFirefox){
+            //     document.body.appendChild(link);
+            // }
+            // link.click();
 
-            // 'Click' the generated link to force file download
-            link.setAttribute('download', letterName);
-            link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
-            if(isFirefox){
-                document.body.appendChild(link);
-            }
-            link.click();
-
-        }
+        // }
     }   // End of saveLetter()
 
     $scope.addSupport = function(){

@@ -182,6 +182,12 @@ module.exports = function(app){
         users.sendEmail(req, res);
     })
 
+
+
+    app.post('/saveLetters', function(req, res){
+        causes.saveLetters(req, res);
+    })
+
 };
 
 // route middleware to make sure a user is logged in
