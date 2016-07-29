@@ -36,6 +36,9 @@ AnimalApp.config(function ($routeProvider) {
     .when('/profile',{
         templateUrl: 'partials/profile.html'
     })
+    .when('/useractivity/:id',{
+        templateUrl: 'partials/useractivity.html'
+    })
     .when('/administrator',{
         templateUrl: 'partials/administrator.html'
     })
