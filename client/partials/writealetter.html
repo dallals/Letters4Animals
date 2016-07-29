@@ -193,6 +193,9 @@
             </div> <!--- End of letters --->
 
             <p class="text-center" ng-if="chosenRep[0] || chosenRep[1] || fixed.name "><button ng-click="printLetter('#printDiv')" class="btn btn-primary print_save">Print</button><button ng-click='saveLetter()' class="btn btn-primary print_save">Save</button></p>
+
+            <a ng-show='gotLink' download href="{{link}}">TESTTT</a>
+
         </div> <!--- End of Reps+letter main div --->
 
         <p class="text-center"><a href="#/writealetter" class="btn btn-primary print_save" ng-click="start_over()">Start Over</a></p>

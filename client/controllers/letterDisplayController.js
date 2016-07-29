@@ -225,28 +225,31 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
     }   // End of printLetter()
 
     $scope.saveLetter = function(){
-        $scope.addSupport();
-        // Grab the letter(s) in the printDiv and store them in letters
-        var letters = document.getElementById('printDiv').getElementsByTagName('div');
+        if($scope.chosenRep.length > 1){
+            alert('Must select one Representative at a time in order to save a letter.');
+        }
+        else{
+            $scope.addSupport();
+            // Grab the letter(s) in the printDiv and store them in letters
+            var letters = document.getElementById('printDiv').getElementsByTagName('div');
+            var letObj = {};
 
-        // For each letter, package the div as a .doc file, create a link to the file, and have the user 'click' on it
-        for(var i=0; i < letters.length; i++){
+            letObj.letter = letters[0].innerHTML;
 
-            var letterName  = 'Letter_to_' + letters[i].children[10].innerHTML + '.docx',
-            letterName  = letterName.split(' ').join('_'),
-            link        = document.createElement('a'),
-            // mimeType    = 'application/msword',
-            mimeType    = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            elHtml      = letters[i].innerHTML;
+            $http.post('/saveLetters', letObj).success(function(res){
 
-            // 'Click' the generated link to force file download
-            link.setAttribute('download', letterName);
-            link.setAttribute('href', 'data:' + mimeType + ';charset=utf-8,' + encodeURIComponent(elHtml));
-            if(isFirefox){
-                document.body.appendChild(link);
-            }
-            link.click();
+                var letterName  = 'Letter_to_Rep.pdf',
+                link        = document.createElement('a'),
+                mimeType    = 'application/pdf';
 
+                // 'Click' the generated link to force file download
+                link.setAttribute('download', letterName);
+                link.setAttribute('href', 'data:' + mimeType + ';base64,' + res);
+                if(isFirefox){
+                    document.body.appendChild(link);
+                }
+                link.click();
+            })
         }
     }   // End of saveLetter()
 
