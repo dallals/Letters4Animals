@@ -9,50 +9,50 @@
         <a href="#administrator">
             <button class="btn btn-primary analytics">Back to Admin Panel</button>
         </a>
+        <div id="singlecontainer">
+            <h1 id="singlename">{{causeview.name}}</h1><br>
+            <label>Cause Description:</label>
+            <br> {{causeview.description}}<br><br><br>
+            <label>Letter:</label><br>
+            <p id="letter"></p><br><br>
 
-        <h1>{{causeview.name}}</h1><br><br>
-        <label>Cause Description:</label>
-        <br> {{causeview.description}}<br><br><br>
-        <label>Letter:</label><br>
-        <p id="letter"></p><br><br>
+            <div role="tabpanel" class="tab-pane singlecauses" id="users">
+                <table class="table admintable ">
+                    <h4>Users Who Supported the Cause</h4>
+                    <thead>
+                        <th><a href="" ng-click="sort='first_name'; sortReverse=!sortReverse;">Name</a></th>
+                        <th><a href="" ng-click="sort='supports'; sortReverse=!sortReverse;"># of Prints</a></th>
+                        <th><a href="" ng-click="sort='email'; sortReverse=!sortReverse;">Email</a></th>
+                        <th><a href="" ng-click="sort='city'; sortReverse=!sortReverse;">City</a></th>
+                        <th><a href="" ng-click="sort='state'; sortReverse=!sortReverse;">State</a></th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="user in supporters | orderBy: sort:sortReverse">
+                            <td>{{user.first_name }} {{ user.last_name }}</td>
+                            <td>{{user.supports}}</td>
+                            <td>{{user.email}}</td>
+                            <td>{{user.city}}</td>
+                            <td>{{user.state}}</td>
+                        </tr>
+                    </tbody>
+                </table><br><br>
 
-        <div role="tabpanel" class="tab-pane" id="users">
-
-            <table class="table admintable">
-                <h4>Users Who Supported the Cause</h4>
-                <thead>
-                    <th><a href="" ng-click="sort='first_name'; sortReverse=!sortReverse;">Name</a></th>
-                    <th><a href="" ng-click="sort='supports'; sortReverse=!sortReverse;"># of Prints</a></th>
-                    <th><a href="" ng-click="sort='email'; sortReverse=!sortReverse;">Email</a></th>
-                    <th><a href="" ng-click="sort='city'; sortReverse=!sortReverse;">City</a></th>
-                    <th><a href="" ng-click="sort='state'; sortReverse=!sortReverse;">State</a></th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="user in supporters | orderBy: sort:sortReverse">
-                        <td>{{user.first_name }} {{ user.last_name }}</td>
-                        <td>{{user.supports}}</td>
-                        <td>{{user.email}}</td>
-                        <td>{{user.city}}</td>
-                        <td>{{user.state}}</td>
-                    </tr>
-                </tbody>
-            </table><br><br>
-
-            <table class="table admintable">
-                <h4>Guests Who Supported the Cause</h4>
-                <thead>
-                    <th><a href="" ng-click="guestSort='first_name'; guestSortReverse=!guestSortReverse;">Name</a></th>
-                    <th><a href="" ng-click="guestSort='city'; guestSortReverse=!guestSortReverse;">City</a></th>
-                    <th><a href="" ng-click="guestSort='state'; guestSortReverse=!guestSortReverse;">State</a></th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="guest in guests | orderBy: guestSort:guestSortReverse">
-                        <td>{{guest.first_name }} {{ guest.last_name }}</td>
-                        <td>{{guest.city}}</td>
-                        <td>{{guest.state}}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-        </div>
+                <div role="tabpanel" class="tab-pane singlecauses" id="guest_causes">
+                <table class="table admintable ">
+                    <h4>Guests Who Supported the Cause</h4>
+                    <thead>
+                        <th><a href="" ng-click="guestSort='first_name'; guestSortReverse=!guestSortReverse;">Name</a></th>
+                        <th><a href="" ng-click="guestSort='city'; guestSortReverse=!guestSortReverse;">City</a></th>
+                        <th><a href="" ng-click="guestSort='state'; guestSortReverse=!guestSortReverse;">State</a></th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="guest in guests | orderBy: guestSort:guestSortReverse">
+                            <td>{{guest.first_name }} {{ guest.last_name }}</td>
+                            <td>{{guest.city}}</td>
+                            <td>{{guest.state}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div> <!--closes container -->
     </div>
