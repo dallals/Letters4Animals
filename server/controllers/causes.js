@@ -239,9 +239,19 @@ module.exports = (function(){
         saveLetters: function(req, res){
 
             var html = req.body.letter;
-            var options = { format: 'Letter' };
+            var config = {
+                height: "11in",        // allowed units: mm, cm, in, px
+                width: "8.5in",
+                format: "Letter",
+                border: {
+                    top: "1in",            // default is 0, units: mm, cm, in, px
+                    right: ".5in",
+                    bottom: "1in",
+                    left: ".5in"
+                }
+            };
 
-            pdf.create(html).toBuffer(function(err, buffer){
+            pdf.create(html, config).toBuffer(function(err, buffer){
                 var baseBuff = buffer.toString('base64');
                 res.json(baseBuff);
             });
