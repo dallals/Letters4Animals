@@ -1,0 +1,39 @@
+#singlecontainer{
+    margin-left: 5%;
+}
+
+#singlename{
+    font-size:2.5em;
+    font-weight:bold;
+    color:#337ab7;
+}
+
+#singlecausetable{
+    margin-bottom:1%;
+    margin-top:2%;
+    font-weight: bold;
+}
+
+#singlecity{
+    margin-top:0px;
+}
+
+.singlecauses{
+    padding:0px !important;
+    margin-top:0px !important;
+}
+
+.darkgrey thead > tr >th{
+    background: grey !important;
+    font-size:1.3em;
+}
+
+#user_causes > table > tbody > tr > td{
+    padding:0px !important;
+    margin-top:0px !important;
+    font-size:1.2em;
+}
+
+.admintable{
+    margin-top:0px !important;
+}

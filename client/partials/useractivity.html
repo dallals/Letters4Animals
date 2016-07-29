@@ -8,30 +8,47 @@
         <a href="#administrator">
             <button class="btn btn-primary analytics">Back to Admin Panel</button>
         </a>
-        <h1>{{user.first_name}} {{user.last_name}}</h1><br><br>
-        <h3>{{user.city}} , {{user.state}}</h3>
-        <label>(Member Since {{user.createdAt | date:"MM/dd/yyyy"}})</label><br>
-        <label>Total Logins:</label> {{user.login_count}}<br>
-        <label>Volunteer?: </label>{{user.volunteer}}<br>
-        <label>Text Notification?:</label>{{user.phone_notification}}<br>
-        <label>Email Notification?:</label>{{user.email_notification}}<br>
+        <div id="singlecontainer">
+            <h1 id="singlename">{{user.first_name}} {{user.last_name}}</h1>
+            <h3 id="singlecity">{{user.city}} , {{user.state}}</h3>
+            <h4>(Member Since {{user.createdAt | date:"MM/dd/yyyy"}})</h4><br>
 
-        <div role="tabpanel" class="tab-pane" id="user_causes">
-            <table  class="table admintable">
-                <h4>User's Causes</h4>
-                <thead>
-                    <th>Cause ID</th>
-                    <th>Cause Name</th>
-                    <th># of Prints</th>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="cause in causes | orderBy: id">
-                        <td>{{cause.id}}</td>
-                        <td>{{cause.name}}</td>
-                        <td>{{cause.supports}}</td>
-                    </tr>
-                </tbody>
-            </table><br><br>
+            <h4 id="singlecausetable">Member Statistics</h4>
+            <div role="tabpanel" class="tab-pane singlecauses" id="user_causes">
+                <table class="table admintable darkgrey">
+                    <thead>
+                        <th>Total Logins</th>
+                        <th>Volunteer?</th>
+                        <th>Text Notification?</th>
+                        <th>Email Notification?</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{user.login_count}}</td>
+                            <td>{{user.volunteer}}</td>
+                            <td>{{user.phone_notification}}</td>
+                            <td>{{user.email_notification}}</td>
+                        </tr>
+                    </tbody>
+                </table><br><br>
+            </div>
 
+            <h4 id="singlecausetable">User's Causes</h4>
+            <div role="tabpanel" class="tab-pane singlecauses" id="user_causes">
+                <table class="table admintable ">
+                    <thead>
+                        <th>Cause ID</th>
+                        <th>Cause Name</th>
+                        <th># of Prints</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="cause in causes | orderBy: id">
+                            <td>{{cause.id}}</td>
+                            <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
+                            <td>{{cause.supports}}</td>
+                        </tr>
+                    </tbody>
+                </table><br><br>
+            </div>
         </div>
     </div>
