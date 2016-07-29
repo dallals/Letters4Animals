@@ -68,7 +68,6 @@ module.exports = (function(){
         confirmEmail: function(req, res) {
 
             models.Pendinguser.find({where: ["verify_url = ?", req.params.link]}).then(function(user){
-                console.log('in confirmEmail');
                 if(user){
                     founduser = user.dataValues
                     deleteid = founduser.id

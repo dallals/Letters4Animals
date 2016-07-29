@@ -12,7 +12,6 @@ AnimalApp.controller('PassController', function($scope, UserFactory, $location) 
                 if (data.errors) {
                     $scope.errors = data.errors;
                 } else {
-                    console.log(data);
                     //Move on to next step
                     //Success page
                     //Email it

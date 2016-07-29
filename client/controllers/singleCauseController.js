@@ -24,7 +24,6 @@ AnimalApp.controller('singleCauseController', function($scope, $location, $route
 
 		//get guests who have supported/printed letters for this cause in the past
 		CauseFactory.getGuests(id, function(data) {
-			console.log("Get Guests Callback factory",data);
 			$scope.guests = data;
 		});
 

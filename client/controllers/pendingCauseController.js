@@ -4,19 +4,18 @@ AnimalApp.controller('pendingCauseController', function($scope, $location, $rout
 
 		//get single pending cause info
 		CauseFactory.getPendingCause(id, function(data) {
-			console.log("made it back from pending cause factory",data);
 			$scope.pendingcause = data[0];
 		});
 
 		// convert a pending cause to a real cause and delete the pending cause
 		$scope.addCause = function(){
-				CauseFactory.createCause($scope.pendingcause, function(causes){
-					$scope.causes = causes;
-					CauseFactory.delPendCause($scope.pendingcause, function(pendingcauses){
-						$scope.pendingcauses = pendingcauses;
-					})
-					$location.url('/administrator');
+			CauseFactory.createCause($scope.pendingcause, function(causes){
+				$scope.causes = causes;
+				CauseFactory.delPendCause($scope.pendingcause, function(pendingcauses){
+					$scope.pendingcauses = pendingcauses;
 				})
+				$location.url('/administrator');
+			})
 		}
 
 		//Configuration for rich text editor

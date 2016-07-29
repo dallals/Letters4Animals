@@ -50,7 +50,7 @@ module.exports = function(app){
         users.changePassword(req, res);
     })
     //Updating user in DB
-    app.post('/updateUser', function(req, res) {
+    app.post('/updateUser',isLoggedIn, function(req, res) {
         users.updateUser(req, res);
     })
 

@@ -57,7 +57,6 @@ AnimalApp.controller('profileController', function ($scope, $location, $routePar
         }
         // Checks if an object is empty so user can't submit updates without actually updating something
         $scope.isUpdated = function(user) {
-            // console.log('in isUpdated, user: ', user);
             for(var key in user) {
                 if (user.hasOwnProperty(key)) {
                     return false;

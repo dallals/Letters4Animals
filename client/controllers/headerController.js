@@ -116,7 +116,6 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
     }
 
     $scope.registerUser = function() {
-        console.log('jweiafoaefj');
         $scope.regErrors = {
             firstName       : '',
             lastName        : '',
@@ -163,7 +162,6 @@ AnimalApp.controller('headerController', function ($scope, $routeParams, $locati
         if ( !$scope.zip || $scope.zip.trim().length < 1 ) {
             valid = false;
             $scope.regErrors.zip = errorMessages.zip; }
-            console.log('In a freaking function');
 
         //address, city state zip
         if ( $scope.address.choice && $scope.user && valid ){

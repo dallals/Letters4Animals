@@ -6,7 +6,6 @@ AnimalApp.controller('CauseTestController', function($scope, CauseFactory) {
         rep_level: '',
         enabled: false,
     }
-    console.log('In CauseTestController');
     // $scope.causes = [];
     CauseFactory.getAllCauses(function(causes) {
         $scope.causes = causes;
