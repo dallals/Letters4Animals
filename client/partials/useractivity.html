@@ -1,0 +1,37 @@
+<!-- Uses the useractivityController -->
+<div id="adminheader">
+    <h3>Administrative Panel</h3></div>
+<div id="admin_container" ng-controller='userActivityController' ng-show='loggedIn'>
+
+    <!-- Left Admin panel -->
+    <div class="col-sm-12 admin_container letter_background">
+        <a href="#administrator">
+            <button class="btn btn-primary analytics">Back to Admin Panel</button>
+        </a>
+        <h1>{{user.first_name}} {{user.last_name}}</h1><br><br>
+        <h3>{{user.city}} , {{user.state}}</h3>
+        <label>(Member Since {{user.createdAt | date:"MM/dd/yyyy"}})</label><br>
+        <label>Total Logins:</label> {{user.login_count}}<br>
+        <label>Volunteer?: </label>{{user.volunteer}}<br>
+        <label>Text Notification?:</label>{{user.phone_notification}}<br>
+        <label>Email Notification?:</label>{{user.email_notification}}<br>
+
+        <div role="tabpanel" class="tab-pane" id="user_causes">
+            <table  class="table admintable">
+                <h4>User's Causes</h4>
+                <thead>
+                    <th>Cause ID</th>
+                    <th>Cause Name</th>
+                    <th># of Prints</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="cause in causes | orderBy: id">
+                        <td>{{cause.id}}</td>
+                        <td>{{cause.name}}</td>
+                        <td>{{cause.supports}}</td>
+                    </tr>
+                </tbody>
+            </table><br><br>
+
+        </div>
+    </div>
