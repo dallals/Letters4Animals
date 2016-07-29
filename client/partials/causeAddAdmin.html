@@ -12,9 +12,8 @@
         <label>Cause Name</label><br><input type="text" name="causename" ng-model="cause.name"><br><br>
         <label>Description</label><br><textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
 
-        <h3 class="text-center">Recipient Information</h3>
         <div id="Recipients">
-
+            <h3 class="text-center">Recipient Information</h3>
             <h5 class="text-center">Please select either a generic position or a fixed recipient below</h5>
 
             <!-- Cause Recipient by position options -->
@@ -146,8 +145,12 @@
         </div>
 
         <div class="notification_content">
+
             <h3 class="text-center">Notification Settings</h3>
             <h5 class="text-center">Text Blurb</h5>
+            <!-- Text blurb character limit -->
+            <span ng-show='80 - cause.text_content.length >= 0'>({{ 80 - cause.text_content.length }} Characters Remaining)</span><span ng-show='80 - cause.text_content.length < 0' style='color:red'>Too many characters!</span>
+
             <textarea name="string" class="footnotetext" ng-model="cause.text_content"></textarea>
         </div>
 
