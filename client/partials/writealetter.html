@@ -79,7 +79,9 @@
                             <span class="guestInfoErrors" ng-bind="guestInfoErrors.city" ></span>
                         </div>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="state" placeholder="State" ng-model="state" ng-change="guestAddress()" >
+                            <select id="statecauseadd" name="fixed_state" class="form-control" ng-options='state for state in states' ng-model='state' ng-change="guestAddress()">
+                                <option value='' selected disabled>Choose a State</option>
+                            </select><br><br>
                             <span class="guestInfoErrors" ng-bind="guestInfoErrors.state"></span>
                         </div>
                     </div>
@@ -179,9 +181,9 @@
                         {{ rep.rep.address[0].line1 || fixed.addr }}<span ng-if='rep.rep.address[0].line2'>{{', ' + rep.rep.address[0].line2 }}</span><br>
                         {{ rep.rep.address[0].city || fixed.city }}, {{ rep.rep.address[0].state || fixed.state }} {{ rep.rep.address[0].zip || fixed.zip }}<br><br><br>
 
-                        Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br><br>
+                        Dear <span>{{ rep.letterPos }} {{ rep.letterName || fixed.name }}</span>,<br>
                         <p id="letterrichtext" name='richLetter'></p>
-                        <br><br>
+                        <br>
                         Sincerely, <br><br>
                         {{ user.firstName || loggedUser.first_name }} {{ user.lastName || loggedUser.last_name }}
                         <br><br><br>

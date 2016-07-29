@@ -46,6 +46,7 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
         })
     };
 
+    //Commented out . connects to singleCauseViewController ln 31.Goes to users.js 237
     //Joins with the user table to get user info for those who support a cause
     factory.getCauseUsers = function(id, callback) {
         $http.get('/getCauseUsers/'+id).success(function(data) {
@@ -140,19 +141,25 @@ AnimalApp.factory('CauseFactory', function($http, $location) {
        $http.post('/sendText', causeInfo).success(function(twilio){
            console.log(twilio);
        })
-    }
+   };
+
+   factory.sendEmail = function(cause){
+       $http.post('/sendEmail', cause).success(function(emailerr){
+           console.log(emailerr);
+       })
+   }
 
     factory.delCause = function(cause, callback){
         $http.post('/delCause', cause).success(function(causes){
             callback(causes);
         })
-    }
+    };
 
     factory.updateCause = function(info, callback){
         $http.post('/updateCause', info).success(function(output){
             callback(output);
             $location.path('/administrator')
         })
-    }
+    };
     return factory;
 })

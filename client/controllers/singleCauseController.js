@@ -28,10 +28,11 @@ AnimalApp.controller('singleCauseController', function($scope, $location, $route
 			$scope.guests = data;
 		});
 
+		//Commented out because seems duplicate. connects to cause Factory ln 50
 		//get users who have supported/printed letters for this cause in the past integrates with Users table
-		CauseFactory.getCauseUsers(id, function(data) {
-			$scope.causeusers = data;
-		});
+		// CauseFactory.getCauseUsers(id, function(data) {
+		// 	$scope.causeusers = data;
+		// });
 
 		//get single cause information for single view page
 		CauseFactory.getSingleViewCause(id, function(data) {

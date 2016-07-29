@@ -42,6 +42,9 @@ module.exports = function(app){
     app.post('/getUserInfo', function(req, res) {
         users.getUserInfo(req, res);
     })
+    app.get('/users/:id', function(req, res) {
+        users.showUserCauses(req, res);
+    })
 
     app.post('/changePassword', function(req, res) {
         users.changePassword(req, res);
@@ -174,6 +177,9 @@ module.exports = function(app){
     })
     app.post('/sendText', function(req,res){
         users.sendText(req,res);
+    })
+    app.post('/sendEmail', function(req, res){
+        users.sendEmail(req, res);
     })
 
 };

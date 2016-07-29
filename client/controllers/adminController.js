@@ -132,11 +132,15 @@ AnimalApp.controller('adminController', function($scope, $location, $routeParams
 			})
 		}
 
-	} // End of logged in check
+		//send twilio msg
+	   $scope.sendText = function(cause){
+		   CauseFactory.sendText(cause);
+	   }
 
-	//send twilio msg
-   $scope.sendText = function(cause){
-	   CauseFactory.sendText(cause);
-   }
+	   $scope.sendEmail = function(cause){
+		   CauseFactory.sendEmail(cause);
+	   }
+
+	} // End of logged in check
 
 });

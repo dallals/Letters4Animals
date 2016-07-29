@@ -1,5 +1,7 @@
 var models = require('../models');
 var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
+var nodemailer = require('nodemailer');
+var transporter = nodemailer.createTransport();
 
 module.exports = (function(){
     return {
@@ -41,7 +43,7 @@ module.exports = (function(){
 
         getSingleCause: function(req,res){
             var id = req.params.id;
-            models.sequelize.query('SELECT"Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
+            models.sequelize.query('SELECT "Causes".name, "Causes".description, "Causes".letter_body FROM "Causes" WHERE "Causes".id = ?;', { replacements: [id],type: models.sequelize.QueryTypes.SELECT})
             .then(function(cause){
                 res.json(cause);
             })
@@ -150,7 +152,6 @@ module.exports = (function(){
         },
 
         update: function(req, res) {
-            console.log('getting to updated causes backend')
             if (req.body) {
                 var cause = req.body;
                 models.Cause.find({where: ['id = ?', req.body.id]})
@@ -195,7 +196,7 @@ module.exports = (function(){
                             body: "Hello " + user.dataValues.first_name + "." + "\n" +
                                   cause.text_blurb + "\n"+
                                   "http://letters4animals.org/#/writealetter/cause/" + cause.dataValues.id
-
+            
                             }, function(err,data){
                                 if(err){
                                     console.log("Something went wrong with twilio.", err);
@@ -210,6 +211,27 @@ module.exports = (function(){
                     console.log("Error finding all users for phone notifications.");
                 }
             })  // End of text alert
+
+            // Email notification
+            models.User.findAll({attributes: ['email', 'first_name'], where: ["phone_notification = ?", true]})
+            .then(function(data){
+                if(data){
+                    for(var user of data){
+                        transporter.sendMail({
+                            from: 'info@letters4animals.org',
+                            to: user.dataValues.email,
+                            subject: 'Letters4Animals.org - New cause has been created!',
+                            html: cause.dataValues.email_blurb,
+                            text: cause.dataValues.email_blurb
+                        });
+                        transporter.close();
+                    }
+                }
+                else{
+                    console.log("Error finding all users for email notifications.");
+                }
+            })  // End of email notif.
+
         }   // End of sendNotifs
 
     }//closes return
