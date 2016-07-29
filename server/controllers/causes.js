@@ -2,6 +2,8 @@ var models = require('../models');
 var twilio = require('twilio')('AC774792db902431a6b6a506101c53c5ce','bb5f76ea5ce05b65fbada13aaff01ef8');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport();
+var pdf = require('html-pdf');
+var fs = require('fs');
 
 module.exports = (function(){
     return {
@@ -196,7 +198,7 @@ module.exports = (function(){
                             body: "Hello " + user.dataValues.first_name + "." + "\n" +
                                   cause.text_blurb + "\n"+
                                   "http://letters4animals.org/#/writealetter/cause/" + cause.dataValues.id
-            
+
                             }, function(err,data){
                                 if(err){
                                     console.log("Something went wrong with twilio.", err);
@@ -232,7 +234,18 @@ module.exports = (function(){
                 }
             })  // End of email notif.
 
-        }   // End of sendNotifs
+        },   // End of sendNotifs
+
+        saveLetters: function(req, res){
+
+            var html = req.body.letter;
+            var options = { format: 'Letter' };
+
+            pdf.create(html).toBuffer(function(err, buffer){
+                var baseBuff = buffer.toString('base64');
+                res.json(baseBuff);
+            });
+        }
 
     }//closes return
 })();
