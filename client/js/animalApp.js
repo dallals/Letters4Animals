@@ -14,7 +14,7 @@ AnimalApp.directive("scroll", function ($window) {
                  $("#container").addClass('border');
                  $("#logo").animate({
                       width: '50%'},
-                      {duration: 400, queue: false
+                      {duration: 40, queue: false
                  });
                  $("#main-header").animate({
                      height:'100px'},
