@@ -6,17 +6,22 @@ module.exports = function(sequelize, DataTypes) {
   var Pendinguser = sequelize.define('Pendinguser', {
     first_name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      isAlpha: true,
+      len: [2,25]
     },
     last_name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      isAlpha: true,
+      len: [2,25]
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       isEmail: true,
-      unique: true
+      unique: true,
+      len: [2,50]
     },
     password: {
       type: DataTypes.STRING,
@@ -24,20 +29,24 @@ module.exports = function(sequelize, DataTypes) {
     },
     street_address: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      len: [2,50]
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      len: [2,50]
     },
     state: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      isIn: [["AK","AL","AR","AZ","CA","CO","CT","DC","DE","FL","GA","GU","HI","IA","ID", "IL","IN","KS","KY","LA","MA","MD","ME","MH","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY", "OH","OK","OR","PA","PR","PW","RI","SC","SD","TN","TX","UT","VA","VI","VT","WA","WI","WV","WY"]],
+      len: [0,2]
     },
     zipcode: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
-      len: [5,5]
+      len: [5,10]
     },
     phone_number: {
       type: DataTypes.STRING,

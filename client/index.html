@@ -186,6 +186,7 @@
                           <!-- For Selecting Correct Location -->
                           <div class="row">
                               <div class="col-md-12">
+                                  <span ng-show="choices && !address.choice">Please select your address to continue:</span>
                                   <div id="choices">
                                       <label style='display: block;' ng-repeat='choice in choices track by $index'>
                                           <input type="radio" name="address" ng-model="address.choice" ng-value="choice" ng-click="formatAddr()" > {{ choice.formatted_address }}
@@ -194,6 +195,7 @@
                                   </div>
                               </div>
                           </div>
+                        <div ng-show=address.choice>
                           <div class="form-group">
                               <div class="col-sm-10">
                                   <input type="text" class="form-control" id="phone-number" placeholder="Phone Number(optional)" ng-model="user.phoneNumber">
@@ -232,6 +234,7 @@
                                   <button type="button" class="btn" data-dismiss="modal">CANCEL</button>
                               </div>
                           </div>
+                        </div>
                       </form>
                   </div>
               </div>

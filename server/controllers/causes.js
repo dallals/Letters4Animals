@@ -164,8 +164,8 @@ module.exports = (function(){
                     rep_level: cause.rep_level,
                     letter_body: cause.letter_body,
                     letter_footnote: cause.letter_footnote,
-                    text_blurb: cause.text_content,
-                    email_blurb: cause.email_content,
+                    text_blurb: cause.text_blurb,
+                    email_blurb: cause.email_blurb,
                     enabled: cause.enabled,
                     fixed: cause.fixed,
                     fixed_name: cause.fixed_name,
@@ -223,7 +223,8 @@ module.exports = (function(){
                             from: 'info@letters4animals.org',
                             to: user.dataValues.email,
                             subject: 'Letters4Animals.org - New cause has been created!',
-                            html: cause.dataValues.email_blurb,
+                            // html: cause.dataValues.email_blurb,
+                            html: '<div style="background:black;width:500px;margin:0px auto;margin-top:10px;margin-bottom:40px;padding:40px;font-style:tahoma"><p style="text-align:center;color:white;font-size:15px">'+cause.dataValues.email_blurb+'</p><br><a style="text-decoration:none;margin-left:36%;background:rgb(25, 176, 153);padding:20px;width:200px;border:none;color:white;font-style:bold;font-size:20px" href="http://letters4animals.org/#/writealetter/cause'+cause.dataValues.id+'">Write letter</a></div><p>If the button above does not work, please use this link: <a href="http://letters4animals.org/#/writealetter/cause/'+cause.dataValues.id+'">'+'http://letters4animals.org/#/writealetter/cause/'+cause.dataValues.id+'</a></p>',
                             text: cause.dataValues.email_blurb
                         });
                         transporter.close();
@@ -239,9 +240,19 @@ module.exports = (function(){
         saveLetters: function(req, res){
 
             var html = req.body.letter;
-            var options = { format: 'Letter' };
+            var config = {
+                height: "11in",        // allowed units: mm, cm, in, px
+                width: "8.5in",
+                format: "Letter",
+                border: {
+                    top: "1in",            // default is 0, units: mm, cm, in, px
+                    right: ".5in",
+                    bottom: "1in",
+                    left: ".5in"
+                }
+            };
 
-            pdf.create(html).toBuffer(function(err, buffer){
+            pdf.create(html, config).toBuffer(function(err, buffer){
                 var baseBuff = buffer.toString('base64');
                 res.json(baseBuff);
             });

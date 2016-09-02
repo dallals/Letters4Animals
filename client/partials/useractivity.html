@@ -18,6 +18,7 @@
                 <table class="table admintable darkgrey">
                     <thead>
                         <th>Total Logins</th>
+                        <th>Last Activity</th>
                         <th>Volunteer?</th>
                         <th>Text Notification?</th>
                         <th>Email Notification?</th>
@@ -25,6 +26,7 @@
                     <tbody>
                         <tr>
                             <td>{{user.login_count}}</td>
+                            <td>{{user.updatedAt | date:"h:mm a '-' MM/dd/yy"}}</td>
                             <td>{{user.volunteer}}</td>
                             <td>{{user.phone_notification}}</td>
                             <td>{{user.email_notification}}</td>
@@ -37,12 +39,12 @@
             <div role="tabpanel" class="tab-pane singlecauses" id="user_causes">
                 <table class="table admintable ">
                     <thead>
-                        <th>Cause ID</th>
-                        <th>Cause Name</th>
-                        <th># of Prints</th>
+                        <th><a href="" ng-click="sort='id'; sortReverse=!sortReverse;">Cause ID</th>
+                        <th><a href="" ng-click="sort='name'; sortReverse=!sortReverse;">Cause Name</th>
+                        <th><a href="" ng-click="sort='supports'; sortReverse=!sortReverse;"># of Prints</th>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="cause in causes | orderBy: id">
+                        <tr ng-repeat="cause in causes | orderBy: sort:sortReverse">
                             <td>{{cause.id}}</td>
                             <td><a href="#/getSingleCause/{{cause.id}}">{{cause.name}}</a></td>
                             <td>{{cause.supports}}</td>

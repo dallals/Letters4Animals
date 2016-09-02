@@ -12,8 +12,6 @@
         <label>Description</label><br>
         <textarea name="description" class="admintext" ng-model="cause.description"></textarea><br>
 
-        <label><input type="checkbox" ng-model="cause.enabled"> Cause Enabled</label>
-
         <div id="Recipients">
             <h3 class="text-center">Recipient Information</h3>
             <h5 class="text-center">Please select either a generic position or a fixed recipient below</h5>
@@ -160,6 +158,8 @@
             <h3 class="text-center">Email Notification Content</h3>
             <textarea name="string" class="footnotetext" ng-model="cause.email_blurb"></textarea>
         </div>
+
+        <label class="text-left"><input type="checkbox" ng-model="cause.enabled"> Cause Enabled <br><span class="no_bold">(Note: Will not send out notifications even if enabled from this page)</span></label>
 
         <input type="submit" ng-click="updateCause(cause)" class="btn btn-success analytics" id="update_cause" name="update_cause" value="Update Cause"></input><br><br>
     </form>
