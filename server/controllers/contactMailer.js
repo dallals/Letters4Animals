@@ -1,7 +1,22 @@
 // This page is using Nodemailer for the contact form
 var models = require('../models');
 var nodemailer = require('nodemailer');
-var transporter = nodemailer.createTransport();
+var transporter = nodemailer.createTransport({
+	service: 'gmail',
+	auth: {
+		user: 'Letters4Animals@gmail.com',
+		pass: 'targetemail4infoatl4a'
+	}
+});
+
+// verify connection configuration
+transporter.verify(function(error, success) {
+   if (error) {
+        console.log(error);
+   } else {
+        console.log('Server is ready to take our messages');
+   }
+});
 
 module.exports = (function(){
     return {
@@ -24,11 +39,11 @@ module.exports = (function(){
             var confURL = "http://letters4animals.org/confirmEmail/" + req.body.rand_url;
 
             transporter.sendMail({
-                from: 'info@letters4animals.org',
+                from: { name: 'Letters4Animals', address: 'info@letters4animals.org' },
                 to: req.body.email,
                 subject: 'Letters4Animals Registration Confirmation',
                 html: '<div style="background:black;width:500px;margin:0px auto;margin-top:10px;margin-bottom:40px;padding:40px;font-style:tahoma"><h1 style="color:white;text-align:center;margin-top:10px">Hello '+req.body.first_name+' '+req.body.last_name+'!<br></h1><p style="text-align:center;color:white;font-size:15px">Please confirm your email address for Letters4Animals<br>by using the button below.<br><br>Thank You!</p><br><a style="text-decoration:none;margin-left:36%;background:rgb(25, 176, 153);padding:20px;width:200px;border:none;color:white;font-style:bold;font-size:20px" href='+confURL+'>CONFIRM</a></div><p>If the button above does not work, please use this link: <a href="'+confURL+'">'+confURL+'</a></p>',
-                text: 'http://letters4animals.org/#/confirmEmail/'+req.body.rand_url //should this include "/#" in the URL?
+                text: 'http://letters4animals.org/confirmEmail/'+req.body.rand_url
             });
             transporter.close();
             res.json({ email_sent: 'success'});
