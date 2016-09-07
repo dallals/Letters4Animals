@@ -205,6 +205,14 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     $scope.printLetter = function(elem) {
         $scope.addSupport();
+
+        // Hides paragraphs with empty/blank or just '&nbsp;' content
+        $('p#letterrichtext p').each(function(){
+            if($.trim($(this).text()) == '' && $(this).children().length == 0){
+                $(this).hide();
+            }
+        });
+        
         // Create a new window, write the contents of the letter div(s) into the window, print it
         var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');
         mywindow.document.write('<html><head><title>Letter To Representative</title>');
