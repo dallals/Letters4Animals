@@ -17,10 +17,8 @@ body{
         display: block;
         page-break-before: always;
         margin-top: 75px;
-        margin-bottom: : 75px;
-        border: 2px solid black;
-        page-break-before: auto;
     }
+
     p:empty, p:blank {
         display: none;
     }
