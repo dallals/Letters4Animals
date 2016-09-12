@@ -70,8 +70,6 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
         }
         else{
             $scope.payload.rep_level   = level;
-            // $scope.payload.rep_level = 'State Assembly';
-            // $scope.selCause.rep_level = 'State Assembly';
 
             // Check to see if the cause is state-level
             if($scope.selCause.rep_level == 'State Senate' || $scope.selCause.rep_level == 'State Assembly'){
@@ -205,7 +203,7 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
 
     $scope.printLetter = function(elem) {
         $scope.addSupport();
-        // Create a new window, write the contents of the letter div(s) into the window, print it
+        // Create a new window, write the contents of the letter into the window, print it
         var mywindow = window.open('', '', 'fullscreen=yes, status=no, toolbar=no, titlebar=no, location=no, menubar=no');
         mywindow.document.write('<html><head><title>Letter To Representative</title>');
         mywindow.document.write('<link rel="stylesheet" href="./css/letterStyle.css" type="text/css" />');
@@ -240,8 +238,8 @@ AnimalApp.controller('letterDisplayController', function ($scope, $location, $ro
             $http.post('/saveLetters', letObj).success(function(res){
 
                 var letterName  = 'Letter_to_Rep.pdf',
-                link        = document.createElement('a'),
-                mimeType    = 'application/pdf';
+                    link        = document.createElement('a'),
+                    mimeType    = 'application/pdf';
 
                 // 'Click' the generated link to force file download
                 link.setAttribute('download', letterName);
