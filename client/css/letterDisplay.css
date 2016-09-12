@@ -1,0 +1,12 @@
+#letterrichtext {
+	margin-top: 10px !important;
+}
+
+#letterrichtext p {
+	margin: 0px 0px 10px 0px !important;
+}
+
+#letterrichtext ul {
+	margin-bottom: 10px !important;
+	padding-left: 40px !important;
+}
