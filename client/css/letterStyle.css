@@ -20,5 +20,9 @@ body{
         page-break-before: always;
         margin-top: 75px;
     }
+
+    p:empty, p:blank {
+        display: none;
+    }
 }
 
