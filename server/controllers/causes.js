@@ -251,8 +251,9 @@ module.exports = (function(){
                     left: ".5in"
                 }
             };
-
+	    // Creates a pdf file and saves it in Node's buffer
             pdf.create(html, config).toBuffer(function(err, buffer){
+		// Converts saved pdf file into a base64 string so pass back to client
                 var baseBuff = buffer.toString('base64');
                 res.json(baseBuff);
             });

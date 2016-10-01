@@ -5,7 +5,7 @@ var transporter = nodemailer.createTransport({
 	service: 'gmail',
 	auth: {
 		user: 'Letters4Animals@gmail.com',
-		pass: 'targetemail4infoatl4a'
+		pass: 'RealPWGoesHere' // Replace with actual email pw for the email above
 	}
 });
 

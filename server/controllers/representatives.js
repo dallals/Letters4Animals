@@ -55,7 +55,7 @@ module.exports = (function() {
                                 position: ''
                             };
 
-                        // Nebraska check
+                        // Nebraska check (Nebaska only has one state house so will always return only one rep.)
                         if(req.body.userCoords.state == 'NE'){
                             selRep = dataJson[0];
                             finalRep.position = 'State Senator';
